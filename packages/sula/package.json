@@ -1,0 +1,8 @@
+{
+  "name": "sula",
+  "version": "1.0.0",
+  "module": "./es/index.js",
+  "types": "typings/index.d.ts",
+  "description": "sula",
+  "license": "MIT"
+}
