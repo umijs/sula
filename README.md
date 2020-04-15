@@ -1,4 +1,4 @@
-English | [简体中文](https://github.com/umijs/hooks/blob/master/README.zh-CN.md)
+English | [简体中文](https://github.com/umijs/sula/blob/master/README.zh-CN.md)
 
 # sula
 
