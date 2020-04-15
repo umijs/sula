@@ -7,7 +7,9 @@
     "bootstrap": "lerna bootstrap",
     "test": "npm run test:unit",
     "test:unit": "umi-test 'test.(j|t)s' --coverage",
-    "build:doc": "dumi build"
+    "build:doc": "dumi build",
+    "predeploy": "npm run build:doc",
+    "deploy": "now deploy ./dist -n rfc --prod --confirm"
   },
   "repository": {
     "type": "git",

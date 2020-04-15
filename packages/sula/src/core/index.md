@@ -1,9 +1,11 @@
 ---
-title: sula test
+title: sula-core
 ---
 
+# sula
 
 ```tsx
+import React from 'react';
 import sula from './';
 
 export default () => {

@@ -7,10 +7,9 @@ export default {
       style: true,
     },
   ]],
-  mode: 'site',
   title: 'Sula',
   resolve: {
-    includes: ['docs', 'packages/sula/src'],
+    includes: ['packages/sula/src'],
   },
   styles: [
     `a[title='站长统计'] { display: none; }`,
