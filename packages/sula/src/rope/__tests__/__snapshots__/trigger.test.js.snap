@@ -1,0 +1,87 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`sula trigger plugin normalizeConfig triggerRenderPlugin basic 1`] = `
+<RopeContainer
+  trigger={[Function]}
+>
+  <Text
+    className="t1"
+  >
+    hello world
+  </Text>
+</RopeContainer>
+`;
+
+exports[`sula trigger plugin normalizeConfig triggerRenderPlugin multiple child render 1`] = `
+<Space>
+  <RopeContainer
+    trigger={[Function]}
+  >
+    <Text
+      className="t1"
+    >
+      hello
+    </Text>
+  </RopeContainer>
+  <RopeContainer
+    trigger={[Function]}
+  >
+    <Text
+      className="t2"
+    >
+      world
+    </Text>
+  </RopeContainer>
+</Space>
+`;
+
+exports[`sula trigger plugin normalizeConfig triggerRenderPlugin not have action 1`] = `
+<Text
+  className="t1"
+>
+  hello world
+</Text>
+`;
+
+exports[`sula trigger plugin normalizeConfig triggerRenderPlugin only one child render 1`] = `
+<RopeContainer
+  trigger={[Function]}
+>
+  <Text
+    className="t1"
+  >
+    hello
+  </Text>
+</RopeContainer>
+`;
+
+exports[`sula trigger plugin triggerFieldPlugin baisc 1`] = `
+<Input
+  onClick={[MockFunction]}
+  placeholder="plese input!"
+  type="text"
+/>
+`;
+
+exports[`sula trigger plugin triggerPlugin basic object 1`] = `
+<Text>
+  abc
+</Text>
+`;
+
+exports[`sula trigger plugin triggerPlugin skip function props 1`] = `
+<Input
+  disabled={true}
+  onClick={[MockFunction]}
+  placeholder="please input!"
+  type="text"
+/>
+`;
+
+exports[`sula trigger plugin triggerPlugin template string 1`] = `
+<Input
+  disabled={true}
+  placeholder="please input!"
+  type="text"
+/>
+`;

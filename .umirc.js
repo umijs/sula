@@ -1,4 +1,10 @@
+import { join } from 'path';
+
 export default {
+  plugins: [
+    require.resolve(join(__dirname, './packages/umi-plugin-sula/lib'))
+  ],
+  sula: {},
   extraBabelPlugins: [[
     'babel-plugin-import',
     {
@@ -7,9 +13,13 @@ export default {
       style: true,
     },
   ]],
+  alias: {
+    sula: join(__dirname, './packages/sula/src/index.ts'),
+    'sula/es/localereceiver/en_US': join(__dirname, './packages/sula/src/localereceiver/en_US.js'),
+  },
   title: 'Sula',
   resolve: {
-    includes: ['packages/sula/src'],
+    includes: process.env.DOC_ENV === 'prod' ? ['docs'] : ['packages/sula/src'],
   },
   styles: [
     `a[title='站长统计'] { display: none; }`,

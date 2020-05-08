@@ -1,0 +1,12 @@
+.bar(@width, @height) {
+  & when (@theme = bluebird) {
+    top: 50%;
+    left: 0;
+    width: @width;
+    height: @height;
+    margin-top: -(@height / 2);
+    background: @primary-color;
+  }
+  & when not (@theme = bluebird) {
+  }
+}

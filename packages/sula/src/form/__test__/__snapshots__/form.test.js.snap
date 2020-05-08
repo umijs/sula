@@ -1,0 +1,236 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`form children container children container 1`] = `
+<div
+  className="ant-spin-nested-loading"
+>
+  <div
+    className="ant-spin-container"
+  >
+    <form
+      className="ant-form ant-form-horizontal"
+      onSubmit={[Function]}
+    >
+      <div
+        childrenContainer={
+          Object {
+            "props": Object {
+              "compact": true,
+            },
+            "type": "inputgroup",
+          }
+        }
+        className="ant-row ant-form-item"
+        style={Object {}}
+      >
+        <div
+          className="ant-col ant-col-8 ant-form-item-label"
+          style={Object {}}
+        >
+          <label
+            className=""
+            title="Inputgroup"
+          >
+            Inputgroup
+          </label>
+        </div>
+        <div
+          className="ant-col ant-col-12 ant-form-item-control"
+          style={Object {}}
+        >
+          <div
+            className="ant-form-item-control-input"
+          >
+            <div
+              className="ant-form-item-control-input-content"
+            >
+              <span
+                className="ant-input-group ant-input-group-compact"
+              >
+                <div
+                  className="ant-row ant-form-item"
+                  style={Object {}}
+                >
+                  <div
+                    className="ant-col ant-form-item-control"
+                    style={Object {}}
+                  >
+                    <div
+                      className="ant-form-item-control-input"
+                    >
+                      <div
+                        className="ant-form-item-control-input-content"
+                      >
+                        <input
+                          className="ant-input"
+                          id="input1"
+                          onBlur={[Function]}
+                          onChange={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          style={
+                            Object {
+                              "width": "50%",
+                            }
+                          }
+                          type="text"
+                          value=""
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  className="ant-row ant-form-item"
+                  style={Object {}}
+                >
+                  <div
+                    className="ant-col ant-form-item-control"
+                    style={Object {}}
+                  >
+                    <div
+                      className="ant-form-item-control-input"
+                    >
+                      <div
+                        className="ant-form-item-control-input-content"
+                      >
+                        <input
+                          className="ant-input"
+                          id="input2"
+                          onBlur={[Function]}
+                          onChange={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          style={
+                            Object {
+                              "width": "50%",
+                            }
+                          }
+                          type="text"
+                          value=""
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        childrenContainer="div"
+        className="ant-row ant-form-item"
+        style={Object {}}
+      >
+        <div
+          className="ant-col ant-col-8 ant-form-item-label"
+          style={Object {}}
+        >
+          <label
+            className=""
+            title="childrenbtn"
+          >
+            childrenbtn
+          </label>
+        </div>
+        <div
+          className="ant-col ant-col-12 ant-form-item-control"
+          style={Object {}}
+        >
+          <div
+            className="ant-form-item-control-input"
+          >
+            <div
+              className="ant-form-item-control-input-content"
+            >
+              <div>
+                <div
+                  className="ant-row ant-form-item"
+                  style={Object {}}
+                >
+                  <div
+                    className="ant-col ant-form-item-label"
+                    style={Object {}}
+                  >
+                    <label
+                      className=""
+                      title="btn1"
+                    >
+                      btn1
+                    </label>
+                  </div>
+                  <div
+                    className="ant-col ant-form-item-control"
+                    style={Object {}}
+                  >
+                    <div
+                      className="ant-form-item-control-input"
+                    >
+                      <div
+                        className="ant-form-item-control-input-content"
+                      >
+                        <button
+                          className="ant-btn"
+                          onClick={[Function]}
+                          type="button"
+                        >
+                          <span>
+                            button1
+                          </span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  className="ant-row ant-form-item"
+                  style={Object {}}
+                >
+                  <div
+                    className="ant-col ant-form-item-label"
+                    style={Object {}}
+                  >
+                    <label
+                      className=""
+                      title="btn2"
+                    >
+                      btn2
+                    </label>
+                  </div>
+                  <div
+                    className="ant-col ant-form-item-control"
+                    style={Object {}}
+                  >
+                    <div
+                      className="ant-form-item-control-input"
+                    >
+                      <div
+                        className="ant-form-item-control-input-content"
+                      >
+                        <button
+                          className="ant-btn"
+                          onClick={[Function]}
+                          type="button"
+                        >
+                          <span>
+                            button2
+                          </span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+`;
+
+exports[`form form props onValueChange cascade 1`] = `"<div class=\\"ant-spin-nested-loading\\"><div class=\\"ant-spin-container\\"><form class=\\"ant-form ant-form-horizontal\\"><div class=\\"ant-row ant-form-item ant-form-item-has-success\\"><div class=\\"ant-col ant-col-8 ant-form-item-label\\"><label for=\\"input\\" class=\\"\\" title=\\"input\\">input</label></div><div class=\\"ant-col ant-col-12 ant-form-item-control\\"><div class=\\"ant-form-item-control-input\\"><div class=\\"ant-form-item-control-input-content\\"><input type=\\"text\\" id=\\"input\\" class=\\"ant-input\\" value=\\"a\\"></div></div></div></div><div dependency=\\"[object Object]\\" class=\\"ant-row ant-form-item\\"><div class=\\"ant-col ant-col-8 ant-form-item-label\\"><label for=\\"input2\\" class=\\"\\" title=\\"inpt2\\">inpt2</label></div><div class=\\"ant-col ant-col-12 ant-form-item-control\\"><div class=\\"ant-form-item-control-input\\"><div class=\\"ant-form-item-control-input-content\\"><input type=\\"text\\" id=\\"input2\\" class=\\"ant-input\\" value=\\"aaa\\"></div></div></div></div></form></div></div>"`;
+
+exports[`form form props remoteValues Error 1`] = `"<div class=\\"ant-spin-nested-loading\\"><div class=\\"ant-spin-container\\"><form class=\\"ant-form ant-form-horizontal\\"><div class=\\"ant-row ant-form-item\\"><div class=\\"ant-col ant-col-8 ant-form-item-label\\"><label for=\\"input\\" class=\\"\\" title=\\"input\\">input</label></div><div class=\\"ant-col ant-col-12 ant-form-item-control\\"><div class=\\"ant-form-item-control-input\\"><div class=\\"ant-form-item-control-input-content\\"><input type=\\"text\\" id=\\"input\\" class=\\"ant-input\\" value=\\"\\"></div></div></div></div><div dependency=\\"[object Object]\\" class=\\"ant-row ant-form-item\\"><div class=\\"ant-col ant-col-8 ant-form-item-label\\"><label for=\\"input2\\" class=\\"\\" title=\\"inpt2\\">inpt2</label></div><div class=\\"ant-col ant-col-12 ant-form-item-control\\"><div class=\\"ant-form-item-control-input\\"><div class=\\"ant-form-item-control-input-content\\"><input type=\\"text\\" id=\\"input2\\" class=\\"ant-input\\" value=\\"\\"></div></div></div></div></form></div></div>"`;

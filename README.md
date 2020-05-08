@@ -1,8 +1,30 @@
 English | [简体中文](https://github.com/umijs/sula/blob/master/README.zh-CN.md)
 
-# sula
+# sula (alpha)
+
+> Sula now is in early alpha phase, so please don't use it in the production environment.
 
 [![codecov](https://codecov.io/gh/umijs/sula/branch/master/graph/badge.svg)](https://codecov.io/gh/umijs/sula) [![CircleCI](https://circleci.com/gh/umijs/sula/tree/master.svg?style=svg)](https://circleci.com/gh/umijs/sula/tree/master) [![GitHub Actions status](https://github.com/umijs/sula/workflows/Node%20CI/badge.svg)](https://github.com/umijs/sula)
+
+
+## 📦 Install
+
+```bash
+npm i sula --save
+```
+
+## 🔨 Usage
+
+```js
+import { Form, Table, CreateForm, QueryTable, StepForm } from 'sula';
+```
+
+## 📋 Todo List
+
+- [ ] umi-plugin-sula
+- [ ] Determine the final template style
+- [ ] Better typscript support
+- [ ] Doc
 
 
 ## Discuss

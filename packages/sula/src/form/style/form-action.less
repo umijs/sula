@@ -1,0 +1,42 @@
+@import (reference) '~antd/lib/style/themes/index';
+
+.sula-form-action {
+  &-right {
+    .formActionPosition(flex-end);
+  }
+  &-center {
+    .formActionPosition(center);
+  }
+
+  &-bottom {
+    .formActionPosition(flex-end);
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 56px;
+    padding: 0 24px;
+    background-color: @white;
+    box-shadow: 0 -1px 2px 0 rgba(0, 0, 0, .03);
+    z-index: 9; // siderMenu need >= 10
+  }
+
+  // &-vertical {
+  //   &-middle {
+  //     margin-top: 30px;
+  //   }
+  //   &-small {
+  //     margin-top: 32px;
+  //   }
+  //   &-large {
+  //     margin-top: 48px;
+  //   }
+  // }
+}
+
+
+.formActionPosition(@position) {
+  display: flex;
+  align-items: center;
+  justify-content: @position;
+}

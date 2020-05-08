@@ -1,8 +1,24 @@
 {
   "name": "sula",
-  "version": "1.0.0",
+  "version": "1.0.0-alpha.2",
   "module": "./es/index.js",
   "types": "typings/index.d.ts",
   "description": "sula",
+  "peerDependencies": {
+    "antd": "^4.0.0",
+    "@ant-design/icons": "^4.0.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  },
+  "dependencies": {
+    "classnames": "^2.2.6",
+    "query-string": "^6.12.1",
+    "react-media": "^1.10.0",
+    "tplstr": "^1.0.1"
+  },
+  "files": [
+    "es",
+    "typings"
+  ],
   "license": "MIT"
 }

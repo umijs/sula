@@ -1,0 +1,117 @@
+import { notification, message as amessage } from 'antd';
+import isUndefined from 'lodash/isUndefined';
+import {
+  BizResponse,
+  BizRedirectHandler,
+  BizDevErrorAdapter,
+  BizErrorMessageAdapter,
+  BizSuccessMessageAdapter,
+  BizNotifyHandler,
+  BizDataAdapter,
+  BizExtendConfig,
+  Message,
+  NotifyMessages,
+} from '../../types/request';
+
+// 1. 业务重定向
+const bizRedirectHandler: BizRedirectHandler = (response: BizResponse) => {
+  const { data, code } = response;
+  if (Number(code) === 302 && data && data.redirectUrl) {
+    window.location.assign(data.redirectUrl);
+  }
+};
+
+// 2. 开发级错误信息转换
+const bizDevErrorAdapter: BizDevErrorAdapter = (response: BizResponse) => {
+  if (process.env.NODE_ENV !== 'development') {
+    return null;
+  }
+
+  const { code, success, message, description } = response;
+
+  const opCode = Number(code);
+  if (success == false && opCode >= 300) {
+    return {
+      message: message || `${code}`,
+      description: description || message,
+    };
+  }
+
+  return null;
+};
+
+// 3. 用户级错误信息转换
+const bizErrorMessageAdapter: BizErrorMessageAdapter = (
+  response: BizResponse,
+) => {
+  const { code, success, message } = response;
+
+  const opCode = Number(code);
+
+  if (success === false && opCode < 300) {
+    return message;
+  }
+
+  // 成功
+  return null;
+};
+
+// 4. 成功信息转换
+const bizSuccessMessageAdapter: BizSuccessMessageAdapter = (
+  response: BizResponse,
+  successMessage: Message,
+) => {
+  const { success, message } = response;
+
+  // 禁止显示
+  if (successMessage === false) {
+    return null;
+  }
+
+  if (success !== false) {
+    // 默认使用后端返回
+    if (successMessage === true) {
+      return message;
+    } else {
+      return successMessage || null;
+    }
+  }
+
+  return null;
+};
+
+// 5. 消息通知
+const bizNotifyHandler: BizNotifyHandler = (notifyMessages: NotifyMessages) => {
+  const { successMessage, errorMessage, errorDesc } = notifyMessages;
+
+  if (successMessage) {
+    amessage.success(successMessage);
+  } else if (errorMessage) {
+    amessage.error(errorMessage);
+  } else if (errorDesc) {
+    notification.error({
+      message: errorDesc.message,
+      description: errorDesc.description,
+    });
+  }
+};
+
+// 6. 业务数据转换
+const bizDataAdapter: BizDataAdapter = (response: BizResponse) => {
+  if (response && !isUndefined(response.data)) {
+    return response.data;
+  }
+
+  return response;
+};
+
+const extendConfig = {
+  bizDataAdapter,
+  bizDevErrorAdapter,
+  bizErrorMessageAdapter,
+  bizSuccessMessageAdapter,
+  bizNotifyHandler,
+  bizRedirectHandler,
+} as BizExtendConfig;
+
+export default extendConfig;

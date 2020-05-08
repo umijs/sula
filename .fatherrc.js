@@ -15,7 +15,7 @@ const config = {
     eslint: true,
     prettier: true,
   },
-  pkgs: ['sula'],
+  pkgs: ['sula','umi-plugin-sula'],
 };
 
 export default config;

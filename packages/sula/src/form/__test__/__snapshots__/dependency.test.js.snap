@@ -1,0 +1,122 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`depstore store basic 1`] = `
+Object {
+  "disabled": Array [
+    Array [
+      Object {
+        "autoResetValue": true,
+        "defaultOutput": false,
+        "ignores": Array [
+          Array [
+            undefined,
+          ],
+        ],
+        "inputs": Array [
+          Array [
+            "disabled",
+          ],
+        ],
+        "name": Array [
+          "input2",
+        ],
+        "output": true,
+        "relates": Array [
+          Array [
+            "input",
+          ],
+        ],
+        "type": undefined,
+      },
+    ],
+  ],
+  "source": Array [
+    Array [
+      Object {
+        "autoResetValue": true,
+        "defaultOutput": Array [],
+        "ignores": Array [
+          Array [
+            undefined,
+          ],
+        ],
+        "inputs": Array [
+          Array [
+            "source",
+          ],
+        ],
+        "name": Array [
+          "input2",
+        ],
+        "output": Array [],
+        "relates": Array [
+          Array [
+            "input",
+          ],
+        ],
+        "remoteSource": Object {
+          "method": "post",
+          "url": "/source.json",
+        },
+        "type": undefined,
+      },
+    ],
+  ],
+  "value": Array [
+    Array [
+      Object {
+        "autoResetValue": true,
+        "defaultOutput": "",
+        "ignores": Array [
+          Array [
+            undefined,
+          ],
+        ],
+        "inputs": Array [
+          Array [
+            "aaa",
+          ],
+        ],
+        "name": Array [
+          "input2",
+        ],
+        "output": "one",
+        "relates": Array [
+          Array [
+            "input",
+          ],
+        ],
+        "type": undefined,
+      },
+    ],
+  ],
+  "visible": Array [
+    Array [
+      Object {
+        "autoResetValue": true,
+        "defaultOutput": true,
+        "ignores": Array [
+          Array [
+            undefined,
+          ],
+        ],
+        "inputs": Array [
+          Array [
+            "hidden",
+          ],
+        ],
+        "name": Array [
+          "input2",
+        ],
+        "output": false,
+        "relates": Array [
+          Array [
+            "input",
+          ],
+        ],
+        "type": undefined,
+      },
+    ],
+  ],
+}
+`;

@@ -1,0 +1,17 @@
+@import (reference) '~antd/lib/style/themes/default';
+
+.sula-icon {
+  &-disabled {
+    color: @disabled-color !important;
+    cursor: not-allowed !important;
+    pointer-events: none !important;
+  }
+
+  &-clickable {
+    cursor: pointer !important;
+    color: @primary-color !important;
+    &:hover {
+      color: @primary-5 !important;
+    }
+  }
+}

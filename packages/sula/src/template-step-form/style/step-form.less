@@ -1,0 +1,33 @@
+@import (reference) '~antd/lib/style/themes/index';
+
+.sula-template-step-form {
+  &-vertical {
+    display: flex;
+    flex-flow: row;
+
+    &-steps {
+      width: 280px;
+    }
+
+    &-form {
+      flex: 1;
+      border-left: 1px solid @border-color-split;
+      margin: 0 12px;
+    }
+    &-result {
+      padding-top: 0px;
+      padding-bottom: 0px;
+    }
+  }
+
+  &-horizontal {
+    &-steps {
+      margin-bottom: 32px;
+    }
+
+    &-result {
+      padding-top: 0px;
+      padding-bottom: 0px;
+    }
+  }
+}
