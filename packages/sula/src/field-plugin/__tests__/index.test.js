@@ -140,18 +140,19 @@ describe('plugin', () => {
     })
   });
 
-  /** 
   describe('datepicker', () => {
     it('no props', () => {
       const wrapper = mount(<Datepicker />);
       expect(wrapper.render()).toMatchSnapshot();
     });
     it('valueFormat props is utc', () => {
-      const wrapper = mount(<Datepicker valueFormat="utc" value={1589189536523} />);
+      const value = moment('2020-01-01', 'YYYY-MM-DD');
+      const wrapper = mount(<Datepicker valueFormat="utc" value={value} />);
       expect(wrapper.render()).toMatchSnapshot();
     });
     it('has value, valueFormat props is true', () => {
-      const wrapper = mount(<Datepicker valueFormat value={1589189536523} />);
+      const value = moment('2020-02-01', 'YYYY-MM-DD');
+      const wrapper = mount(<Datepicker valueFormat value={value} />);
       expect(wrapper.render()).toMatchSnapshot();
     });
 
@@ -167,18 +168,20 @@ describe('plugin', () => {
   })
 
   describe('RangePicker', () => {
+    const start = moment('2020-01-01', 'YYYY-MM-DD');
+    const end = moment('2000-05-01', 'YYYY-MM-DD');
     it('no props', () => {
       const wrapper = mount(<RangePicker />);
       expect(wrapper.render()).toMatchSnapshot();
       wrapper.unmount();
     });
     it('valueFormat is utc, has value', () => {
-      const wrapper = mount(<RangePicker value={[1589284229591,1589543429591]} valueFormat="utc"/>);
+      const wrapper = mount(<RangePicker value={[start,end]} valueFormat="utc"/>);
       expect(wrapper.render()).toMatchSnapshot();
       wrapper.unmount();
     });
     it('valueFormat is true, has value', () => {
-      const wrapper = mount(<RangePicker value={[1589284229591,1589543429591]} valueFormat />);
+      const wrapper = mount(<RangePicker value={[start,end]} valueFormat />);
       expect(wrapper.render()).toMatchSnapshot();
       wrapper.unmount();
     })
@@ -194,30 +197,29 @@ describe('plugin', () => {
   })
 
   describe('timepicker', () => {
+    const times = moment('03:20:23', 'HH:mm:ss');
     it('no props', () => {
       const wrapper = mount(<TimePicker />);
       expect(wrapper.render()).toMatchSnapshot();
       wrapper.unmount();
     })
     it('valueFormat is true, has value', () => {
-      const wrapper = mount(<TimePicker valueFormat value={1588757931} />);
+      const wrapper = mount(<TimePicker valueFormat value={times} />);
       expect(wrapper.render()).toMatchSnapshot();
       wrapper.unmount();
     })
     it('valueFormat is utc, has value', () => {
-      const wrapper = mount(<TimePicker valueFormat="utc" value={1588757931} />);
+      const wrapper = mount(<TimePicker valueFormat="utc" value={times} />);
       expect(wrapper.render()).toMatchSnapshot();
       wrapper.unmount();
     })
 
     // it('timepicker change valueFormat is true', () => {
     //   const wrapper = mount(<TimePicker valueFormat onChange={() => jest.fn()} />);
-      // wrapper.find('TimePicker').at(0).trigger('change');
-      // timepickValueChange(wrapper);
+    //   wrapper.find('TimePicker').at(0).trigger('change');
+    //   timepickValueChange(wrapper);
     // })
   })
-
-  */
 
   describe('Cascader', () => {
     it('basic Cascader', () => {

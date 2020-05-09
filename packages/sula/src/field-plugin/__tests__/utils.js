@@ -71,7 +71,7 @@ export function datepickerValueChange(wrapper) {
   const selectDate = date === 1 ? 2 : 1;
   const expectDate = moment(
     `${fullYear}-${month}-${selectDate}`,
-    'YYYY-MM-DD',
+    'YYYY-MM-DD HH:mm:ss',
   );
 
   const onChange = jest.fn();
@@ -103,10 +103,10 @@ export function rangepickerValueChange(wrapper) {
   const selectDate = date === 1 ? 2 : 1;
   const expectDate = [moment(
     `${fullYear}-${month}-${selectDate}`,
-    'YYYY-MM-DD',
+    'YYYY-MM-DD HH:mm:ss',
   ), moment(
     `${fullYear}-${month}-${selectDate + 1}`,
-    'YYYY-MM-DD',
+    'YYYY-MM-DD HH:mm:ss',
   )];
   const onChange = jest.fn();
   wrapper.setProps({

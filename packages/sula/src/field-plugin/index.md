@@ -6,7 +6,7 @@ title: 表单插件
 
 ```jsx
 import React from 'react';
-import { Select, CheckboxGroup, Cascader, RadioGroup, Upload, TimePicker } from './';
+import { Select, CheckboxGroup, Cascader, RadioGroup, Upload, TimePicker, DatePicker, RangePicker } from './';
 import { Button } from '../render-plugin';
 
 const source = [
@@ -82,6 +82,8 @@ export default () => {
       <Upload onChange={e => { console.log('e', e) }}>
         <Button>上传</Button>
       </Upload>
+      <RangePicker />{' '}
+      <DatePicker />{' '}
       <TimePicker onChange={(finalTime, timeString) => { console.log(finalTime, timeString, 'timpicker time') }} />
     </div>
   );
