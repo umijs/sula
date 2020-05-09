@@ -43,7 +43,7 @@ export default class CreateForm extends React.Component<CreateFormProps> {
           return (
             <LocaleReceiver>
               {(locale) => {
-                const { cols } = itemLayout;
+                const { cols = 1 } = itemLayout;
                 const finalCols: number = isNumber(cols) ? cols : cols[matchedPoint];
                 const finalActionsPosition = actionsPosition || this.getActionsPosition(finalCols);
                 const finalActionsRender = renderActions(

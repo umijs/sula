@@ -10,6 +10,9 @@ const steps = [
         name: 'input1',
         label: 'Input1',
         field: 'input',
+        rules: [{
+          required: true,
+        }]
       },
     ],
   },

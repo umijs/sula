@@ -14,8 +14,7 @@ export default {
     },
   ]],
   alias: {
-    sula: join(__dirname, './packages/sula/src/index.ts'),
-    'sula/es/localereceiver/en_US': join(__dirname, './packages/sula/src/localereceiver/en_US.js'),
+    sula: join(__dirname, './packages/sula/src/index.ts')
   },
   title: 'Sula',
   resolve: {

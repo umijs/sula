@@ -53,6 +53,16 @@ export default class BasicDemo extends React.Component {
             valuePropName: 'checked',
           },
           {
+            name: 'password',
+            label: 'password',
+            field: 'password',
+          },
+          {
+            name: 'textarea',
+            label: 'textarea',
+            field: 'textarea',
+          },
+          {
             name: 'radio',
             label: 'radio',
             field: 'radio',
