@@ -140,6 +140,7 @@ describe('plugin', () => {
     })
   });
 
+  /** 
   describe('datepicker', () => {
     it('no props', () => {
       const wrapper = mount(<Datepicker />);
@@ -215,6 +216,8 @@ describe('plugin', () => {
       // timepickValueChange(wrapper);
     // })
   })
+
+  */
 
   describe('Cascader', () => {
     it('basic Cascader', () => {
