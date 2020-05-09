@@ -24,7 +24,7 @@ import { Form, Table, CreateForm, QueryTable, StepForm } from 'sula';
 
 ## 📋 Todo List
 
-- [ ] umi-plugin-sula
+- [x] umi-plugin-sula
 - [ ] Determine the final template style
 - [ ] Better typscript support
 - [ ] Doc
