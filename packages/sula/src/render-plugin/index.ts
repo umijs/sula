@@ -9,6 +9,7 @@ import Button, { ButtonPlugin } from './button';
 import Div from './div';
 import RowSelection from './rowSelection';
 import { renderPlugin } from './plugin';
+import React from 'react';
 
 function registerRenderPlugins() {
   renderPlugin('card')(Card);

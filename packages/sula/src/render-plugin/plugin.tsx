@@ -6,7 +6,7 @@ import { RenderPlugin } from '../types/plugin';
 
 export function renderPlugin<Context = unknown>(pluginName: string, extraPropsName?: string[]) {
   return function wrapComponent(
-    Component: React.ComponentClass<any> | React.FunctionComponent<any>,
+    Component: React.ComponentClass<any> | React.FunctionComponent<any> | 'a' | 'div',
     needCtxAndConfig?: boolean,
   ) {
     sula.renderType(pluginName, (ctx: Context, config = {} as RenderPlugin) => {
