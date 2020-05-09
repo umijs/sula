@@ -109,7 +109,7 @@ describe('sula trigger plugin', () => {
           {
             type: 'input',
             props: {
-              placeholder: 'please @{a}',
+              placeholder: 'please #{a}',
             },
             funcProps: {
               disabled: (ctx) => ctx.disabled,
@@ -130,7 +130,7 @@ describe('sula trigger plugin', () => {
           {
             type: 'input',
             props: {
-              placeholder: 'please @{holder}',
+              placeholder: 'please #{holder}',
               onClick: fn,
             },
           },
@@ -153,7 +153,7 @@ describe('sula trigger plugin', () => {
           {
             type: 'input',
             props: {
-              placeholder: 'plese @{holder}',
+              placeholder: 'plese #{holder}',
               onClick: fn,
             },
           },

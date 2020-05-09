@@ -6,7 +6,7 @@
     "build": "father-build && node ./scripts/clean-build.js",
     "bootstrap": "lerna bootstrap",
     "test": "npm run test:unit",
-    "test:unit": "umi-test 'test.(j|t)s' --coverage",
+    "test:unit": "umi-test 'test.(j|t)s' --coverage -u",
     "test:watch": "umi-test 'test.(j|t)s' --coverage --watch",
     "predeploy": "npm run doc:build",
     "deploy": "now deploy ./dist -n sula --prod --confirm",

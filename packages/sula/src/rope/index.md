@@ -253,7 +253,7 @@ export default () => {
     {
       type: 'input',
       props: {
-        placeholder: 'please input @{test}',
+        placeholder: 'please input #{test}',
         onChange: () => {
           console.log('input值变化了我才出来！！');
         }

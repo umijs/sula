@@ -75,9 +75,9 @@ describe('sula utils', () => {
       expect(template({}, { a: '123' })).toEqual({});
       expect(template([], { a: '123' })).toEqual([]);
       expect(template('', { a: '123' })).toEqual('');
-      expect(template('@{a}123', { a: '123' })).toEqual('123123');
-      expect(template('123a@{a}', { a: '123' })).toEqual('123a123');
-      expect(template('@{a}', { a: '123' })).toEqual('123');
+      expect(template('#{a}123', { a: '123' })).toEqual('123123');
+      expect(template('123a#{a}', { a: '123' })).toEqual('123a123');
+      expect(template('#{a}', { a: '123' })).toEqual('123');
     });
   });
 
@@ -98,8 +98,8 @@ describe('sula utils', () => {
     });
     it('no ctx will return obj', () => {
       expect(
-        transformConfig({ type: 'input', props: { placeholder: '@{holder}' } }, () => {}),
-      ).toEqual({ type: 'input', props: { placeholder: '@{holder}' } });
+        transformConfig({ type: 'input', props: { placeholder: '#{holder}' } }, () => {}),
+      ).toEqual({ type: 'input', props: { placeholder: '#{holder}' } });
     });
     it('function ctx will be run', () => {
       const fn = jest.fn((ctx) => ctx);
@@ -114,7 +114,7 @@ describe('sula utils', () => {
             type: 'icon',
             props: {
               type: 'loading',
-              disabled: '@{disabled}',
+              disabled: '#{disabled}',
             },
             funcProps: {
               visible: (ctx) => ctx.visible,
@@ -159,10 +159,10 @@ describe('sula utils', () => {
         transformConfig(
           {
             type: 'fetch',
-            params: { id: '@{id}' },
+            params: { id: '#{id}' },
             converter: {
               type: 't',
-              id: '@{id}',
+              id: '#{id}',
             },
           },
           {
@@ -173,7 +173,7 @@ describe('sula utils', () => {
           },
         ),
       ).toEqual({
-        converter: { id: '@{id}', type: 't' },
+        converter: { id: '#{id}', type: 't' },
         params: { id: 1 },
         type: 'fetch',
       });
@@ -187,7 +187,7 @@ describe('sula utils', () => {
             action: [
               {
                 type: 'a',
-                ctx: '@{f}',
+                ctx: '#{f}',
               },
               'b',
               {
