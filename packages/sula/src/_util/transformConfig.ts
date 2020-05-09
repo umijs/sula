@@ -39,7 +39,7 @@ export default function transformConfig(
 
   const ctx = isFunction(params) ? params() : params;
 
-  return innerTransformConfig(obj, ctx, assignWithDefined(defaultSkipOptions, skipOptions), '');
+  return innerTransformConfig(obj, ctx, assignWithDefined({}, defaultSkipOptions, skipOptions), '');
 }
 
 function innerTransformConfig(

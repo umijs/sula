@@ -59,7 +59,7 @@ const LoadingIconManager = (props) => {
   const showLoadingAction = () => iconRef.current.showLoading();
   const hideLoadingAction = () => {
     // 例如和modal搭配，modal销毁时，iconRef.current会变为null
-    if (iconRef.current && iconRef.current.isLoading()) {
+    if (iconRef.current) {
       iconRef.current.hideLoading();
     }
   };

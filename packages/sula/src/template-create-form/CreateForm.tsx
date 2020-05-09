@@ -46,7 +46,7 @@ export default class CreateForm extends React.Component<CreateFormProps> {
                 const { cols } = itemLayout;
                 const finalCols: number = isNumber(cols) ? cols : cols[matchedPoint];
                 const finalActionsPosition = actionsPosition || this.getActionsPosition(finalCols);
-                const actionsRender = renderActions(
+                const finalActionsRender = renderActions(
                   {
                     submit,
                     back,
@@ -59,7 +59,7 @@ export default class CreateForm extends React.Component<CreateFormProps> {
                 return (
                   <Form
                     {...formProps}
-                    actionsRender={actionsRender}
+                    actionsRender={finalActionsRender}
                     actionsPosition={finalActionsPosition}
                   />
                 );

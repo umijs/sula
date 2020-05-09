@@ -49,6 +49,7 @@ const bizErrorMessageAdapter: BizErrorMessageAdapter = (
   const opCode = Number(code);
 
   if (success === false && opCode < 300) {
+    // 错误信息只使用后端提供的
     return message;
   }
 
@@ -73,7 +74,8 @@ const bizSuccessMessageAdapter: BizSuccessMessageAdapter = (
     if (successMessage === true) {
       return message;
     } else {
-      return successMessage || null;
+      // 前端设置成功提示信息
+      return successMessage;
     }
   }
 

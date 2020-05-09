@@ -34,9 +34,9 @@ const RefLoadingButton: React.RefForwardingComponent<LoadingButtonHandler, Butto
     };
   });
 
-  let finalIcon = props.icon;
-  if (isString(finalIcon)) {
-    finalIcon = <Icon type={finalIcon} />;
+  let finalIcon = isString(props.icon) ? { type: props.icon } : props.icon;
+  if (finalIcon) {
+    finalIcon = <Icon {...finalIcon} />;
   }
 
   return <AButton {...props} loading={loading} icon={finalIcon} />;

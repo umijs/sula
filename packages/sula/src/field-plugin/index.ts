@@ -11,6 +11,8 @@ import { Switch, Checkbox, Input, InputNumber, Rate, Radio, Slider } from 'antd'
 
 function registerFieldPlugins() {
   fieldPlugin('input')(Input);
+  fieldPlugin('textarea')(Input.TextArea);
+  fieldPlugin('password')(Input.Password);
   fieldPlugin('inputnumber')(InputNumber);
   fieldPlugin('rate')(Rate);
   fieldPlugin('switch')(Switch);
