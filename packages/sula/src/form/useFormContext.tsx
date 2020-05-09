@@ -135,7 +135,7 @@ class ContextStore {
     // 1. 设置值
     this.formInstance.setFieldsValue(store);
     // 2. 触发级联
-    this.cascade(store, { cascadeTrigger: 'setFieldsValue', cascadePayload: store });
+    this.cascade(store, { cascadeTrigger: 'setFieldsValue', cascadeStore: store });
     // 3. 触发值更新
     this.notifyFieldReRender(store);
   };
