@@ -14,6 +14,8 @@ import { FormProps } from './Form';
 import { toArray } from 'antd/lib/form/util';
 import transStore from '../_util/filterStore';
 
+export type FieldsValue = {name: FieldNamePath, value: any}[];
+
 class ContextStore {
   private fieldsByGroup: Record<string, Field[]> = {};
   private fieldNameMap: NameListMap<FieldNameList, Field | FieldGroup> = new NameListMap();
@@ -131,7 +133,7 @@ class ContextStore {
     this.notifyFieldReRender(fieldData);
   };
 
-  public setFieldsValue = (store: any) => {
+  public setFieldsValue = (store: FieldsValue) => {
     // 1. 设置值
     this.formInstance.setFieldsValue(store);
     // 2. 触发级联

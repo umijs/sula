@@ -6,4 +6,4 @@ const Table = React.forwardRef(RefTable);
 
 export default Table;
 
-export { TableProps } from './Table';
+export { TableProps, TableInstance } from './Table';

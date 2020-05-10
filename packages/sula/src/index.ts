@@ -1,11 +1,19 @@
 import ConfigProvider from './config-provider';
-import Form, { Field, FieldGroup, FormAction } from './form';
-import Table from './table';
+import Form, {
+  Field,
+  FieldGroup,
+  FormAction,
+  FormProps,
+  FieldGroupProps,
+  FieldProps,
+  FormInstance,
+} from './form';
+import Table, { TableProps, TableInstance } from './table';
 import CreateForm from './template-create-form';
 import StepForm from './template-step-form';
 import QueryTable from './template-query-table';
 import StepQueryTable from './template-step-query-table';
-import ModalForm from './modalform';
+import ModalForm, { ModalFormProps } from './modalform';
 
 export * from './render-plugin';
 export * from './field-plugin';
@@ -23,4 +31,12 @@ export {
   QueryTable,
   StepQueryTable,
   ModalForm,
+  // tsd
+  FormProps,
+  FieldGroupProps,
+  FieldProps,
+  FormInstance,
+  TableProps,
+  TableInstance,
+  ModalFormProps,
 };

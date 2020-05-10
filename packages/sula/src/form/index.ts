@@ -24,6 +24,6 @@ export { Field, FieldGroup, FormAction, MediaQueries };
 
 export default InternalForm;
 
-export { FormProps } from './Form';
+export { FormProps, FormInstance } from './Form';
 export { FieldGroupProps } from './FieldGroup';
 export { FieldProps } from './Field';

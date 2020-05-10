@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form as AForm, Spin } from 'antd';
 import omit from 'lodash/omit';
-import { FormProps as AFormProps } from 'antd/lib/form';
+import { FormProps as AFormProps, FormInstance as AFormInstance } from 'antd/lib/form';
 import {FieldGroupProps} from './FieldGroup';
 import FieldGroupContext, { rootGroupName, HOOK_MARK } from './FieldGroupContext';
 import { getItemLayout } from './utils/layoutUtil';
@@ -12,11 +12,22 @@ import FormDependency from './dependency';
 import { triggerActionPlugin } from '../rope/triggerPlugin';
 import MediaQueries from './MediaQueries';
 import { RequestConfig } from '../types/request';
-import { RenderPlugin, FieldPlugin } from '../types/plugin';
+import { FieldNamePath } from '../types/form';
 
 export interface FormProps extends Omit<AFormProps, 'children'>, Omit<FieldGroupProps, 'name' | 'initialVisible' | 'dependency'> {
   remoteValues?: RequestConfig;
   ctxGetter?: () => Record<string, any>;
+}
+
+export interface FormInstance extends AFormInstance {
+  validateFields: (nameList?: FieldNamePath[] | true) => Promise<any>;
+  validateGroupFields: (groupName: string) => Promise<any>;
+  setFieldValue: (name: FieldNamePath, value: any) => void;
+  setFieldSource: (name: FieldNamePath, source: any) => void;
+  setFieldVisible: (name: FieldNamePath, visible: boolean) => void;
+  setFieldDisabled: (name: FieldNamePath, disabled: boolean) => void;
+  getFieldSource: (name: FieldNamePath) => any;
+  getFieldDisabled: (name: FieldNamePath) => any;
 }
 
 const Form: React.FC<FormProps> = (props, ref) => {

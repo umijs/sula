@@ -51,11 +51,6 @@ export type BizExtendConfig = {
   bizDataAdapter: BizDataAdapter;
 }
 
-export type BizGlobalExtendConfig = {
-  '@@global': BizExtendConfig;
-  [url: string]: BizExtendConfig;
-}
-
 export interface RequestConfig extends AxiosRequestConfig {
   init?: boolean; // 默认是true，该参数并不为plugin-request使用
   successMessage?: Message; // 默认是false

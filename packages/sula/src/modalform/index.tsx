@@ -8,7 +8,7 @@ export interface RefModalProps {
   type: 'modal' | 'drawer';
 }
 
-export interface ModalProps extends FormProps {
+export interface ModalFormProps extends FormProps {
   title: string | React.ReactElement;
 }
 
@@ -18,7 +18,7 @@ const RefModalForm: React.FC<RefModalProps> = ({ type }, ref) => {
   const modalRef = React.useRef<any>({});
   const modal = modalRef.current;
 
-  modal.show = (props: ModalProps) => {
+  modal.show = (props: ModalFormProps) => {
     return new Promise((resolve, reject) => {
       setVisible(true);
       setResetCount(resetCount + 1);

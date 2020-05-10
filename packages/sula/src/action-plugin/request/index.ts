@@ -3,20 +3,35 @@ import assign from 'lodash/assign';
 import toLower from 'lodash/toLower';
 import isArray from 'lodash/isArray';
 import isArrayLikeObject from 'lodash/isArrayLikeObject';
-import {
-  BizGlobalExtendConfig,
-  RequestConfig,
-  BizExtendConfig,
-  BizResponse,
-} from '../../types/request';
+import isFunction from 'lodash/isFunction';
+import { RequestConfig, BizExtendConfig, BizResponse } from '../../types/request';
 import extendConfig from './defaultConfig';
 import { toArray } from '../../_util/common';
 import { triggerPlugin } from '../../rope/triggerPlugin';
 
-const globalConfig = {} as BizGlobalExtendConfig;
-const globalUrl = '@@global';
+type ExtendConfigMatcher = (requestConfig: AxiosRequestConfig) => boolean;
 
-globalConfig[globalUrl] = extendConfig;
+let globalConfig = extendConfig;
+
+const globalConfigMatchers = [] as [
+  ExtendConfigMatcher,
+  BizExtendConfig,
+][];
+
+const getMatchedConfig = (requestConfig: AxiosRequestConfig) => {
+  if (!globalConfigMatchers.length) {
+    return null;
+  }
+
+  for (let i = 0, len = globalConfigMatchers.length; i < len; i += 1) {
+    const [matcher, extendConfig] = globalConfigMatchers[i];
+    if (matcher(requestConfig)) {
+      return extendConfig;
+    }
+
+    return null;
+  }
+};
 
 // 不再使用fetch这个名字，防止和fetch冲突
 export const request = (config: RequestConfig, ctx?) => {
@@ -38,9 +53,9 @@ export const request = (config: RequestConfig, ctx?) => {
     method,
   } as AxiosRequestConfig;
 
-  const conf = globalConfig[globalUrl] || ({} as BizExtendConfig);
+  const matchedConfig = getMatchedConfig(requestOptions);
 
-  const curConf = assign({}, conf, globalConfig[url]);
+  const curConf = assign({}, globalConfig, matchedConfig);
 
   const {
     bizRedirectHandler,
@@ -168,3 +183,12 @@ function mergeFormDataWithParams(formDataParams, params) {
 }
 
 request.defaults = axios.defaults;
+
+request.use = (matcher: ExtendConfigMatcher, extendConfig: BizExtendConfig) => {
+  if(isFunction(matcher)) {
+    globalConfigMatchers.push([matcher, extendConfig]);
+  } else {
+    globalConfig = assign({}, globalConfig, extendConfig);
+  }
+
+}
