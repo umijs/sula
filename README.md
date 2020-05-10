@@ -19,7 +19,7 @@ npm i sula --save
 ## 🔨 Usage
 
 ```js
-import { Form, Table, CreateForm, QueryTable, StepForm } from 'sula';
+import { Form, Table, CreateForm, QueryTable, StepForm, StepQueryTable } from 'sula';
 ```
 
 ## 📋 Todo List
