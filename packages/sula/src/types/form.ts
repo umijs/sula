@@ -1,4 +1,4 @@
-import { FormInstance as AFormInstance, FormProps as AFormProps } from 'antd/lib/form';
+import { FormInstance as AFormInstance } from 'antd/lib/form';
 
 export type FieldValue = any;
 export type FieldSource = any;

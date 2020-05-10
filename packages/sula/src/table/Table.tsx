@@ -1,10 +1,6 @@
 import React from 'react';
 import { Table as ATable } from 'antd';
-import {
-  TableProps as ATableProps,
-  ColumnProps as AColumnProps,
-  ColumnProps,
-} from 'antd/lib/table';
+import { TableProps as ATableProps, ColumnProps as AColumnProps } from 'antd/lib/table';
 import { SortOrder } from 'antd/lib/table/interface';
 import { PaginationConfig } from 'antd/lib/pagination';
 import omit from 'lodash/omit';
@@ -15,8 +11,28 @@ import { triggerRenderPlugin } from '../rope/triggerPlugin';
 import TableAction from './TableAction';
 import ModalForm from '../modalform';
 import { SulaConfigContext } from '../config-provider/context';
+import { RenderPlugin, ActionPlugin } from '../types/plugin';
+import { RequestConfig } from '../types/request';
 
-export interface TableProps extends ATableProps<Record<string, any>> {}
+type DataSource = Record<string, any>;
+export interface TableProps extends ATableProps<Record<string, any>> {
+  remoteDataSource?: RequestConfig;
+  initialPaging?:
+    | false
+    | {
+        pagination?: PaginationConfig;
+        sorter?: Sorter;
+        filters?: Filters;
+      };
+  initialDataSource?: DataSource;
+  actionsRender?: ActionPlugin | ActionPlugin[];
+  leftActionsRender?: ActionPlugin | ActionPlugin[];
+  ctxGetter?: () => Record<string, any>;
+}
+
+export interface ColumnProps extends AColumnProps<any> {
+  filterRender: RenderPlugin;
+}
 
 export interface Sorter {
   columnKey: string;
@@ -36,21 +52,41 @@ export interface Paging {
 }
 
 export interface DataSourceResponse {
-  list: Record<string, any>[];
+  list: DataSource;
   total: number;
   pageSize?: number;
 }
 
 export interface TableControlProps {
-  dataSource: Record<string, any>[];
+  dataSource: DataSource;
   selectedRowKeys?: string[];
   pagination?: PaginationConfig;
   filters?: Filters;
   sorter?: SortOrder;
 }
 
-// TODO
-export type TableInstance = any;
+export interface TableInstance {
+  setDataSource: (dataSource: DataSource) => void;
+  getDataSource: () => DataSource;
+
+  setPagination: (pagination: PaginationConfig) => void;
+  setFilters: (filters: Filters) => void;
+  setSorter: (sorter: Sorter) => void;
+
+  getSelectedRowKeys: () => string[];
+  clearRowSelection: () => void;
+
+  getSelectedRows: () => DataSource;
+
+  getPaging: () => Paging;
+
+  refreshTable: (
+    pagination?: PaginationConfig,
+    filters?: Filters,
+    sorter?: Sorter,
+  ) => Promise<undefined>;
+  resetTable: (isRefresh?: boolean) => void | Promise<undefined>;
+}
 
 const RefTable: React.FunctionComponent<TableProps> = (props, ref) => {
   const [context] = useTableContext();

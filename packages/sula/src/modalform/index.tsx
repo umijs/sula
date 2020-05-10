@@ -1,14 +1,14 @@
 import React from 'react';
-import assign from 'lodash/assign';
 import InnerModalForm from './ModalForm';
 import InnerDrawerForm from './DrawerForm';
 import { RopeActionResult, STOP } from '../rope';
+import { FormProps } from '../form';
 
 export interface RefModalProps {
   type: 'modal' | 'drawer';
 }
 
-export interface ModalProps {
+export interface ModalProps extends FormProps {
   title: string | React.ReactElement;
 }
 

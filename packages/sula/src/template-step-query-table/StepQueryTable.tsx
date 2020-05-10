@@ -3,16 +3,14 @@ import { Steps } from 'antd';
 import assign from 'lodash/assign';
 import omit from 'lodash/omit';
 import Memorize from './memorize';
-import QueryTable from '../template-query-table';
+import QueryTable, { QueryTableProps } from '../template-query-table';
 import './style/step-query-table.less';
 
 const { Step } = Steps;
 
 const MemorizeItem = Memorize.Item;
 
-type QueryTableProps = any;
-
-export interface StepProps extends QueryTableProps {
+interface StepProps extends QueryTableProps {
   title: string;
   subTitle?: string;
   description?: string;

@@ -2,15 +2,13 @@ import React from 'react';
 import isNumber from 'lodash/isNumber';
 import isFunction from 'lodash/isFunction';
 import assign from 'lodash/assign';
-import Form, { MediaQueries } from '../form';
-import { FormProps } from '../form/Form';
+import Form, { MediaQueries, FormProps } from '../form';
 import { RequestConfig } from '../types/request';
 import { ActionPlugin } from '../types/plugin';
 import { toArray } from '../_util/common';
 import LocaleReceiver from '../localereceiver';
 
 export interface CreateFormProps extends FormProps {
-  actionPosition: 'default' | 'center' | 'bottom';
   submit: RequestConfig;
   back?: ActionPlugin;
 }

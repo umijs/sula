@@ -3,10 +3,8 @@ import cx from 'classnames';
 import omit from 'lodash/omit';
 import { Steps, Result } from 'antd';
 import Memorize from './memorize';
-import { FormProps } from '../form/Form';
-import { FieldProps } from '../form/Field';
+import { FormProps, FieldGroupProps, FormAction } from '../form';
 import { RequestConfig } from '../types/request';
-import FormAction, { ActionsPosition } from '../form/FormAction';
 import LocaleReceiver from '../localereceiver';
 import Form, { FieldGroup } from '../form';
 import { transformSubmit } from '../template-create-form/CreateForm';
@@ -16,25 +14,21 @@ const { Step } = Steps;
 
 const MemorizeItem = Memorize.Item;
 
-export interface StepProps {
+export interface StepProps extends Exclude<FieldGroupProps, 'name'> {
   title: string;
   subTitle?: string;
   description?: string;
-  fields: FieldProps[];
 }
 
 export type StepType = 'first' | 'middle' | 'submit' | 'result';
 
 export interface StepFormProps extends FormProps {
-  result: {
+  result?: {
     successMessage: string;
     successDescription: string;
-    failedMessage: string;
-    failedDescription: string;
   };
   steps: StepProps[];
   submit: RequestConfig;
-  actionsPosition?: ActionsPosition;
   direction?: 'vertical' | 'horizontal';
 }
 
@@ -105,7 +99,7 @@ export default class StepForm extends React.Component<StepFormProps, StepFormSta
         type: 'primary',
         children: locale.nextText,
       },
-      action: [this.nextStep]
+      action: [this.nextStep],
     };
 
     // 校验且下一步
@@ -195,10 +189,15 @@ export default class StepForm extends React.Component<StepFormProps, StepFormSta
 
                 const actionsRender = this.renderStepActions(stepType, locale);
 
+                const fieldGroupProps = omit(step, ['name', 'title', 'subTitle', 'description']);
+
                 return (
                   <MemorizeItem visible={current === stepIndex} key={stepIndex} memoId={stepIndex}>
-                    <FieldGroup fields={step.fields} name={this.getStepName(stepIndex)} />
-                    <FormAction actionsRender={actionsRender} />
+                    <FieldGroup
+                      name={this.getStepName(stepIndex)}
+                      actionsRender={actionsRender}
+                      {...fieldGroupProps}
+                    />
                   </MemorizeItem>
                 );
               })}

@@ -5,3 +5,5 @@ import RefTable from './Table';
 const Table = React.forwardRef(RefTable);
 
 export default Table;
+
+export { TableProps } from './Table';

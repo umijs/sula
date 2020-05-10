@@ -3,7 +3,7 @@ import assign from 'lodash/assign';
 import pick from 'lodash/pick';
 import omit from 'lodash/omit';
 import isUndefined from 'lodash/isUndefined';
-import { TableControlProps, TableProps, Filters, Pagination, Sorter } from './Table';
+import { TableControlProps, TableProps, Filters, Pagination, Sorter, TableInstance } from './Table';
 import { PaginationConfig } from 'antd/lib/pagination';
 import { assignWithDefined } from '../_util/common';
 import { triggerActionPlugin } from '../rope/triggerPlugin';
@@ -106,7 +106,10 @@ class ContextStore {
         this.hideLoading();
       });
   };
-
+  
+  /**
+   * 默认刷新
+   */
   public resetTable = (isRefresh?: boolean) => {
     if(this.controls.pagination) {
       this.setPagination({current: 1});
@@ -321,7 +324,10 @@ class ContextStore {
 }
 
 export default function useTableContext() {
-  const tableRef = React.useRef(null);
+  const tableRef = React.useRef<{
+    getTable: () => TableInstance;
+    getInternalHooks: (key: string) => any;
+  }>(null);
   const [, forceUpdate] = React.useState();
 
   if (!tableRef.current) {

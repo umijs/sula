@@ -1,29 +1,28 @@
 import React from 'react';
-import isNumber from 'lodash/isNumber';
 import assign from 'lodash/assign';
-import Form, { MediaQueries } from '../form';
-import { FormProps } from '../form/Form';
+import Form, { FormProps } from '../form';
 import { RequestConfig } from '../types/request';
-import { RenderPlugin } from '../types/plugin';
-import { FieldProps } from '../form/Field';
 import { TableInstance, TableProps } from '../table/Table';
-import { RecordType } from '../types/table';
 import { FormInstance } from '../types/form';
 import Table from '../table';
 import QueryFields from './QueryFields';
 
-export interface CreateFormProps extends FormProps {
-  fields: FieldProps[];
+type FormPropsPicks = 'fields' | 'initialValues';
+type TablePropsPicks =
+  | 'remoteDataSource'
+  | 'actionsRender'
+  | 'leftActionsRender'
+  | 'rowKey'
+  | 'columns'
+  | 'rowSelection';
+
+export interface QueryTableProps
+  extends Pick<FormProps, FormPropsPicks>,
+    Pick<TableProps, TablePropsPicks> {
   visibleFieldsCount?: number;
-  actions?: RenderPlugin[];
-  leftActions?: RenderPlugin[];
 
-  remoteDataSource: RequestConfig;
-  columns: any[];
-  rowKey: (record: RecordType, index: number) => React.Key | React.Key;
-
-  formProps?: FormProps;
-  tableProps?: TableProps;
+  formProps?: Exclude<FormProps, FormPropsPicks>;
+  tableProps?: Exclude<TableProps, TablePropsPicks>;
   autoInit?: boolean;
 }
 
@@ -39,9 +38,9 @@ const defaultProps = {
   autoInit: true,
 };
 
-type Props = CreateFormProps & typeof defaultProps;
+type Props = QueryTableProps & typeof defaultProps;
 
-export default class CreateForm extends React.Component<Props> {
+export default class QueryTable extends React.Component<Props> {
   static defaultProps = defaultProps;
 
   private remoteDataSource: RequestConfig;

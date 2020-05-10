@@ -2,6 +2,7 @@ import React from 'react';
 import { Form as AForm, Spin } from 'antd';
 import omit from 'lodash/omit';
 import { FormProps as AFormProps } from 'antd/lib/form';
+import {FieldGroupProps} from './FieldGroup';
 import FieldGroupContext, { rootGroupName, HOOK_MARK } from './FieldGroupContext';
 import { getItemLayout } from './utils/layoutUtil';
 import { NormalizedItemLayout } from './FieldGroup';
@@ -10,8 +11,13 @@ import useFormContext from './useFormContext';
 import FormDependency from './dependency';
 import { triggerActionPlugin } from '../rope/triggerPlugin';
 import MediaQueries from './MediaQueries';
+import { RequestConfig } from '../types/request';
+import { RenderPlugin, FieldPlugin } from '../types/plugin';
 
-export interface FormProps extends AFormProps {}
+export interface FormProps extends Omit<AFormProps, 'children'>, Omit<FieldGroupProps, 'name' | 'initialVisible' | 'dependency'> {
+  remoteValues?: RequestConfig;
+  ctxGetter?: () => Record<string, any>;
+}
 
 const Form: React.FC<FormProps> = (props, ref) => {
   const [formInstance] = AForm.useForm();

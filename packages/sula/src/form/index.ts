@@ -3,10 +3,10 @@ import Field from './Field';
 import FieldGroup from './FieldGroup';
 import FormAction from './FormAction';
 import MediaQueries from './MediaQueries';
-import Form, { FormProps } from './Form';
+import Form, { FormProps as InternalFormProps } from './Form';
 import { FormInstance } from 'antd/lib/form';
 
-const InternalForm = React.forwardRef<FormInstance, FormProps>(Form);
+const InternalForm = React.forwardRef<FormInstance, InternalFormProps>(Form);
 
 type InternalForm = typeof InternalForm;
 
@@ -23,3 +23,7 @@ RefForm.FieldGroup = FieldGroup;
 export { Field, FieldGroup, FormAction, MediaQueries };
 
 export default InternalForm;
+
+export { FormProps } from './Form';
+export { FieldGroupProps } from './FieldGroup';
+export { FieldProps } from './Field';

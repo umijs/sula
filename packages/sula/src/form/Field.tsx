@@ -20,7 +20,7 @@ import FormDependency from './dependency';
 
 const FormItem = AForm.Item;
 
-export interface FieldProps extends FormItemProps {
+export interface FieldProps extends Exclude<FormItemProps, 'children'> {
   field: FieldPlugin;
   name?: FieldNamePath;
   collect?: boolean;
