@@ -4,6 +4,9 @@ export default {
   plugins: [
     require.resolve(join(__dirname, './packages/umi-plugin-sula/lib'))
   ],
+  history: {
+    type: 'hash',
+  },
   sula: {},
   extraBabelPlugins: [[
     'babel-plugin-import',

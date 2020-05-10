@@ -39,6 +39,9 @@ export interface FieldGroupProps {
   children?: React.ReactFragment;
   fields?: FieldProps[];
   dependency: Pick<Dependencies, 'visible'>;
+  container?: RenderPlugin;
+  actionsRender?: RenderPlugin;
+  actionsPosition?: 'center' | 'right' | 'bottom';
 }
 
 export default class FieldGroup extends React.Component<FieldGroupProps> {

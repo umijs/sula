@@ -88,6 +88,10 @@ export const columns = [
 const actions = [
   {
     type: 'button',
+    disabled: (ctx) => {
+      const selectedRowKeys = ctx.table.getSelectedRowKeys();
+      return !(selectedRowKeys && selectedRowKeys.length);
+    },
     props: {
       type: 'primary',
       children: '批量注册',
@@ -106,6 +110,14 @@ const actions = [
         submit: {
           url: 'https://www.mocky.io/v2/5185415ba171ea3a00704eed',
           method: 'POST',
+          convertParams: (ctx) => {
+            const uuids = ctx.table.getSelectedRows().map((item) => item.login.uuid);
+            return {
+              ...ctx.params,
+              uuids,
+            }
+
+          }
         },
       },
       'refreshTable',

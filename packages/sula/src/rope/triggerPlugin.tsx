@@ -183,21 +183,14 @@ export const triggerSingleRenderPlugin = (lazyCtx: LazyPluginCtx, config: Render
 /**
  * 行为插件
  */
-const actionSkipKeysMap: Record<string, string[]> = {
-  request: ['convertParams', 'converter'],
-};
 export const triggerActionPlugin = (lazyCtx: LazyPluginCtx, config: ActionPlugin) => {
   // submit, remoteValues省略request
   const normalizedConfig = normalizeConfig(config, 'request') as ActionPlugin;
-  let finalSkipOptions;
+  const skipOptions = {
+    skipKeys: ['convertParams', 'converter'],
+  };
 
-  if (isString(normalizedConfig.type)) {
-    finalSkipOptions = {
-      skipKeys: actionSkipKeysMap[normalizedConfig.type],
-    };
-  }
-
-  return triggerPlugin('action', getLazyCtx(lazyCtx), normalizedConfig, finalSkipOptions);
+  return triggerPlugin('action', getLazyCtx(lazyCtx), normalizedConfig, skipOptions);
 };
 
 /**
