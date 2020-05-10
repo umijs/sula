@@ -3,7 +3,7 @@ import assign from 'lodash/assign';
 import isFunction from 'lodash/isFunction';
 import isString from 'lodash/isString';
 import isArray from 'lodash/isArray';
-import omit from 'lodash/omit';
+import toLower from 'lodash/toLower';
 import { Space } from 'antd';
 import { LazyPluginCtx, LazyPluginCtxGetter, PluginCtx } from '../types/ctx';
 import { RenderPlugin, ActionPlugin, FieldPlugin, PluginType } from '../types/plugin';
@@ -183,14 +183,25 @@ export const triggerSingleRenderPlugin = (lazyCtx: LazyPluginCtx, config: Render
 /**
  * 行为插件
  */
+const formPluginsName = ['submit', 'back', 'actionsRender', 'fields', 'container', 'remoteValues'];
+const actionSkipKeysMap: Record<string, string[]> = {
+  request: ['convertParams', 'converter'],
+  modalform: formPluginsName,
+  drawerform: formPluginsName,
+};
 export const triggerActionPlugin = (lazyCtx: LazyPluginCtx, config: ActionPlugin) => {
   // submit, remoteValues省略request
   const normalizedConfig = normalizeConfig(config, 'request') as ActionPlugin;
-  const skipOptions = {
-    skipKeys: ['convertParams', 'converter'],
-  };
+  let finalSkipOptions;
 
-  return triggerPlugin('action', getLazyCtx(lazyCtx), normalizedConfig, skipOptions);
+  if (isString(normalizedConfig.type)) {
+    const pluginName = toLower(normalizedConfig.type);
+    finalSkipOptions = {
+      skipKeys: actionSkipKeysMap[pluginName],
+    };
+  }
+
+  return triggerPlugin('action', getLazyCtx(lazyCtx), normalizedConfig, finalSkipOptions);
 };
 
 /**

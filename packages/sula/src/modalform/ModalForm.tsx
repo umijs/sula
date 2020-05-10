@@ -15,7 +15,7 @@ export default class ModalForm extends React.Component {
     // 存在 type 说明是插件场景
     const { type, title, width, ...formProps } = props;
 
-    const { actionsRender, fields, ...restFormProps } = formProps;
+    const { actionsRender, fields, container, ...restFormProps } = formProps;
 
     return (
       <LocaleReceiver>
@@ -53,7 +53,7 @@ export default class ModalForm extends React.Component {
                   /> : null
                 }
               >
-                <FieldGroup fields={fields} />
+                <FieldGroup container={container} fields={fields} />
               </Modal>
             </Form>
           );

@@ -2,6 +2,7 @@ import React from 'react';
 import isUndefined from 'lodash/isUndefined';
 import uniqueId from 'lodash/uniqueId';
 import omit from 'lodash/omit';
+import assign from 'lodash/assign';
 import { FormItemProps } from 'antd/lib/form/FormItem';
 import { FieldPlugin } from '../types/plugin';
 import { FieldNamePath, FieldSource, FieldValue, FieldNameList } from '../types/form';
@@ -200,6 +201,13 @@ export default class Field extends React.Component<FieldProps> {
         </Col>
       );
     } else {
+      if (this.props.dependency && this.props.dependency.visible) {
+        return React.cloneElement(fieldItemElem, {
+          style: assign({}, fieldItemElem.props.style, {
+            display: visible === false ? 'none' : '',
+          }),
+        });
+      }
       return fieldItemElem;
     }
   }

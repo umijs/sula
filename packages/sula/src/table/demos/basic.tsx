@@ -1,4 +1,5 @@
 import React from 'react';
+import { Card } from 'antd';
 import Table from '../';
 import { submit } from '../../form/demos/common';
 
@@ -18,6 +19,9 @@ export default class Baisc extends React.Component {
             action: {
               type: 'modalform',
               title: '弹窗表单',
+              container: () => {
+                return <Card title="Head" />
+              },
               fields: [{
                 name: 'input1',
                 label: 'Input1',
@@ -84,7 +88,12 @@ export default class Baisc extends React.Component {
                     label: 'Input1',
                     field: 'input',
                   }],
-                  submit
+                  actionsRender: [{
+                    type: 'button',
+                    props: {
+                      children: 'custom',
+                    }
+                  }]
                 },
               },
             ],
