@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import '../../__tests__/common';
+import { actWait, updateWrapper } from '../../__tests__/common';
 import { QueryTable } from '..';
 
 const columns = [
@@ -95,30 +95,37 @@ describe('query-table', () => {
 
     expect(wrapper.render()).toMatchSnapshot();
   })
-  it('basic has leftActionsRender', () => {
-    const wrapper = mount(
-      <QueryTable
-        { ...config }
-        layout="vertical"
-        autoInit={false}
-        leftActionsRender={[
-          {
-            type: 'button',
-            props: {
-              children: 'left',
+  it('basic has leftActionsRender', async() => {
+    let wrapper;
+    await actWait(() => {
+      wrapper = mount(
+        <QueryTable
+          { ...config }
+          layout="vertical"
+          autoInit={false}
+          leftActionsRender={[
+            {
+              type: 'button',
+              props: {
+                children: 'left',
+              },
             },
-          },
-        ]}
-      />
-    )
+          ]}
+        />
+      )
+    })
 
-    wrapper.find('a').at(0).simulate('click');
     expect(wrapper.render()).toMatchSnapshot();
+    wrapper.find('a').at(0).simulate('click');
+
+    await updateWrapper(wrapper);
     wrapper.find('button').forEach(node => {
       if (node.text() === 'Query') {
         node.simulate('click');
       }
     })
+    
+    await updateWrapper(wrapper);
     wrapper.find('button').forEach(node => {
       if (node.text() === 'Reset') {
         node.simulate('click');

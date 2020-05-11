@@ -156,12 +156,13 @@ export default class FieldGroup extends React.Component<FieldGroupProps> {
     const children = fields ? this.transFieldToElems(ctx, fields) : props.children;
 
     let actionsElem;
+    let actionsPosition = props.actionsPosition;
     if (props.actionsRender) {
       actionsElem = (
         <FormAction
           key={`${this.groupName}-form-action`}
           actionsRender={props.actionsRender}
-          actionsPosition={props.actionsPosition}
+          actionsPosition={actionsPosition}
         />
       );
     }
@@ -202,13 +203,16 @@ export default class FieldGroup extends React.Component<FieldGroupProps> {
 
         finalChildren.push(childElem);
         finalChildren.push(child);
+      } else if (child.type === FormAction ) {
+        actionsElem = child;
+        actionsPosition = child.props.actionsPosition;
       } else {
         groupFieldsElem.push(child);
       }
     });
 
     const rowKey = `${this.groupName}-row-${groupRowIndex}`;
-    const isDefaultPosition = !props.actionsPosition || props.actionsPosition === 'default';
+    const isDefaultPosition = !actionsPosition || actionsPosition === 'default';
 
     if (!actionsElem) {
       finalChildren.push(

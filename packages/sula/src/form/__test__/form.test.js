@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import renderer from 'react-test-renderer';
 import { Form } from '..';
-import { delay } from '../../__tests__/common';
+import { delay, actWait } from '../../__tests__/common';
 
 describe('form', () => {
   describe('form props', () => {
@@ -76,7 +76,7 @@ describe('form', () => {
       );
 
       const wrapper = mount(form);
-      await delay(1000);
+      await actWait();
       expect(formRef.getFieldsValue()).toEqual({ input: 'a', input2: 'aaa' });
       wrapper
         .find('input')
@@ -117,7 +117,7 @@ describe('form', () => {
       );
 
       const wrapper = mount(form);
-      await delay(1000);
+      await actWait();
       expect(formRef.getFieldsValue()).toEqual({ input: undefined, input2: undefined });
       expect(wrapper.html()).toMatchSnapshot();
     });

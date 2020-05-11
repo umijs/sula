@@ -1,5 +1,5 @@
 import React from 'react';
-import StepQueryTable from '..';
+import { StepQueryTable } from '..';
 import { columns, remoteDataSource } from '../../table/demos/common';
 
 export default () => {

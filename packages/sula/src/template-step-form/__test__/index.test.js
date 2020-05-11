@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { StepForm } from '../index';
-import '../../__tests__/common';
+import { actWait } from '../../__tests__/common';
 
 const steps = [
   {
@@ -44,7 +44,7 @@ const submit = {
     name: 'sula',
   },
   finish: (ctx) => {
-    console.log('ctx: ', ctx);
+    // console.log('ctx: ', ctx);
     return ctx.result;
   },
 };
@@ -83,7 +83,7 @@ describe('stepForm', () => {
         direction="vertical"
         steps={steps}
         submit={submit}
-        resultr
+        result
       />
     );
     expect(wrapper.render()).toMatchSnapshot();
@@ -94,8 +94,10 @@ describe('stepForm', () => {
       }
     })
 
-    await submitBtnList[0].simulate('click');
-    await submitBtnList[1].simulate('click');
+    submitBtnList[0].simulate('click');
+    await actWait();
+    submitBtnList[1].simulate('click');
+    await actWait();
     wrapper.find('button').forEach(node => {
       if (node.text() === 'Submit') {
         node.simulate('click');
@@ -112,7 +114,7 @@ describe('stepForm', () => {
         direction="vertical"
         steps={steps}
         submit={submit}
-        resultr
+        result
       />
     );
     expect(wrapper.render()).toMatchSnapshot();
@@ -123,8 +125,10 @@ describe('stepForm', () => {
       }
     })
 
-    await submitBtnList[0].simulate('click');
-    await submitBtnList[1].simulate('click');
+    submitBtnList[0].simulate('click');
+    await actWait();
+    submitBtnList[1].simulate('click');
+    await actWait();
 
     wrapper.find('button').forEach(node => {
       if (node.text() === 'Previous') {

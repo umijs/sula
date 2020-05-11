@@ -1,5 +1,5 @@
 import React from 'react';
-import Form, { Field, FieldGroup } from '..';
+import { Form, Field, FieldGroup } from '..';
 
 export default class Basic extends React.Component {
   render() {

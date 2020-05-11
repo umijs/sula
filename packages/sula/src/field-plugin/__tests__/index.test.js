@@ -1,7 +1,7 @@
 import React from 'react';
-import { mount } from 'enzyme';
 import { Swicth, Button } from 'antd';
 import moment from 'moment';
+import { mount } from 'enzyme';
 import sula from '../../core';
 import { fieldPlugin } from '../plugin';
 import { setMockDate, resetMockDate, datepickerValueChange, rangepickerValueChange, timepickValueChange } from './utils';

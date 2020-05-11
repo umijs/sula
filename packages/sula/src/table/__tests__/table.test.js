@@ -2,7 +2,7 @@ import React from 'react';
 import { Table } from '..';
 import TableAction from '../TableAction';
 import { mount } from 'enzyme';
-import { delay, dataSource } from '../../__tests__/common';
+import { dataSource, actWait } from '../../__tests__/common';
 
 describe('table', () => {
   describe('table snapshot', () => {
@@ -52,34 +52,37 @@ describe('table', () => {
     });
 
     it('no pagination', async () => {
-      const wrapper = mount(
-        <Table
-          rowKey="id"
-          remoteDataSource={{
-            url: '/nopagination.json',
-            method: 'post',
-          }}
-          initialPaging={{
-            pagination: false,
-          }}
-          columns={[
-            {
-              key: 'id',
-              title: 'Id',
-            },
-            {
-              key: 'name',
-              title: 'Name',
-            },
-            {
-              key: 'age',
-              title: 'Age',
-            },
-          ]}
-          rowSelection={{}}
-        />,
-      );
-      await delay(1000);
+      let wrapper;
+      await actWait(() => {
+        wrapper = mount(
+          <Table
+            rowKey="id"
+            remoteDataSource={{
+              url: '/nopagination.json',
+              method: 'post',
+            }}
+            initialPaging={{
+              pagination: false,
+            }}
+            columns={[
+              {
+                key: 'id',
+                title: 'Id',
+              },
+              {
+                key: 'name',
+                title: 'Name',
+              },
+              {
+                key: 'age',
+                title: 'Age',
+              },
+            ]}
+            rowSelection={{}}
+          />,
+        );
+      })
+      await actWait();
       expect(wrapper.html()).toMatchSnapshot();
     });
 
@@ -108,7 +111,7 @@ describe('table', () => {
           ]}
         />,
       );
-      await delay(1000);
+      await actWait();
       expect(wrapper.html()).toMatchSnapshot();
     });
   });

@@ -1,5 +1,5 @@
 import React from 'react';
-import QueryTable from '..';
+import { QueryTable } from '..';
 import { columns, remoteDataSource } from '../../table/demos/common';
 
 export default () => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import Form from '..';
+import { Form } from '..';
 import { Button, Input } from 'antd';
 
 export default class Advanced extends React.Component {

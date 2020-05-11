@@ -1,5 +1,5 @@
 import React from 'react';
-import StepForm from '..';
+import { StepForm } from '..';
 import { submit } from '../../form/demos/common.jsx';
 import { Button } from 'antd';
 import ModeSwitcher from '../../form/demos/modeSwitcher.tsx';

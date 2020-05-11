@@ -1,6 +1,7 @@
 import React from 'react';
 import DownOutlined from '@ant-design/icons/DownOutlined';
 import cx from 'classnames';
+import { Col } from 'antd';
 import { getItemSpan } from '../form/utils/layoutUtil';
 import FieldGroupContext from '../form/FieldGroupContext';
 import { FieldGroup, Field, FormAction } from '../form';
@@ -118,16 +119,29 @@ export default class QueryFields extends React.PureComponent {
           ]
         : []),
     ];
+
+    const finalSpan = this.state.collapsed ? this.collapseSpan : this.expandSpan;
+    const layoutProps = {} as any;
+
+    if(finalSpan === 24) {
+      layoutProps.actionsPosition = 'right';
+      layoutProps.style = {
+        marginBottom: 24,
+      }
+    } else {
+      layoutProps.style = {
+        display: 'flex',
+        justifyContent: 'flex-end',
+        ...(layout === 'vertical' ? { marginTop: 30 } : {}),
+      }
+    }
+
     return (
       <FormAction
-        style={{
-          display: 'flex',
-          justifyContent: 'flex-end',
-          ...(layout === 'vertical' ? { marginTop: 30 } : {}),
-        }}
         itemLayout={{
-          span: this.state.collapsed ? this.collapseSpan : this.expandSpan,
+          span: finalSpan,
         }}
+        {...layoutProps}
         actionsRender={actionsRender}
       />
     );

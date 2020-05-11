@@ -1,5 +1,5 @@
 import React from 'react';
-import CreateForm from '../';
+import { CreateForm } from '../';
 import { remoteSource, remoteValues, submit } from '../../form/demos/common';
 
 const fields = Array(10)

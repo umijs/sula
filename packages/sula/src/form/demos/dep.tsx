@@ -1,5 +1,5 @@
 import React from 'react';
-import Form from '..';
+import { Form } from '..';
 import { Button } from 'antd';
 
 export default class Api extends React.Component {

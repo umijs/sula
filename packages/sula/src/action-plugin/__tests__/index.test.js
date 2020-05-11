@@ -1,19 +1,12 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { IconPlugin } from '../../render-plugin/icon';
-import { registerActionPlugin } from '../';
-import { registerFieldPlugins } from '../../field-plugin';
-import { registerRenderPlugins } from '../../render-plugin';
+import { actWait } from '../../__tests__/common';
 
 describe('action plugin', () => {
-  beforeEach(() => {
-    registerRenderPlugins();
-    registerFieldPlugins();
-    registerActionPlugin();
-  })
 
   describe('history', () => {
-    it('back', () => {
+    it('back', async() => {
       const wrapper = mount(
         <IconPlugin
           config={{
@@ -24,6 +17,7 @@ describe('action plugin', () => {
         />
       )
       expect(wrapper.render()).toMatchSnapshot();
+      await actWait()
       wrapper.find(IconPlugin).simulate('click');
     })
   })

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card } from 'antd';
-import Table from '../';
+import { Table } from '../';
 import { submit } from '../../form/demos/common';
 
 export default class Baisc extends React.Component {

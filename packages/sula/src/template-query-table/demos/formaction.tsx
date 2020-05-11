@@ -1,9 +1,9 @@
 import React from 'react';
-import QueryTable from '..';
+import { QueryTable } from '..';
 import { columns, remoteDataSource } from '../../table/demos/common';
 
 export default () => {
-  const queryFields = Array(4)
+  const queryFields = Array(3)
     .fill(0)
     .map((_, index) => {
       return {

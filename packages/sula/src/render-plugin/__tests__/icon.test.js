@@ -4,6 +4,7 @@ import { mount, shallow } from 'enzyme';
 import Icon from '../icon/Icon';
 import LoadingIcon from '../icon/InnerLoadingIcon';
 import { IconPlugin } from '../icon';
+import '../../__tests__/common';
 
 describe('icon', () => {
   jest.useFakeTimers(); // 设置快速时间
@@ -140,7 +141,6 @@ describe('icon', () => {
       );
       expect(wrapper.render()).toMatchSnapshot();
       wrapper.find(Icon).at(1).simulate('click');
-      jest.runAllTimers(); // 时间快进
     })
 
     it('autoLoading is true, no lastAction.final', () => {
@@ -164,7 +164,6 @@ describe('icon', () => {
       );
       expect(wrapper.render()).toMatchSnapshot();
       wrapper.find(Icon).at(1).simulate('click');
-      jest.runAllTimers(); // 时间快进
     })
 
     it('no config', () => {

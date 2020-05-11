@@ -1,5 +1,5 @@
 import React from 'react';
-import Form, { FormAction, FieldGroup, Field } from '..';
+import { Form, FormAction, FieldGroup, Field } from '..';
 import ColumnsSwitcher from './columnsSwitcher';
 import ActionsPositionSwitcher from './actionsPositionSwitcher';
 import LayoutSwitcher from './layoutSwitcher';

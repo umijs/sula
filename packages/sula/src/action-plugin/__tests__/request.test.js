@@ -89,12 +89,6 @@ describe('sula request', () => {
     });
 
     it('redirect', async () => {
-      // Object.defineProperty(window, 'location', {
-      //   writable: true,
-      //   value: {
-      //     assign: fn,
-      //   }
-      // });
       window.location.assign = jest.fn();
       await fetch({ url: '/redirect.json' });
       expect(window.location.assign).toHaveBeenCalledWith('http://www.github.com');
