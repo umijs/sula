@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import Form, { Field } from '..';
+import { Form, Field } from '..';
 import '../../__tests__/common';
 
 describe('use form context', () => {

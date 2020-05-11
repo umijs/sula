@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import '../../__tests__/common';
-import QueryTable from '..';
+import { QueryTable } from '..';
 
 const columns = [
   {

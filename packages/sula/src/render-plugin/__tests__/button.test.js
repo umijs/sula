@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import ButtonPlugin from '../button/Button';
+import { ButtonPlugin } from '../button';
 
 describe('button', () => {
   jest.useFakeTimers(); // 设置快速时间

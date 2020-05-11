@@ -1,5 +1,5 @@
 import React from 'react';
-import Table from '..';
+import { Table } from '..';
 import TableAction from '../TableAction';
 import { mount } from 'enzyme';
 import { delay, dataSource } from '../../__tests__/common';

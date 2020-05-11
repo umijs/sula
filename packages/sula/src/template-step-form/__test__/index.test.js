@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import StepForm from '../index';
+import { StepForm } from '../index';
 import '../../__tests__/common';
 
 const steps = [

@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import Form from '..';
+import { Form } from '..';
 import '../../__tests__/common';
 
 describe('layout', () => {

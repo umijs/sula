@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import renderer from 'react-test-renderer';
-import Form, { FieldGroup, Field } from '..';
+import { Form, FieldGroup, Field } from '..';
 import '../../__tests__/common';
 
 

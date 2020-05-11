@@ -3,7 +3,7 @@ import { Steps } from 'antd';
 import assign from 'lodash/assign';
 import omit from 'lodash/omit';
 import Memorize from './memorize';
-import QueryTable, { QueryTableProps } from '../template-query-table';
+import { QueryTable, QueryTableProps } from '../template-query-table';
 import './style/step-query-table.less';
 
 const { Step } = Steps;

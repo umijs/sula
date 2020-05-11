@@ -1,49 +1,61 @@
 import React from 'react';
+import { act } from 'react-dom/test-utils';
 import { mount } from 'enzyme';
-import Table from '..';
-import { delay, dataSource } from '../../__tests__/common';
+import { Table } from '..';
+import { delay, actWait, dataSource, updateWrapper } from '../../__tests__/common';
 
 describe('use table context', () => {
   describe('context', () => {
-    it('table source', () => {
+    it('table source', async () => {
       let tableRef;
-      const wrapper = mount(
-        <Table
-          ref={(ref) => {
-            tableRef = ref;
-          }}
-          initialPaging={{
-            pagination: {
-              pageSize: 15,
-            },
-          }}
-          disableClearSelectedRows
-          columns={[
-            {
-              key: 'id',
-              title: 'Id',
-            },
-            {
-              key: 'name',
-              title: 'Name',
-            },
-            {
-              key: 'age',
-              title: 'Age',
-            },
-          ]}
-        />,
-      );
+      let wrapper;
+
+      await actWait(() => {
+        wrapper = mount(
+          <Table
+            ref={(ref) => {
+              tableRef = ref;
+            }}
+            initialPaging={{
+              pagination: {
+                pageSize: 15,
+              },
+            }}
+            rowKey="id"
+            disableClearSelectedRows
+            columns={[
+              {
+                key: 'id',
+                title: 'Id',
+              },
+              {
+                key: 'name',
+                title: 'Name',
+              },
+              {
+                key: 'age',
+                title: 'Age',
+              },
+            ]}
+          />,
+        );
+      });
 
       expect(tableRef.getDataSource()).toEqual([]);
-      tableRef.setDataSource(dataSource);
+      await actWait(() => {
+        tableRef.setDataSource(dataSource);
+      });
       expect(tableRef.getDataSource()).toEqual(dataSource);
-      wrapper.update();
+      await updateWrapper(wrapper);
       expect(wrapper.find('.ant-table-row').length).toBe(15);
-      tableRef.setPagination({ pageSize: 5 });
-      wrapper.update();
+      await actWait(() => {
+        tableRef.setPagination({ pageSize: 5 });
+      });
+      await updateWrapper(wrapper);
       expect(wrapper.find('.ant-table-row').length).toBe(5);
-      tableRef.resetTable();
+      await actWait(() => {
+        tableRef.resetTable();
+      });
       expect(wrapper.html()).toMatchSnapshot();
     });
 
@@ -51,47 +63,50 @@ describe('use table context', () => {
       let tableRef;
       let curFilters;
       let curSorter;
-      const wrapper = mount(
-        <Table
-          ref={(ref) => {
-            tableRef = ref;
-          }}
-          initialPaging={{
-            sorter: {
-              columnKey: 'age',
-              order: 'ascend',
-            },
-          }}
-          rowKey="id"
-          remoteDataSource={{
-            url: '/datasource.json',
-            method: 'post',
-            converter: ({ data }) => {
-              const { filters, sorter, ...rest } = data;
-              curFilters = filters;
-              curSorter = sorter;
-              return rest;
-            },
-          }}
-          rowSelection={{}}
-          columns={[
-            {
-              key: 'id',
-              title: 'Id',
-            },
-            {
-              key: 'name',
-              title: 'Name',
-              filters: [{ text: 'Lily', value: 'lily1' }],
-            },
-            {
-              key: 'age',
-              title: 'Age',
-              sorter: true,
-            },
-          ]}
-        />,
-      );
+      let wrapper;
+      await actWait(() => {
+        wrapper = mount(
+          <Table
+            ref={(ref) => {
+              tableRef = ref;
+            }}
+            initialPaging={{
+              sorter: {
+                columnKey: 'age',
+                order: 'ascend',
+              },
+            }}
+            rowKey="id"
+            remoteDataSource={{
+              url: '/datasource.json',
+              method: 'post',
+              converter: ({ data }) => {
+                const { filters, sorter, ...rest } = data;
+                curFilters = filters;
+                curSorter = sorter;
+                return rest;
+              },
+            }}
+            rowSelection={{}}
+            columns={[
+              {
+                key: 'id',
+                title: 'Id',
+              },
+              {
+                key: 'name',
+                title: 'Name',
+                filters: [{ text: 'Lily', value: 'lily1' }],
+              },
+              {
+                key: 'age',
+                title: 'Age',
+                sorter: true,
+              },
+            ]}
+          />,
+        );
+      });
 
       await delay(1000);
       expect(curSorter).toEqual({
@@ -99,15 +114,17 @@ describe('use table context', () => {
         order: 'ascend',
       });
 
-      tableRef.setFilters({ id: 1, name: undefined });
-      wrapper.update();
-      tableRef.refreshTable();
-      await delay(1000);
+      await actWait(() => {
+        tableRef.setFilters({ id: 1, name: undefined });
+        wrapper.update();
+        tableRef.refreshTable();
+      });
       expect(curFilters).toEqual({ id: 1, name: null });
 
-      tableRef.setSorter({ order: 'ascend', columnKey: 'id' });
-      tableRef.refreshTable();
-      await delay(1000);
+      await actWait(() => {
+        tableRef.setSorter({ order: 'ascend', columnKey: 'id' });
+        tableRef.refreshTable();
+      });
       expect(curSorter).toEqual({ order: 'ascend', columnKey: 'id' });
 
       expect(tableRef.getPaging()).toEqual({
@@ -116,8 +133,9 @@ describe('use table context', () => {
         sorter: { columnKey: 'id', order: 'ascend' },
       });
 
-      tableRef.resetTable(true);
-      await delay(1000);
+      await actWait(() => {
+        tableRef.resetTable(true);
+      });
       expect(curFilters).toEqual({ id: null, name: null });
       expect(curSorter).toEqual({ order: false, columnKey: 'id' });
 
@@ -125,14 +143,16 @@ describe('use table context', () => {
         .find('input')
         .first()
         .simulate('change', { target: { checked: true } });
-      await delay(500);
       expect(tableRef.getSelectedRowKeys()).toEqual([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
 
-      tableRef.refreshTable();
-      await delay(1000);
+      await actWait(() => {
+        tableRef.refreshTable();
+      });
       expect(tableRef.getSelectedRowKeys()).toEqual([]);
 
-      tableRef.resetTable(false);
+      await actWait(() => {
+        tableRef.resetTable(false);
+      });
       expect(wrapper.html()).toMatchSnapshot();
     });
 
@@ -173,45 +193,52 @@ describe('use table context', () => {
         />,
       );
 
-      await delay(1000);
+      await actWait(() => {});
       expect(curFilters).toEqual({ name: 'lily1' });
     });
 
     it('row selections', async () => {
       let tableRef;
       const onChange = jest.fn();
-      const wrapper = mount(
-        <Table
-          ref={(ref) => {
-            tableRef = ref;
-          }}
-          rowKey="id"
-          onChange={onChange}
-          initialDataSource={dataSource.slice(0, 4)}
-          rowSelection={{}}
-          columns={[
-            {
-              key: 'id',
-              title: 'Id',
-            },
-            {
-              key: 'name',
-              title: 'Name',
-            },
-            {
-              key: 'age',
-              title: 'Age',
-            },
-          ]}
-        />,
-      );
 
-      await delay(1000);
+      let wrapper;
+
+      await act(async () => {
+        wrapper = mount(
+          <Table
+            ref={(ref) => {
+              tableRef = ref;
+            }}
+            rowKey="id"
+            onChange={onChange}
+            initialDataSource={dataSource.slice(0, 4)}
+            rowSelection={{}}
+            columns={[
+              {
+                key: 'id',
+                title: 'Id',
+              },
+              {
+                key: 'name',
+                title: 'Name',
+              },
+              {
+                key: 'age',
+                title: 'Age',
+              },
+            ]}
+          />,
+        );
+      });
+
+      await actWait();
 
       const checkboxes = wrapper.find('input');
 
-      checkboxes.first().simulate('change', { target: { checked: true } });
-      await delay(500);
+      // await delay(500);
+      await actWait(() => {
+        checkboxes.first().simulate('change', { target: { checked: true } });
+      });
       expect(tableRef.getSelectedRowKeys()).toEqual([0, 1, 2, 3]);
       expect(tableRef.getSelectedRows()).toEqual([
         { age: 10, id: 0, name: 'lily0' },
@@ -220,8 +247,10 @@ describe('use table context', () => {
         { age: 13, id: 3, name: 'lily3' },
       ]);
 
-      checkboxes.at(1).simulate('change', { target: { checked: false } });
-      checkboxes.at(2).simulate('change', { target: { checked: false } });
+      await actWait(() => {
+        checkboxes.at(1).simulate('change', { target: { checked: false } });
+        checkboxes.at(2).simulate('change', { target: { checked: false } });
+      });
 
       expect(tableRef.getSelectedRowKeys()).toEqual([2, 3]);
       expect(tableRef.getSelectedRows()).toEqual([
@@ -229,7 +258,9 @@ describe('use table context', () => {
         { age: 13, id: 3, name: 'lily3' },
       ]);
 
-      tableRef.clearRowSelection();
+      await actWait(() => {
+        tableRef.clearRowSelection();
+      });
       expect(tableRef.getSelectedRowKeys()).toEqual([]);
 
       expect(checkboxes.at(3).props().checked).toEqual(false);
@@ -241,46 +272,50 @@ describe('use table context', () => {
     it('change', async () => {
       const onChange = jest.fn();
       let curSorter;
-      const table = (
-        <Table
-          rowKey="id"
-          remoteDataSource={{
-            url: '/datasource.json',
-            method: 'post',
-            converter: ({ data }) => {
-              const { filters, sorter, ...rest } = data;
-              curSorter = sorter;
-              return rest;
-            },
-          }}
-          initialPaging={{
-            pagination: {
-              pageSize: 2,
-            },
-          }}
-          onChange={onChange}
-          columns={[
-            {
-              key: 'id',
-              title: 'Id',
-            },
-            {
-              key: 'name',
-              title: 'Name',
-              filters: [{ text: 'Lily', value: 'lily1' }],
-            },
-            {
-              key: 'age',
-              title: 'Age',
-              sorter: true,
-            },
-          ]}
-        />
-      );
-      const wrapper = mount(table);
-      await delay(1000);
-      wrapper.find('.ant-table-column-has-sorters').simulate('click');
-      await delay(1000);
+
+      let wrapper;
+      await actWait(() => {
+        wrapper = mount(
+          <Table
+            rowKey="id"
+            remoteDataSource={{
+              url: '/datasource.json',
+              method: 'post',
+              converter: ({ data }) => {
+                const { filters, sorter, ...rest } = data;
+                curSorter = sorter;
+                return rest;
+              },
+            }}
+            initialPaging={{
+              pagination: {
+                pageSize: 2,
+              },
+            }}
+            onChange={onChange}
+            columns={[
+              {
+                key: 'id',
+                title: 'Id',
+              },
+              {
+                key: 'name',
+                title: 'Name',
+                filters: [{ text: 'Lily', value: 'lily1' }],
+              },
+              {
+                key: 'age',
+                title: 'Age',
+                sorter: true,
+              },
+            ]}
+          />,
+        );
+      });
+      await actWait();
+      await actWait(() => {
+        wrapper.find('.ant-table-column-has-sorters').simulate('click');
+      })
       expect(curSorter).toEqual({ columnKey: 'age', order: 'ascend' });
       expect(onChange).toHaveBeenCalledWith(
         { current: 1, pageSize: 2, total: 20 },

@@ -1,10 +1,10 @@
 import React from 'react';
 import assign from 'lodash/assign';
-import Form, { FormProps } from '../form';
+import { Form, FormProps } from '../form';
 import { RequestConfig } from '../types/request';
 import { TableInstance, TableProps } from '../table/Table';
 import { FormInstance } from '../types/form';
-import Table from '../table';
+import { Table } from '../table';
 import QueryFields from './QueryFields';
 
 type FormPropsPicks = 'fields' | 'initialValues';

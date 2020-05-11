@@ -1,4 +1,5 @@
 import Mock from 'mockjs';
+import { act } from 'react-dom/test-utils';
 
 import { registerRenderPlugins } from '../render-plugin';
 import { registerFieldPlugins } from '../field-plugin';
@@ -31,6 +32,20 @@ export const delay = (timeout) => {
     setTimeout(resolve, timeout);
   });
 };
+
+export async function actWait(callback = () => {}, timeout = 1000) {
+  await act(async () => {
+    await callback();
+    await delay(timeout);
+  });
+}
+
+export async function updateWrapper(wrapper, amount = 0) {
+  await act(async () => {
+    await delay(amount);
+    wrapper.update();
+  });
+}
 
 mock('/source.json', {
   success: true,
@@ -76,6 +91,11 @@ mock('/nopagination.json', {
   success: true,
   code: 200,
   data: dataSource,
+});
+
+mock('/success.json', {
+  success: true,
+  code: 200,
 });
 
 export { dataSource };

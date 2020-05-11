@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import Form, { FormAction } from '..';
+import { Form, FormAction } from '..';
 import '../../__tests__/common';
 
 describe('form action', () => {

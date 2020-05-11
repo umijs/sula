@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import CreateForm from '../';
+import { CreateForm } from '../';
 import '../../__tests__/common';
 
 const fields = Array(10)

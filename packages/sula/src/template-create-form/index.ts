@@ -1,7 +1,5 @@
-import CreateForm from './CreateForm';
+import { default as _CreateForm, CreateFormProps as _CreateFormProps } from './CreateForm';
 
-import { CreateFormProps as Props } from './CreateForm';
+export interface CreateFormProps extends _CreateFormProps {}
 
-export interface CreateFormProps extends Props {}
-
-export default CreateForm;
+export const CreateForm = _CreateForm;

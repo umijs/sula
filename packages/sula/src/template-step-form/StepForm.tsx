@@ -3,10 +3,9 @@ import cx from 'classnames';
 import omit from 'lodash/omit';
 import { Steps, Result } from 'antd';
 import Memorize from './memorize';
-import { FormProps, FieldGroupProps, FormAction } from '../form';
+import { Form, FieldGroup, FormProps, FieldGroupProps, FormAction } from '../form';
 import { RequestConfig } from '../types/request';
 import LocaleReceiver from '../localereceiver';
-import Form, { FieldGroup } from '../form';
 import { transformSubmit } from '../template-create-form/CreateForm';
 import './style/step-form.less';
 

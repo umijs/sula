@@ -1,7 +1,5 @@
-import StepForm from './StepForm';
+import { default as _StepForm,  StepFormProps as _StepFormProps } from './StepForm';
 
-import { StepFormProps as Props } from './StepForm';
+export interface StepFormProps extends _StepFormProps {}
 
-export interface StepFormProps extends Props {}
-
-export default StepForm;
+export const StepForm = _StepForm;

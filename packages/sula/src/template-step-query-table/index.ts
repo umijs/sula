@@ -1,7 +1,5 @@
-import StepQueryTable from './StepQueryTable';
+import { default as _StepQueryTable ,StepQueryTableProps as _StepQueryTableProps } from './StepQueryTable';
 
-import { StepQueryTableProps as Props } from './StepQueryTable';
+export interface StepQueryTableProps extends _StepQueryTableProps {}
 
-export interface StepQueryTableProps extends Props {}
-
-export default StepQueryTable;
+export const StepQueryTable = _StepQueryTable;

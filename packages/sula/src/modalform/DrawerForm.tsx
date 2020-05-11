@@ -3,7 +3,7 @@ import { Drawer } from 'antd';
 import assign from 'lodash/assign';
 import LocaleReceiver from '../localereceiver';
 import { STOP } from '../rope';
-import Form, { FormAction, FieldGroup } from '../form';
+import { Form, FormAction, FieldGroup } from '../form';
 import { renderActions } from '../template-create-form/CreateForm';
 
 export default class DrawerForm extends React.Component {
