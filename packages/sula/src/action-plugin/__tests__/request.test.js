@@ -89,15 +89,15 @@ describe('sula request', () => {
     });
 
     it('redirect', async () => {
-      const fn = jest.fn();
-      Object.defineProperty(window, 'location', {
-        writable: true,
-        value: {
-          assign: fn,
-        }
-      });
+      // Object.defineProperty(window, 'location', {
+      //   writable: true,
+      //   value: {
+      //     assign: fn,
+      //   }
+      // });
+      window.location.assign = jest.fn();
       await fetch({ url: '/redirect.json' });
-      expect(fn).toHaveBeenCalledWith('http://www.github.com');
+      expect(window.location.assign).toHaveBeenCalledWith('http://www.github.com');
       window.location.assign.mockClear();
     });
 
