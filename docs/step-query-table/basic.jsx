@@ -90,7 +90,7 @@ const actions = [
     type: 'button',
     props: {
       type: 'primary',
-      children: '批量注册',
+      children: '批量发布',
     },
     action: [
       {
@@ -129,13 +129,26 @@ export default class BasicDemo extends React.Component {
           rowSelection={{}}
           steps={[
             {
-              title: 'Step1',
+              title: '待发布',
             },
             {
-              title: 'Step2',
+              title: '灰度中',
+              actionsRender: [{
+                type: 'button',
+                props: {
+                  children: '修改灰度比例'
+                }
+              }]
             },
             {
-              title: 'Step3',
+              title: '已发布',
+              actionsRender: [{
+                type: 'button',
+                props: {
+                  type: 'danger',
+                  children: '批量回滚'
+                }
+              }]
             }
           ]}
         />

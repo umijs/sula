@@ -60,6 +60,7 @@ export default class BasicDemo extends React.Component {
                   relates: ['gender'],
                   type: (ctx) => {
                     if (ctx.values[0] === 'female') {
+                      ctx.form.setFieldValue(ctx.name, ''); // 先清空
                       request({
                         url: 'https://www.mocky.io/v2/5185415ba171ea3a00704eed',
                         method: 'POST',
@@ -68,6 +69,8 @@ export default class BasicDemo extends React.Component {
                           ctx.form.setFieldValue(ctx.name, '喜欢中国女足');
                         }
                       });
+                    } else {
+                      ctx.form.setFieldValue(ctx.name, '踢足球');
                     }
                   },
                 },

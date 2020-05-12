@@ -44,18 +44,6 @@ export default class StepForm extends React.Component<StepQueryTableProps, StepQ
     });
   }
 
-  nextStep = () => {
-    this.setState({
-      current: this.state.current + 1,
-    });
-  };
-
-  previousStep = () => {
-    this.setState({
-      current: this.state.current - 1,
-    });
-  };
-
   handleStepChange = (current) => {
     this.setState({
       current,
@@ -81,7 +69,13 @@ export default class StepForm extends React.Component<StepQueryTableProps, StepQ
             {steps.map((step, stepIndex) => {
               const { title, subTitle, description } = step;
               return (
-                <Step title={title} subTitle={subTitle} description={description} key={stepIndex} />
+                <Step
+                  status={current === stepIndex ? 'process' : 'wait'}
+                  title={title}
+                  subTitle={subTitle}
+                  description={description}
+                  key={stepIndex}
+                />
               );
             })}
           </Steps>
