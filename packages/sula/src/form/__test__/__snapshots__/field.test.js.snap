@@ -140,6 +140,7 @@ exports[`field field get value 1`] = `
                           "opacity": 0,
                         }
                       }
+                      unselectable="on"
                       value=""
                     />
                   </span>
