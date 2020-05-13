@@ -36,7 +36,7 @@ describe('form action', () => {
 
     wrapper.find('.action-test-btn').last().simulate('click');
     expect(fn.mock.calls[0][0].form).not.toBeNull();
-    expect(wrapper.html()).toMatchSnapshot();
+    expect(wrapper.render()).toMatchSnapshot();
   });
 
   it('formaction component', () => {
@@ -59,6 +59,6 @@ describe('form action', () => {
     );
     wrapper.find('.action-test-btn').last().simulate('click');
     expect(fn.mock.calls[0][0].form).not.toBeNull();
-    expect(wrapper.html()).toMatchSnapshot();
+    expect(wrapper.render()).toMatchSnapshot();
   });
 });

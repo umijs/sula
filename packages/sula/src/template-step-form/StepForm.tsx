@@ -1,7 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 import omit from 'lodash/omit';
-import { Steps, Result } from 'antd';
+import { Steps, Result, Spin } from 'antd';
 import Memorize from './memorize';
 import { Form, FieldGroup, FormProps, FieldGroupProps, FormAction } from '../form';
 import { RequestConfig } from '../types/request';
@@ -29,10 +29,13 @@ export interface StepFormProps extends FormProps {
   steps: StepProps[];
   submit: RequestConfig;
   direction?: 'vertical' | 'horizontal';
+  stepsStyle?: React.CSSProperties;
+  formStyle?: React.CSSProperties;
 }
 
 interface StepFormState {
   current: number;
+  loading: boolean;
 }
 
 export default class StepForm extends React.Component<StepFormProps, StepFormState> {
@@ -43,6 +46,7 @@ export default class StepForm extends React.Component<StepFormProps, StepFormSta
 
   state = {
     current: 0,
+    loading: false,
   };
 
   getStepName = (stepIndex: number) => {
@@ -146,6 +150,7 @@ export default class StepForm extends React.Component<StepFormProps, StepFormSta
 
   renderStepForm = (locale) => {
     const { steps, result, direction, stepsStyle, formStyle, ...restFormProps } = this.props;
+    const { loading } = this.state;
 
     const formProps = omit(restFormProps, ['submit', 'back']);
 
@@ -171,52 +176,70 @@ export default class StepForm extends React.Component<StepFormProps, StepFormSta
           </Steps>
         </div>
         <div className={`sula-template-step-form-${direction}-form`} style={formStyle}>
-          <Form {...formProps}>
-            <Memorize>
-              {steps.map((step, stepIndex) => {
-                const isFirstStep = stepIndex === 0;
-                const isSubmitStep = stepIndex === steps.length - 1;
+          <Spin spinning={loading}>
+            <Form
+              {...formProps}
+              onRemoteValuesStart={() => {
+                this.setState({
+                  loading: true,
+                });
+              }}
+              onRemoteValuesEnd={() => {
+                this.setState({
+                  loading: false,
+                });
+              }}
+            >
+              <Memorize>
+                {steps.map((step, stepIndex) => {
+                  const isFirstStep = stepIndex === 0;
+                  const isSubmitStep = stepIndex === steps.length - 1;
 
-                let stepType: StepType;
-                if (isFirstStep) {
-                  stepType = 'first';
-                } else if (isSubmitStep) {
-                  stepType = 'submit';
-                } else {
-                  stepType = 'middle';
-                }
+                  let stepType: StepType;
+                  if (isFirstStep) {
+                    stepType = 'first';
+                  } else if (isSubmitStep) {
+                    stepType = 'submit';
+                  } else {
+                    stepType = 'middle';
+                  }
 
-                const actionsRender = this.renderStepActions(stepType, locale);
+                  const actionsRender = this.renderStepActions(stepType, locale);
 
-                const fieldGroupProps = omit(step, ['name', 'title', 'subTitle', 'description']);
+                  const fieldGroupProps = omit(step, ['name', 'title', 'subTitle', 'description']);
 
-                return (
-                  <MemorizeItem visible={current === stepIndex} key={stepIndex} memoId={stepIndex}>
-                    <FieldGroup
-                      name={this.getStepName(stepIndex)}
-                      actionsRender={actionsRender}
-                      {...fieldGroupProps}
+                  return (
+                    <MemorizeItem
+                      visible={current === stepIndex}
+                      key={stepIndex}
+                      memoId={stepIndex}
+                    >
+                      <FieldGroup
+                        name={this.getStepName(stepIndex)}
+                        actionsRender={actionsRender}
+                        {...fieldGroupProps}
+                      />
+                    </MemorizeItem>
+                  );
+                })}
+                {result && !isView ? (
+                  <MemorizeItem visible={current === steps.length} memoId={steps.length}>
+                    <Result
+                      className={`sula-template-step-form-${direction}-result`}
+                      status="success"
+                      title={locale.successText}
+                      extra={
+                        <FormAction
+                          actionsPosition="center"
+                          actionsRender={this.renderStepActions('result', locale)}
+                        />
+                      }
                     />
                   </MemorizeItem>
-                );
-              })}
-              {result && !isView ? (
-                <MemorizeItem visible={current === steps.length} memoId={steps.length}>
-                  <Result
-                    className={`sula-template-step-form-${direction}-result`}
-                    status="success"
-                    title={locale.successText}
-                    extra={
-                      <FormAction
-                        actionsPosition="center"
-                        actionsRender={this.renderStepActions('result', locale)}
-                      />
-                    }
-                  />
-                </MemorizeItem>
-              ) : null}
-            </Memorize>
-          </Form>
+                ) : null}
+              </Memorize>
+            </Form>
+          </Spin>
         </div>
       </div>
     );

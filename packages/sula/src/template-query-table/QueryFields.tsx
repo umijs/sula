@@ -1,14 +1,23 @@
 import React from 'react';
 import DownOutlined from '@ant-design/icons/DownOutlined';
 import cx from 'classnames';
-import { Col } from 'antd';
 import { getItemSpan } from '../form/utils/layoutUtil';
 import FieldGroupContext from '../form/FieldGroupContext';
-import { FieldGroup, Field, FormAction } from '../form';
+import { FieldGroup, Field, FormAction, FieldProps, FormInstance } from '../form';
 import './style/query-fields.less';
 import LocaleReceiver from '../localereceiver';
+import { ItemLayout, Layout } from '../form/FieldGroup';
 
-export default class QueryFields extends React.PureComponent {
+interface QueryFieldsProps {
+  fields: FieldProps[];
+  visibleFieldsCount: number;
+  itemLayout: ItemLayout;
+  layout: Layout;
+  getFormInstance: () => FormInstance;
+  hasActionsRender: boolean;
+}
+
+export default class QueryFields extends React.Component<QueryFieldsProps> {
   static contextType = FieldGroupContext;
 
   state = {

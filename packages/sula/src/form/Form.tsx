@@ -1,8 +1,8 @@
 import React from 'react';
-import { Form as AForm, Spin } from 'antd';
+import { Form as AForm } from 'antd';
 import omit from 'lodash/omit';
 import { FormProps as AFormProps, FormInstance as AFormInstance } from 'antd/lib/form';
-import {FieldGroupProps} from './FieldGroup';
+import { FieldGroupProps } from './FieldGroup';
 import FieldGroupContext, { rootGroupName, HOOK_MARK } from './FieldGroupContext';
 import { getItemLayout } from './utils/layoutUtil';
 import { NormalizedItemLayout } from './FieldGroup';
@@ -14,8 +14,12 @@ import MediaQueries from './MediaQueries';
 import { RequestConfig } from '../types/request';
 import { FieldNamePath } from '../types/form';
 
-export interface FormProps extends Omit<AFormProps, 'children'>, Omit<FieldGroupProps, 'name' | 'initialVisible' | 'dependency'> {
+export interface FormProps
+  extends Omit<AFormProps, 'children'>,
+    Omit<FieldGroupProps, 'name' | 'initialVisible' | 'dependency'> {
   remoteValues?: RequestConfig;
+  onRemoteValuesStart?: () => void;
+  onRemoteValuesEnd?: () => void;
   ctxGetter?: () => Record<string, any>;
 }
 
@@ -36,8 +40,6 @@ const Form: React.FC<FormProps> = (props, ref) => {
   const [context] = useFormContext(formInstance);
 
   React.useImperativeHandle(ref, context.getForm);
-
-  const [loading, setLoading] = React.useState(false);
 
   const { saveFormProps, saveFormDependency, cascade, getCtx } = context.getInternalHooks(
     HOOK_MARK,
@@ -61,6 +63,8 @@ const Form: React.FC<FormProps> = (props, ref) => {
     children,
     actionsRender,
     actionsPosition,
+    onRemoteValuesStart,
+    onRemoteValuesEnd,
   } = props;
 
   React.useEffect(() => {
@@ -70,14 +74,14 @@ const Form: React.FC<FormProps> = (props, ref) => {
     }
 
     if (mode !== 'create' && remoteValues && remoteValues.init !== false) {
-      setLoading(true);
+      onRemoteValuesStart && onRemoteValuesStart();
       triggerActionPlugin(ctx, remoteValues)
         .then((fieldsValue: any) => {
           ctx.form.setFieldsValue(fieldsValue);
-          setLoading(false);
+          onRemoteValuesEnd && onRemoteValuesEnd();
         })
         .catch(() => {
-          setLoading(false);
+          onRemoteValuesEnd && onRemoteValuesEnd();
         });
     }
   }, []);
@@ -103,6 +107,8 @@ const Form: React.FC<FormProps> = (props, ref) => {
     'actionsRender',
     'actionsPosition',
     'ctxGetter',
+    'onRemoteValuesStart',
+    'onRemoteValuesEnd'
   ]);
 
   const originValuesChange = formProps.onValuesChange;
@@ -137,15 +143,13 @@ const Form: React.FC<FormProps> = (props, ref) => {
         );
 
         return (
-          <Spin spinning={loading}>
-            <AForm
-              {...formProps}
-              wrapperCol={normalizedItemLayout.wrapperCol}
-              labelCol={normalizedItemLayout.labelCol}
-              children={wrapperChildren}
-              form={formInstance}
-            />
-          </Spin>
+          <AForm
+            {...formProps}
+            wrapperCol={normalizedItemLayout.wrapperCol}
+            labelCol={normalizedItemLayout.labelCol}
+            children={wrapperChildren}
+            form={formInstance}
+          />
         );
       }}
     </MediaQueries>

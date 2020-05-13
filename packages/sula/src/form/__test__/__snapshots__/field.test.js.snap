@@ -1,192 +1,184 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`field field get value 1`] = `
-<div
-  className="ant-spin-nested-loading"
+<form
+  className="ant-form ant-form-horizontal"
+  onSubmit={[Function]}
 >
   <div
-    className="ant-spin-container"
+    className="ant-row ant-form-item"
+    dependency={Object {}}
+    style={Object {}}
   >
-    <form
-      className="ant-form ant-form-horizontal"
-      onSubmit={[Function]}
+    <div
+      className="ant-col ant-col-8 ant-form-item-label"
+      style={Object {}}
+    >
+      <label
+        className=""
+        htmlFor="input"
+        title="input"
+      >
+        input
+      </label>
+    </div>
+    <div
+      className="ant-col ant-col-12 ant-form-item-control"
+      style={Object {}}
     >
       <div
-        className="ant-row ant-form-item"
-        dependency={Object {}}
-        style={Object {}}
+        className="ant-form-item-control-input"
       >
         <div
-          className="ant-col ant-col-8 ant-form-item-label"
-          style={Object {}}
+          className="ant-form-item-control-input-content"
         >
-          <label
-            className=""
-            htmlFor="input"
-            title="input"
-          >
-            input
-          </label>
-        </div>
-        <div
-          className="ant-col ant-col-12 ant-form-item-control"
-          style={Object {}}
-        >
-          <div
-            className="ant-form-item-control-input"
-          >
-            <div
-              className="ant-form-item-control-input-content"
-            >
-              <input
-                className="ant-input"
-                id="input"
-                onBlur={[Function]}
-                onChange={[Function]}
-                onFocus={[Function]}
-                onKeyDown={[Function]}
-                type="text"
-                value="a"
-              />
-            </div>
-          </div>
+          <input
+            className="ant-input"
+            id="input"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            type="text"
+            value="a"
+          />
         </div>
       </div>
-      <div
-        className="ant-row ant-form-item"
-        dependency={
-          Object {
-            "source": Object {
-              "defaultOutput": Array [
-                Object {
-                  "text": "a",
-                  "value": "a",
-                },
-              ],
-              "inputs": Array [
-                Array [
-                  "a",
-                ],
-              ],
-              "output": Array [
-                Object {
-                  "text": "b",
-                  "value": "b",
-                },
-              ],
-              "relates": Array [
-                "input",
-              ],
+    </div>
+  </div>
+  <div
+    className="ant-row ant-form-item"
+    dependency={
+      Object {
+        "source": Object {
+          "defaultOutput": Array [
+            Object {
+              "text": "a",
+              "value": "a",
             },
-          }
-        }
-        style={Object {}}
+          ],
+          "inputs": Array [
+            Array [
+              "a",
+            ],
+          ],
+          "output": Array [
+            Object {
+              "text": "b",
+              "value": "b",
+            },
+          ],
+          "relates": Array [
+            "input",
+          ],
+        },
+      }
+    }
+    style={Object {}}
+  >
+    <div
+      className="ant-col ant-col-8 ant-form-item-label"
+      style={Object {}}
+    >
+      <label
+        className=""
+        htmlFor="select"
+        title="select"
+      >
+        select
+      </label>
+    </div>
+    <div
+      className="ant-col ant-col-12 ant-form-item-control"
+      style={Object {}}
+    >
+      <div
+        className="ant-form-item-control-input"
       >
         <div
-          className="ant-col ant-col-8 ant-form-item-label"
-          style={Object {}}
-        >
-          <label
-            className=""
-            htmlFor="select"
-            title="select"
-          >
-            select
-          </label>
-        </div>
-        <div
-          className="ant-col ant-col-12 ant-form-item-control"
-          style={Object {}}
+          className="ant-form-item-control-input-content"
         >
           <div
-            className="ant-form-item-control-input"
+            className="ant-select ant-select-single ant-select-show-arrow"
+            onBlur={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            onMouseDown={[Function]}
           >
             <div
-              className="ant-form-item-control-input-content"
+              className="ant-select-selector"
+              onClick={[Function]}
+              onMouseDown={[Function]}
             >
-              <div
-                className="ant-select ant-select-single ant-select-show-arrow"
-                onBlur={[Function]}
-                onFocus={[Function]}
-                onKeyDown={[Function]}
-                onKeyUp={[Function]}
-                onMouseDown={[Function]}
+              <span
+                className="ant-select-selection-search"
               >
-                <div
-                  className="ant-select-selector"
-                  onClick={[Function]}
+                <input
+                  aria-activedescendant="select_list_0"
+                  aria-autocomplete="list"
+                  aria-controls="select_list"
+                  aria-haspopup="listbox"
+                  aria-owns="select_list"
+                  autoComplete="off"
+                  className="ant-select-selection-search-input"
+                  id="select"
+                  onChange={[Function]}
+                  onKeyDown={[Function]}
                   onMouseDown={[Function]}
-                >
-                  <span
-                    className="ant-select-selection-search"
-                  >
-                    <input
-                      aria-activedescendant="select_list_0"
-                      aria-autocomplete="list"
-                      aria-controls="select_list"
-                      aria-haspopup="listbox"
-                      aria-owns="select_list"
-                      autoComplete="off"
-                      className="ant-select-selection-search-input"
-                      id="select"
-                      onChange={[Function]}
-                      onKeyDown={[Function]}
-                      onMouseDown={[Function]}
-                      onPaste={[Function]}
-                      readOnly={true}
-                      role="combobox"
-                      style={
-                        Object {
-                          "opacity": 0,
-                        }
-                      }
-                      unselectable="on"
-                      value=""
-                    />
-                  </span>
-                  <span
-                    className="ant-select-selection-placeholder"
-                  />
-                </div>
-                <span
-                  aria-hidden={true}
-                  className="ant-select-arrow"
-                  onMouseDown={[Function]}
+                  onPaste={[Function]}
+                  readOnly={true}
+                  role="combobox"
                   style={
                     Object {
-                      "WebkitUserSelect": "none",
-                      "userSelect": "none",
+                      "opacity": 0,
                     }
                   }
                   unselectable="on"
-                >
-                  <span
-                    aria-label="down"
-                    className="anticon anticon-down"
-                    role="img"
-                  >
-                    <svg
-                      aria-hidden="true"
-                      className=""
-                      data-icon="down"
-                      fill="currentColor"
-                      focusable="false"
-                      height="1em"
-                      viewBox="64 64 896 896"
-                      width="1em"
-                    >
-                      <path
-                        d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
-                      />
-                    </svg>
-                  </span>
-                </span>
-              </div>
+                  value=""
+                />
+              </span>
+              <span
+                className="ant-select-selection-placeholder"
+              />
             </div>
+            <span
+              aria-hidden={true}
+              className="ant-select-arrow"
+              onMouseDown={[Function]}
+              style={
+                Object {
+                  "WebkitUserSelect": "none",
+                  "userSelect": "none",
+                }
+              }
+              unselectable="on"
+            >
+              <span
+                aria-label="down"
+                className="anticon anticon-down"
+                role="img"
+              >
+                <svg
+                  aria-hidden="true"
+                  className=""
+                  data-icon="down"
+                  fill="currentColor"
+                  focusable="false"
+                  height="1em"
+                  viewBox="64 64 896 896"
+                  width="1em"
+                >
+                  <path
+                    d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                  />
+                </svg>
+              </span>
+            </span>
           </div>
         </div>
       </div>
-    </form>
+    </div>
   </div>
-</div>
+</form>
 `;

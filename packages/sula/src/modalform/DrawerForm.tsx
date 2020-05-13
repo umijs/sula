@@ -1,5 +1,5 @@
 import React from 'react';
-import { Drawer } from 'antd';
+import { Drawer, Spin } from 'antd';
 import assign from 'lodash/assign';
 import LocaleReceiver from '../localereceiver';
 import { STOP } from '../rope';
@@ -7,21 +7,38 @@ import { Form, FormAction, FieldGroup } from '../form';
 import { renderActions } from '../template-create-form/CreateForm';
 
 export default class DrawerForm extends React.Component {
+  state = {
+    loading: false,
+  };
   render() {
     const { modal, visible } = this.props;
+
+    const { loading } = this.state;
 
     const { props = {} } = modal;
 
     // 存在 type 说明是插件场景
     const { type, title, width = 550, ...formProps } = props;
 
-    const { actionsRender, fields, ...restFormProps } = formProps;
+    const { actionsRender, fields, container, submit, ...restFormProps } = formProps;
 
     return (
       <LocaleReceiver>
         {(locale) => {
           return (
-            <Form {...restFormProps}>
+            <Form
+              {...restFormProps}
+              onRemoteValuesStart={() => {
+                this.setState({
+                  loading: true,
+                });
+              }}
+              onRemoteValuesEnd={() => {
+                this.setState({
+                  loading: false,
+                });
+              }}
+            >
               <Drawer
                 title={title}
                 width={width}
@@ -55,7 +72,9 @@ export default class DrawerForm extends React.Component {
                   ) : null
                 }
               >
-                <FieldGroup fields={fields} />
+                <Spin spinning={loading}>
+                  <FieldGroup container={container} fields={fields} />
+                </Spin>
               </Drawer>
             </Form>
           );

@@ -129,6 +129,35 @@ describe('sula request', () => {
     });
   });
 
+  describe('global config matchers', () => {
+    request.use(
+      (reqConfig) => {
+        if (reqConfig.url === '/matchers.json') {
+          return true;
+        }
+        return false;
+      },
+      {
+        bizDataAdapter(res) {
+          return {
+            ...res.data,
+            extra: true,
+          };
+        },
+      },
+    );
+
+    request.use(true, {});
+
+    it('costom matchers', async () => {
+      const res = await fetch({
+        url: '/matchers.json',
+        method: 'post',
+      });
+      expect(res).toEqual({ a: 123, extra: true });
+    });
+  });
+
   describe('getFormDataParams', () => {
     it('formData', () => {
       const formDataIerator = (data) => {

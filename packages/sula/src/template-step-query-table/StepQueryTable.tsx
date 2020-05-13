@@ -19,6 +19,8 @@ interface StepProps extends QueryTableProps {
 export interface StepQueryTableProps extends QueryTableProps {
   autoRefresh?: boolean;
   steps: StepProps[];
+  stepsStyle: React.CSSProperties;
+  queryTableStyle: React.CSSProperties;
 }
 
 interface StepQueryTableState {
@@ -80,7 +82,7 @@ export default class StepForm extends React.Component<StepQueryTableProps, StepQ
             })}
           </Steps>
         </div>
-        <div>
+        <div style={queryTableStyle}>
           <Memorize>
             {steps.map((step, stepIndex) => {
               const currentQueryTableProps = omit(step, ['title', 'subTitle', 'description']);

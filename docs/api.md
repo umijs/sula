@@ -139,6 +139,14 @@ const config = {
 }
 ```
 
+### onRemoteValuesStart
+
+一般用于控制loading显示
+
+### onRemoteValuesEnd
+
+一般用于控制loading隐藏
+
 ## Table
 
 ### 实例 API

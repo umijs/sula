@@ -7,6 +7,7 @@ import { RequestConfig } from '../types/request';
 import { ActionPlugin } from '../types/plugin';
 import { toArray } from '../_util/common';
 import LocaleReceiver from '../localereceiver';
+import { Spin } from 'antd';
 
 export interface CreateFormProps extends FormProps {
   submit: RequestConfig;
@@ -22,6 +23,10 @@ export default class CreateForm extends React.Component<CreateFormProps> {
     },
   };
 
+  state = {
+    loading: false,
+  };
+
   getActionsPosition(cols: number) {
     // 多列
     if (cols > 1) {
@@ -34,6 +39,7 @@ export default class CreateForm extends React.Component<CreateFormProps> {
   render() {
     const { submit, back, actionsPosition, actionsRender, ...formProps } = this.props;
     const { mode, itemLayout } = formProps;
+    const { loading } = this.state;
 
     return (
       <MediaQueries>
@@ -55,11 +61,23 @@ export default class CreateForm extends React.Component<CreateFormProps> {
                 );
 
                 return (
-                  <Form
-                    {...formProps}
-                    actionsRender={finalActionsRender}
-                    actionsPosition={finalActionsPosition}
-                  />
+                  <Spin spinning={loading}>
+                    <Form
+                      {...formProps}
+                      actionsRender={finalActionsRender}
+                      actionsPosition={finalActionsPosition}
+                      onRemoteValuesStart={() => {
+                        this.setState({
+                          loading: true,
+                        });
+                      }}
+                      onRemoteValuesEnd={() => {
+                        this.setState({
+                          loading: false,
+                        });
+                      }}
+                    />
+                  </Spin>
                 );
               }}
             </LocaleReceiver>

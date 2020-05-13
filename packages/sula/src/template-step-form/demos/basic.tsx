@@ -1,6 +1,6 @@
 import React from 'react';
 import { StepForm } from '..';
-import { submit } from '../../form/demos/common.jsx';
+import { submit, remoteValues } from '../../form/demos/common.jsx';
 import { Button } from 'antd';
 import ModeSwitcher from '../../form/demos/modeSwitcher.tsx';
 
@@ -66,7 +66,7 @@ export default class BaiscDemo extends React.Component {
         <ModeSwitcher value={mode} onChange={(mode) => this.setState({ mode })} />{' '}
         <div style={{ background: 'rgb(241, 242, 246)', padding: 16, marginTop: 16 }}>
           <div style={{ background: '#fff', padding: 24 }}>
-            <StepForm key={mode} mode={mode} direction={direction} steps={steps} submit={submit} result />
+            <StepForm key={mode} mode={mode} direction={direction} steps={steps} remoteValues={remoteValues} submit={submit} result />
           </div>
         </div>
       </div>

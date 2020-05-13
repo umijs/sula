@@ -1,5 +1,89 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`form action formaction component 1`] = `"<div class=\\"ant-spin-nested-loading\\"><div class=\\"ant-spin-container\\"><form class=\\"ant-form ant-form-vertical\\"><div class=\\"ant-row ant-form-item\\" style=\\"margin-bottom: 0px;\\"><div class=\\"ant-col ant-form-item-control\\"><div class=\\"ant-form-item-control-input\\"><div class=\\"ant-form-item-control-input-content\\"><div class=\\"sula-form-action-default\\"><button type=\\"button\\" class=\\"ant-btn action-test-btn\\"><span>btn</span></button></div></div></div></div></div></form></div></div>"`;
+exports[`form action formaction component 1`] = `
+<form
+  class="ant-form ant-form-vertical"
+>
+  <div
+    class="ant-row ant-form-item"
+    style="margin-bottom: 0px;"
+  >
+    <div
+      class="ant-col ant-form-item-control"
+    >
+      <div
+        class="ant-form-item-control-input"
+      >
+        <div
+          class="ant-form-item-control-input-content"
+        >
+          <div
+            class="sula-form-action-default"
+          >
+            <button
+              class="ant-btn action-test-btn"
+              type="button"
+            >
+              <span>
+                btn
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+`;
 
-exports[`form action formaction in form 1`] = `"<div class=\\"ant-spin-nested-loading\\"><div class=\\"ant-spin-container\\"><form class=\\"ant-form ant-form-horizontal\\"><div class=\\"ant-row ant-form-item\\"><div class=\\"ant-col ant-col-8 ant-form-item-label\\"><label for=\\"input\\" class=\\"\\" title=\\"input\\">input</label></div><div class=\\"ant-col ant-col-12 ant-form-item-control\\"><div class=\\"ant-form-item-control-input\\"><div class=\\"ant-form-item-control-input-content\\"><input type=\\"text\\" id=\\"input\\" class=\\"ant-input\\" value=\\"\\"></div></div></div></div><div class=\\"sula-form-action-center\\"><button type=\\"button\\" class=\\"ant-btn action-test-btn\\"><span>btn</span></button></div></form></div></div>"`;
+exports[`form action formaction in form 1`] = `
+<form
+  class="ant-form ant-form-horizontal"
+>
+  <div
+    class="ant-row ant-form-item"
+  >
+    <div
+      class="ant-col ant-col-8 ant-form-item-label"
+    >
+      <label
+        class=""
+        for="input"
+        title="input"
+      >
+        input
+      </label>
+    </div>
+    <div
+      class="ant-col ant-col-12 ant-form-item-control"
+    >
+      <div
+        class="ant-form-item-control-input"
+      >
+        <div
+          class="ant-form-item-control-input-content"
+        >
+          <input
+            class="ant-input"
+            id="input"
+            type="text"
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="sula-form-action-center"
+  >
+    <button
+      class="ant-btn action-test-btn"
+      type="button"
+    >
+      <span>
+        btn
+      </span>
+    </button>
+  </div>
+</form>
+`;

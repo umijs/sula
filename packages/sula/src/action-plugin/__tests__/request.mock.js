@@ -65,3 +65,12 @@ Mock.mock('/response.json', () => {
     id: 123,
   };
 });
+
+Mock.mock('/matchers.json', {
+  code: 200,
+  success: true,
+  message: 'success',
+  data: {
+    a: 123,
+  },
+});

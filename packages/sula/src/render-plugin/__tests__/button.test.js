@@ -6,13 +6,12 @@ import '../../__tests__/common';
 describe('button', () => {
   jest.useFakeTimers(); // 设置快速时间
   it('basic', () => {
+    const actions = jest.fn();
     const wrapper = mount(<ButtonPlugin
       icon="tablet"
       config={{
         action: [
-          () => {
-            console.log('first action')
-          },
+          actions,
           'stringAction'
         ]
       }}
@@ -21,6 +20,7 @@ describe('button', () => {
   })
   
   it('button click, no lastAction.final', () => {
+    const actions = jest.fn();
     const wrapper = mount(
       <ButtonPlugin
         autoLoading={false}
@@ -32,30 +32,29 @@ describe('button', () => {
                 ctx.button.hideLoading()
               }, 2000);
             },
+            actions,
             'finaAction'
           ]
         }}
       >按钮</ButtonPlugin>
     )
-
     expect(wrapper.render()).toMatchSnapshot();
     wrapper.find(ButtonPlugin).at(0).simulate('click');
     jest.runAllTimers(); // 时间快进
+    expect(wrapper.find('button').text()).toBe('按 钮');
+    expect(actions).toBeCalled();
   })
 
   it('button click, has lastAction.final', () => {
+    const actions = jest.fn();
     const wrapper = mount(
       <ButtonPlugin
         config={{
           action: [
-            () => {
-              console.log('first action');
-            },
+            actions,
             {
               type: jest.fn(),
-              final: () => {
-                console.log('final action');
-              }
+              final: jest.fn()
             }
           ]
         }}
@@ -64,24 +63,24 @@ describe('button', () => {
     expect(wrapper.render()).toMatchSnapshot();
     wrapper.find(ButtonPlugin).at(0).simulate('click');
     jest.runAllTimers(); // 时间快进
+
+    expect(wrapper.find('button').text()).toBe('按 钮');
+    expect(actions).toBeCalled();
 
     wrapper.update();
     wrapper.unmount();
   })
 
   it('button click, has lastAction.final', () => {
+    const actions = jest.fn();
     const wrapper = mount(
       <ButtonPlugin
         config={{
           action: [
-            () => {
-              console.log('first action');
-            },
+            actions,
             {
               type: jest.fn(),
-              before: () => {
-                console.log('before action');
-              }
+              before: jest.fn()
             }
           ]
         }}
@@ -90,5 +89,7 @@ describe('button', () => {
     expect(wrapper.render()).toMatchSnapshot();
     wrapper.find(ButtonPlugin).at(0).simulate('click');
     jest.runAllTimers(); // 时间快进
+
+    expect(actions).toBeCalled();
   })
 })

@@ -1,513 +1,411 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`layout item span 24 1`] = `
-<div
-  className="ant-spin-nested-loading"
+<form
+  class="ant-form ant-form-horizontal"
 >
   <div
-    className="ant-spin-container"
+    class="ant-row ant-form-item"
   >
-    <form
-      className="ant-form ant-form-horizontal"
-      onSubmit={[Function]}
+    <div
+      class="ant-col ant-col-8 ant-form-item-label"
+    >
+      <label
+        class=""
+        for="input1"
+        title="input1"
+      >
+        input1
+      </label>
+    </div>
+    <div
+      class="ant-col ant-col-12 ant-form-item-control"
     >
       <div
-        className="ant-row ant-form-item"
-        style={Object {}}
+        class="ant-form-item-control-input"
       >
         <div
-          className="ant-col ant-col-8 ant-form-item-label"
-          style={Object {}}
+          class="ant-form-item-control-input-content"
         >
-          <label
-            className=""
-            htmlFor="input1"
-            title="input1"
-          >
-            input1
-          </label>
-        </div>
-        <div
-          className="ant-col ant-col-12 ant-form-item-control"
-          style={Object {}}
-        >
-          <div
-            className="ant-form-item-control-input"
-          >
-            <div
-              className="ant-form-item-control-input-content"
-            >
-              <input
-                className="ant-input"
-                id="input1"
-                onBlur={[Function]}
-                onChange={[Function]}
-                onFocus={[Function]}
-                onKeyDown={[Function]}
-                type="text"
-                value=""
-              />
-            </div>
-          </div>
+          <input
+            class="ant-input"
+            id="input1"
+            type="text"
+            value=""
+          />
         </div>
       </div>
-      <div
-        className="ant-row ant-form-item"
-        style={Object {}}
-      >
-        <div
-          className="ant-col ant-col-8 ant-form-item-label"
-          style={Object {}}
-        >
-          <label
-            className=""
-            htmlFor="input2"
-            title="input2"
-          >
-            input2
-          </label>
-        </div>
-        <div
-          className="ant-col ant-col-12 ant-form-item-control"
-          style={Object {}}
-        >
-          <div
-            className="ant-form-item-control-input"
-          >
-            <div
-              className="ant-form-item-control-input-content"
-            >
-              <input
-                className="ant-input"
-                id="input2"
-                onBlur={[Function]}
-                onChange={[Function]}
-                onFocus={[Function]}
-                onKeyDown={[Function]}
-                type="text"
-                value=""
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        className="ant-row ant-form-item"
-        style={Object {}}
-      >
-        <div
-          className="ant-col ant-col-8 ant-form-item-label"
-          style={Object {}}
-        >
-          <label
-            className=""
-            htmlFor="input3"
-            title="input3"
-          >
-            input3
-          </label>
-        </div>
-        <div
-          className="ant-col ant-col-12 ant-form-item-control"
-          style={Object {}}
-        >
-          <div
-            className="ant-form-item-control-input"
-          >
-            <div
-              className="ant-form-item-control-input-content"
-            >
-              <input
-                className="ant-input"
-                id="input3"
-                onBlur={[Function]}
-                onChange={[Function]}
-                onFocus={[Function]}
-                onKeyDown={[Function]}
-                type="text"
-                value=""
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        className="ant-row ant-form-item"
-        style={Object {}}
-      >
-        <div
-          className="ant-col ant-col-8 ant-form-item-label"
-          style={Object {}}
-        >
-          <label
-            className=""
-            htmlFor="input4"
-            title="input4"
-          >
-            input4
-          </label>
-        </div>
-        <div
-          className="ant-col ant-col-12 ant-form-item-control"
-          style={Object {}}
-        >
-          <div
-            className="ant-form-item-control-input"
-          >
-            <div
-              className="ant-form-item-control-input-content"
-            >
-              <input
-                className="ant-input"
-                id="input4"
-                onBlur={[Function]}
-                onChange={[Function]}
-                onFocus={[Function]}
-                onKeyDown={[Function]}
-                type="text"
-                value=""
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        className="ant-row ant-form-item"
-        style={Object {}}
-      >
-        <div
-          className="ant-col ant-col-8 ant-form-item-label"
-          style={Object {}}
-        >
-          <label
-            className=""
-            htmlFor="input5"
-            title="input5"
-          >
-            input5
-          </label>
-        </div>
-        <div
-          className="ant-col ant-col-12 ant-form-item-control"
-          style={Object {}}
-        >
-          <div
-            className="ant-form-item-control-input"
-          >
-            <div
-              className="ant-form-item-control-input-content"
-            >
-              <input
-                className="ant-input"
-                id="input5"
-                onBlur={[Function]}
-                onChange={[Function]}
-                onFocus={[Function]}
-                onKeyDown={[Function]}
-                type="text"
-                value=""
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        className="ant-row ant-form-item"
-        style={Object {}}
-      >
-        <div
-          className="ant-col ant-col-8 ant-form-item-label"
-          style={Object {}}
-        >
-          <label
-            className=""
-            htmlFor="input6"
-            title="input6"
-          >
-            input6
-          </label>
-        </div>
-        <div
-          className="ant-col ant-col-12 ant-form-item-control"
-          style={Object {}}
-        >
-          <div
-            className="ant-form-item-control-input"
-          >
-            <div
-              className="ant-form-item-control-input-content"
-            >
-              <input
-                className="ant-input"
-                id="input6"
-                onBlur={[Function]}
-                onChange={[Function]}
-                onFocus={[Function]}
-                onKeyDown={[Function]}
-                type="text"
-                value=""
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </form>
+    </div>
   </div>
-</div>
+  <div
+    class="ant-row ant-form-item"
+  >
+    <div
+      class="ant-col ant-col-8 ant-form-item-label"
+    >
+      <label
+        class=""
+        for="input2"
+        title="input2"
+      >
+        input2
+      </label>
+    </div>
+    <div
+      class="ant-col ant-col-12 ant-form-item-control"
+    >
+      <div
+        class="ant-form-item-control-input"
+      >
+        <div
+          class="ant-form-item-control-input-content"
+        >
+          <input
+            class="ant-input"
+            id="input2"
+            type="text"
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="ant-row ant-form-item"
+  >
+    <div
+      class="ant-col ant-col-8 ant-form-item-label"
+    >
+      <label
+        class=""
+        for="input3"
+        title="input3"
+      >
+        input3
+      </label>
+    </div>
+    <div
+      class="ant-col ant-col-12 ant-form-item-control"
+    >
+      <div
+        class="ant-form-item-control-input"
+      >
+        <div
+          class="ant-form-item-control-input-content"
+        >
+          <input
+            class="ant-input"
+            id="input3"
+            type="text"
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="ant-row ant-form-item"
+  >
+    <div
+      class="ant-col ant-col-8 ant-form-item-label"
+    >
+      <label
+        class=""
+        for="input4"
+        title="input4"
+      >
+        input4
+      </label>
+    </div>
+    <div
+      class="ant-col ant-col-12 ant-form-item-control"
+    >
+      <div
+        class="ant-form-item-control-input"
+      >
+        <div
+          class="ant-form-item-control-input-content"
+        >
+          <input
+            class="ant-input"
+            id="input4"
+            type="text"
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="ant-row ant-form-item"
+  >
+    <div
+      class="ant-col ant-col-8 ant-form-item-label"
+    >
+      <label
+        class=""
+        for="input5"
+        title="input5"
+      >
+        input5
+      </label>
+    </div>
+    <div
+      class="ant-col ant-col-12 ant-form-item-control"
+    >
+      <div
+        class="ant-form-item-control-input"
+      >
+        <div
+          class="ant-form-item-control-input-content"
+        >
+          <input
+            class="ant-input"
+            id="input5"
+            type="text"
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="ant-row ant-form-item"
+  >
+    <div
+      class="ant-col ant-col-8 ant-form-item-label"
+    >
+      <label
+        class=""
+        for="input6"
+        title="input6"
+      >
+        input6
+      </label>
+    </div>
+    <div
+      class="ant-col ant-col-12 ant-form-item-control"
+    >
+      <div
+        class="ant-form-item-control-input"
+      >
+        <div
+          class="ant-form-item-control-input-content"
+        >
+          <input
+            class="ant-input"
+            id="input6"
+            type="text"
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
 `;
 
 exports[`layout itemlayout 1`] = `
-<div
-  className="ant-spin-nested-loading"
+<form
+  class="ant-form ant-form-horizontal"
 >
   <div
-    className="ant-spin-container"
+    class="ant-row ant-form-item"
   >
-    <form
-      className="ant-form ant-form-horizontal"
-      onSubmit={[Function]}
+    <div
+      class="ant-col ant-col-8 ant-form-item-label"
+    >
+      <label
+        class=""
+        for="input1"
+        title="input1"
+      >
+        input1
+      </label>
+    </div>
+    <div
+      class="ant-col ant-col-12 ant-form-item-control"
     >
       <div
-        className="ant-row ant-form-item"
-        style={Object {}}
+        class="ant-form-item-control-input"
       >
         <div
-          className="ant-col ant-col-8 ant-form-item-label"
-          style={Object {}}
+          class="ant-form-item-control-input-content"
         >
-          <label
-            className=""
-            htmlFor="input1"
-            title="input1"
-          >
-            input1
-          </label>
-        </div>
-        <div
-          className="ant-col ant-col-12 ant-form-item-control"
-          style={Object {}}
-        >
-          <div
-            className="ant-form-item-control-input"
-          >
-            <div
-              className="ant-form-item-control-input-content"
-            >
-              <input
-                className="ant-input"
-                id="input1"
-                onBlur={[Function]}
-                onChange={[Function]}
-                onFocus={[Function]}
-                onKeyDown={[Function]}
-                type="text"
-                value=""
-              />
-            </div>
-          </div>
+          <input
+            class="ant-input"
+            id="input1"
+            type="text"
+            value=""
+          />
         </div>
       </div>
-      <div
-        className="ant-row ant-form-item"
-        style={Object {}}
-      >
-        <div
-          className="ant-col ant-col-8 ant-form-item-label"
-          style={Object {}}
-        >
-          <label
-            className=""
-            htmlFor="input2"
-            title="input2"
-          >
-            input2
-          </label>
-        </div>
-        <div
-          className="ant-col ant-col-12 ant-form-item-control"
-          style={Object {}}
-        >
-          <div
-            className="ant-form-item-control-input"
-          >
-            <div
-              className="ant-form-item-control-input-content"
-            >
-              <input
-                className="ant-input"
-                id="input2"
-                onBlur={[Function]}
-                onChange={[Function]}
-                onFocus={[Function]}
-                onKeyDown={[Function]}
-                type="text"
-                value=""
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        className="ant-row ant-form-item"
-        style={Object {}}
-      >
-        <div
-          className="ant-col ant-col-8 ant-form-item-label"
-          style={Object {}}
-        >
-          <label
-            className=""
-            htmlFor="input3"
-            title="input3"
-          >
-            input3
-          </label>
-        </div>
-        <div
-          className="ant-col ant-col-12 ant-form-item-control"
-          style={Object {}}
-        >
-          <div
-            className="ant-form-item-control-input"
-          >
-            <div
-              className="ant-form-item-control-input-content"
-            >
-              <input
-                className="ant-input"
-                id="input3"
-                onBlur={[Function]}
-                onChange={[Function]}
-                onFocus={[Function]}
-                onKeyDown={[Function]}
-                type="text"
-                value=""
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        className="ant-row ant-form-item"
-        style={Object {}}
-      >
-        <div
-          className="ant-col ant-col-8 ant-form-item-label"
-          style={Object {}}
-        >
-          <label
-            className=""
-            htmlFor="input4"
-            title="input4"
-          >
-            input4
-          </label>
-        </div>
-        <div
-          className="ant-col ant-col-12 ant-form-item-control"
-          style={Object {}}
-        >
-          <div
-            className="ant-form-item-control-input"
-          >
-            <div
-              className="ant-form-item-control-input-content"
-            >
-              <input
-                className="ant-input"
-                id="input4"
-                onBlur={[Function]}
-                onChange={[Function]}
-                onFocus={[Function]}
-                onKeyDown={[Function]}
-                type="text"
-                value=""
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        className="ant-row ant-form-item"
-        style={Object {}}
-      >
-        <div
-          className="ant-col ant-col-8 ant-form-item-label"
-          style={Object {}}
-        >
-          <label
-            className=""
-            htmlFor="input5"
-            title="input5"
-          >
-            input5
-          </label>
-        </div>
-        <div
-          className="ant-col ant-col-12 ant-form-item-control"
-          style={Object {}}
-        >
-          <div
-            className="ant-form-item-control-input"
-          >
-            <div
-              className="ant-form-item-control-input-content"
-            >
-              <input
-                className="ant-input"
-                id="input5"
-                onBlur={[Function]}
-                onChange={[Function]}
-                onFocus={[Function]}
-                onKeyDown={[Function]}
-                type="text"
-                value=""
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        className="ant-row ant-form-item"
-        style={Object {}}
-      >
-        <div
-          className="ant-col ant-col-8 ant-form-item-label"
-          style={Object {}}
-        >
-          <label
-            className=""
-            htmlFor="input6"
-            title="input6"
-          >
-            input6
-          </label>
-        </div>
-        <div
-          className="ant-col ant-col-12 ant-form-item-control"
-          style={Object {}}
-        >
-          <div
-            className="ant-form-item-control-input"
-          >
-            <div
-              className="ant-form-item-control-input-content"
-            >
-              <input
-                className="ant-input"
-                id="input6"
-                onBlur={[Function]}
-                onChange={[Function]}
-                onFocus={[Function]}
-                onKeyDown={[Function]}
-                type="text"
-                value=""
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </form>
+    </div>
   </div>
-</div>
+  <div
+    class="ant-row ant-form-item"
+  >
+    <div
+      class="ant-col ant-col-8 ant-form-item-label"
+    >
+      <label
+        class=""
+        for="input2"
+        title="input2"
+      >
+        input2
+      </label>
+    </div>
+    <div
+      class="ant-col ant-col-12 ant-form-item-control"
+    >
+      <div
+        class="ant-form-item-control-input"
+      >
+        <div
+          class="ant-form-item-control-input-content"
+        >
+          <input
+            class="ant-input"
+            id="input2"
+            type="text"
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="ant-row ant-form-item"
+  >
+    <div
+      class="ant-col ant-col-8 ant-form-item-label"
+    >
+      <label
+        class=""
+        for="input3"
+        title="input3"
+      >
+        input3
+      </label>
+    </div>
+    <div
+      class="ant-col ant-col-12 ant-form-item-control"
+    >
+      <div
+        class="ant-form-item-control-input"
+      >
+        <div
+          class="ant-form-item-control-input-content"
+        >
+          <input
+            class="ant-input"
+            id="input3"
+            type="text"
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="ant-row ant-form-item"
+  >
+    <div
+      class="ant-col ant-col-8 ant-form-item-label"
+    >
+      <label
+        class=""
+        for="input4"
+        title="input4"
+      >
+        input4
+      </label>
+    </div>
+    <div
+      class="ant-col ant-col-12 ant-form-item-control"
+    >
+      <div
+        class="ant-form-item-control-input"
+      >
+        <div
+          class="ant-form-item-control-input-content"
+        >
+          <input
+            class="ant-input"
+            id="input4"
+            type="text"
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="ant-row ant-form-item"
+  >
+    <div
+      class="ant-col ant-col-8 ant-form-item-label"
+    >
+      <label
+        class=""
+        for="input5"
+        title="input5"
+      >
+        input5
+      </label>
+    </div>
+    <div
+      class="ant-col ant-col-12 ant-form-item-control"
+    >
+      <div
+        class="ant-form-item-control-input"
+      >
+        <div
+          class="ant-form-item-control-input-content"
+        >
+          <input
+            class="ant-input"
+            id="input5"
+            type="text"
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="ant-row ant-form-item"
+  >
+    <div
+      class="ant-col ant-col-8 ant-form-item-label"
+    >
+      <label
+        class=""
+        for="input6"
+        title="input6"
+      >
+        input6
+      </label>
+    </div>
+    <div
+      class="ant-col ant-col-12 ant-form-item-control"
+    >
+      <div
+        class="ant-form-item-control-input"
+      >
+        <div
+          class="ant-form-item-control-input-content"
+        >
+          <input
+            class="ant-input"
+            id="input6"
+            type="text"
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
 `;

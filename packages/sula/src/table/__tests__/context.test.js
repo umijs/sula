@@ -56,7 +56,7 @@ describe('use table context', () => {
       await actWait(() => {
         tableRef.resetTable();
       });
-      expect(wrapper.html()).toMatchSnapshot();
+      expect(wrapper.render()).toMatchSnapshot();
     });
 
     it('table controls', async () => {
@@ -153,7 +153,7 @@ describe('use table context', () => {
       await actWait(() => {
         tableRef.resetTable(false);
       });
-      expect(wrapper.html()).toMatchSnapshot();
+      expect(wrapper.render()).toMatchSnapshot();
     });
 
     it('init filters', async () => {
@@ -213,6 +213,7 @@ describe('use table context', () => {
             onChange={onChange}
             initialDataSource={dataSource.slice(0, 4)}
             rowSelection={{}}
+            leftActionsRender={['rowselection']}
             columns={[
               {
                 key: 'id',
@@ -235,7 +236,6 @@ describe('use table context', () => {
 
       const checkboxes = wrapper.find('input');
 
-      // await delay(500);
       await actWait(() => {
         checkboxes.first().simulate('change', { target: { checked: true } });
       });
@@ -259,8 +259,13 @@ describe('use table context', () => {
       ]);
 
       await actWait(() => {
-        tableRef.clearRowSelection();
+        wrapper.find('a').forEach((node) => {
+          if (node.text() === 'Clear') {
+            node.simulate('click');
+          }
+        });
       });
+
       expect(tableRef.getSelectedRowKeys()).toEqual([]);
 
       expect(checkboxes.at(3).props().checked).toEqual(false);
@@ -315,7 +320,7 @@ describe('use table context', () => {
       await actWait();
       await actWait(() => {
         wrapper.find('.ant-table-column-has-sorters').simulate('click');
-      })
+      });
       expect(curSorter).toEqual({ columnKey: 'age', order: 'ascend' });
       expect(onChange).toHaveBeenCalledWith(
         { current: 1, pageSize: 2, total: 20 },

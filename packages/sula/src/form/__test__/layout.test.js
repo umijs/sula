@@ -1,5 +1,5 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
+import { mount } from 'enzyme';
 import { Form } from '..';
 import '../../__tests__/common';
 
@@ -18,7 +18,7 @@ describe('layout', () => {
         dispatchEvent: jest.fn(),
       })),
     });
-    const form = (
+    const wrapper = mount(
       <Form
         itemLayout={{
           cols: {
@@ -66,11 +66,11 @@ describe('layout', () => {
       />
     );
 
-    expect(renderer.create(form).toJSON()).toMatchSnapshot();
+    expect(wrapper.render()).toMatchSnapshot();
   });
 
   it('item span 24', () => {
-    const form = (
+    const wrapper = mount(
       <Form
         itemLayout={{
           span: 24,
@@ -120,6 +120,6 @@ describe('layout', () => {
       />
     );
 
-    expect(renderer.create(form).toJSON()).toMatchSnapshot();
+    expect(wrapper.render()).toMatchSnapshot();
   });
 });

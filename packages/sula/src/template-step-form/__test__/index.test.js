@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { StepForm } from '../index';
-import { actWait } from '../../__tests__/common';
+import { actWait, updateWrapper } from '../../__tests__/common';
 
 const steps = [
   {
@@ -44,7 +44,6 @@ const submit = {
     name: 'sula',
   },
   finish: (ctx) => {
-    // console.log('ctx: ', ctx);
     return ctx.result;
   },
 };
@@ -86,7 +85,6 @@ describe('stepForm', () => {
         result
       />
     );
-    expect(wrapper.render()).toMatchSnapshot();
     const submitBtnList = [];
     wrapper.find('button').forEach(node => {
       if (node.text() === 'Next') {
@@ -103,7 +101,7 @@ describe('stepForm', () => {
         node.simulate('click');
       }
     })
-
+    expect(wrapper.render()).toMatchSnapshot();
     wrapper.unmount();
   })
 
@@ -117,7 +115,8 @@ describe('stepForm', () => {
         result
       />
     );
-    expect(wrapper.render()).toMatchSnapshot();
+
+    expect(wrapper.find('.ant-steps-item').at(0).props().className).toMatch('ant-steps-item-active');
     const submitBtnList = [];
     wrapper.find('button').forEach(node => {
       if (node.text() === 'Next') {
@@ -126,15 +125,18 @@ describe('stepForm', () => {
     })
 
     submitBtnList[0].simulate('click');
-    await actWait();
+    await updateWrapper(wrapper);
+    expect(wrapper.find('.ant-steps-item').at(1).props().className).toMatch('ant-steps-item-active')
     submitBtnList[1].simulate('click');
-    await actWait();
-
+    await updateWrapper(wrapper);
+    expect(wrapper.find('.ant-steps-item').at(2).props().className).toMatch('ant-steps-item-active');
     wrapper.find('button').forEach(node => {
       if (node.text() === 'Previous') {
         node.simulate('click');
       }
     });
+    await updateWrapper(wrapper);
+    expect(wrapper.render()).toMatchSnapshot();
 
     wrapper.unmount();
   })

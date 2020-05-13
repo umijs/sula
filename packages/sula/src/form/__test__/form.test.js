@@ -1,8 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import renderer from 'react-test-renderer';
 import { Form } from '..';
-import { delay, actWait } from '../../__tests__/common';
+import { actWait } from '../../__tests__/common';
 
 describe('form', () => {
   describe('form props', () => {
@@ -42,7 +41,7 @@ describe('form', () => {
       await wrapper.update();
       expect(formRef.getFieldsValue()).toEqual({ input: 'a', input2: 'aaa' });
       expect(onValuesChange).toHaveBeenCalled();
-      expect(wrapper.html()).toMatchSnapshot();
+      expect(wrapper.render()).toMatchSnapshot();
     });
 
     it('remoteValues', async () => {
@@ -119,18 +118,14 @@ describe('form', () => {
       const wrapper = mount(form);
       await actWait();
       expect(formRef.getFieldsValue()).toEqual({ input: undefined, input2: undefined });
-      expect(wrapper.html()).toMatchSnapshot();
+      expect(wrapper.render()).toMatchSnapshot();
     });
   });
 
   describe('children container', () => {
     it('children container', () => {
-      let formRef;
-      const form = (
+      const wrapper = mount(
         <Form
-          ref={(ref) => {
-            formRef = ref;
-          }}
           fields={[
             {
               label: 'Inputgroup',
@@ -189,7 +184,7 @@ describe('form', () => {
         />
       );
 
-      expect(renderer.create(form).toJSON()).toMatchSnapshot();
+      expect(wrapper.render()).toMatchSnapshot();
     });
   });
 });

@@ -48,7 +48,7 @@ describe('table', () => {
           ]}
         />,
       );
-      expect(wrapper.html()).toMatchSnapshot();
+      expect(wrapper.render()).toMatchSnapshot();
     });
 
     it('no pagination', async () => {
@@ -83,7 +83,7 @@ describe('table', () => {
         );
       })
       await actWait();
-      expect(wrapper.html()).toMatchSnapshot();
+      expect(wrapper.render()).toMatchSnapshot();
     });
 
     it('no paging', async () => {
@@ -112,7 +112,7 @@ describe('table', () => {
         />,
       );
       await actWait();
-      expect(wrapper.html()).toMatchSnapshot();
+      expect(wrapper.render()).toMatchSnapshot();
     });
   });
 

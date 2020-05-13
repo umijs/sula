@@ -20,7 +20,6 @@ const submit = {
     name: 'sula',
   },
   finish: (ctx) => {
-    console.log('ctx: ', ctx);
     return ctx.result;
   },
 };
@@ -64,9 +63,7 @@ describe('createForm', () => {
       <CreateForm
         fields={fields}
         mode="edit"
-        submit={() => {
-          console.log('submit field');
-        }}
+        submit={{}}
       />
     )
     expect(wrapper.render()).toMatchSnapshot();
@@ -88,9 +85,7 @@ describe('createForm', () => {
             action: fn,
           },
         ]}
-        submit={() => {
-          console.log('submit field');
-        }}
+        submit={{}}
       />
     )
     expect(wrapper.render()).toMatchSnapshot();

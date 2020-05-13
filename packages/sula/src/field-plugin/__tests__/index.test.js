@@ -4,7 +4,7 @@ import moment from 'moment';
 import { mount } from 'enzyme';
 import sula from '../../core';
 import { fieldPlugin } from '../plugin';
-import { setMockDate, resetMockDate, datepickerValueChange, rangepickerValueChange, timepickValueChange } from './utils';
+import { setMockDate, resetMockDate, datepickerValueChange, rangepickerValueChange } from './utils';
 
 import Select from '../select';
 import SulaCheckboxGroup from '../checkboxgroup';
@@ -213,12 +213,6 @@ describe('plugin', () => {
       expect(wrapper.render()).toMatchSnapshot();
       wrapper.unmount();
     })
-
-    // it('timepicker change valueFormat is true', () => {
-    //   const wrapper = mount(<TimePicker valueFormat onChange={() => jest.fn()} />);
-    //   wrapper.find('TimePicker').at(0).trigger('change');
-    //   timepickValueChange(wrapper);
-    // })
   })
 
   describe('Cascader', () => {
@@ -257,12 +251,12 @@ describe('plugin', () => {
           <Button>上传</Button>
         </Upload>
       )
-      expect(wrapper.render()).toMatchSnapshot();
       wrapper.find('input').at(0).simulate('change', {
         target: {
           files: [{ file: 'foo.png' }],
         },
       });
+      expect(wrapper.render()).toMatchSnapshot();
     })
   })
   

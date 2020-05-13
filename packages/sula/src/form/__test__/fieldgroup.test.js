@@ -1,6 +1,5 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import renderer from 'react-test-renderer';
 import { Form, FieldGroup, Field } from '..';
 import '../../__tests__/common';
 
@@ -88,7 +87,7 @@ describe('fieldgroup', () => {
   });
 
   it('actions', () => {
-    const form = (
+    const wrapper = mount(
       <Form
         fields={[
           {
@@ -143,12 +142,11 @@ describe('fieldgroup', () => {
       />
     );
 
-    const wrapper = renderer.create(form).toJSON();
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.render()).toMatchSnapshot();
   });
 
   it('component fieldgroup', () => {
-    const form = (
+    const wrapper = mount(
       <Form itemLayout={{ span: 12 }}>
         <FieldGroup>
           <Field name="input" label="input" field="input" initialVisible={false} />
@@ -175,6 +173,6 @@ describe('fieldgroup', () => {
         </div>
       </Form>
     );
-    expect(renderer.create(form)).toMatchSnapshot();
+    expect(wrapper.render()).toMatchSnapshot();
   });
 });

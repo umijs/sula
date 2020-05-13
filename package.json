@@ -29,6 +29,7 @@
     "cross-env": "^7.0.2",
     "del": "^5.1.0",
     "dumi": "^1.0.15",
+    "enzyme-to-json": "^3.4.4",
     "eslint": "^6.8.0",
     "father-build": "^1.17.2",
     "lerna": "^3.20.2",

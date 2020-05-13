@@ -120,10 +120,10 @@ export default class QueryTable extends React.Component<Props> {
 
   render() {
     return (
-      <div>
+      <React.Fragment>
         {this.renderForm()}
         {this.renderTable()}
-      </div>
+      </React.Fragment>
     );
   }
 }

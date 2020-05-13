@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { actWait } from '../../__tests__/common';
+import { updateWrapper } from '../../__tests__/common';
 import { StepQueryTable } from '..';
 
 const queryFields = Array(10)
@@ -76,10 +76,8 @@ const queryFields = Array(10)
           }]}
         />
       );
-      expect(wrapper.render()).toMatchSnapshot();
-      const instants = wrapper.find('QueryTable').at(0).instance();
-      instants.refs = { current: { refreshTable: () => {} } };
       
+      expect(wrapper.render()).toMatchSnapshot();
       // 刷新表格
       wrapper.find('button').forEach(node => {
         if (node.text() === 'Query') {
@@ -87,11 +85,14 @@ const queryFields = Array(10)
         }
       })
 
-      await actWait();
+      await updateWrapper(wrapper);
+
+      expect(wrapper.find('.ant-steps-item').at(0).props().className).toMatch('ant-steps-item-active')
       wrapper.find('.ant-steps-item-container').at(1).simulate('click');
-      wrapper.update();
-      await actWait();
+      await updateWrapper(wrapper);
+      expect(wrapper.find('.ant-steps-item').at(1).props().className).toMatch('ant-steps-item-active')
       wrapper.find('.ant-steps-item-container').at(2).simulate('click');
-      wrapper.update();
+      await updateWrapper(wrapper);
+      expect(wrapper.find('.ant-steps-item').at(2).props().className).toMatch('ant-steps-item-active')
     })
   })

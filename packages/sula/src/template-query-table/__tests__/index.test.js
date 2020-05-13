@@ -115,7 +115,6 @@ describe('query-table', () => {
       )
     })
 
-    expect(wrapper.render()).toMatchSnapshot();
     wrapper.find('a').at(0).simulate('click');
 
     await updateWrapper(wrapper);
@@ -131,5 +130,6 @@ describe('query-table', () => {
         node.simulate('click');
       }
     })
+    expect(wrapper.render()).toMatchSnapshot();
   })
 })

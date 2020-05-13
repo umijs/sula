@@ -80,16 +80,27 @@ describe('icon', () => {
   })
 
   describe('LoadingIconManager', () => {
+    it('no config', () => {
+      const wrapper = mount(
+        <IconPlugin type="appstore"/>
+      );
+      expect(wrapper.render()).toMatchSnapshot();
+    })
+
     it('autoLoading is false', () => {
+      const actions = jest.fn();
       const wrapper = mount(
         <IconPlugin
           config={{
-            action: ctx => {
-              ctx.icon.showLoading();
-              setTimeout(() => {
-                ctx.icon.hideLoading();
-              }, 2000);
-            }
+            action: [
+              ctx => {
+                ctx.icon.showLoading();
+                setTimeout(() => {
+                  ctx.icon.hideLoading();
+                }, 2000);
+              },
+              actions
+            ]
           }}
           autoLoading={false}
           type="appstore"
@@ -99,18 +110,18 @@ describe('icon', () => {
       wrapper.find(Icon).at(1).simulate('click');
       jest.runAllTimers(); // 时间快进
 
+      expect(actions).toBeCalled();
       wrapper.update();
       wrapper.unmount();
     })
 
     it('autoLoading is true', () => {
+      const actions = jest.fn();
       const wrapper = mount(
         <IconPlugin
           config={{
             action: [
-              () => {
-                console.log('next action');
-              },
+              actions,
               'finallyAction'
             ]
           }}
@@ -118,21 +129,19 @@ describe('icon', () => {
         />
       );
       expect(wrapper.render()).toMatchSnapshot();
+      
     })
 
     it('autoLoading is true, has lastAction.final', () => {
+      const actions = jest.fn();
       const wrapper = mount(
         <IconPlugin
           config={{
             action: [
-              () => {
-                console.log('next action');
-              },
+              actions,
               {
                 type: jest.fn(),
-                final: () => {
-                  console.log('final action')
-                }
+                final: jest.fn()
               }
             ]
           }}
@@ -141,21 +150,18 @@ describe('icon', () => {
       );
       expect(wrapper.render()).toMatchSnapshot();
       wrapper.find(Icon).at(1).simulate('click');
+      expect(actions).toBeCalled();
     })
 
     it('autoLoading is true, no lastAction.final', () => {
+      const actions = jest.fn();
       const wrapper = mount(
         <IconPlugin
           config={{
             action: [
-              () => {
-                console.log('next action');
-              },
+              actions,
               {
-                type: jest.fn(),
-                before: () => {
-                  console.log('final action')
-                }
+                before: jest.fn()
               }
             ]
           }}
@@ -164,13 +170,7 @@ describe('icon', () => {
       );
       expect(wrapper.render()).toMatchSnapshot();
       wrapper.find(Icon).at(1).simulate('click');
-    })
-
-    it('no config', () => {
-      const wrapper = mount(
-        <IconPlugin type="appstore"/>
-      );
-      expect(wrapper.render()).toMatchSnapshot();
+      expect(actions).toBeCalled();
     })
 
   })
