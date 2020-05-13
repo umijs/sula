@@ -6,6 +6,7 @@ import { submit } from '../../form/demos/common';
 export default class Baisc extends React.Component {
   render() {
     return (
+      <div>
       <Table
         rowKey={(record) => {
           return record.login.uuid;
@@ -119,6 +120,8 @@ export default class Baisc extends React.Component {
           },
         }}
       />
+  <Table initialDataSource={[{id: 0, name: 'sula'}, {id: 1, name: 'antd'}]} columns={[{title: 'name', key: 'name' }]} rowKey="id" rowSelection={{}} initialSelectedRowKeys={[1]} />
+</div>
     );
   }
 }

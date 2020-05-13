@@ -25,6 +25,7 @@ export interface TableProps extends ATableProps<Record<string, any>> {
         filters?: Filters;
       };
   initialDataSource?: DataSource;
+  initialSelectedRowKeys?: string[];
   actionsRender?: ActionPlugin | ActionPlugin[];
   leftActionsRender?: ActionPlugin | ActionPlugin[];
   ctxGetter?: () => Record<string, any>;

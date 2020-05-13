@@ -106,16 +106,16 @@ class ContextStore {
         this.hideLoading();
       });
   };
-  
+
   /**
    * 默认刷新
    */
   public resetTable = (isRefresh?: boolean) => {
-    if(this.controls.pagination) {
-      this.setPagination({current: 1});
+    if (this.controls.pagination) {
+      this.setPagination({ current: 1 });
     }
 
-    if(this.controls.filters) {
+    if (this.controls.filters) {
       const resetFilters = {} as Filters;
       Object.keys(this.controls.filters).forEach((columnKey: string) => {
         resetFilters[columnKey] = null;
@@ -124,17 +124,17 @@ class ContextStore {
       this.setFilters(resetFilters);
     }
 
-    if(this.controls.sorter && this.controls.sorter.columnKey) {
+    if (this.controls.sorter && this.controls.sorter.columnKey) {
       this.setSorter({
         columnKey: this.controls.sorter.columnKey,
         order: false,
       });
     }
 
-    if(isRefresh !== false) {
+    if (isRefresh !== false) {
       return this.refreshTable();
     }
-  }
+  };
 
   public setDataSource = (dataSource: any[]) => {
     this.controls.dataSource = dataSource;
@@ -253,6 +253,10 @@ class ContextStore {
     this.setSelectedRowKeys(selectedRowKeys);
 
     this.records.selectedRows = selectedRows;
+
+    if (this.tableProps.rowSelection && this.tableProps.rowSelection.onChange) {
+      this.tableProps.rowSelection.onChange(selectedRowKeys, selectedRows);
+    }
   };
 
   private onChange = (pagination: Pagination, filters: Filters, sorter: Sorter, currentData) => {
