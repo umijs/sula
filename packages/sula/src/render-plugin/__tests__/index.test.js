@@ -3,7 +3,7 @@ import { Input, Swicth } from 'antd';
 import { mount } from 'enzyme';
 import sula from '../../core';
 
-import { renderPlugin } from '../plugin';
+import { registerRenderPlugin } from '../plugin';
 import Text from '../text';
 import Card from '../card';
 import Div from '../div';
@@ -11,7 +11,7 @@ import Div from '../div';
 describe('render Plugin', () => {
   describe('renderPlugin', () => {
     it('has extraPropsName && config has extraPropsName', () => {
-      renderPlugin('text', ['type'])(Text, true);
+      registerRenderPlugin('text', ['type'])(Text, true);
       expect(sula.render(
         'text',
         {},
@@ -25,7 +25,7 @@ describe('render Plugin', () => {
     })
   
     it('has extraPropsName && config has not extraPropsName', () => {
-      renderPlugin('switch', ['defaultValue'])(Swicth, true);
+      registerRenderPlugin('switch', ['defaultValue'])(Swicth, true);
       expect(sula.render(
         'switch',
         {
@@ -36,7 +36,7 @@ describe('render Plugin', () => {
     })
   
     it('input test', () => {
-      renderPlugin('input')(Input, true);
+      registerRenderPlugin('input')(Input, true);
       expect(sula.render(
         'input',
         {},

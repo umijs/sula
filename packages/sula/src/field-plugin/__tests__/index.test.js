@@ -3,7 +3,7 @@ import { Swicth, Button } from 'antd';
 import moment from 'moment';
 import { mount } from 'enzyme';
 import sula from '../../core';
-import { fieldPlugin } from '../plugin';
+import { registerFieldPlugin } from '../plugin';
 import { setMockDate, resetMockDate, datepickerValueChange, rangepickerValueChange } from './utils';
 
 import Select from '../select';
@@ -93,9 +93,9 @@ describe('plugin', () => {
     resetMockDate();
   });
 
-  describe('fieldPlugin test', () => {
-    fieldPlugin('select')(Select, true, true);
-    fieldPlugin('switch')(Swicth);
+  describe('registerFieldPlugin test', () => {
+    registerFieldPlugin('select')(Select, true, true);
+    registerFieldPlugin('switch')(Swicth);
   
     it('select test', () => {
       expect(sula.field(

@@ -3,7 +3,7 @@ import { act } from 'react-dom/test-utils';
 
 import { registerRenderPlugins } from '../render-plugin';
 import { registerFieldPlugins } from '../field-plugin';
-import { registerActionPlugin } from '../action-plugin';
+import { registerActionPlugins } from '../action-plugin';
 
 const { mock } = Mock;
 
@@ -24,7 +24,7 @@ beforeAll(() => {
   });
   registerFieldPlugins();
   registerRenderPlugins();
-  registerActionPlugin();
+  registerActionPlugins();
 });
 
 export const delay = (timeout) => {
@@ -96,6 +96,11 @@ mock('/nopagination.json', {
 mock('/success.json', {
   success: true,
   code: 200,
+});
+
+mock('/error.json', {
+  success: true,
+  code: 500,
 });
 
 mock('/values.json', {

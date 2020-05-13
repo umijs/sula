@@ -31,19 +31,19 @@ export type RenderImpl = (ctx: Ctx, config: RenderPlugin) => React.ReactElement
 export type RegisterRenderPlugin = (
   pluginName: string,
   render: RenderImpl,
-) => React.ReactElement;
+) => void;
 
 export type FieldImpl = (ctx: Ctx, config: FieldPlugin) => React.ReactElement;
 export type RegisterFieldPlugin = (
   pluginName: string,
   field: FieldImpl,
-) => React.ReactElement;
+) => void;
 
 export type ActionImpl = (ctx: Ctx, config: ActionPlugin) => Promise<any> | any | void;
 export type RegisterActionPlugin = (
   pluginName: string,
   action: ActionImpl,
-) => any;
+) => void;
 
 // 其他注册插件
 // 数据转换
@@ -51,14 +51,14 @@ export type ConverterImpl = (ctx: Ctx, config: ConverterPlugin) => any;
 export type RegisterConverterPlugin = (
   pluginName: string,
   converter: ConverterImpl,
-) => any;
+) => void;
 
 // 参数转换
 export type ConvertParamsImpl = (ctx: Ctx, config: ConvertParamsPlugin) => any;
 export type RegisterConvertParamsPlugin = (
   pluginName: string,
   ConvertParams: ConvertParamsImpl,
-) => any;
+) => void;
 
 // 依赖转换
 export type DependencyImpl = (ctx: Ctx) => any;
@@ -72,7 +72,7 @@ export type RegisterDependencyPlugin = (
 
 // ============ Other Plugins ==============
 // 关联插件
-export type DependencyPluginFunction = (ctx: Ctx) => void;
+export type DependencyPluginFunction = (ctx: Ctx) => false | void;
 export type DependencyPlugin = {
   type: string | DependencyPluginFunction;
 };

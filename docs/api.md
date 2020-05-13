@@ -60,7 +60,7 @@ const config = {
 ```js
 // 1. 组件
 const fields = [{
-  field: 'input
+  field: 'input'
 }];
 
 // 2. 容器

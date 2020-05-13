@@ -74,6 +74,7 @@ export const request = (config: RequestConfig, ctx?) => {
         'convertParams',
         assign({}, ctx, {
           params: fparams,
+          request: requestOptions
         }),
         convertP,
       );
@@ -135,6 +136,7 @@ export const request = (config: RequestConfig, ctx?) => {
               assign({}, ctx, {
                 data: fData,
                 response: res,
+                request: requestOptions
               }),
               converterD,
             );

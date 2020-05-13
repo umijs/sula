@@ -10,6 +10,7 @@ export * from './template-step-query-table';
 export * from './render-plugin';
 export * from './field-plugin';
 export * from './action-plugin';
+export * from './plugin';
 
 export {
   ConfigProvider,
