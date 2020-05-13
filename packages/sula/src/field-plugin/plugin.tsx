@@ -3,7 +3,7 @@ import assign from 'lodash/assign';
 import sula from '../core';
 import { FieldPlugin } from '../types/plugin';
 
-export function fieldPlugin<Context = unknown>(pluginName: string) {
+export function registerFieldPlugin<Context = unknown>(pluginName: string) {
   return function wrapComponent(
     Component: React.ComponentClass | React.FunctionComponent,
     hasSource?: boolean,

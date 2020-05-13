@@ -4,7 +4,7 @@ import assign from 'lodash/assign';
 import sula from '../core';
 import { RenderPlugin } from '../types/plugin';
 
-export function renderPlugin<Context = unknown>(pluginName: string, extraPropsName?: string[]) {
+export function registerRenderPlugin<Context = unknown>(pluginName: string, extraPropsName?: string[]) {
   return function wrapComponent(
     Component: React.ComponentClass<any> | React.FunctionComponent<any> | 'a' | 'div',
     needCtxAndConfig?: boolean,

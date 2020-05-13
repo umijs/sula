@@ -9,38 +9,43 @@ import { refreshTable, resetTable } from './refreshTable';
 import { modalform, drawerform } from './modalform';
 import { request } from './request';
 import { back, forward, route } from './history';
+import { ActionImpl } from '../types/plugin';
 
-function registerActionPlugin() {
+function registerActionPlugin(pluginName: string, actionPlugin: ActionImpl) {
+  sula.actionType(pluginName, actionPlugin);
+}
+
+function registerActionPlugins() {
   // =============== form ================
-  sula.actionType('validateFields', validateFields);
-  sula.actionType('validateGroupFields', validateGroupFields);
-  sula.actionType('validateQueryFields', validateQueryFields);
-  sula.actionType('resetFields', resetFields);
+  registerActionPlugin('validateFields', validateFields);
+  registerActionPlugin('validateGroupFields', validateGroupFields);
+  registerActionPlugin('validateQueryFields', validateQueryFields);
+  registerActionPlugin('resetFields', resetFields);
 
   // ================= table ==================
-  sula.actionType('refreshTable', refreshTable);
-  sula.actionType('resetTable', resetTable);
+  registerActionPlugin('refreshTable', refreshTable);
+  registerActionPlugin('resetTable', resetTable);
 
-  sula.actionType('modalform', modalform);
-  sula.actionType('drawerform', drawerform);
+  registerActionPlugin('modalform', modalform);
+  registerActionPlugin('drawerform', drawerform);
 
   // ================= request =============
-  sula.actionType('request', (ctx, config) => {
+  registerActionPlugin('request', (ctx, config) => {
     return request(config, ctx);
   });
 
   // ================= history =================
-  sula.actionType('back', (ctx) => {
+  registerActionPlugin('back', (ctx) => {
     return back(ctx);
   });
 
-  sula.actionType('forward', (ctx) => {
+  registerActionPlugin('forward', (ctx) => {
     return forward(ctx);
   });
 
-  sula.actionType('route', (ctx, config) => {
+  registerActionPlugin('route', (ctx, config) => {
     return route(ctx, config);
   });
 }
 
-export { registerActionPlugin, request };
+export { request, registerActionPlugins, registerActionPlugin };

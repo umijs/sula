@@ -7,21 +7,21 @@ import Button, { ButtonPlugin } from './button';
 
 // only plugin
 import RowSelection from './rowSelection';
-import { renderPlugin } from './plugin';
+import { registerRenderPlugin } from './plugin';
 
 function registerRenderPlugins() {
-  renderPlugin('card')(Card);
-  renderPlugin('div')('div');
-  renderPlugin('a')('a');
-  renderPlugin('inputgroup')(Input.Group);
-  renderPlugin('text')(Text);
-  renderPlugin('button', ['autoLoading'])(ButtonPlugin, true);
-  renderPlugin('icon', ['autoLoading'])(IconPlugin, true);
+  registerRenderPlugin('card')(Card);
+  registerRenderPlugin('div')('div');
+  registerRenderPlugin('a')('a');
+  registerRenderPlugin('inputgroup')(Input.Group);
+  registerRenderPlugin('text')(Text);
+  registerRenderPlugin('button', ['autoLoading'])(ButtonPlugin, true);
+  registerRenderPlugin('icon', ['autoLoading'])(IconPlugin, true);
 
-  renderPlugin('rowSelection')(RowSelection, true);
-  renderPlugin('tag')(Tag);
-  renderPlugin('badge')(Badge);
-  renderPlugin('progress')(Progress);
+  registerRenderPlugin('rowSelection')(RowSelection, true);
+  registerRenderPlugin('tag')(Tag);
+  registerRenderPlugin('badge')(Badge);
+  registerRenderPlugin('progress')(Progress);
 }
 
-export { Card, Text, Icon, Button, registerRenderPlugins };
+export { Card, Text, Icon, Button, registerRenderPlugins, registerRenderPlugin };
