@@ -1,10 +1,10 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import DrawerForm from '..';
-import '../../__tests__/common';
+import { delay } from '../../__tests__/common';
 
 describe('modalform', () => {
-  it('close', () => {
+  it('close', async () => {
     let modalRef;
     const wrapper = mount(
       <div>
@@ -24,6 +24,10 @@ describe('modalform', () => {
                 url: '/success.json',
                 method: 'post',
               },
+              remoteValues: {
+                url: '/values.json',
+                method: 'post',
+              },
               fields: [
                 {
                   name: 'test',
@@ -41,6 +45,8 @@ describe('modalform', () => {
 
     wrapper.find('button').simulate('click');
     expect(wrapper.find('Drawer').props().visible).toEqual(true);
+
+    await delay(1000);
 
     wrapper.find('.ant-drawer-close').simulate('click');
     expect(wrapper.find('Drawer').props().visible).toEqual(false);

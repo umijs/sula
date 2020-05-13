@@ -98,4 +98,12 @@ mock('/success.json', {
   code: 200,
 });
 
+mock('/values.json', {
+  success: true,
+  code: 200,
+  data: {
+    test: '123'
+  }
+})
+
 export { dataSource };

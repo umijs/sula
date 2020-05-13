@@ -87,6 +87,8 @@ describe('form', () => {
 
     it('remoteValues Error', async () => {
       let formRef;
+      const startFn = jest.fn();
+      const endFn = jest.fn();
       const form = (
         <Form
           ref={(ref) => {
@@ -96,6 +98,8 @@ describe('form', () => {
             url: '/error.json', // 模拟请求报错
             method: 'post',
           }}
+          onRemoteValuesStart={startFn}
+          onRemoteValuesEnd={endFn}
           fields={[
             { name: 'input', label: 'input', field: 'input' },
             {
@@ -118,6 +122,8 @@ describe('form', () => {
       const wrapper = mount(form);
       await actWait();
       expect(formRef.getFieldsValue()).toEqual({ input: undefined, input2: undefined });
+      expect(startFn).toHaveBeenCalled();
+      expect(endFn).toHaveBeenCalled();
       expect(wrapper.render()).toMatchSnapshot();
     });
   });
@@ -181,10 +187,12 @@ describe('form', () => {
               ],
             },
           ]}
-        />
+        />,
       );
 
       expect(wrapper.render()).toMatchSnapshot();
     });
   });
+
+  describe('remote value start and end', () => {});
 });

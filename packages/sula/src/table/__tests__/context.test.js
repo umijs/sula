@@ -42,15 +42,11 @@ describe('use table context', () => {
       });
 
       expect(tableRef.getDataSource()).toEqual([]);
-      await actWait(() => {
-        tableRef.setDataSource(dataSource);
-      });
+      tableRef.setDataSource(dataSource);
       expect(tableRef.getDataSource()).toEqual(dataSource);
       await updateWrapper(wrapper);
       expect(wrapper.find('.ant-table-row').length).toBe(15);
-      await actWait(() => {
-        tableRef.setPagination({ pageSize: 5 });
-      });
+      tableRef.setPagination({ pageSize: 5 });
       await updateWrapper(wrapper);
       expect(wrapper.find('.ant-table-row').length).toBe(5);
       await actWait(() => {
@@ -64,6 +60,7 @@ describe('use table context', () => {
       let curFilters;
       let curSorter;
       let wrapper;
+      const fn = jest.fn();
       await actWait(() => {
         wrapper = mount(
           <Table
@@ -87,7 +84,9 @@ describe('use table context', () => {
                 return rest;
               },
             }}
-            rowSelection={{}}
+            rowSelection={{
+              onChange: fn,
+            }}
             columns={[
               {
                 key: 'id',
@@ -150,9 +149,8 @@ describe('use table context', () => {
       });
       expect(tableRef.getSelectedRowKeys()).toEqual([]);
 
-      await actWait(() => {
-        tableRef.resetTable(false);
-      });
+      tableRef.resetTable(false);
+      await delay(1000);
       expect(wrapper.render()).toMatchSnapshot();
     });
 
@@ -193,7 +191,7 @@ describe('use table context', () => {
         />,
       );
 
-      await actWait(() => {});
+      await actWait();
       expect(curFilters).toEqual({ name: 'lily1' });
     });
 
@@ -232,13 +230,9 @@ describe('use table context', () => {
         );
       });
 
-      await actWait();
-
       const checkboxes = wrapper.find('input');
 
-      await actWait(() => {
-        checkboxes.first().simulate('change', { target: { checked: true } });
-      });
+      checkboxes.first().simulate('change', { target: { checked: true } });
       expect(tableRef.getSelectedRowKeys()).toEqual([0, 1, 2, 3]);
       expect(tableRef.getSelectedRows()).toEqual([
         { age: 10, id: 0, name: 'lily0' },
@@ -247,10 +241,8 @@ describe('use table context', () => {
         { age: 13, id: 3, name: 'lily3' },
       ]);
 
-      await actWait(() => {
-        checkboxes.at(1).simulate('change', { target: { checked: false } });
-        checkboxes.at(2).simulate('change', { target: { checked: false } });
-      });
+      checkboxes.at(1).simulate('change', { target: { checked: false } });
+      checkboxes.at(2).simulate('change', { target: { checked: false } });
 
       expect(tableRef.getSelectedRowKeys()).toEqual([2, 3]);
       expect(tableRef.getSelectedRows()).toEqual([
@@ -258,12 +250,10 @@ describe('use table context', () => {
         { age: 13, id: 3, name: 'lily3' },
       ]);
 
-      await actWait(() => {
-        wrapper.find('a').forEach((node) => {
-          if (node.text() === 'Clear') {
-            node.simulate('click');
-          }
-        });
+      wrapper.find('a').forEach((node) => {
+        if (node.text() === 'Clear') {
+          node.simulate('click');
+        }
       });
 
       expect(tableRef.getSelectedRowKeys()).toEqual([]);
@@ -317,10 +307,9 @@ describe('use table context', () => {
           />,
         );
       });
-      await actWait();
-      await actWait(() => {
-        wrapper.find('.ant-table-column-has-sorters').simulate('click');
-      });
+
+      wrapper.find('.ant-table-column-has-sorters').simulate('click');
+      await delay(1000);
       expect(curSorter).toEqual({ columnKey: 'age', order: 'ascend' });
       expect(onChange).toHaveBeenCalledWith(
         { current: 1, pageSize: 2, total: 20 },

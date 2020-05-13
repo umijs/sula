@@ -1,44 +1,36 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`field field get value 1`] = `
+exports[`field field value and source change 1`] = `
 <form
-  className="ant-form ant-form-horizontal"
-  onSubmit={[Function]}
+  class="ant-form ant-form-horizontal"
 >
   <div
-    className="ant-row ant-form-item"
-    dependency={Object {}}
-    style={Object {}}
+    class="ant-row ant-form-item"
+    dependency="[object Object]"
   >
     <div
-      className="ant-col ant-col-8 ant-form-item-label"
-      style={Object {}}
+      class="ant-col ant-col-8 ant-form-item-label"
     >
       <label
-        className=""
-        htmlFor="input"
+        class=""
+        for="input"
         title="input"
       >
         input
       </label>
     </div>
     <div
-      className="ant-col ant-col-12 ant-form-item-control"
-      style={Object {}}
+      class="ant-col ant-col-12 ant-form-item-control"
     >
       <div
-        className="ant-form-item-control-input"
+        class="ant-form-item-control-input"
       >
         <div
-          className="ant-form-item-control-input-content"
+          class="ant-form-item-control-input-content"
         >
           <input
-            className="ant-input"
+            class="ant-input"
             id="input"
-            onBlur={[Function]}
-            onChange={[Function]}
-            onFocus={[Function]}
-            onKeyDown={[Function]}
             type="text"
             value="a"
           />
@@ -47,72 +39,37 @@ exports[`field field get value 1`] = `
     </div>
   </div>
   <div
-    className="ant-row ant-form-item"
-    dependency={
-      Object {
-        "source": Object {
-          "defaultOutput": Array [
-            Object {
-              "text": "a",
-              "value": "a",
-            },
-          ],
-          "inputs": Array [
-            Array [
-              "a",
-            ],
-          ],
-          "output": Array [
-            Object {
-              "text": "b",
-              "value": "b",
-            },
-          ],
-          "relates": Array [
-            "input",
-          ],
-        },
-      }
-    }
-    style={Object {}}
+    class="ant-row ant-form-item"
+    dependency="[object Object]"
   >
     <div
-      className="ant-col ant-col-8 ant-form-item-label"
-      style={Object {}}
+      class="ant-col ant-col-8 ant-form-item-label"
     >
       <label
-        className=""
-        htmlFor="select"
+        class=""
+        for="select"
         title="select"
       >
         select
       </label>
     </div>
     <div
-      className="ant-col ant-col-12 ant-form-item-control"
-      style={Object {}}
+      class="ant-col ant-col-12 ant-form-item-control"
     >
       <div
-        className="ant-form-item-control-input"
+        class="ant-form-item-control-input"
       >
         <div
-          className="ant-form-item-control-input-content"
+          class="ant-form-item-control-input-content"
         >
           <div
-            className="ant-select ant-select-single ant-select-show-arrow"
-            onBlur={[Function]}
-            onFocus={[Function]}
-            onKeyDown={[Function]}
-            onKeyUp={[Function]}
-            onMouseDown={[Function]}
+            class="ant-select ant-select-single ant-select-show-arrow"
           >
             <div
-              className="ant-select-selector"
-              onClick={[Function]}
-              onMouseDown={[Function]}
+              class="ant-select-selector"
             >
               <span
-                className="ant-select-selection-search"
+                class="ant-select-selection-search"
               >
                 <input
                   aria-activedescendant="select_list_0"
@@ -120,48 +77,34 @@ exports[`field field get value 1`] = `
                   aria-controls="select_list"
                   aria-haspopup="listbox"
                   aria-owns="select_list"
-                  autoComplete="off"
-                  className="ant-select-selection-search-input"
+                  autocomplete="off"
+                  class="ant-select-selection-search-input"
                   id="select"
-                  onChange={[Function]}
-                  onKeyDown={[Function]}
-                  onMouseDown={[Function]}
-                  onPaste={[Function]}
-                  readOnly={true}
+                  readonly=""
                   role="combobox"
-                  style={
-                    Object {
-                      "opacity": 0,
-                    }
-                  }
+                  style="opacity: 0;"
                   unselectable="on"
                   value=""
                 />
               </span>
               <span
-                className="ant-select-selection-placeholder"
+                class="ant-select-selection-placeholder"
               />
             </div>
             <span
-              aria-hidden={true}
-              className="ant-select-arrow"
-              onMouseDown={[Function]}
-              style={
-                Object {
-                  "WebkitUserSelect": "none",
-                  "userSelect": "none",
-                }
-              }
+              aria-hidden="true"
+              class="ant-select-arrow"
+              style="user-select: none;"
               unselectable="on"
             >
               <span
                 aria-label="down"
-                className="anticon anticon-down"
+                class="anticon anticon-down"
                 role="img"
               >
                 <svg
                   aria-hidden="true"
-                  className=""
+                  class=""
                   data-icon="down"
                   fill="currentColor"
                   focusable="false"
