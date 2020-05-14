@@ -2,7 +2,10 @@ import React from 'react';
 import { Table } from '..';
 import TableAction from '../TableAction';
 import { mount } from 'enzyme';
-import { dataSource, actWait } from '../../__tests__/common';
+import { delay, dataSource, actWait } from '../../__tests__/common';
+import { registerFilterPlugins } from '../filter-plugin';
+
+registerFilterPlugins();
 
 describe('table', () => {
   describe('table snapshot', () => {
@@ -81,37 +84,41 @@ describe('table', () => {
             rowSelection={{}}
           />,
         );
-      })
+      });
       await actWait();
       expect(wrapper.render()).toMatchSnapshot();
     });
 
     it('no paging', async () => {
-      const wrapper = mount(
-        <Table
-          rowKey="id"
-          remoteDataSource={{
-            url: '/error.json',
-            method: 'post',
-          }}
-          initialPaging={false}
-          columns={[
-            {
-              key: 'id',
-              title: 'Id',
-            },
-            {
-              key: 'name',
-              title: 'Name',
-            },
-            {
-              key: 'age',
-              title: 'Age',
-            },
-          ]}
-        />,
-      );
-      await actWait();
+      let wrapper;
+      await actWait(() => {
+        wrapper = mount(
+          <Table
+            rowKey="id"
+            remoteDataSource={{
+              url: '/nopagination.json',
+              method: 'post',
+            }}
+            initialPaging={false}
+            columns={[
+              {
+                key: 'id',
+                title: 'Id',
+              },
+              {
+                key: 'name',
+                title: 'Name',
+              },
+              {
+                key: 'age',
+                title: 'Age',
+              },
+            ]}
+          />,
+        );
+      });
+
+      await delay(1000);
       expect(wrapper.render()).toMatchSnapshot();
     });
   });
@@ -169,6 +176,81 @@ describe('table', () => {
       const ctx = fn.mock.calls[0][0];
       expect(ctx.table).not.toBeNull();
       expect(ctx.dataSource).not.toBeNull();
+    });
+  });
+
+  describe('table filterRender', () => {
+    it('filterRender', async () => {
+      function openFilters(wrapper) {
+        wrapper.find('.ant-table-filter-trigger').first().simulate('click');
+        wrapper
+          .find('input')
+          .last()
+          .simulate('change', { target: { value: 'a' } });
+      }
+
+      let curFilters;
+      let wrapper;
+      await actWait(() => {
+        wrapper = mount(
+          <Table
+            rowKey="id"
+            remoteDataSource={{
+              url: '/datasource.json',
+              method: 'post',
+              converter: ({ data }) => {
+                const { filters, ...rest } = data;
+                curFilters = filters;
+                return rest;
+              },
+            }}
+            columns={[
+              {
+                key: 'id',
+                title: 'Id',
+              },
+              {
+                key: 'name',
+                title: 'Name',
+                filterRender: 'search',
+              },
+              {
+                key: 'age',
+                title: 'Age',
+              },
+            ]}
+          />,
+        );
+      });
+
+      await actWait();
+
+      openFilters(wrapper);
+      wrapper.find('button').forEach((node) => {
+        if (node.text() === 'OK') {
+          node.simulate('click');
+        }
+      });
+
+      await actWait();
+      expect(curFilters).toEqual({ name: ['a'] });
+
+      openFilters(wrapper);
+      wrapper.find('button').forEach((node) => {
+        if (node.text() === 'Reset') {
+          node.simulate('click');
+        }
+      });
+
+      await actWait();
+      expect(curFilters).toEqual({ name: null });
+
+      openFilters(wrapper);
+
+      wrapper.find('input').last().simulate('keydown', { keyCode: 13 });
+
+      await actWait();
+      expect(curFilters).toEqual({ name: ['a'] });
     });
   });
 });

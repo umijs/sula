@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { CreateForm } from '../';
-import '../../__tests__/common';
+import { delay } from '../../__tests__/common';
 
 const fields = Array(10)
   .fill(0)
@@ -42,18 +42,33 @@ describe('createForm', () => {
         submit={finalSubmit}
       />
     );
+    wrapper.find('button').forEach(node => {
+      if (node === 'Submit') {
+        node.simulate('click');
+      }
+    })
+    wrapper.update();
     expect(wrapper.render()).toMatchSnapshot();
     wrapper.unmount();
   });
 
-  it('create mode', () => {
+  it('create mode', async() => {
     const wrapper = mount(
       <CreateForm
         fields={fields}
+        mode="view"
         itemLayout={{ cols: 3 }}
         submit={submit}
+        remoteValues={{
+          url: '/values.json',
+          method: 'post',
+        }}
       />
     );
+    wrapper.setProps({ mode: 'edit' });
+    wrapper.update();
+
+    await delay(1000);
     expect(wrapper.render()).toMatchSnapshot();
     wrapper.unmount();
   })
@@ -63,7 +78,7 @@ describe('createForm', () => {
       <CreateForm
         fields={fields}
         mode="edit"
-        submit={{}}
+        submit={jest.fn()}
       />
     )
     expect(wrapper.render()).toMatchSnapshot();
@@ -85,7 +100,7 @@ describe('createForm', () => {
             action: fn,
           },
         ]}
-        submit={{}}
+        submit={jest.fn()}
       />
     )
     expect(wrapper.render()).toMatchSnapshot();

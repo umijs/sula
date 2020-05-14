@@ -79,6 +79,7 @@ export default class Baisc extends React.Component {
               },
               {
                 type: 'button',
+                disabled: true,
                 props: {
                   children: 'Hello',
                 },

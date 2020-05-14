@@ -410,7 +410,7 @@ exports[`createForm create mode 1`] = `
               type="button"
             >
               <span>
-                Submit
+                Update
               </span>
             </button>
           </div>
@@ -422,7 +422,7 @@ exports[`createForm create mode 1`] = `
               type="button"
             >
               <span>
-                Cancel
+                Back
               </span>
             </button>
           </div>

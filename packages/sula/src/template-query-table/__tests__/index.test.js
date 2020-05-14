@@ -50,10 +50,25 @@ const remoteDataSource = {
 const queryFields = Array(6)
   .fill(0)
   .map((_, index) => {
+    let oItemLayout = {};
+    if (index === 1) {
+      oItemLayout = {
+        itemLayout: {
+          span: { xl: 3 }
+        }
+      }
+    } else if (index === 2) {
+      oItemLayout = {
+        itemLayout: {
+          span: 3
+        }
+      }
+    }
     return {
       name: `input${index}`,
       label: `Input${index}`,
       field: 'input',
+      ...oItemLayout
     };
   });
 
@@ -70,6 +85,7 @@ describe('query-table', () => {
       <QueryTable
         { ...config }
         layout="horizontal"
+        fields={queryFields}
         rowSelection={{ hideDefaultSelections: true }}
       />
     )
@@ -80,6 +96,7 @@ describe('query-table', () => {
     const wrapper = mount(
       <QueryTable
         { ...config }
+        itemLayout={{ span: { xl: 3 } }}
         layout="vertical"
         visibleFieldsCount={8}
         actionsRender={[

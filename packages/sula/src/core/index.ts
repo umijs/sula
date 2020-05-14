@@ -8,10 +8,12 @@ import {
   RegisterConverterPlugin,
   RegisterConvertParamsPlugin,
   RegisterDependencyPlugin,
+  RegisterFilterPlugin,
 } from '../types/plugin';
 
 export class PluginRegistry {
   public renderType: RegisterRenderPlugin = () => {};
+  public filterType: RegisterFilterPlugin = () => {};
   public fieldType: RegisterFieldPlugin = () => {};
   public actionType: RegisterActionPlugin = () => {};
   public converterType:  RegisterConverterPlugin = () => {};

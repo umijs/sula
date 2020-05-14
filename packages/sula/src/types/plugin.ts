@@ -1,4 +1,6 @@
-export type PluginType = 'render' | 'field' | 'action' | 'dependency' | 'converter' | 'convertParams';
+import { ColumnProps } from 'antd/lib/table';
+
+export type PluginType = 'render' | 'field' | 'action' | 'dependency' | 'converter' | 'convertParams' | 'filter';
 
 export type Ctx = any;
 
@@ -67,6 +69,10 @@ export type RegisterDependencyPlugin = (
   Dependency: DependencyImpl,
 ) => void;
 
+// 过滤插件
+export type FilterImpl = (ctx: Ctx, config: any) => Pick<ColumnProps<any>, 'filterDropdown' | 'onFilterDropdownVisibleChange'>;
+export type RegisterFilterPlugin = (plguinName: string, Filter: FilterImpl);
+
 
 // 触发插件
 
@@ -87,4 +93,9 @@ export type ConvertParamsPlugin = {
 export type ConverterPluginFunction = (ctx: Ctx) => any;
 export type ConverterPlugin = {
   type: string | ConverterPluginFunction;
+}
+
+// 过滤插件
+export type FilterPlugin = {
+  type: string;
 }
