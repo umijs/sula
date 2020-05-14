@@ -57,9 +57,12 @@ export const columns = [
     key: 'operator',
     render: [
       {
-        type: 'a',
+        type: 'button',
         props: {
+          size: 'small',
+          type: 'link',
           children: 'link',
+          style: {padding: 0}
         },
         action: [{
           type: 'route',

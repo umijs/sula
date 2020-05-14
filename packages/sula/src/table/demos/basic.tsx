@@ -37,6 +37,7 @@ export default class Baisc extends React.Component {
             key: 'name',
             title: 'Name',
             sorter: true,
+            filterRender: 'search',
             render: (ctx) => {
               return (
                 <b>

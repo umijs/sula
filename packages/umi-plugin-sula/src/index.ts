@@ -33,11 +33,12 @@ export default function (api: IApi) {
 
   api.addEntryCodeAhead(() =>
     `
-import { registerFieldPlugins, registerRenderPlugins, registerActionPlugins } from 'sula';
+import { registerFieldPlugins, registerRenderPlugins, registerActionPlugins, registerFilterPlugins } from 'sula';
 
 registerFieldPlugins();
 registerRenderPlugins();
 registerActionPlugins();
+registerFilterPlugins();
 `.trim(),
   );
 }

@@ -12,7 +12,6 @@ import { registerRenderPlugin } from './plugin';
 function registerRenderPlugins() {
   registerRenderPlugin('card')(Card);
   registerRenderPlugin('div')('div');
-  registerRenderPlugin('a')('a');
   registerRenderPlugin('inputgroup')(Input.Group);
   registerRenderPlugin('text')(Text);
   registerRenderPlugin('button', ['autoLoading'])(ButtonPlugin, true);

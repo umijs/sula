@@ -56,5 +56,6 @@ sula.registerType('action');
 sula.registerType('converter');
 sula.registerType('convertParams');
 sula.registerType('dependency');
+sula.registerType('filter');
 
 export default sula;

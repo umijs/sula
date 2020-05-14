@@ -7,7 +7,7 @@ import omit from 'lodash/omit';
 import isUndefined from 'lodash/isUndefined';
 import assign from 'lodash/assign';
 import useTableContext, { HOOK_MARK } from './useTableContext';
-import { triggerRenderPlugin } from '../rope/triggerPlugin';
+import { triggerRenderPlugin, triggerPlugin } from '../rope/triggerPlugin';
 import TableAction from './TableAction';
 import ModalForm from '../modalform';
 import { SulaConfigContext } from '../config-provider/context';
@@ -193,7 +193,10 @@ const RefTable: React.FunctionComponent<TableProps> = (props, ref) => {
       newColumn.filteredValue = controls && controls.filters ? controls.filters[key] : undefined;
     }
 
-    // TODO filterRender
+    if(column.filterRender) {
+      const filterOptions = triggerPlugin('filter', getCtx(), column.filterRender);
+      assign(newColumn, filterOptions);
+    }
 
     if (column.render) {
       newColumn.render = (text, record, index) => {
