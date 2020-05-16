@@ -24,6 +24,7 @@ type Props = {
   theme: 'filled' | 'twoTone';
 
   disabled?: boolean;
+  loading?: boolean;
   text?: string | React.ReactElement;
   iconMapper?: IconMapper; // 独立使用
 } & BasicIconProps;
@@ -54,14 +55,15 @@ export default class Icon extends React.Component<IconProps> {
   };
 
   render() {
-    const { type, theme, disabled, text, iconMapper, ...iconProps } = this.props;
+    const { type, theme, disabled, loading, text, iconMapper, ...iconProps } = this.props;
     const finalIconMapper: IconMapper = iconMapper || globalIconMapper;
     if (finalIconMapper[type]) {
       const iconMapperOfType = normalizeIconMapper(finalIconMapper[type]);
 
       const iconCls = cx(iconProps.className, {
         'sula-icon-disabled': !!disabled,
-        'sula-icon-clickable': !!iconProps.onClick && disabled !== true,
+        'sula-icon-clickable': !!iconProps.onClick && disabled !== true && loading !== true,
+        'sula-icon-loading': !!loading,
       });
 
 

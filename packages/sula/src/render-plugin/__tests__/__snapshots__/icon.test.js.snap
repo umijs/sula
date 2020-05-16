@@ -60,7 +60,7 @@ exports[`icon Icon test no text 1`] = `
 exports[`icon LoadingIcon basic loadingIcon 1`] = `
 <span
   aria-label="loading"
-  class="anticon anticon-loading sula-icon-disabled"
+  class="anticon anticon-loading sula-icon-loading"
   role="img"
 >
   <svg
@@ -84,7 +84,7 @@ exports[`icon LoadingIconManager autoLoading is false 1`] = `
 <span>
   <span
     aria-label="loading"
-    class="anticon anticon-loading sula-icon-disabled"
+    class="anticon anticon-loading sula-icon-loading"
     role="img"
     style="display: none;"
     tabindex="-1"
@@ -132,7 +132,7 @@ exports[`icon LoadingIconManager autoLoading is true 1`] = `
 <span>
   <span
     aria-label="loading"
-    class="anticon anticon-loading sula-icon-disabled"
+    class="anticon anticon-loading sula-icon-loading"
     role="img"
     style="display: none;"
     tabindex="-1"
@@ -180,7 +180,7 @@ exports[`icon LoadingIconManager autoLoading is true, has lastAction.final 1`] =
 <span>
   <span
     aria-label="loading"
-    class="anticon anticon-loading sula-icon-disabled"
+    class="anticon anticon-loading sula-icon-loading"
     role="img"
     style="display: none;"
     tabindex="-1"
@@ -228,7 +228,7 @@ exports[`icon LoadingIconManager autoLoading is true, no lastAction.final 1`] = 
 <span>
   <span
     aria-label="loading"
-    class="anticon anticon-loading sula-icon-disabled"
+    class="anticon anticon-loading sula-icon-loading"
     role="img"
     style="display: none;"
     tabindex="-1"

@@ -44,7 +44,7 @@ const RefLoadingButton: React.RefForwardingComponent<LoadingButtonHandler, Butto
 
 export const LoadingButton = React.forwardRef(RefLoadingButton);
 
-const LoadingButtonManager = (props) => {
+export const LoadingButtonManager: React.FunctionComponent = (props) => {
   const btnRef = React.useRef<LoadingButtonHandler>(null);
 
   const { ctx, config, autoLoading = true, ...restProps } = props;
@@ -118,4 +118,8 @@ const LoadingButtonManager = (props) => {
   return elem;
 };
 
-export default LoadingButtonManager;
+export const LoadingLinkManager = (props) => {
+  return (
+    <LoadingButtonManager {...props} type="link" style={assign({}, props.style, { padding: 0 })} />
+  );
+};

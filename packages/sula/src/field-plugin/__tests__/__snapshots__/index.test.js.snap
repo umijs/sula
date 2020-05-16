@@ -139,7 +139,6 @@ exports[`plugin RangePicker no props 1`] = `
     class="ant-picker-input ant-picker-input-active"
   >
     <input
-      autocomplete="off"
       placeholder="Start date"
       readonly=""
       size="21"
@@ -179,7 +178,6 @@ exports[`plugin RangePicker no props 1`] = `
     class="ant-picker-input"
   >
     <input
-      autocomplete="off"
       placeholder="End date"
       readonly=""
       size="21"
@@ -225,7 +223,6 @@ exports[`plugin RangePicker valueFormat is true, has value 1`] = `
     class="ant-picker-input ant-picker-input-active"
   >
     <input
-      autocomplete="off"
       placeholder="Start date"
       readonly=""
       size="21"
@@ -265,7 +262,6 @@ exports[`plugin RangePicker valueFormat is true, has value 1`] = `
     class="ant-picker-input"
   >
     <input
-      autocomplete="off"
       placeholder="End date"
       readonly=""
       size="21"
@@ -335,7 +331,6 @@ exports[`plugin RangePicker valueFormat is utc, has value 1`] = `
     class="ant-picker-input ant-picker-input-active"
   >
     <input
-      autocomplete="off"
       placeholder="Start date"
       readonly=""
       size="21"
@@ -375,7 +370,6 @@ exports[`plugin RangePicker valueFormat is utc, has value 1`] = `
     class="ant-picker-input"
   >
     <input
-      autocomplete="off"
       placeholder="End date"
       readonly=""
       size="21"
@@ -496,7 +490,6 @@ exports[`plugin datepicker has value, valueFormat props is true 1`] = `
     class="ant-picker-input"
   >
     <input
-      autocomplete="off"
       placeholder="Select date"
       readonly=""
       size="12"
@@ -563,7 +556,6 @@ exports[`plugin datepicker no props 1`] = `
     class="ant-picker-input"
   >
     <input
-      autocomplete="off"
       placeholder="Select date"
       readonly=""
       size="12"
@@ -606,7 +598,6 @@ exports[`plugin datepicker valueFormat props is utc 1`] = `
     class="ant-picker-input"
   >
     <input
-      autocomplete="off"
       placeholder="Select date"
       readonly=""
       size="12"
@@ -793,7 +784,6 @@ exports[`plugin timepicker no props 1`] = `
     class="ant-picker-input"
   >
     <input
-      autocomplete="off"
       placeholder="Select time"
       readonly=""
       size="10"
@@ -839,7 +829,6 @@ exports[`plugin timepicker valueFormat is true, has value 1`] = `
     class="ant-picker-input"
   >
     <input
-      autocomplete="off"
       placeholder="Select time"
       readonly=""
       size="10"
@@ -909,7 +898,6 @@ exports[`plugin timepicker valueFormat is utc, has value 1`] = `
     class="ant-picker-input"
   >
     <input
-      autocomplete="off"
       placeholder="Select time"
       readonly=""
       size="10"

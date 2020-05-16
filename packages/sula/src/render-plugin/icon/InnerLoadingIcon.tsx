@@ -7,7 +7,7 @@ export default class LoadingIcon extends React.Component {
     return (
       <Icon
         {...this.props}
-        disabled
+        loading
         type="loading"
         iconMapper={{
           loading: {

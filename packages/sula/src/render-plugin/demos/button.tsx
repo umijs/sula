@@ -26,6 +26,19 @@ export default () => {
       <br />
       {triggerRenderPlugin({}, [
         {
+          type: 'link',
+          props: {
+            children: '成功转2秒',
+          },
+          action: () => {
+            return new Promise((resolve) => {
+              setTimeout(() => {
+                resolve();
+              }, 2000);
+            });
+          },
+        },
+        {
           type: 'button',
           props: {
             type: 'primary',

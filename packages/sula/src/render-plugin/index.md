@@ -8,7 +8,7 @@ title: 渲染插件
 import React from 'react';
 import { Card, Text, Icon, Button } from './';
 import { IconPlugin } from './icon'
-import ButtonPlugin from './button/Button';
+import { ButtonPlugin }  from './button';
 
 export default () => {
   const [text, setText] = React.useState('文字');
@@ -39,17 +39,8 @@ export default () => {
         }, 2000)
       }}>转2秒</Button><br />
 
-      <ButtonPlugin
-        autoLoading={false}
-        config={{
-          action: [
-            ctx => {
-              console.log(ctx, 'ctx');
-            }
-          ]
-        }}
-      >转3秒</ButtonPlugin><br />
       <IconPlugin
+        text="转起来"
         config={{
           action: [
             ctx => {
