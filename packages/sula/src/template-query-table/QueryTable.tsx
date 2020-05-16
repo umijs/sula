@@ -121,7 +121,7 @@ export default class QueryTable extends React.Component<Props> {
   render() {
     return (
       <React.Fragment>
-        {this.renderForm()}
+        {this.props.fields && this.props.fields.length ? this.renderForm() : null}
         {this.renderTable()}
       </React.Fragment>
     );
