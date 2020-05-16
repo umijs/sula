@@ -8,7 +8,11 @@ export default function (api: IApi) {
     config: {
       schema(joi) {
         return joi.object({
-          name: joi.string(),
+          locale: joi.object({
+            default: joi.string(),
+            baseNavigator: joi.boolean(),
+            baseSeparator: joi.string(),
+          }),
         });
       },
     },
