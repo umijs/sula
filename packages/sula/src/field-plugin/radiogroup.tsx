@@ -9,7 +9,7 @@ export default class SulaRadioGroup extends React.Component {
     return (
       <RadioGroup {...restProps}>
         {source.map((item) => {
-          return <Radio value={item.value}>{item.text}</Radio>;
+          return <Radio value={item.value} key={item.value}>{item.text}</Radio>;
         })}
       </RadioGroup>
     );

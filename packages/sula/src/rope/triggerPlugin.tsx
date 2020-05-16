@@ -129,7 +129,9 @@ export const triggerSingleRenderPlugin = (lazyCtx: LazyPluginCtx, config: Render
   const normalizedRenderConfig = normalizeConfig(config) as RenderPlugin;
 
   const isTwiceTrigger =
-    normalizedRenderConfig.type === 'button' || normalizedRenderConfig.type === 'icon';
+    normalizedRenderConfig.type === 'button' ||
+    normalizedRenderConfig.type === 'link' ||
+    normalizedRenderConfig.type === 'icon';
 
   const renderNode = triggerPlugin(
     'render',

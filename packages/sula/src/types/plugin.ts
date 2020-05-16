@@ -71,7 +71,7 @@ export type RegisterDependencyPlugin = (
 
 // 过滤插件
 export type FilterImpl = (ctx: Ctx, config: any) => Pick<ColumnProps<any>, 'filterDropdown' | 'onFilterDropdownVisibleChange'>;
-export type RegisterFilterPlugin = (plguinName: string, Filter: FilterImpl);
+export type RegisterFilterPlugin = (plguinName: string, Filter: FilterImpl) => void;
 
 
 // 触发插件
