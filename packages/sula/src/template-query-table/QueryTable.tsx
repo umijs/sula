@@ -7,7 +7,7 @@ import { FormInstance } from '../types/form';
 import { Table } from '../table';
 import QueryFields from './QueryFields';
 
-type FormPropsPicks = 'fields' | 'initialValues';
+type FormPropsPicks = 'fields' | 'initialValues' | 'layout' | 'itemLayout';
 type TablePropsPicks =
   | 'remoteDataSource'
   | 'actionsRender'

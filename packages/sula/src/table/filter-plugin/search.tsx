@@ -36,6 +36,7 @@ export default class SearchFilter {
                 size="small"
                 disabled={!selectedKeys.length}
                 type="link"
+                style={{ padding: 0 }}
                 onClick={() => clearFilters()}
               >
                 {locale.resetText}

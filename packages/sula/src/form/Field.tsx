@@ -21,7 +21,7 @@ import FormDependency from './dependency';
 
 const FormItem = AForm.Item;
 
-export interface FieldProps extends Exclude<FormItemProps, 'children'> {
+export interface FieldProps extends Exclude<FormItemProps, 'children' | 'wrapperCol' | 'labelCol'> {
   field: FieldPlugin;
   name?: FieldNamePath;
   collect?: boolean;
@@ -159,11 +159,11 @@ export default class Field extends React.Component<FieldProps> {
   };
 
   private renderField(ctx, fieldConfig: FieldPlugin, extraConf) {
-    const { itemLayout, visible, formItemProps } = extraConf;
-
-    const { wrapperCol, labelCol } = formItemProps;
+    const { itemLayout, visible, childrenContainer, formItemProps } = extraConf;
 
     const { children, valuePropName = 'value' } = formItemProps;
+
+    const { wrapperCol, labelCol } = itemLayout;
 
     let fieldElem;
 
@@ -173,8 +173,8 @@ export default class Field extends React.Component<FieldProps> {
       } else {
         // 配置型childrne
         fieldElem = this.transChildrenToElems(ctx, children);
-        if (formItemProps.childrenContainer) {
-          const childrenContainerElem = triggerRenderPlugin(ctx, formItemProps.childrenContainer);
+        if (childrenContainer) {
+          const childrenContainerElem = triggerRenderPlugin(ctx, childrenContainer);
           fieldElem = React.cloneElement(childrenContainerElem as React.ReactElement, {
             children: fieldElem,
           });
@@ -221,6 +221,7 @@ export default class Field extends React.Component<FieldProps> {
       collect,
       remoteSource,
       itemLayout, // 无cols
+      childrenContainer,
       ...restProps
     } = this.props;
 
@@ -242,6 +243,7 @@ export default class Field extends React.Component<FieldProps> {
       layout,
       itemLayout: assignWithDefined({}, this.context.itemLayout, itemLayout),
       visible: this.visible,
+      childrenContainer,
       formItemProps: restProps,
     };
 
