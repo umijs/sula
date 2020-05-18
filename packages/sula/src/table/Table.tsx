@@ -11,11 +11,11 @@ import { triggerRenderPlugin, triggerPlugin } from '../rope/triggerPlugin';
 import TableAction from './TableAction';
 import ModalForm from '../modalform';
 import { SulaConfigContext } from '../config-provider/context';
-import { RenderPlugin, ActionPlugin } from '../types/plugin';
+import { RenderPlugin, ActionPlugin, FilterPlugin } from '../types/plugin';
 import { RequestConfig } from '../types/request';
 
 type DataSource = Record<string, any>;
-export interface TableProps extends ATableProps<Record<string, any>> {
+export interface TableProps extends Omit<ATableProps<Record<string, any>>, 'title'> {
   remoteDataSource?: RequestConfig;
   initialPaging?:
     | false
@@ -31,8 +31,9 @@ export interface TableProps extends ATableProps<Record<string, any>> {
   ctxGetter?: () => Record<string, any>;
 }
 
-export interface ColumnProps extends AColumnProps<any> {
-  filterRender: RenderPlugin;
+export interface ColumnProps extends Omit<AColumnProps<any>, 'render'> {
+  filterRender: FilterPlugin;
+  render: RenderPlugin;
 }
 
 export interface Sorter {

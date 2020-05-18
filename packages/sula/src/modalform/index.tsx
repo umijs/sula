@@ -10,6 +10,7 @@ export interface RefModalProps {
 
 export interface ModalFormProps extends FormProps {
   title: string | React.ReactElement;
+  width?: number;
 }
 
 const RefModalForm: React.FC<RefModalProps> = ({ type }, ref) => {
