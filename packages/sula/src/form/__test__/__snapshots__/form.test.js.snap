@@ -5,7 +5,6 @@ exports[`form children container children container 1`] = `
   class="ant-form ant-form-horizontal"
 >
   <div
-    childrencontainer="[object Object]"
     class="ant-row ant-form-item"
   >
     <div
@@ -34,7 +33,7 @@ exports[`form children container children container 1`] = `
               class="ant-row ant-form-item"
             >
               <div
-                class="ant-col ant-form-item-control"
+                class="ant-col ant-col-12 ant-form-item-control"
               >
                 <div
                   class="ant-form-item-control-input"
@@ -57,7 +56,7 @@ exports[`form children container children container 1`] = `
               class="ant-row ant-form-item"
             >
               <div
-                class="ant-col ant-form-item-control"
+                class="ant-col ant-col-12 ant-form-item-control"
               >
                 <div
                   class="ant-form-item-control-input"
@@ -82,7 +81,6 @@ exports[`form children container children container 1`] = `
     </div>
   </div>
   <div
-    childrencontainer="div"
     class="ant-row ant-form-item"
   >
     <div
@@ -109,7 +107,7 @@ exports[`form children container children container 1`] = `
               class="ant-row ant-form-item"
             >
               <div
-                class="ant-col ant-form-item-label"
+                class="ant-col ant-col-8 ant-form-item-label"
               >
                 <label
                   class=""
@@ -119,7 +117,7 @@ exports[`form children container children container 1`] = `
                 </label>
               </div>
               <div
-                class="ant-col ant-form-item-control"
+                class="ant-col ant-col-12 ant-form-item-control"
               >
                 <div
                   class="ant-form-item-control-input"
@@ -143,7 +141,7 @@ exports[`form children container children container 1`] = `
               class="ant-row ant-form-item"
             >
               <div
-                class="ant-col ant-form-item-label"
+                class="ant-col ant-col-8 ant-form-item-label"
               >
                 <label
                   class=""
@@ -153,7 +151,7 @@ exports[`form children container children container 1`] = `
                 </label>
               </div>
               <div
-                class="ant-col ant-form-item-control"
+                class="ant-col ant-col-12 ant-form-item-control"
               >
                 <div
                   class="ant-form-item-control-input"
