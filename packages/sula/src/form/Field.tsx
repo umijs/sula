@@ -21,7 +21,7 @@ import FormDependency from './dependency';
 
 const FormItem = AForm.Item;
 
-export interface FieldProps extends Exclude<FormItemProps, 'children' | 'wrapperCol' | 'labelCol'> {
+export interface FieldProps extends Omit<FormItemProps, 'children' | 'wrapperCol' | 'labelCol'> {
   field: FieldPlugin;
   name?: FieldNamePath;
   collect?: boolean;

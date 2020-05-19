@@ -50,15 +50,22 @@ type ConverterCtx = {
 type ConverterComboCtx = ConverterCtx & Partial<ActionResultComboCtx>;
 
 // 渲染插件
-export type RenderPluginFunction<T = RenderCtx> = (ctx: T) => React.ReactElement;
-export type RenderPlugin<T = RenderCtx> = {
+export type RenderPluginFunction = (ctx: RenderCtx) => React.ReactElement;
+export type RenderPlugin = {
   type: string | RenderPluginFunction;
   props: Record<string, any>;
-  functionProps: Record<string, (ctx: T) => string>;
-};
+  functionProps: Record<string, (ctx: RenderCtx) => string>;
+  action?: ActionPlugin | ActionPlugin[];
+} | string | RenderPluginFunction;
 
 // field插件
-export type FieldPlugin = RenderPlugin<FormCtx>;
+export type FieldPluginFunction = (ctx: FormCtx) => React.ReactElement;
+export type FieldPlugin = {
+  type: string | FieldPluginFunction;
+  props: Record<string, any>;
+  functionProps: Record<string, (ctx: FormCtx) => string>;
+  action?: ActionPlugin | ActionPlugin[];
+} | string | FieldPluginFunction;
 
 // 行为插件
 export type ActionPluginFunction = (ctx: ActionResultComboCtx) => Promise<any> | any | void;
@@ -71,7 +78,7 @@ export type ActionPlugin = {
   final?: ActionHookFunction;
   finish?: ActionPlugin | ActionPlugin[];
   [key: string]: any;
-};
+} | string | ActionPluginFunction;
 
 // 注册插件
 export type RenderImpl = (ctx: RenderCtx, config: RenderPlugin) => React.ReactElement
@@ -124,23 +131,21 @@ export type RegisterFilterPlugin = (plguinName: string, Filter: FilterImpl) => v
 // ============ Other Plugins ==============
 // 关联插件
 export type DependencyPluginFunction = (ctx: FormCtx & DependencyCtx) => false | void;
-export type DependencyPlugin = {
-  type: string | DependencyPluginFunction;
-};
+export type DependencyPlugin = string | DependencyPluginFunction;
 
 // 请求参数转换插件
 export type ConvertParamsPluginFunction = (ctx: ConvertParamsComboCtx) => any;
 export type ConvertParamsPlugin = {
   type: string | ConvertParamsPluginFunction;
-}
+} | string | ConvertParamsPluginFunction;
 
 // 请求返回数据转换插件
 export type ConverterPluginFunction = (ctx: ConverterComboCtx) => any;
 export type ConverterPlugin = {
   type: string | ConverterPluginFunction;
-}
+} | string | ConverterPluginFunction;
 
 // 过滤插件
 export type FilterPlugin = {
   type: string;
-}
+} | string;

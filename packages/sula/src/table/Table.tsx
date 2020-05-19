@@ -26,14 +26,14 @@ export interface TableProps extends Omit<ATableProps<Record<string, any>>, 'titl
       };
   initialDataSource?: DataSource;
   initialSelectedRowKeys?: string[];
-  actionsRender?: ActionPlugin | ActionPlugin[];
-  leftActionsRender?: ActionPlugin | ActionPlugin[];
+  actionsRender?: RenderPlugin | RenderPlugin[];
+  leftActionsRender?: RenderPlugin | RenderPlugin[];
   ctxGetter?: () => Record<string, any>;
 }
 
 export interface ColumnProps extends Omit<AColumnProps<any>, 'render'> {
   filterRender: FilterPlugin;
-  render: RenderPlugin;
+  render: RenderPlugin | RenderPlugin[];
 }
 
 export interface Sorter {

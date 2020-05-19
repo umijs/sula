@@ -13,7 +13,7 @@ const { Step } = Steps;
 
 const MemorizeItem = Memorize.Item;
 
-export interface StepProps extends Exclude<FieldGroupProps, 'name'> {
+export interface StepProps extends Omit<FieldGroupProps, 'name'> {
   title: string;
   subTitle?: string;
   description?: string;

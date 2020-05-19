@@ -21,8 +21,8 @@ export interface QueryTableProps
     Pick<TableProps, TablePropsPicks> {
   visibleFieldsCount?: number;
 
-  formProps?: Exclude<FormProps, FormPropsPicks>;
-  tableProps?: Exclude<TableProps, TablePropsPicks>;
+  formProps?: Omit<FormProps, FormPropsPicks>;
+  tableProps?: Omit<TableProps, TablePropsPicks>;
   autoInit?: boolean;
 }
 

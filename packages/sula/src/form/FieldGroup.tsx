@@ -15,6 +15,7 @@ import { getItemLayout, needWrapCols } from './utils/layoutUtil';
 import { triggerRenderPlugin, normalizeConfig } from '../rope/triggerPlugin';
 import { toArray } from '../_util/common';
 import FormAction from './FormAction';
+import { RenderPlugin } from '../types/plugin';
 
 export type Layout = 'horizontal' | 'vertical' | 'inline';
 
@@ -40,7 +41,7 @@ export interface FieldGroupProps {
   fields?: FieldProps[];
   dependency: Pick<Dependencies, 'visible'>;
   container?: RenderPlugin;
-  actionsRender?: RenderPlugin;
+  actionsRender?: RenderPlugin | RenderPlugin[];
   actionsPosition?: 'center' | 'right' | 'bottom';
 }
 
