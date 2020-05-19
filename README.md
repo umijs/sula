@@ -35,7 +35,7 @@ import { Form, Table, CreateForm, QueryTable, StepForm, StepQueryTable } from 's
 
 ## 🔗 Relates
 
-- [Sula Blogs](https://www.yuque.com/sula/blog)
+- [Sula Blogs](https://zhuanlan.zhihu.com/sulajs)
 
 
 ## Discuss
