@@ -22,6 +22,8 @@ export default () => {
       <Icon type="tablet" theme="filled" />
       <Icon type="appstore" />
       <Icon type="appstore" onClick={() => {}} />
+      <Icon type="car" onClick={() => {}} />
+      <Icon type="coffee" onClick={() => {}} />
       <Icon type="appstore" disabled onClick={() => {}} />
       <Icon
         type="tablet"

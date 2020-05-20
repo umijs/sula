@@ -77,7 +77,6 @@ export default class FieldGroup extends React.Component<FieldGroupProps> {
       return;
     }
 
-
     const formDependency: FormDependency = getFormDependency();
     const groupFieldPropsWithName = pick(this.props, ['dependency', 'name']);
     if (!groupFieldPropsWithName.name) {
@@ -204,7 +203,7 @@ export default class FieldGroup extends React.Component<FieldGroupProps> {
 
         finalChildren.push(childElem);
         finalChildren.push(child);
-      } else if (child.type === FormAction ) {
+      } else if (child.type === FormAction) {
         actionsElem = child;
         actionsPosition = child.props.actionsPosition;
       } else {
@@ -250,10 +249,6 @@ export default class FieldGroup extends React.Component<FieldGroupProps> {
 
     if (this.hasDependency) {
       finalContainer = normalizeConfig(finalContainer);
-
-      finalContainer.props = assign({}, (finalContainer.props || {}).style, {
-        display: this.visible === false ? 'none' : '',
-      });
     }
 
     let containerNode = triggerRenderPlugin(ctx, finalContainer);
@@ -262,6 +257,9 @@ export default class FieldGroup extends React.Component<FieldGroupProps> {
 
     containerNode = React.cloneElement(containerNode as React.ReactElement, {
       children,
+      style: assign({}, containerNode.props.style, {
+        display: this.visible === false ? 'none' : '',
+      }),
     });
 
     return containerNode;

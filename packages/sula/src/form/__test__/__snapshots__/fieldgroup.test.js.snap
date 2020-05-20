@@ -1,207 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`fieldgroup actions 1`] = `
-<form
-  class="ant-form ant-form-horizontal"
->
-  <div
-    class="ant-row ant-form-item"
-  >
-    <div
-      class="ant-col ant-col-8 ant-form-item-label"
-    >
-      <label
-        class=""
-        for="input1"
-        title="input1"
-      >
-        input1
-      </label>
-    </div>
-    <div
-      class="ant-col ant-col-12 ant-form-item-control"
-    >
-      <div
-        class="ant-form-item-control-input"
-      >
-        <div
-          class="ant-form-item-control-input-content"
-        >
-          <input
-            class="ant-input"
-            id="input1"
-            type="text"
-            value=""
-          />
-        </div>
-      </div>
-    </div>
-  </div>
-  <div
-    class="ant-row ant-form-item"
-  >
-    <div
-      class="ant-col ant-col-8 ant-form-item-label"
-    >
-      <label
-        class=""
-        for="input2"
-        title="input2"
-      >
-        input2
-      </label>
-    </div>
-    <div
-      class="ant-col ant-col-12 ant-form-item-control"
-    >
-      <div
-        class="ant-form-item-control-input"
-      >
-        <div
-          class="ant-form-item-control-input-content"
-        >
-          <input
-            class="ant-input"
-            id="input2"
-            type="text"
-            value=""
-          />
-        </div>
-      </div>
-    </div>
-  </div>
-  <div
-    class="ant-row ant-form-item"
-  >
-    <div
-      class="ant-col ant-col-8 ant-form-item-label"
-    >
-      <label
-        class=""
-        for="input3"
-        title="input3"
-      >
-        input3
-      </label>
-    </div>
-    <div
-      class="ant-col ant-col-12 ant-form-item-control"
-    >
-      <div
-        class="ant-form-item-control-input"
-      >
-        <div
-          class="ant-form-item-control-input-content"
-        >
-          <input
-            class="ant-input"
-            id="input3"
-            type="text"
-            value=""
-          />
-        </div>
-      </div>
-    </div>
-  </div>
-  <div
-    class="ant-row ant-form-item"
-  >
-    <div
-      class="ant-col ant-col-8 ant-form-item-label"
-    >
-      <label
-        class=""
-        for="input4"
-        title="input4"
-      >
-        input4
-      </label>
-    </div>
-    <div
-      class="ant-col ant-col-12 ant-form-item-control"
-    >
-      <div
-        class="ant-form-item-control-input"
-      >
-        <div
-          class="ant-form-item-control-input-content"
-        >
-          <input
-            class="ant-input"
-            id="input4"
-            type="text"
-            value=""
-          />
-        </div>
-      </div>
-    </div>
-  </div>
-  <div
-    class="ant-row ant-form-item"
-  >
-    <div
-      class="ant-col ant-col-8 ant-form-item-label"
-    >
-      <label
-        class=""
-        for="input5"
-        title="input5"
-      >
-        input5
-      </label>
-    </div>
-    <div
-      class="ant-col ant-col-12 ant-form-item-control"
-    >
-      <div
-        class="ant-form-item-control-input"
-      >
-        <div
-          class="ant-form-item-control-input-content"
-        >
-          <input
-            class="ant-input"
-            id="input5"
-            type="text"
-            value=""
-          />
-        </div>
-      </div>
-    </div>
-  </div>
-  <div
-    class="ant-row ant-form-item"
-    style="margin-bottom: 0px;"
-  >
-    <div
-      class="ant-col ant-col-12 ant-col-offset-8 ant-form-item-control"
-    >
-      <div
-        class="ant-form-item-control-input"
-      >
-        <div
-          class="ant-form-item-control-input-content"
-        >
-          <div
-            class="sula-form-action-default"
-          >
-            <button
-              class="ant-btn"
-              type="button"
-            >
-              <span>
-                Btn
-              </span>
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</form>
-`;
-
-exports[`fieldgroup component fieldgroup 1`] = `
+exports[`fieldgroup fieldgroup layout span !== 24 1`] = `
 <form
   class="ant-form ant-form-horizontal"
 >
@@ -210,8 +9,8 @@ exports[`fieldgroup component fieldgroup 1`] = `
     style="margin-left: -12px; margin-right: -12px;"
   >
     <div
-      class="ant-col ant-col-12"
-      style="padding-left: 12px; padding-right: 12px; display: none;"
+      class="ant-col ant-col-6"
+      style="padding-left: 12px; padding-right: 12px;"
     >
       <div
         class="ant-row ant-form-item"
@@ -339,7 +138,7 @@ exports[`fieldgroup component fieldgroup 1`] = `
     style="margin-left: -12px; margin-right: -12px;"
   >
     <div
-      class="ant-col ant-col-6"
+      class="ant-col ant-col-12"
       style="padding-left: 12px; padding-right: 12px;"
     >
       <div

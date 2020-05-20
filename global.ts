@@ -1,5 +1,5 @@
 import { Icon } from './packages/sula/src/index';
-import { TabletFilled, AppstoreOutlined } from '@ant-design/icons';
+import { TabletFilled, AppstoreOutlined, CarOutlined, CoffeeOutlined } from '@ant-design/icons';
 
 // umi-plugin-sula 承载
 // registerFieldPlugins();
@@ -13,4 +13,8 @@ Icon.iconRegister({
   appstore: {
     outlined: AppstoreOutlined,
   },
+  car: {
+    outlined: CarOutlined,
+  },
+  coffee: CoffeeOutlined,
 });

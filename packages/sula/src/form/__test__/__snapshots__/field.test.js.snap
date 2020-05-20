@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`field field value and source change 1`] = `
+exports[`field other value and source change 1`] = `
 <form
   class="ant-form ant-form-horizontal"
 >

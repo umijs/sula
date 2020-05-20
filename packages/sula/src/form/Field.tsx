@@ -171,7 +171,7 @@ export default class Field extends React.Component<FieldProps> {
       if (React.isValidElement(children)) {
         fieldElem = children;
       } else {
-        // 配置型childrne
+        // 配置型children
         fieldElem = this.transChildrenToElems(ctx, children);
         if (childrenContainer) {
           const childrenContainerElem = triggerRenderPlugin(ctx, childrenContainer);
