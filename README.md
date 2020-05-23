@@ -21,8 +21,8 @@
 
 - [sula-cooker](https://cook.sula.now.sh)
 
-<div style="padding: 8px; background-color: #f1f2f6; display: flex; justify-content: space-around">
-  <img src="https://img.alicdn.com/tfs/TB1shwYHoz1gK0jSZLeXXb9kVXa-2678-1416.png" width="49%"/>
+<div>
+  <img src="https://img.alicdn.com/tfs/TB1wAXcHrY1gK0jSZTEXXXDQVXa-2684-1414.png" width="49%"/>
   <img src="https://img.alicdn.com/tfs/TB1VWE5HkT2gK0jSZFkXXcIQFXa-2682-1412.png" width="49%"/>
 </div>
 
