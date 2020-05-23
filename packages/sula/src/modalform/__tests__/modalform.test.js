@@ -1,5 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
+import { act } from 'react-dom/test-utils';
 import ModalForm from '..';
 import { delay } from '../../__tests__/common';
 
@@ -86,6 +87,7 @@ describe('modalform', () => {
         </button>
       </div>,
     );
+
     wrapper.find('button').simulate('click');
     wrapper.update();
     wrapper
@@ -96,7 +98,9 @@ describe('modalform', () => {
     wrapper.update();
 
     const { modal } = wrapper.find('ModalForm').props();
-    modal.close('@@sula_action_stop');
+    act(() => {
+      modal.close('@@sula_action_stop');
+    });
     wrapper.update();
 
     expect(wrapper.find('Modal').props().visible).toEqual(false);

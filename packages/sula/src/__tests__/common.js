@@ -7,6 +7,10 @@ import { registerActionPlugins } from '../action-plugin';
 
 const { mock } = Mock;
 
+Mock.setup({
+  timeout: 800,
+});
+
 beforeAll(() => {
   // https://jestjs.io/docs/en/manual-mocks#mocking-methods-which-are-not-implemented-in-jsdom
   Object.defineProperty(window, 'matchMedia', {
@@ -98,17 +102,12 @@ mock('/success.json', {
   code: 200,
 });
 
-mock('/error.json', {
-  success: true,
-  code: 500,
-});
-
 mock('/values.json', {
   success: true,
   code: 200,
   data: {
-    test: '123'
-  }
-})
+    test: '123',
+  },
+});
 
 export { dataSource };

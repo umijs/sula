@@ -4,6 +4,7 @@ import DepStore, {
   allMatch,
   equal,
 } from '../dependency/DepStore';
+import FormDependency from '../dependency';
 import '../../__tests__/common';
 
 describe('depstore', () => {
@@ -392,6 +393,59 @@ describe('depstore', () => {
           [1, 4],
         ),
       ).toBeFalsy();
+    });
+  });
+
+  describe('FormDependency', () => {
+    let formDependency;
+    beforeEach(() => {
+      formDependency = new FormDependency();
+    });
+
+    it('parseFormDependency', () => {
+      expect(
+        formDependency.parseFormDependency({
+          name: 'input2',
+          label: 'input2',
+          field: 'input',
+          dependency: {
+            value: {
+              relates: ['input'],
+              inputs: [['aaa']],
+              output: 'one',
+              defaultOutput: '',
+            },
+          },
+        }),
+      ).toEqual({ name: 'input2', label: 'input2', field: 'input' });
+      expect(formDependency.depStore.depsByFieldNameList.getNameLists()).toEqual([['input']]);
+      expect(formDependency.getCascades()).toEqual([['input']]);
+      const form = {
+        setFieldDisabled: jest.fn(),
+        setFieldVisible: jest.fn(),
+        setFieldValue: jest.fn(),
+        setFieldSource: jest.fn(),
+        getFieldValue: jest.fn(() => 'aaa'),
+      };
+      formDependency.cascade({ form }, [{ name: ['select'], value: 'a' }], {});
+      expect(form.setFieldValue).not.toHaveBeenCalled();
+      form.setFieldValue.mockRestore();
+
+      formDependency.cascade({ form }, [{ name: ['input'], value: 'aaa' }], {});
+      expect(form.setFieldValue).toHaveBeenCalledWith(['input2'], 'one');
+      form.setFieldValue.mockRestore();
+    });
+
+    it('empty dependency', () => {
+      expect(
+        formDependency.parseFormDependency({
+          name: 'input2',
+          label: 'input2',
+          field: 'input',
+          dependency: {},
+        }),
+      ).toEqual({ name: 'input2', label: 'input2', field: 'input', dependency: {} });
+      expect(formDependency.depStore.depsByFieldNameList.getNameLists()).toEqual([]);
     });
   });
 });

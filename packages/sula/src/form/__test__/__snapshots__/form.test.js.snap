@@ -1,185 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`form children container children container 1`] = `
-<form
-  class="ant-form ant-form-horizontal"
->
-  <div
-    class="ant-row ant-form-item"
-  >
-    <div
-      class="ant-col ant-col-8 ant-form-item-label"
-    >
-      <label
-        class=""
-        title="Inputgroup"
-      >
-        Inputgroup
-      </label>
-    </div>
-    <div
-      class="ant-col ant-col-12 ant-form-item-control"
-    >
-      <div
-        class="ant-form-item-control-input"
-      >
-        <div
-          class="ant-form-item-control-input-content"
-        >
-          <span
-            class="ant-input-group ant-input-group-compact"
-          >
-            <div
-              class="ant-row ant-form-item"
-            >
-              <div
-                class="ant-col ant-col-12 ant-form-item-control"
-              >
-                <div
-                  class="ant-form-item-control-input"
-                >
-                  <div
-                    class="ant-form-item-control-input-content"
-                  >
-                    <input
-                      class="ant-input"
-                      id="input1"
-                      style="width: 50%;"
-                      type="text"
-                      value=""
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div
-              class="ant-row ant-form-item"
-            >
-              <div
-                class="ant-col ant-col-12 ant-form-item-control"
-              >
-                <div
-                  class="ant-form-item-control-input"
-                >
-                  <div
-                    class="ant-form-item-control-input-content"
-                  >
-                    <input
-                      class="ant-input"
-                      id="input2"
-                      style="width: 50%;"
-                      type="text"
-                      value=""
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </span>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div
-    class="ant-row ant-form-item"
-  >
-    <div
-      class="ant-col ant-col-8 ant-form-item-label"
-    >
-      <label
-        class=""
-        title="childrenbtn"
-      >
-        childrenbtn
-      </label>
-    </div>
-    <div
-      class="ant-col ant-col-12 ant-form-item-control"
-    >
-      <div
-        class="ant-form-item-control-input"
-      >
-        <div
-          class="ant-form-item-control-input-content"
-        >
-          <div>
-            <div
-              class="ant-row ant-form-item"
-            >
-              <div
-                class="ant-col ant-col-8 ant-form-item-label"
-              >
-                <label
-                  class=""
-                  title="btn1"
-                >
-                  btn1
-                </label>
-              </div>
-              <div
-                class="ant-col ant-col-12 ant-form-item-control"
-              >
-                <div
-                  class="ant-form-item-control-input"
-                >
-                  <div
-                    class="ant-form-item-control-input-content"
-                  >
-                    <button
-                      class="ant-btn"
-                      type="button"
-                    >
-                      <span>
-                        button1
-                      </span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div
-              class="ant-row ant-form-item"
-            >
-              <div
-                class="ant-col ant-col-8 ant-form-item-label"
-              >
-                <label
-                  class=""
-                  title="btn2"
-                >
-                  btn2
-                </label>
-              </div>
-              <div
-                class="ant-col ant-col-12 ant-form-item-control"
-              >
-                <div
-                  class="ant-form-item-control-input"
-                >
-                  <div
-                    class="ant-form-item-control-input-content"
-                  >
-                    <button
-                      class="ant-btn"
-                      type="button"
-                    >
-                      <span>
-                        button2
-                      </span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</form>
-`;
-
-exports[`form form props onValueChange cascade 1`] = `
+exports[`form form  props onValueChange cascade 1`] = `
 <form
   class="ant-form ant-form-horizontal"
 >
@@ -250,13 +71,6 @@ exports[`form form props onValueChange cascade 1`] = `
       </div>
     </div>
   </div>
-</form>
-`;
-
-exports[`form form props remoteValues Error 1`] = `
-<form
-  class="ant-form ant-form-horizontal"
->
   <div
     class="ant-row ant-form-item"
   >
@@ -265,10 +79,10 @@ exports[`form form props remoteValues Error 1`] = `
     >
       <label
         class=""
-        for="input"
-        title="input"
+        for="input3"
+        title="input3"
       >
-        input
+        input3
       </label>
     </div>
     <div
@@ -282,7 +96,47 @@ exports[`form form props remoteValues Error 1`] = `
         >
           <input
             class="ant-input"
-            id="input"
+            id="input3"
+            type="text"
+            value="ccc"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+`;
+
+exports[`form form layout cols 1`] = `
+<form
+  class="ant-form ant-form-horizontal"
+>
+  <div
+    class="ant-row ant-form-item"
+  >
+    <div
+      class="ant-col ant-col-8 ant-form-item-label"
+    >
+      <label
+        class=""
+        for="input1"
+        title="input1"
+      >
+        input1
+      </label>
+    </div>
+    <div
+      class="ant-col ant-col-12 ant-form-item-control"
+    >
+      <div
+        class="ant-form-item-control-input"
+      >
+        <div
+          class="ant-form-item-control-input-content"
+        >
+          <input
+            class="ant-input"
+            id="input1"
             type="text"
             value=""
           />
@@ -292,7 +146,6 @@ exports[`form form props remoteValues Error 1`] = `
   </div>
   <div
     class="ant-row ant-form-item"
-    dependency="[object Object]"
   >
     <div
       class="ant-col ant-col-8 ant-form-item-label"
@@ -300,9 +153,9 @@ exports[`form form props remoteValues Error 1`] = `
       <label
         class=""
         for="input2"
-        title="inpt2"
+        title="input2"
       >
-        inpt2
+        input2
       </label>
     </div>
     <div
@@ -317,6 +170,138 @@ exports[`form form props remoteValues Error 1`] = `
           <input
             class="ant-input"
             id="input2"
+            type="text"
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="ant-row ant-form-item"
+  >
+    <div
+      class="ant-col ant-col-8 ant-form-item-label"
+    >
+      <label
+        class=""
+        for="input3"
+        title="input3"
+      >
+        input3
+      </label>
+    </div>
+    <div
+      class="ant-col ant-col-12 ant-form-item-control"
+    >
+      <div
+        class="ant-form-item-control-input"
+      >
+        <div
+          class="ant-form-item-control-input-content"
+        >
+          <input
+            class="ant-input"
+            id="input3"
+            type="text"
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="ant-row ant-form-item"
+  >
+    <div
+      class="ant-col ant-col-8 ant-form-item-label"
+    >
+      <label
+        class=""
+        for="input4"
+        title="input4"
+      >
+        input4
+      </label>
+    </div>
+    <div
+      class="ant-col ant-col-12 ant-form-item-control"
+    >
+      <div
+        class="ant-form-item-control-input"
+      >
+        <div
+          class="ant-form-item-control-input-content"
+        >
+          <input
+            class="ant-input"
+            id="input4"
+            type="text"
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="ant-row ant-form-item"
+  >
+    <div
+      class="ant-col ant-col-8 ant-form-item-label"
+    >
+      <label
+        class=""
+        for="input5"
+        title="input5"
+      >
+        input5
+      </label>
+    </div>
+    <div
+      class="ant-col ant-col-12 ant-form-item-control"
+    >
+      <div
+        class="ant-form-item-control-input"
+      >
+        <div
+          class="ant-form-item-control-input-content"
+        >
+          <input
+            class="ant-input"
+            id="input5"
+            type="text"
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="ant-row ant-form-item"
+  >
+    <div
+      class="ant-col ant-col-8 ant-form-item-label"
+    >
+      <label
+        class=""
+        for="input6"
+        title="input6"
+      >
+        input6
+      </label>
+    </div>
+    <div
+      class="ant-col ant-col-12 ant-form-item-control"
+    >
+      <div
+        class="ant-form-item-control-input"
+      >
+        <div
+          class="ant-form-item-control-input-content"
+        >
+          <input
+            class="ant-input"
+            id="input6"
             type="text"
             value=""
           />

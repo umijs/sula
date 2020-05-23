@@ -1,5 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
+import { act } from 'react-dom/test-utils';
 import DrawerForm from '..';
 import { delay } from '../../__tests__/common';
 
@@ -100,7 +101,9 @@ describe('modalform', () => {
     wrapper.update();
 
     const { modal } = wrapper.find('DrawerForm').props();
-    modal.close('@@sula_action_stop');
+    act(() => {
+      modal.close('@@sula_action_stop');
+    });
     wrapper.update();
 
     expect(wrapper.find('Drawer').props().visible).toEqual(false);
