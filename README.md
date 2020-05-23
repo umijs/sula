@@ -22,7 +22,7 @@
 - [sula-cooker](https://cook.sula.now.sh)
 
 <div>
-  <img src="https://img.alicdn.com/tfs/TB1wAXcHrY1gK0jSZTEXXXDQVXa-2684-1414.png" width="49%"/>
+  <img src="https://img.alicdn.com/tfs/TB1l6A_HXY7gK0jSZKzXXaikpXa-2680-1412.png" width="49%"/>
   <img src="https://img.alicdn.com/tfs/TB1VWE5HkT2gK0jSZFkXXcIQFXa-2682-1412.png" width="49%"/>
 </div>
 
