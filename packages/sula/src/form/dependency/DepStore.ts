@@ -279,7 +279,7 @@ export function allMatch(inputs, values) {
  * @return true
  */
 export function equal(inputs, value) {
-  if (value === '*') {
+  if (inputs === '*') {
     return true;
   }
   for (let i = 0, len = inputs.length; i < len; i += 1) {

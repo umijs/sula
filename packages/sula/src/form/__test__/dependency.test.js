@@ -348,7 +348,7 @@ describe('depstore', () => {
     });
 
     it('equal', () => {
-      expect(equal([1, 2, 3], '*')).toBeTruthy();
+      expect(equal('*', [1, 2, 3])).toBeTruthy();
       expect(equal([1, 2, 3], 1)).toBeTruthy();
       expect(equal([1, 2, 3], 0)).toBeFalsy();
     });
