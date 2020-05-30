@@ -2,7 +2,7 @@ import { join } from 'path';
 
 export default {
   plugins: [
-    require.resolve(join(__dirname, './packages/umi-plugin-sula/lib')),
+    require.resolve(join(__dirname, './packages/umi-plugin-sula/src')),
   ],
   history: {
     type: 'hash',
