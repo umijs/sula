@@ -1,7 +1,7 @@
 ---
 name: 'Question: '
 about: Questions in using sula.
-title: ''
+title: ":question: Question: "
 labels: ''
 assignees: ''
 
