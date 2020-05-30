@@ -29,6 +29,7 @@ export default class BasicDemo extends React.Component {
           fields={fields}
           itemLayout={{ cols: { xl: 3, lg: 1 } }}
           submit={submit}
+          actionsPosition="bottom"
         />
       </div>
     );

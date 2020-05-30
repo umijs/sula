@@ -23,8 +23,8 @@ export type StepType = 'first' | 'middle' | 'submit' | 'result';
 
 export interface StepFormProps extends FormProps {
   result?: {
-    successMessage: string;
-    successDescription: string;
+    title: string;
+    subTitle: string;
   };
   steps: StepProps[];
   submit: RequestConfig;
@@ -40,7 +40,7 @@ interface StepFormState {
 
 export default class StepForm extends React.Component<StepFormProps, StepFormState> {
   static defaultProps = {
-    direction: 'vertical',
+    direction: 'horizontal',
     mode: 'create',
   };
 
@@ -227,7 +227,8 @@ export default class StepForm extends React.Component<StepFormProps, StepFormSta
                     <Result
                       className={`sula-template-step-form-${direction}-result`}
                       status="success"
-                      title={locale.successText}
+                      title={result.title || locale.successText}
+                      subTitle={result.subTitle}
                       extra={
                         <FormAction
                           actionsPosition="center"

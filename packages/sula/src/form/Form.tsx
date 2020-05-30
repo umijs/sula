@@ -15,16 +15,16 @@ import { RequestConfig } from '../types/request';
 import { FieldNamePath, Mode } from '../types/form';
 
 export interface FormProps
-  extends Omit<AFormProps, 'children'>,
+  extends Omit<AFormProps, 'children' | 'fields'>,
     Omit<FieldGroupProps, 'name' | 'initialVisible' | 'dependency'> {
   remoteValues?: RequestConfig;
   onRemoteValuesStart?: () => void;
   onRemoteValuesEnd?: () => void;
   ctxGetter?: () => Record<string, any>;
-  mode?: Mode;
+  mode: Mode;
 }
 
-export interface FormInstance extends AFormInstance {
+export interface FormInstance extends Omit<AFormInstance, 'validateFields'> {
   validateFields: (nameList?: FieldNamePath[] | true) => Promise<any>;
   validateGroupFields: (groupName: string) => Promise<any>;
   setFieldValue: (name: FieldNamePath, value: any) => void;

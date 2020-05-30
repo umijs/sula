@@ -4,7 +4,7 @@
 
 > Sula 当前还处于 alpha 社区内测阶段，请不要直接在生产环境使用。
 
-[![codecov](https://codecov.io/gh/umijs/sula/branch/master/graph/badge.svg)](https://codecov.io/gh/umijs/sula) [![CircleCI](https://circleci.com/gh/umijs/sula/tree/master.svg?style=svg)](https://circleci.com/gh/umijs/sula/tree/master) [![GitHub Actions status](https://github.com/umijs/sula/workflows/Node%20CI/badge.svg)](https://github.com/umijs/sula) ![npm](https://img.shields.io/npm/v/sula) ![npm](https://img.shields.io/npm/dm/sula) [![Automated Release Notes by gren](https://img.shields.io/badge/%F0%9F%A4%96-release%20notes-00B2EE.svg)](https://github-tools.github.io/github-release-notes/)
+[![codecov](https://codecov.io/gh/umijs/sula/branch/master/graph/badge.svg)](https://codecov.io/gh/umijs/sula) [![CircleCI](https://circleci.com/gh/umijs/sula/tree/master.svg?style=svg)](https://circleci.com/gh/umijs/sula/tree/master) [![GitHub Actions status](https://github.com/umijs/sula/workflows/Node%20CI/badge.svg)](https://github.com/umijs/sula) ![npm](https://img.shields.io/npm/v/sula) ![npm](https://img.shields.io/npm/dm/sula) ![Automated Release Notes by gren](https://img.shields.io/badge/%F0%9F%A4%96-release%20notes-00B2EE.svg)
 
 ## 特点
 
