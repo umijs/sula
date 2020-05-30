@@ -2,7 +2,7 @@ import { join } from 'path';
 
 export default {
   plugins: [
-    require.resolve(join(__dirname, './packages/umi-plugin-sula/src')),
+    ...(process.env.DOC_ENV === 'prod' ? [] : [join(__dirname, './packages/umi-plugin-sula/src')])
   ],
   history: {
     type: 'hash',
@@ -19,7 +19,7 @@ export default {
     ],
   ],
   alias: {
-    sula: process.env.DOC_ENV === 'prod' ? 'sula' : join(__dirname, './packages/sula/src/index.ts'),
+    ...(process.env.DOC_ENV === 'prod' ? {} : {sula: join(__dirname, './packages/sula/src/index.ts')})
   },
   title: 'Sula',
   resolve: {
