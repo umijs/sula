@@ -24,7 +24,7 @@ export default {
   title: 'Sula',
   resolve: {
     includes:
-      process.env.DOC_ENV === 'prod'
+      process.env.DOC_ENV === 'prod' || process.env.DOC_ENV === 'dev'
         ? ['docs']
         : process.env.DOC_ENV === 'new'
         ? ['newDocs']

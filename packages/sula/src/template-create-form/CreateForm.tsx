@@ -8,10 +8,13 @@ import { ActionPlugin } from '../types/plugin';
 import { toArray } from '../_util/common';
 import LocaleReceiver from '../localereceiver';
 import { Spin } from 'antd';
+import { ButtonProps } from '../render-plugin/button/Button';
 
 export interface CreateFormProps extends FormProps {
   submit: RequestConfig;
   back?: ActionPlugin;
+  submitButtonProps?: ButtonProps;
+  backButtonProps?: ButtonProps;
 }
 
 export default class CreateForm extends React.Component<CreateFormProps> {
@@ -37,7 +40,7 @@ export default class CreateForm extends React.Component<CreateFormProps> {
   }
 
   render() {
-    const { submit, back, actionsPosition, actionsRender, ...formProps } = this.props;
+    const { submit, back, submitButtonProps, backButtonProps, actionsPosition, actionsRender, ...formProps } = this.props;
     const { mode, itemLayout } = formProps;
     const { loading } = this.state;
 
@@ -54,6 +57,8 @@ export default class CreateForm extends React.Component<CreateFormProps> {
                   {
                     submit,
                     back,
+                    submitButtonProps,
+                    backButtonProps,
                     mode,
                     actionsRender,
                   },
@@ -93,7 +98,13 @@ export function renderActions(props, locale) {
     return props.actionsRender;
   }
 
-  const { submit, back = 'back', mode = 'create' } = props;
+  const {
+    submit,
+    back = 'back',
+    mode = 'create',
+    submitButtonProps = {},
+    backButtonProps = {},
+  } = props;
   const actionsRender = [];
 
   // 返回
@@ -101,6 +112,7 @@ export function renderActions(props, locale) {
     type: 'button',
     props: {
       children: mode === 'create' ? locale.cancelText : locale.backText,
+      ...backButtonProps,
     },
     action: back,
   };
@@ -115,6 +127,7 @@ export function renderActions(props, locale) {
     props: {
       type: 'primary',
       children: mode === 'create' ? locale.submitText : locale.updateText,
+      ...submitButtonProps,
     },
     action: [
       {

@@ -44,6 +44,9 @@ export default class BasicDemo extends React.Component {
               ],
             },
           ]}
+          submitButtonProps={{
+            icon: 'appstore',
+          }}
           submit={{
             url: 'https://www.mocky.io/v2/5185415ba171ea3a00704eed',
             method: 'POST'

@@ -12,7 +12,7 @@ import FormDependency from './dependency';
 import { triggerActionPlugin } from '../rope/triggerPlugin';
 import MediaQueries from './MediaQueries';
 import { RequestConfig } from '../types/request';
-import { FieldNamePath } from '../types/form';
+import { FieldNamePath, Mode } from '../types/form';
 
 export interface FormProps
   extends Omit<AFormProps, 'children'>,
@@ -21,6 +21,7 @@ export interface FormProps
   onRemoteValuesStart?: () => void;
   onRemoteValuesEnd?: () => void;
   ctxGetter?: () => Record<string, any>;
+  mode?: Mode;
 }
 
 export interface FormInstance extends AFormInstance {
