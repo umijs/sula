@@ -24,6 +24,9 @@ export default () => {
                 field: 'input',
               },
             ],
+            submitButtonProps: {
+              icon: 'appstore',
+            },
             submit: {
               url: 'https://www.mocky.io/v2/5185415ba171ea3a00704eed',
               method: 'POST',
@@ -31,7 +34,7 @@ export default () => {
           });
         }}
       >
-        show
+        抽屉表单
       </Button>
       <ModalForm type="drawer" ref={ref} />
     </div>
