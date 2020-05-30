@@ -1,6 +1,6 @@
 ---
-name: 'Feature request: '
-about: Suggest an idea for sula
+name: Feature request
+about: Suggest an idea for sula.
 title: 'Feature: '
 labels: ''
 assignees: ''

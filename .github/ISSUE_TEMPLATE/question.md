@@ -1,6 +1,6 @@
 ---
 name: Question
-about: Questions in using sula.
+about: 'Questions in using sula.    '
 title: 'Question: '
 labels: ''
 assignees: ''
@@ -9,4 +9,4 @@ assignees: ''
 
 ### Question
 
-### Details
+### Description

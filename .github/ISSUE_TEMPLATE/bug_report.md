@@ -1,5 +1,5 @@
 ---
-name: Report bug
+name: Bug report
 about: Create a bug report to help us improve sula.
 title: 'Bug: '
 labels: ''
@@ -21,6 +21,7 @@ assignees: ''
 
 - sula:
 - umi-plugin-sula:
+- OS:
 - Browser:
 
 ### Steps to reproduce
