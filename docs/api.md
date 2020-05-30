@@ -16,7 +16,8 @@ nav:
   - nameList: 过滤nameList之外的值
   - 参数为ture时，过滤visible为false的值
 - 用法
-```javaScript
+
+```js
 // 基本用法
 validateFields()
   .then(value => {})
@@ -28,7 +29,7 @@ validateFields()
 - 返回类型：`promise`
 - 参数：`{string} groupName`
   - 能获取组里面的值
-```javaScript
+```js
 // 模拟组
 ...
 return (
@@ -64,9 +65,10 @@ validateGroupFields('groupName')
 #### setFieldValue
 设置值
 - 参数: `{string} name；{any} value`
-  - name: 设置值的form项；value：设置value的值
+  - name: 设置值的form项；
+  - value：设置value的值；
 - 用法
-```javaScript
+```js
 setFieldValue('name', '首富')
 ```
 
@@ -75,7 +77,7 @@ setFieldValue('name', '首富')
 - 参数: `{string} name; {any} source`
   - name：设置source的form项；value：设置source的值
 - 用法
-```javaScript
+```js
 setFieldSource('fruit', [{ value: 'apple', text: '苹果' }])
 ```
 
@@ -84,7 +86,7 @@ setFieldSource('fruit', [{ value: 'apple', text: '苹果' }])
 - 参数：`{string} name; {boolean} visible`
   - name：设置显隐的form项；visible：false|true
 - 用法
-```javaScript
+```js
 setFieldVisible('memo', false);
 ```
 
@@ -93,7 +95,7 @@ setFieldVisible('memo', false);
 - 参数：`{string} name; {boolean} visible`
   - name：设置disabled的form项；disabled：false|true
 - 用法
-```javaScript
+```js
 setFieldDisabled('memo', false);
 ```
 
@@ -102,7 +104,7 @@ setFieldDisabled('memo', false);
 - 参数：`{string} name`
   - name：获取source的form项；
 - 用法
-```javaScript
+```js
 getFieldSource('fruit');
 ```
 
@@ -111,7 +113,7 @@ getFieldSource('fruit');
 - 参数：`{string} name`
   - name：获取disabled的form项；
 - 用法
-```javaScript
+```js
 getFieldDisabled('fruit');
 ```
 
@@ -122,7 +124,7 @@ form布局
   - `labelCol: label标签布局； wrapper：value布局（horizontal状态配置）`
   - `{number} span: form每项占有的栅格数`
   - `{number|object} cols: 每行占有的form项数；也可设置响应式`
-```javaScript
+```js
 const config = {
   itemLayout={{
     // cols: 3,
@@ -192,7 +194,7 @@ const config = {
 - 参数
   - type：容器类型 - `card|div`
   - 支持props的透传
-```javaScript
+```js
 const config = {
   container: {
     type: 'card',
@@ -213,7 +215,7 @@ const config = {
 
 *fields是form配置项的列表，列表下的field可以用多种形式表述，一般常用的是string和object*
 
-```javaScript
+```js
 const config = {
   fields = [{
     name: 'name',
@@ -251,7 +253,7 @@ const config = {
     2. 函数形式：遵循链式调用
     3. 对象: type表示插件类型
 
-```javaScript
+```js
 const actionsRender = [{
   type: 'button',
   props: {
@@ -276,7 +278,7 @@ const actionsRender = [{
   - params：请求所携带参数
   - converter: 处理并通过return返回最终的列表数据
 
-```javaScript
+```js
 const config = {
   remoteValues: {
     url: 'https://www.mock/list.json',
@@ -293,7 +295,7 @@ const config = {
 
 ### onRemoteValuesStart
 mode状态非create的初始化loading效果
-```javaScript
+```js
 const config = {
   onRemoteValuesStart: () => {
     this.setState({ loading: true });
@@ -303,7 +305,7 @@ const config = {
 
 ### onRemoteValuesEnd
 mode状态非create的loading消失；配合onRemoteValuesStart使用
-```javaScript
+```js
 const config = {
   onRemoteValuesEnd: () => {
     this.setState({ loading: false });
@@ -419,7 +421,7 @@ resetTable(true)
 - 详细
 action：事件组，一共有4种形式`字符串` `函数形式` `对象形式` `数组形式`;字符串、函数形式和对象形式只能处理单个事件，字符串表示的是sula内置action插件或额外编写的插件；数组形式能处理多个事件并链式调用他们，数组中列举的是单个事件，他们也有三种形式`字符串` `函数` `对象`；字符串和上述含义相似；函数形式是用户自定义；对象形式是以type来识别内置插件
 
-```javaScript
+```js
 const config = {
   actionsRender: [{
     type: 'button',
@@ -444,7 +446,7 @@ const config = {
 
 *render中的action如上述*
 
-```javaScript
+```js
 const columns = [{
   title: '姓名',
   key: 'name',
@@ -493,7 +495,7 @@ const columns = [{
   - convertParams: 参数返回的是params，处理并通过return返回最终的请求参数
   - converter: 参数返回的是请求到的数据，处理并通过return返回最终的列表数据
 
-```javaScript
+```js
 const config = {
   remoteDataSource: {
     url: 'https://randomuser.me/api',
@@ -525,7 +527,7 @@ const config = {
 - 参数: 
   - pagination: 分页信息
 
-```javaScript
+```js
 const config = {
   initialPaging: {
     pagination: false, // 无分页情况
@@ -537,7 +539,7 @@ const config = {
 table的初始化数据
 - 类型: `array`
 
-```javaScript
+```js
 const config = {
   initialDataSource: [{
     name: '小明',
@@ -550,6 +552,46 @@ const config = {
   }]
 }
 ```
+
+## ModalForm
+
+一般作为行为插件 `modalform` 和 `drawerform` 使用。
+
+### type 
+弹窗类型
+- 类型: `modal | drawer`
+- 默认值: `modal`
+- 用法
+
+```js
+() => {
+  const modalFormRef = React.useRef();
+  
+  return <div>
+      <ModalForm type="drawer" ref={modalFormRef} />
+      <button onClick={() => {
+        modalFormRef.current.show({
+          title: 'Head',
+          width: 500,
+          fields: [
+            {
+              type: 'input',
+              name: 'input',
+              label: 'input',
+            }
+          ],
+          submit: {
+            url: '/v1/api',
+          },
+          // 与 CreateForm 一致
+        })
+      }}>
+        弹窗
+      </button>
+    </div>
+}
+```
+
 
 ## CreateForm
 - 介绍：CreateForm是在sula-form基础上封装的模版，支持大多数form场景，createForm主要处理的是actionsRender层、布局和国际化
@@ -564,6 +606,14 @@ const config = {
   - method：请求方式
 ### back
 - 默认history.goBack()，也可配置事件
+
+### submitButtonProps
+
+定义提交按钮属性，例如图标
+
+### backButtonProps
+
+定义返回按钮属性，例如图标
 
 ```js
 import React from 'react';
