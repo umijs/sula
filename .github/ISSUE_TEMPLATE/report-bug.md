@@ -1,7 +1,7 @@
 ---
 name: Report bug
 about: Create a bug report to help us improve sula.
-title: ":beetle: Bug: "
+title: 'Bug: '
 labels: ''
 assignees: ''
 
