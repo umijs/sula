@@ -15,7 +15,7 @@
 - 📦 **开箱即用**，sula 内置请求插件与灵活扩展点、国际化，路由等能力，让开发者更加专注核心功能的开发。
 - 📀 **自动 loading**，sula 不侵入式帮助用户完成按钮、超链接、图标点击过程的 Loading 管理。
 
-## � 视频教程
+## 📺 视频教程
 
 - [表单快速配置](https://www.bilibili.com/video/BV1rC4y1p71m/)
 - [查询表格快速配置](https://www.bilibili.com/video/BV1qA411q7kb/)
