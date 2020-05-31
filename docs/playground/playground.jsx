@@ -3,6 +3,7 @@ import * as sula from 'sula';
 import { Tabs, Input, Select } from 'antd';
 import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live';
 import theme from 'prism-react-renderer/themes/nightOwlLight';
+import './playground.less';
 
 const { TabPane } = Tabs;
 
@@ -18,7 +19,12 @@ function() {
   return <CreateForm 
     fields={[
       {
-        field: 'input',
+        field: { 
+          type: 'input',
+          props: {
+            placeholder: 'Please input',
+          }
+        },
         name: 'input',
         label: 'Input',
       },
