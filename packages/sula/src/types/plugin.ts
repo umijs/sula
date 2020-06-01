@@ -3,7 +3,7 @@ import { Mode, FieldNamePath } from './form';
 import { FormInstance } from '../form/Form';
 import { TableInstance } from '../table/Table';
 
-export type PluginType = 'render' | 'field' | 'action' | 'dependency' | 'converter' | 'convertParams' | 'filter';
+export type PluginType = 'render' | 'field' | 'action' | 'dependency' | 'validator' | 'converter' | 'convertParams' | 'filter';
 
 // Form Context
 type FormCtx = {
@@ -16,6 +16,11 @@ type DependencyCtx = {
   values: any[];
   name: FieldNamePath;
   relates: FieldNamePath[];
+}
+
+type ValidatorCtx = {
+  value: any;
+  name: FieldNamePath;
 }
 
 // Table Context 
@@ -111,15 +116,20 @@ export type RegisterConverterPlugin = (
 export type ConvertParamsImpl = (ctx: ConvertParamsComboCtx, config: ConvertParamsPlugin) => any;
 export type RegisterConvertParamsPlugin = (
   pluginName: string,
-  ConvertParams: ConvertParamsImpl,
+  convertParams: ConvertParamsImpl,
 ) => void;
 
 // 依赖转换
-export type DependencyImpl = (ctx: FormCtx & DependencyCtx, config: any) => any;
+export type DependencyImpl = (ctx: FormCtx & DependencyCtx, config: any) => false | void;
 export type RegisterDependencyPlugin = (
   pluginName: string,
-  Dependency: DependencyImpl,
+  dependency: DependencyImpl,
 ) => void;
+
+// 校验转换
+export type ValidatorImpl = (ctx: FormCtx & ValidatorCtx, config: any) => Promise<void> | void;
+export type RegisterValidatorPlugin = (plguinName: string, validator: ValidatorImpl) => void;
+
 
 // 过滤插件
 export type FilterImpl = (ctx: TableCtx, config: any) => Pick<ColumnProps<any>, 'filterDropdown' | 'onFilterDropdownVisibleChange'>;
@@ -132,6 +142,10 @@ export type RegisterFilterPlugin = (plguinName: string, Filter: FilterImpl) => v
 // 关联插件
 export type DependencyPluginFunction = (ctx: FormCtx & DependencyCtx) => false | void;
 export type DependencyPlugin = string | DependencyPluginFunction;
+
+// 校验插件
+export type ValidatorPluginFunction = (ctx: FormCtx & ValidatorCtx) => Promise<void> | void;
+export type ValidatorPlugin = string | ValidatorPluginFunction;
 
 // 请求参数转换插件
 export type ConvertParamsPluginFunction = (ctx: ConvertParamsComboCtx) => any;

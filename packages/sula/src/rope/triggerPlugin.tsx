@@ -6,7 +6,16 @@ import isArray from 'lodash/isArray';
 import toLower from 'lodash/toLower';
 import { Space } from 'antd';
 import { LazyPluginCtx, LazyPluginCtxGetter, PluginCtx } from '../types/ctx';
-import { RenderPlugin, ActionPlugin, FieldPlugin, PluginType } from '../types/plugin';
+import {
+  RenderPlugin,
+  ActionPlugin,
+  FieldPlugin,
+  PluginType,
+  ValidatorPlugin,
+  ConvertParamsPlugin,
+  ConverterPlugin,
+  DependencyPlugin,
+} from '../types/plugin';
 import transformConfig, { SkipOptions } from '../_util/transformConfig';
 import sula from '../core';
 import { toArray } from '../_util/common';
@@ -38,7 +47,13 @@ export const getLazyCtx = (ctx: LazyPluginCtx) => {
 export const triggerPlugin = (
   name: PluginType,
   ctx: PluginCtx | null,
-  config: RenderPlugin | ActionPlugin,
+  config:
+    | RenderPlugin
+    | ActionPlugin
+    | ValidatorPlugin
+    | ConvertParamsPlugin
+    | ConverterPlugin
+    | DependencyPlugin,
   skipOptions?: SkipOptions,
   isRender?: boolean,
 ) => {

@@ -188,7 +188,7 @@ class ContextStore {
 
     const finalCtx: FormCtx = assign(extraCtx, {
       form,
-      mode: this.formProps.mode,
+      mode: this.formProps.mode || 'create',
     });
 
     if (this.formProps.ctxGetter) {

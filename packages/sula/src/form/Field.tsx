@@ -4,8 +4,9 @@ import uniqueId from 'lodash/uniqueId';
 import omit from 'lodash/omit';
 import assign from 'lodash/assign';
 import { FormItemProps } from 'antd/lib/form/FormItem';
-import { FieldPlugin } from '../types/plugin';
-import { FieldNamePath, FieldSource, FieldValue, FieldNameList } from '../types/form';
+import { Rule } from 'antd/lib/form';
+import { FieldPlugin, ValidatorPlugin } from '../types/plugin';
+import { FieldNamePath, FieldNameList } from '../types/form';
 import { RequestConfig } from '../types/request';
 import { Dependencies } from '../types/dependency';
 import { toArray, assignWithDefined } from '../_util/common';
@@ -14,6 +15,7 @@ import {
   triggerFieldPlugin,
   triggerActionPlugin,
   triggerRenderPlugin,
+  triggerPlugin,
 } from '../rope/triggerPlugin';
 import { Form as AForm, Col } from 'antd';
 import { needWrapCols } from './utils/layoutUtil';
@@ -21,17 +23,20 @@ import FormDependency from './dependency';
 
 const FormItem = AForm.Item;
 
-export interface FieldProps extends Omit<FormItemProps, 'children' | 'wrapperCol' | 'labelCol'> {
+export interface FieldProps extends Omit<FormItemProps, 'children' | 'wrapperCol' | 'labelCol' | 'rules'> {
   field: FieldPlugin;
   name?: FieldNamePath;
   collect?: boolean;
   initialDisabled?: boolean;
   initialVisible?: boolean;
-  initialSource?: FieldSource;
-  initialValue?: FieldValue;
+  initialSource?: any;
+  initialValue?: any;
   remoteSource?: RequestConfig;
   dependency?: Dependencies;
   children?: React.ReactElement;
+  rules?: Array<Omit<Rule, 'validator'> & {
+    validator? : ValidatorPlugin;
+  }>
 }
 
 export default class Field extends React.Component<FieldProps> {
@@ -234,6 +239,25 @@ export default class Field extends React.Component<FieldProps> {
       this.disabled = initialDisabled;
     }
 
+    const formItemProps = restProps as FormItemProps;
+
+    if (restProps.rules && restProps.rules.length) {
+      formItemProps.rules = restProps.rules.map((rule) => {
+        if (rule.validator) {
+          return {
+            validator: (_, value) : Promise<void> | void => {
+              const validatorCtx = getCtx({
+                value,
+                name: this.props.name,
+              });
+              return triggerPlugin('validator', validatorCtx, rule.validator);
+            },
+          };
+        }
+        return rule;
+      });
+    }
+
     const { formContext, layout } = this.context;
 
     const { getCtx } = formContext.getInternalHooks(HOOK_MARK);
@@ -244,7 +268,7 @@ export default class Field extends React.Component<FieldProps> {
       itemLayout: assignWithDefined({}, this.context.itemLayout, itemLayout),
       visible: this.visible,
       childrenContainer,
-      formItemProps: restProps,
+      formItemProps,
     };
 
     const fieldNode = this.renderField(ctx, fieldProps, extraConfig);

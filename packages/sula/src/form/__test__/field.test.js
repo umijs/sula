@@ -176,6 +176,64 @@ describe('field', () => {
     });
   });
 
+  describe('validator plugin', () => {
+    const validatorMount = (validator) => {
+      let formRef;
+      const wrapper = mount(
+        <Form
+          ref={(ref) => {
+            formRef = ref;
+          }}
+        >
+          <Field
+            name="test"
+            label="test"
+            field="input"
+            rules={[
+              {
+                validator,
+              },
+            ]}
+          />
+        </Form>,
+      );
+
+      return { formRef, wrapper };
+    }
+
+    it('validator ctx', async () => {
+      const fn = jest.fn(() => Promise.resolve());
+      const { formRef, wrapper } = validatorMount(fn);
+      wrapper
+        .find('input')
+        .first()
+        .simulate('change', { target: { value: '1' } });
+
+      await delay(1000);
+
+      const { name, value, form } = fn.mock.calls[0][0];
+      expect(name).toEqual('test');
+      expect(value).toEqual('1');
+      expect(form).not.toBeNull();
+
+      expect(formRef.getFieldError('test').length).toBeFalsy();
+    });
+
+    it ('validator error', async () => {
+      // eslint-disable-next-line prefer-promise-reject-errors
+      const fn = jest.fn(() => Promise.reject('value can not be 1'));
+      const { formRef, wrapper } = validatorMount(fn);
+
+      wrapper
+        .find('input')
+        .first()
+        .simulate('change', { target: { value: '1' } });
+
+      await delay(1000);
+      expect(formRef.getFieldError('test')).toEqual(['value can not be 1']);
+    })
+  });
+
   describe('other', () => {
     it('willmount', async () => {
       const wrapper = mount(

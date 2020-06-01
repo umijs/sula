@@ -9,12 +9,14 @@ import {
   RegisterConvertParamsPlugin,
   RegisterDependencyPlugin,
   RegisterFilterPlugin,
+  RegisterValidatorPlugin,
 } from '../types/plugin';
 
 export class PluginRegistry {
   public renderType: RegisterRenderPlugin = () => {};
   public filterType: RegisterFilterPlugin = () => {};
   public fieldType: RegisterFieldPlugin = () => {};
+  public validatorType: RegisterValidatorPlugin = () => {};
   public actionType: RegisterActionPlugin = () => {};
   public converterType:  RegisterConverterPlugin = () => {};
   public convertParamsType:  RegisterConvertParamsPlugin = () => {};
@@ -58,6 +60,7 @@ sula.registerType('action');
 sula.registerType('converter');
 sula.registerType('convertParams');
 sula.registerType('dependency');
+sula.registerType('validator');
 sula.registerType('filter');
 
 export default sula;
