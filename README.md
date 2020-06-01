@@ -17,9 +17,9 @@
 
 ## 📺 视频教程
 
-- [表单快速配置](https://www.bilibili.com/video/BV1rC4y1p71m/)
-- [查询表格快速配置](https://www.bilibili.com/video/BV1qA411q7kb/)
-- [Sula-Cooker使用](https://www.bilibili.com/video/BV1jz4y197EG/)
+- [表单快速配置](https://www.bilibili.com/video/BV1rC4y1p71m/) 3分钟
+- [查询表格快速配置](https://www.bilibili.com/video/BV1qA411q7kb/) 4分钟
+- [Sula-Cooker 的使用](https://www.bilibili.com/video/BV1jz4y197EG/) 3分钟
 
 ## 🍳 Sula 在线配置化工具
 
