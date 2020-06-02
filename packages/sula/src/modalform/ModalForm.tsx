@@ -58,6 +58,14 @@ export default class ModalForm extends React.Component {
                             back: () => {
                               return modal.close(STOP);
                             },
+                            submitBack: (ctx) => {
+                              const {
+                                results,
+                                result,
+                              } = ctx;
+                              const finalResults = assign({'$submit': result}, results);
+                              return modal.close(finalResults);
+                            }
                           },
                           formProps,
                         ),

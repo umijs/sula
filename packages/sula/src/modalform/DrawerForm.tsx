@@ -20,7 +20,7 @@ export default class DrawerForm extends React.Component {
     // 存在 type 说明是插件场景
     const { type, title, width = 550, ...formProps } = props;
 
-    const { actionsRender, fields, container, submit, ...restFormProps } = formProps;
+    const { actionsRender, fields, container, submit, submitButtonProps, backButtonProps, ...restFormProps } = formProps;
 
     return (
       <LocaleReceiver>
@@ -59,9 +59,17 @@ export default class DrawerForm extends React.Component {
                         renderActions(
                           assign(
                             {
-                              back: (ctx) => {
-                                return modal.close(ctx.result);
+                              back: () => {
+                                return modal.close(STOP);
                               },
+                              submitBack: (ctx) => {
+                                const {
+                                  results,
+                                  result,
+                                } = ctx;
+                                const finalResults = assign({'$submit': result}, results);
+                                return modal.close(finalResults);
+                              }
                             },
                             formProps,
                           ),

@@ -31,6 +31,8 @@ export default () => {
               url: 'https://www.mocky.io/v2/5185415ba171ea3a00704eed',
               method: 'POST',
             },
+          }).then(result => {
+            console.log('result', result);
           });
         }}
       >

@@ -13,6 +13,7 @@ import { ButtonProps } from '../render-plugin/button/Button';
 export interface CreateFormProps extends FormProps {
   submit: RequestConfig;
   back?: ActionPlugin;
+  submitBack?: ActionPlugin;
   submitButtonProps?: ButtonProps;
   backButtonProps?: ButtonProps;
 }
@@ -101,6 +102,7 @@ export function renderActions(props, locale) {
   const {
     submit,
     back = 'back',
+    submitBack,
     mode = 'create',
     submitButtonProps = {},
     backButtonProps = {},
@@ -134,7 +136,7 @@ export function renderActions(props, locale) {
         type: 'validateFields',
         resultPropName: '$fieldsValue',
       },
-      ...transformSubmit(submit, back),
+      ...transformSubmit(submit, submitBack || back),
     ],
   };
 

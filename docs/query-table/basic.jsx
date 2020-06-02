@@ -100,6 +100,7 @@ const actions = [
       {
         type: 'modalform',
         title: '信息',
+        resultPropName: 'modalform', // 加入results
         fields: [
           {
             name: 'name',
@@ -119,6 +120,10 @@ const actions = [
 
           }
         },
+      },
+      (ctx) => {
+        console.log('result', ctx.result);
+        console.log('results', ctx.results);
       },
       'refreshTable',
     ],

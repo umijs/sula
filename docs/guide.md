@@ -3,125 +3,155 @@ title: 指南
 order: 1
 ---
 
-## sula教你十分钟完成crud
-sula是基于umi和antd搭建的便携式中后台配置化系统
+## sula带你十分钟完成crud
 
 ### 起步
 
-**拉取sula包后首次在项目中引入sula使用可能会遇到一些问题，需要添加一些简单的配置即可**
+**本文将从umi搭建项目开始，帮助你在项目中轻松运用sula。**
 
-*sula主导的是万物皆可插件的模式，插件几乎可以集成到你模块的每个角落，所以复用性和扩展性特别强大*
-
-下面介绍从umi脚手架搭建到使用sula的过程帮助你理解并能在项目中轻松运用sula
-
-1. 先找个地方建个空目录
+1. 先找个文件夹建个空目录
 ```js
 mkdir sula-use && cd sula-use
 ```
-2. 通过官方工具创建项目安装依赖后使用
+2. 通过[umi官方工具](https://umijs.org/zh-CN/docs/getting-started)创建项目
 ```js
-yarn create @umijs/umi-app && tnpm i && tnpm start
+yarn create @umijs/umi-app && npm i && npm start
 ```
-在浏览器里打开 `http://localhost:8000/`，能看到以下界面，
+在浏览器里打开 `http://localhost:8000/`
 
-![avatar](https://img.alicdn.com/tfs/TB1UQpvHXT7gK0jSZFpXXaTkpXa-2658-948.png)
+![avatar](https://img.alicdn.com/tfs/TB1NGj1HHj1gK0jSZFOXXc7GpXa-4690-302.png)
 
-3. 安装sula和umi-plugin-sula
+3. 安装 sula 和 umi-plugin-sula
 ```js
-tnpm i sula umi-plugin-sula --save
+// 推荐cnpm
+npm i sula umi-plugin-sula --save
 ```
-*注意：sula内部集成了很多插件，这些插件使用前需要先注册；umi-plugin-sula承载了sula除icon以外的所有插件的注册*
+> 注意：umi-plugin-sula 完成了sula插件的注册（否则要开发者手动注册），以及 history、语言类型的设置。
 
-4. 在.umirc.ts中声明sula
-![avatar](https://img.alicdn.com/tfs/TB1ixXzHkP2gK0jSZPxXXacQpXa-3202-868.png)
+4. 在 .umirc.ts 中启用 umi-plugin-sula 插件
 
-5. 在global.js中导入antd.less并注册项目中所需要icon（详请请参考下文 `icon的使用`）
+![avatar](https://img.alicdn.com/tfs/TB1BLMaIbY1gK0jSZTEXXXDQVXa-3650-856.png)
+
+5. sula中未引入antd样式，在src目录下新建global.ts并导入antd主题
 ```js
+// global.ts
 import 'antd/dist/antd.less';
-import { Icon } from 'sula';
-
-Icon.iconRegister({
-  tablet: {
-    filled: TabletFilled,
-  },
-  upcircle: {
-    twoTone: UpCircleTwoTone
-  },
-  car: {
-    outlined: CarOutlined
-  },
-  coffee: CoffeeOutlined,
-});
-
 ```
 
-6. 最后就可以尽情的使用sula了
-![avatar](https://img.alicdn.com/tfs/TB1EklBHi_1gK0jSZFqXXcpaXXa-3214-1128.png)
+6. 最后可以在项目中尽情的使用sula了
+
+![avatar](https://img.alicdn.com/tfs/TB1oGIuHKH2gK0jSZFEXXcqMpXa-2938-912.png)
 
 最终呈现
-![avatar](https://img.alicdn.com/tfs/TB1ad0EHbj1gK0jSZFOXXc7GpXa-4778-956.png)
+![avatar](https://img.alicdn.com/tfs/TB18AcCHQL0gK0jSZFxXXXWHVXa-3034-324.png)
 
-### create-form模版的使用
-**下面是CreateForm最简单的一种实现**
-  - fields：表单控件配置，field表述的是该项的类型（列如：input、select等）；也支持对象的写法，后面例子会讲到；
-  - submit：向后端提交表单信息，url：提交接口地址；
+### CreateForm使用
+**本示例是CreateForm一种简单的实现**，你会看到最常用的属性配置
+  - fields：表单控件配置
+    - field：表单控件插件
+  - submit：表单提交配置
+    - url：提交地址
 
-```javaScript
+```js
+// pages/index.tsx
 import React from 'react';
 import { CreateForm } from 'sula';
 
 export default () => {
-  return (
-    <div>
-      <CreateForm
-        fields={[
-          {
-            name: 'name',
-            label: '姓名',
-            field: 'input',
-          },
-        ]}
-        submit={{
-          url: 'https://www.testMoce.json',
-          method: 'POST',
-        }}
-      />
-    </div>
-  );
+  const config = {
+    fields: [
+      {
+        name: 'name',
+        label: 'Name',
+        field: 'input',
+      },
+    ],
+    submit: {
+      url: 'http://rap2.taobao.org:38080/app/mock/256045/form/submit.json',
+      method: 'POST',
+    }
+  }
+  return <CreateForm {...config} />
 }
 ```
 
 ```jsx
+// pages/index.tsx
 import React from 'react';
 import { CreateForm } from 'sula';
 
 export default () => {
+  const config = {
+    fields: [
+      {
+        name: 'name',
+        label: 'Name',
+        field: 'input',
+      },
+    ],
+    submit: {
+      url: 'http://rap2.taobao.org:38080/app/mock/256045/form/submit.json',
+      method: 'POST',
+    }
+  }
+  return <CreateForm {...config} />
+}
+```
+
+**添加表单项**
+- field：使用对象形式，可配置插件属性
+  - type：插件类型
+  - props：插件属性
+- initialSource：表单项初始数据源(select下拉框)
+- valuePropName: 子节点的值的属性，如 Switch 的是 'checked' [详情参考antd](https://ant.design/components/form-cn/#Form.Item)
+
+```diff
+import React from 'react';
+import { CreateForm } from 'sula';
+
+export default () => {
++ const initialSource = [{
++   text: 'Web',
++   value: 'web'
++ }, {
++   text: 'Product',
++   value: 'product'
++ }];
+
   return (
     <div>
       <CreateForm
         fields={[
           {
             name: 'name',
-            label: '姓名',
+            label: 'Name',
             field: 'input',
-          },
++          }, {
++            name: 'profession',
++            label: 'Profession',
++            initialSource,
++            field: {
++              type: 'select',
++              props: {
++                placeholder: 'please select profession'
++              }
++            },
++          }, {
++            name: 'rooms',
++            label: 'Rooms',
++            field: 'switch',
++            valuePropName: 'checked'
++          }
         ]}
-        submit={{
-          url: 'https://www.mocky.io/v2/5185415ba171ea3a00704eed',
+        submit: {
+          url: 'http://rap2.taobao.org:38080/app/mock/256045/form/submit.json',
           method: 'POST',
-        }}
+        }
       />
     </div>
   );
 }
 ```
-
-**如果我想多添加几个表单项怎么办呢？**
-- field：当表单项想设置props或添加正则等（此处不表述）时就要以对象的形式来展示了
-  - type：该项的类型，props：设定该项属性
-- initialSource：设置默认的source(类似于select、checkboxgroup需要设置)
-
-![avatar](https://img.alicdn.com/tfs/TB161YjGkP2gK0jSZPxXXacQpXa-4100-1802.png)
 
 ```jsx
 import React from 'react';
@@ -129,218 +159,462 @@ import { CreateForm } from 'sula';
 
 export default () => {
   const initialSource = [{
-    text: '苹果',
-    value: 'apple'
+    text: 'Web',
+    value: 'web'
   }, {
-    text: '香蕉',
-    value: 'banana'
+    text: 'Product',
+    value: 'product'
   }];
 
-  return (
-    <div>
-      <CreateForm
-        fields={[
-          {
-            name: 'name',
-            label: '姓名',
-            field: 'input',
-          }, {
-            name: 'fruit',
-            label: '水果',
-            initialSource,
-            field: {
-              type: 'select',
-              props: {
-                placeholder: '请输入'
-              }
-            },
-          }, {
-            name: 'times',
-            label: '是否保密',
-            field: 'switch',
-          }
-        ]}
-        submit={{
-          url: 'https://www.mocky.io/v2/5185415ba171ea3a00704eed',
-          method: 'POST',
-        }}
-      />
-    </div>
-  );
-}
-
-```
-
-**如果想用一个容器把form包裹起来呢？这也不是问题**
-- container：表单容器
-  - type：容器的类型；可以通过props来设置容器的标题等其他属性
-- actionsPosition：按钮的位置；bottom|right|center|默认（不设置）
-- itemLayout: 表单布局(详情可以参考antd)
-
-![avatar](https://img.alicdn.com/tfs/TB1TP_qGi_1gK0jSZFqXXcpaXXa-4102-1804.png)
-
-```jsx
-import React from 'react';
-import { CreateForm } from 'sula';
-
-export default () => {
-  const initialSource = [{
-    text: '苹果',
-    value: 'apple'
-  }, {
-    text: '香蕉',
-    value: 'banana'
-  }];
-
-  return (
-    <div>
-      <CreateForm
-        actionsPosition="right"
-        container={{
-          type: 'card',
+  const config = {
+    fields: [
+      {
+        name: 'name',
+        label: 'Name',
+        field: 'input',
+      }, {
+        name: 'profession',
+        label: 'Profession',
+        initialSource,
+        field: {
+          type: 'select',
           props: {
-            title: '卡片'
+            placeholder: 'please select profession'
           }
-        }}
-        itemLayout={{
-          labelCol: {
-            span: 6,
-          },
-          wrapperCol: {
-            span: 8,
-          }
-        }}
-        fields={[
-          {
-            name: 'name',
-            label: '姓名',
-            field: 'input',
-          }, {
-            name: 'fruit',
-            label: '水果',
-            initialSource,
-            field: {
-              type: 'select',
-              props: {
-                placeholder: '请输入'
-              }
-            },
-          }, {
-            name: 'times',
-            label: '是否保密',
-            field: 'switch',
-          }
-        ]}
-        submit={{
-          url: 'https://www.mocky.io/v2/5185415ba171ea3a00704eed',
-          method: 'POST',
-        }}
-      />
-    </div>
-  );
+        },
+      }, {
+        name: 'rooms',
+        label: 'Rooms',
+        field: 'switch',
+        valuePropName: 'checked'
+      }
+    ],
+    submit: {
+      url: 'http://rap2.taobao.org:38080/app/mock/256045/form/submit.json',
+      method: 'POST',
+    }
+  }
+  return <CreateForm {...config} />
 }
-
 ```
 
-**到现在为止你可能想；编辑、查看状态下怎样获取接口数据并渲染？提交form的某些参数想额外处理怎么办？...别急,接下来就告诉你**
+**设置表单布局和容器**
+- container：容器插件
+  - type：插件类型
+  - props：插件属性
+- actionsPosition：按钮位置 `bottom | right | center | default(默认)`
+- itemLayout: 表单布局，支持labelCol和wrapperCol属性，同[antd](https://ant.design/components/form-cn/#Form.Item)
+
+```diff
+import React from 'react';
+import { CreateForm } from 'sula';
+
+export default () => {
+  const initialSource = [{
+    text: 'Web',
+    value: 'web'
+  }, {
+    text: 'Product',
+    value: 'product'
+  }];
+
+  const config = {
+    fields: [
+      {
+        name: 'name',
+        label: 'Name',
+        field: 'input',
+      }, {
+        name: 'profession',
+        label: 'Profession',
+        initialSource,
+        field: {
+          type: 'select',
+          props: {
+            placeholder: 'please please'
+          }
+        },
+      }, {
+        name: 'rooms',
+        label: 'Rooms',
+        field: 'switch',
+        valuePropName: 'checked'
+      }
+    ],
++    actionsPosition: 'right',
++    container: {
++      type: 'card',
++      props: {
++        title: 'Card'
++      }
++    },
++    itemLayout: {
++      span: 6,    // span表示每项所占的栅格数
++      labelCol: {
++        span: 6
++      },
++      wrapper: {
++        span: 18,
++      }
++    },
+    submit: {
+      url: 'http://rap2.taobao.org:38080/app/mock/256045/form/submit.json',
+      method: 'POST',
+    },
+  }
+  return <CreateForm {...config} />
+}
+```
+
+```jsx
+import React from 'react';
+import { CreateForm } from 'sula';
+
+export default () => {
+  const initialSource = [{
+    text: 'Web',
+    value: 'web'
+  }, {
+    text: 'Product',
+    value: 'product'
+  }];
+
+  const config = {
+    fields: [
+      {
+        name: 'name',
+        label: 'Name',
+        field: 'input',
+      }, {
+        name: 'profession',
+        label: 'Profession',
+        initialSource,
+        field: {
+          type: 'select',
+          props: {
+            placeholder: 'please input'
+          }
+        },
+      }, {
+        name: 'rooms',
+        label: 'Rooms',
+        field: 'switch',
+        valuePropName: 'checked'
+      }
+    ],
+    submit: {
+      url: 'http://rap2.taobao.org:38080/app/mock/256045/form/submit.json',
+      method: 'POST',
+    },
+    actionsPosition: 'right',
+    container: {
+      type: 'card',
+      props: {
+        title: 'Card'
+      }
+    },
+    itemLayout: {
+      span: 6,
+      labelCol: {
+        span: 6
+      },
+      wrapper: {
+        span: 18,
+      }
+    }
+  }
+  return <CreateForm {...config} />
+}
+```
+
+**远程表单值**
 - remoteValues: 表单初始值远程请求
-- request：sula封装的请求方法
-  - url: 请求地址；params：请求参数
-*在请求详情接口初始化、提交数据时需要更改某些参数的时候可以通过和request方法配合；其实还有其他方式，如果你感兴趣的话可以继续往后看*
+  - url: 接口地址
+- mode: 表单模式 `create: 创建模式，view: 查看模式，edit: 编辑模式`
 
-![avatar](https://img.alicdn.com/tfs/TB1CKYkGeL2gK0jSZPhXXahvXXa-4094-1340.png)
+>mode为view或edit时才会执行remoteValues请求
 
-```jsx
+```diff
 import React from 'react';
-import { CreateForm, request } from 'sula';
+import { CreateForm } from 'sula';
 
 export default () => {
   const initialSource = [{
-    text: '苹果',
-    value: 'apple'
+    text: 'Web',
+    value: 'web'
   }, {
-    text: '香蕉',
-    value: 'banana'
+    text: 'Product',
+    value: 'product'
   }];
 
-  return (
-    <div>
-      <CreateForm
-        actionsPosition="right"
-        container={{
-          type: 'card',
+  const config = {
+    fields: [
+      {
+        name: 'name',
+        label: 'Name',
+        field: 'input',
+      }, {
+        name: 'profession',
+        label: 'Profession',
+        initialSource,
+        field: {
+          type: 'select',
           props: {
-            title: '卡片'
+            placeholder: 'please select profession'
           }
-        }}
-        itemLayout={{
-          labelCol: {
-            span: 6,
-          },
-          wrapperCol: {
-            span: 8,
-          }
-        }}
-        fields={[
-          {
-            name: 'name',
-            label: '姓名',
-            field: 'input',
-          }, {
-            name: 'fruit',
-            label: '水果',
-            initialSource,
-            field: {
-              type: 'select',
-              props: {
-                placeholder: '请输入'
-              }
-            },
-          }, {
-            name: 'times',
-            label: '是否保密',
-            field: 'switch',
-          }
-        ]}
-        remoteValues={{
-          url: '/api/manage/detail.json',
-          method: 'post',
-          params: {
-            id: 19
-          }
-        }}
-        submit={ctx => {
-          const { result } = ctx;
-          return request({
-            url: 'https://www.mocky.io/v2/5185415ba171ea3a00704eed',
-            method: 'POST',
-            params: { ...result, times: result.times ? '成功' : '失败' }
-          })
-        }}
-      />
-    </div>
-  );
+        },
+      }, {
+        name: 'rooms',
+        label: 'Rooms',
+        field: 'switch',
+        valuePropName: 'checked'
+      }
+    ],
+    actionsPosition: 'right',
+    container: {
+      type: 'card',
+      props: {
+        title: 'Card'
+      }
+    },
+    itemLayout: {
+      span: 6,
+      itemLayout: {
+        span: 6,
+        labelCol: {
+          span: 6
+        },
+        wrapper: {
+          span: 18,
+        }
+      }
+    },
+    submit: {
+      url: 'http://rap2.taobao.org:38080/app/mock/256045/form/submit.json',
+      method: 'POST',
+    },
++    remoteValues: {
++      url: 'http://rap2.taobao.org:38080/app/mock/256045/form/formList',
++      method: 'get',
++    },
++    mode: 'edit'
+  }
+  return <CreateForm {...config} />
 }
-
 ```
 
-### QueryTable模版的使用
-**下面先介绍QueryTable模版基础使用**
-- columns：表格列配置
-  - render: 设置表格项最终渲染形态；ctx参数包含该组list值和table实例等
-- remoteDataSource：表格初始值接口请求
-  - convertParams：处理并通过return返回最终的请求参数
-  - converter：处理并通过return返回最终的列表数据
-- 右上方按钮；Query：点击自动携带form列表值作为参数请求接口并刷新表格； Reset: 重置form列表并刷新table；
-
 ```jsx
+import React from 'react';
+import { CreateForm } from 'sula';
+
+export default () => {
+  const initialSource = [{
+    text: 'Web',
+    value: 'web'
+  }, {
+    text: 'Product',
+    value: 'product'
+  }];
+
+  const config = {
+    fields: [
+      {
+        name: 'name',
+        label: 'Name',
+        field: 'input',
+      }, {
+        name: 'profession',
+        label: 'Profession',
+        initialSource,
+        field: {
+          type: 'select',
+          props: {
+            placeholder: 'please select profession'
+          }
+        },
+      }, {
+        name: 'rooms',
+        label: 'Rooms',
+        field: 'switch',
+        valuePropName: 'checked'
+      }
+    ],
+    actionsPosition: 'right',
+    container: {
+      type: 'card',
+      props: {
+        title: 'Card'
+      }
+    },
+    itemLayout: {
+      span: 6,
+      itemLayout: {
+        span: 6,
+        labelCol: {
+          span: 6
+        },
+        wrapper: {
+          span: 18,
+        }
+      }
+    },
+    submit: {
+      url: 'http://rap2.taobao.org:38080/app/mock/256045/form/submit.json',
+      method: 'POST',
+    },
+    remoteValues: {
+      url: 'http://rap2.taobao.org:38080/app/mock/256045/form/formList',
+      method: 'get',
+    },
+    mode: 'edit',
+  }
+  return <CreateForm {...config} />
+}
+```
+
+### QueryTable使用
+- layout: 查询表单布局
+- columns：表格列配置
+```js
+interface ColumnsProps = {
+  title: string | ({ sortOrder, sortColumn, filters }) => ReactNode;
+  key: string;
+  render: RenderPlugin | RenderPlugin[];
+  filterRender: { type: string } | string;
+  [key: string]: AntdColumnsProps; // antd table columns透传属性
+}
+```
+初始代码
+
+```js
+// pages/index.tsx
 import React from 'react';
 import { QueryTable } from 'sula';
 
 export default () => {
-  const queryFields = [{
+  const fields = [{
     name: 'name',
-    label: '名字',
+    label: 'Name',
+    field: {
+      type: 'input',
+      props: {
+        placeholder: 'please input'
+      }
+    }
+  }]
+  const columns = [{
+    title: 'Sequence',
+    key: 'index'
+  }, {
+    title: 'Country',
+    key: 'nat'
+  }, {
+    title: 'Age',
+    key: 'age',
+  }, {
+    title: 'Name',
+    key: 'name'
+  }, {
+    title: 'Email',
+    key: 'email',
+  }]
+  return (
+    <QueryTable
+      layout="vertical"
+      columns={columns}
+      fields={fields}
+      rowKey="id"
+    />
+  )
+}
+```
+
+```jsx
+// pages/index.tsx
+import React from 'react';
+import { QueryTable } from 'sula';
+
+export default () => {
+  const fields = [{
+    name: 'name',
+    label: 'Name',
+    field: {
+      type: 'input',
+      props: {
+        placeholder: 'please input'
+      }
+    }
+  }]
+  const columns = [{
+    title: 'Sequence',
+    key: 'index'
+  }, {
+    title: 'Country',
+    key: 'nat'
+  }, {
+    title: 'Age',
+    key: 'age',
+  }, {
+    title: 'Name',
+    key: 'name'
+  }, {
+    title: 'Email',
+    key: 'email',
+  }]
+  return (
+    <QueryTable
+      layout="vertical"
+      columns={columns}
+      fields={fields}
+      rowKey="id"
+    />
+  )
+}
+```
+
+**添加初始化数据**
+- remoteDataSource：表格值接口请求
+  - url: 请求地址
+  - convertParams：处理请求参数
+  - converter：处理返回数据
+
+查询表格请求参数默认为以下格式
+```js
+{
+   pagination: {
+     pageSize: 10,
+     current: 1, 
+   },
+   filters: {  // 过滤项
+     age: 1,
+     name: 'Bob'
+   },
+   sorter: {
+     columnKey: 'index', // 排序项
+     order: 'ascend'   // descend 降序； ascend：升序
+   }
+}
+```
+sula-table支持的期望数据格式
+```js
+{
+  data: {
+    list: [],   // 表格数据列表
+    current: 1,
+    pageSize: 10,  // 每页条数
+    total: 100,     // 数据总数
+  }
+}
+```
+
+```diff
+import React from 'react';
+import { QueryTable } from 'sula';
+
+export default () => {
+  const fields = [{
+    name: 'name',
+    label: 'Name',
     field: {
       type: 'input',
       props: {
@@ -349,83 +623,74 @@ export default () => {
     }
   }]
 
-  const remoteDataSource = {
-    url: 'https://randomuser.me/api',
-    method: 'GET',
-    convertParams({ params }) {
-      return {
-        results: 3,
-        ...params,
-      };
-    },
-    converter({ data }) {
-      return {
-        list: data.results.map((item, index) => {
-          return {
-            ...item,
-            id: `${index}`,
-            name: `${item.name.first} ${item.name.last}`,
-            index,
-          };
-        }),
-        total: 10,
-      };
-    },
-  };
++  const remoteDataSource = {
++    url: 'http://rap2.taobao.org:38080/app/mock/256045/table/list',
++    method: 'GET',
++    convertParams({ params }) {
++      return {
++        results: 3,
++        ...params,
++      };
++    },
++    converter({ data }) {
++      return {
++        list: data.results.map((item, index) => {
++          return {
++            ...item,
++            id: index,
++            index,
++          };
++        }),
++        total: 10,
++      };
++    },
++  };
 
   const columns = [{
-    title: '序号',
+    title: 'Sequence',
     key: 'index'
   }, {
-    title: '国家',
+    title: 'Country',
     key: 'nat'
   }, {
-    title: '年龄',
+    title: 'Age',
     key: 'age',
-    render: ctx => {
-      return <span>{ctx.record.registered.age}</span>
-    }
   }, {
-    title: '名字',
+    title: 'Name',
     key: 'name'
   }, {
-    title: '邮箱',
+    title: 'Email',
     key: 'email',
   }]
   return (
     <QueryTable
       layout="vertical"
       columns={columns}
-      remoteDataSource={remoteDataSource}
-      fields={queryFields}
++      remoteDataSource={remoteDataSource}
+      fields={fields}
       rowKey="id"
     />
   )
 }
-
 ```
-
-**那怎么添加搜索项呢？搜索项太多了该怎么显示呢？怎么添加操作呢？**
-- fields: 搜索表单项配置列表
-  - name：搜索字段，label：显示搜索字段名；field：搜索框配置（包含类型和属性）支持对象和字符串（type）
-- columns中的render不仅仅支持函数形式，还支持数组的形式来配置action-render
-  - 内部type表示点击类型（一般为icon、button、text）,支持props；
-    - action配置的是事件组（若干个事件），事件可以是字符串或对象的形式配置，action是字符串表示事件类型，action是对象时内部type表示类型，他们是通过链式来依次调用执行  
-
-*根据搜索项的个数，搜索层会呈现不同的形态；1、搜索项小于等于两个时；搜索框和按钮在同一行展示；2、搜索项大于两个小于六个，搜索按钮会展示在第二行最右侧；3、大于六个搜索项时，五个搜索项之外的搜索项会被隐藏且搜索按钮旁会出现显示或隐藏其他搜索项的操作*
-
-**搜索表单配置变化**
-![avatar](https://img.alicdn.com/tfs/TB1DhIQGAY2gK0jSZFgXXc5OFXa-4150-1312.png)
-**columns配置变化**
-![avatar](https://img.alicdn.com/tfs/TB132MGGuL2gK0jSZPhXXahvXXa-4096-1510.png)
 
 ```jsx
 import React from 'react';
 import { QueryTable } from 'sula';
 
 export default () => {
+  const fields = [{
+    name: 'name',
+    label: 'Name',
+    field: {
+      type: 'input',
+      props: {
+        placeholder: 'please input'
+      }
+    }
+  }]
   const remoteDataSource = {
-    url: 'https://randomuser.me/api',
+    url: 'http://rap2.taobao.org:38080/app/mock/256045/table/list',
     method: 'GET',
     convertParams({ params }) {
       return {
@@ -438,8 +703,7 @@ export default () => {
         list: data.results.map((item, index) => {
           return {
             ...item,
-            id: `${index}`,
-            name: `${item.name.first} ${item.name.last}`,
+            id: index,
             index,
           };
         }),
@@ -448,9 +712,135 @@ export default () => {
     },
   };
   
-  const queryFields = [{
+  const columns = [{
+    title: 'Sequence',
+    key: 'index'
+  }, {
+    title: 'Country',
+    key: 'nat'
+  }, {
+    title: 'Age',
+    key: 'age',
+  }, {
+    title: 'Name',
+    key: 'name'
+  }, {
+    title: 'Email',
+    key: 'email',
+  }]
+  return (
+    <QueryTable
+      layout="vertical"
+      columns={columns}
+      remoteDataSource={remoteDataSource}
+      fields={fields}
+      rowKey="id"
+    />
+  )
+}
+```
+
+**添加搜索项**
+>注意：根据搜索项个数，查询表单会呈现不同的形态
+- 搜索项个数小于等于2个时；搜索项和搜索按钮在同一行展示
+- 搜索项个数大于2个不超过5个时，搜索按钮会展示在第二行最右侧
+- 搜索项个数超过5个时，超出的搜索项会被折叠隐藏
+
+```diff
+import React from 'react';
+import { QueryTable } from 'sula';
+
+export default () => {
+  const fields = [{
     name: 'name',
-    label: '名字',
+    label: 'Name',
+    field: {
+      type: 'input',
+      props: {
+        placeholder: 'please input'
+      }
+    }
++  }, {
++    name: 'nat',
++    label: 'Country',
++    field: 'input'
++  }, {
++   name: 'email',
++   label: 'Email',
++   field: 'input'
++ }, {
++   name: 'index',
++   label: 'Sequence',
++   field: 'input'
++ }, {
++   name: 'age',
++   label: 'Age',
++   field: 'input'
++ }, {
++   name: 'others',
++   label: 'Others',
++   field: 'input'
+  }]
+
+  const remoteDataSource = {
+    url: 'http://rap2.taobao.org:38080/app/mock/256045/table/list',
+    method: 'GET',
+    convertParams({ params }) {
+      return {
+        results: 3,
+        ...params,
+      };
+    },
+    converter({ data }) {
+      return {
+        list: data.results.map((item, index) => {
+          return {
+            ...item,
+            id: index,
+            index,
+          };
+        }),
+        total: 10,
+      };
+    },
+  };
+  
+  const columns = [{
+    title: 'Sequence',
+    key: 'index'
+  }, {
+    title: 'Country',
+    key: 'nat'
+  }, {
+    title: 'Age',
+    key: 'age',
+  }, {
+    title: 'Name',
+    key: 'name'
+  }, {
+    title: 'Email',
+    key: 'email',
+  }]
+  return (
+    <QueryTable
+      layout="vertical"
+      columns={columns}
+      remoteDataSource={remoteDataSource}
+      fields={fields}
+      rowKey="id"
+    />
+  )
+}
+```
+
+```jsx
+import React from 'react';
+import { QueryTable } from 'sula';
+
+export default () => {
+  const fields = [{
+    name: 'name',
+    label: 'Name',
     field: {
       type: 'input',
       props: {
@@ -459,99 +849,337 @@ export default () => {
     }
   }, {
     name: 'nat',
-    label: '国家',
+    label: 'Country',
     field: 'input'
   }, {
     name: 'email',
-    label: '邮箱',
+    label: 'Email',
     field: 'input'
   }, {
     name: 'index',
-    label: '序号',
+    label: 'Sequence',
     field: 'input'
   }, {
-    name: 'input1',
-    label: 'input1',
+    name: 'age',
+    label: 'Age',
     field: 'input'
   }, {
-    name: 'input2',
-    label: 'input2',
+    name: 'others',
+    label: 'Others',
     field: 'input'
   }]
 
+  const remoteDataSource = {
+    url: 'http://rap2.taobao.org:38080/app/mock/256045/table/list',
+    method: 'GET',
+    convertParams({ params }) {
+      return {
+        results: 3,
+        ...params,
+      };
+    },
+    converter({ data }) {
+      return {
+        list: data.results.map((item, index) => {
+          return {
+            ...item,
+            id: index,
+            index,
+          };
+        }),
+        total: 10,
+      };
+    },
+  };
+  
   const columns = [{
-    title: '序号',
+    title: 'Sequence',
     key: 'index'
   }, {
-    title: '国家',
+    title: 'Country',
     key: 'nat'
   }, {
-    title: '年龄',
+    title: 'Age',
     key: 'age',
-    render: ctx => {
-      return <span>{ctx.record.registered.age}</span>
-    }
   }, {
-    title: '名字',
+    title: 'Name',
     key: 'name'
   }, {
-    title: '邮箱',
+    title: 'Email',
+    key: 'email',
+  }]
+  return (
+    <QueryTable
+      layout="vertical"
+      columns={columns}
+      remoteDataSource={remoteDataSource}
+      fields={fields}
+      rowKey="id"
+    />
+  )
+}
+```
+
+**添加操作列**
+> 说明：AntD 4.x 的Icon采用按需引入的方式，使用前需要注册Icon插件。
+
+```js
+// global.ts
+import { Icon } from 'sula';
+import { DeleteOutlined } from '@ant-design/icons';
+
+// 注册所需的icon
+Icon.iconRegister({
+  delete: DeleteOutlined,
+});
+```
+
+- render: 操作列配置
+  - type：渲染插件类型 `文本 图标 按钮`
+  - props：属性
+  - action: 行为插件，点击触发行为，支持多种格式
+    - string：行为插件类型，如`refreshtable`刷新表格
+    - function：回调函数
+    - object：可配置 type  final error 等属性
+    - array：支持以上几种类型，promise链式调用
+
+> action类型为request时，url、params等可配置在对象中；sula会帮你处理请求
+
+```diff
+  const columns = [{
+    title: 'Sequence',
+    key: 'index'
+  }, {
+    title: 'Country',
+    key: 'nat'
+  }, {
+    title: 'Age',
+    key: 'age',
+  }, {
+    title: 'Name',
+    key: 'name'
+  }, {
+    title: 'Email',
+    key: 'email',
++  }, {
++    title: 'Operator',
++    key: 'operator',
++    render: [
++      {
++        confirm: 'delete or not',
++        type: 'icon',
++        props: {
++          type: 'delete'
++        },
++        action: [
++          {
++            type: 'request',
++            url: 'http://rap2.taobao.org:38080/app/mock/256045/table/detele',
++            method: 'POST',
++            params: {
++              id: '#{record.id}',
++            },
++            successMessage: 'successfully deleted',
++          },
++          'refreshTable'
++        ]
++      }
++    ]
+  }]
+```
+
+```jsx
+import React from 'react';
+import { QueryTable, Icon } from 'sula';
+import { DeleteOutlined } from '@ant-design/icons';
+
+Icon.iconRegister({
+  delete: DeleteOutlined,
+});
+
+export default () => {
+  const fields = [{
+    name: 'name',
+    label: 'Name',
+    field: {
+      type: 'input',
+      props: {
+        placeholder: 'please input'
+      }
+    }
+  }, {
+    name: 'nat',
+    label: 'Country',
+    field: 'input'
+  }, {
+    name: 'email',
+    label: 'Email',
+    field: 'input'
+  }, {
+    name: 'index',
+    label: 'Sequence',
+    field: 'input'
+  }, {
+    name: 'age',
+    label: 'Age',
+    field: 'input'
+  }, {
+    name: 'others',
+    label: 'Other',
+    field: 'input'
+  }]
+
+  const remoteDataSource = {
+    url: 'http://rap2.taobao.org:38080/app/mock/256045/table/list',
+    method: 'GET',
+    convertParams({ params }) {
+      return {
+        results: 3,
+        ...params,
+      };
+    },
+    converter({ data }) {
+      return {
+        list: data.results.map((item, index) => {
+          return {
+            ...item,
+            id: index,
+            index,
+          };
+        }),
+        total: 10,
+      };
+    },
+  };
+  
+  const columns = [{
+    title: 'Sequence',
+    key: 'index'
+  }, {
+    title: 'Country',
+    key: 'nat'
+  }, {
+    title: 'Age',
+    key: 'age',
+  }, {
+    title: 'Name',
+    key: 'name'
+  }, {
+    title: 'Email',
     key: 'email',
   }, {
-    title: '操作',
-    key: 'operat',
+    title: 'Operator',
+    key: 'operator',
     render: [
       {
-        confirm: '是否删除',
+        confirm: 'delete or not',
         type: 'icon',
         props: {
-          type: 'appstore'
+          type: 'delete'
         },
         action: [
           {
             type: 'request',
-            url: 'https://www.mocky.io/v2/5185415ba171ea3a00704eed',
+            url: 'http://rap2.taobao.org:38080/app/mock/256045/table/detele',
             method: 'POST',
             params: {
               id: '#{record.id}',
             },
-            successMessage: '删除成功',
+            successMessage: 'successfully deleted',
           },
           'refreshTable'
         ]
       }
     ]
   }]
+
   return (
     <QueryTable
       layout="vertical"
       columns={columns}
       remoteDataSource={remoteDataSource}
-      fields={queryFields}
+      fields={fields}
       rowKey="id"
     />
   )
 }
-
 ```
 
-**怎么实现表格中新增以及批量操作这些常用功能点呢？还有表格内部搜索呢？**
-- actionsRender: 表头自定义部操作组配置
-  - type： 控制类型；支持props透传；action：事件（支持链式和单个）
-- filters以数组的形式支持筛选；filterRender：search表示搜索；sorter：为true的时候可设置升降序搜索
+**添加排序、筛选**
+- filters表头的筛选菜单项
+- filterRender：过滤插件
+- sorter：服务端排序 可设为ture
 
-**表格内部搜索添加**
-![avatar](https://img.alicdn.com/tfs/TB1AitfGSf2gK0jSZFPXXXsopXa-4086-1344.png)
-**表头自定义操作组配置添加**
-![avatar](https://img.alicdn.com/tfs/TB15oeJXepyVu4jSZFhXXbBpVXa-4096-1588.png)
+> 本例中filterRender设置的search为sula内置过滤插件，效果如下图
+
+![avatar](https://img.alicdn.com/tfs/TB1D4XgXA9l0K4jSZFKXXXFjpXa-1268-672.png)
+
+```diff
+  const columns = [{
+    title: 'Sequence',
+    key: 'index',
++    sorter: true
+  }, {
+    title: 'Country',
+    key: 'nat',
++    filterRender: 'search'
+  }, {
+    title: 'Age',
+    key: 'age',
++    filters: [{
++      text: 3,
++      value: 3
++    }, {
++      text: 12,
++      value: 12
++    }, {
++      text: 18,
++      value: 18
++    }],
+  }, {
+    title: 'Name',
+    key: 'name'
+  }
+```
 
 ```jsx
 import React from 'react';
 import { QueryTable } from 'sula';
 
 export default () => {
+  const fields = [{
+    name: 'name',
+    label: 'Name',
+    field: {
+      type: 'input',
+      props: {
+        placeholder: 'please input'
+      }
+    }
+  }, {
+    name: 'nat',
+    label: 'Country',
+    field: 'input'
+  }, {
+    name: 'email',
+    label: 'Email',
+    field: 'input'
+  }, {
+    name: 'index',
+    label: 'Sequence',
+    field: 'input'
+  }, {
+    name: 'age',
+    label: 'Age',
+    field: 'input'
+  }, {
+    name: 'others',
+    label: 'Others',
+    field: 'input'
+  }]
+
   const remoteDataSource = {
-    url: 'https://randomuser.me/api',
+    url: 'http://rap2.taobao.org:38080/app/mock/256045/table/list',
     method: 'GET',
     convertParams({ params }) {
       return {
@@ -564,8 +1192,7 @@ export default () => {
         list: data.results.map((item, index) => {
           return {
             ...item,
-            id: `${index}`,
-            name: `${item.name.first} ${item.name.last}`,
+            id: index,
             index,
           };
         }),
@@ -574,47 +1201,16 @@ export default () => {
     },
   };
   
-  const queryFields = [{
-    name: 'name',
-    label: '名字',
-    field: {
-      type: 'input',
-      props: {
-        placeholder: 'please input'
-      }
-    }
-  }, {
-    name: 'nat',
-    label: '国家',
-    field: 'input'
-  }, {
-    name: 'email',
-    label: '邮箱',
-    field: 'input'
-  }, {
-    name: 'index',
-    label: '序号',
-    field: 'input'
-  }, {
-    name: 'input1',
-    label: 'input1',
-    field: 'input'
-  }, {
-    name: 'input2',
-    label: 'input2',
-    field: 'input'
-  }]
-
   const columns = [{
-    title: '序号',
+    title: 'Sequence',
     key: 'index',
     sorter: true
   }, {
-    title: '国家',
+    title: 'Country',
     key: 'nat',
     filterRender: 'search'
   }, {
-    title: '年龄',
+    title: 'Age',
     key: 'age',
     filters: [{
       text: 3,
@@ -626,34 +1222,192 @@ export default () => {
       text: 18,
       value: 18
     }],
-    render: ctx => {
-      return <span>{ctx.record.registered.age}</span>
-    }
   }, {
-    title: '名字',
+    title: 'Name',
     key: 'name'
   }, {
-    title: '邮箱',
+    title: 'Email',
     key: 'email',
   }, {
-    title: '操作',
-    key: 'operat',
+    title: 'Operator',
+    key: 'operator',
     render: [
       {
-        confirm: '是否删除',
+        confirm: 'delete or not',
         type: 'icon',
         props: {
-          type: 'appstore'
+          type: 'delete'
         },
         action: [
           {
             type: 'request',
-            url: 'https://www.mocky.io/v2/5185415ba171ea3a00704eed',
+            url: 'http://rap2.taobao.org:38080/app/mock/256045/table/detele',
             method: 'POST',
             params: {
               id: '#{record.id}',
             },
-            successMessage: '删除成功',
+            successMessage: 'successfully deleted',
+          },
+          'refreshTable'
+        ]
+      }
+    ]
+  }]
+
+  return (
+    <QueryTable
+      layout="vertical"
+      columns={columns}
+      remoteDataSource={remoteDataSource}
+      fields={fields}
+      rowKey="id"
+    />
+  )
+}
+```
+
+**在表头添加操作按钮**
+- rowSelection: 表格行是否可选择
+- actionsRender: 表头操作按钮配置，同 `操作列render配置`
+
+> disabled: 根据是否勾选选择框来判断批量操作的状态，参数ctx为 table实例、table数据源、history
+
+```diff
++  const actionsRender = [{
++    type: 'button',
++    disable: ctx => {
++      const selectedRowKeys = ctx.table.getSelectedRowKeys() || [];
++      return !selectedRowKeys.length;
++    },
++    props: {
++      children: 'Bulk Export',
++      type: 'primary'
++    },
++    action: [
++      () => {
++        console.log('Bulk Export')
++      },
++      'refreshTable' // 刷新表格
++    ]
++  }]
+
+  return (
+    <QueryTable
+      layout="vertical"
+      columns={columns}
++      remoteDataSource={remoteDataSource}
+      actionsRender={actionsRender}
++      rowSelection={{}}
+      fields={fields}
+      rowKey="id"
+    />
+  )
+```
+```jsx
+import React from 'react';
+import { QueryTable } from 'sula';
+
+export default () => {
+  const fields = [{
+    name: 'name',
+    label: 'Name',
+    field: {
+      type: 'input',
+      props: {
+        placeholder: 'please input'
+      }
+    }
+  }, {
+    name: 'nat',
+    label: 'Country',
+    field: 'input'
+  }, {
+    name: 'email',
+    label: 'Email',
+    field: 'input'
+  }, {
+    name: 'index',
+    label: 'Sequence',
+    field: 'input'
+  }, {
+    name: 'age',
+    label: 'Age',
+    field: 'input'
+  }, {
+    name: 'others',
+    label: 'Others',
+    field: 'input'
+  }]
+
+  const remoteDataSource = {
+    url: 'http://rap2.taobao.org:38080/app/mock/256045/table/list',
+    method: 'GET',
+    convertParams({ params }) {
+      return {
+        results: 3,
+        ...params,
+      };
+    },
+    converter({ data }) {
+      return {
+        list: data.results.map((item, index) => {
+          return {
+            ...item,
+            id: index,
+            index,
+          };
+        }),
+        total: 10,
+      };
+    },
+  };
+  
+  const columns = [{
+    title: 'Sequence',
+    key: 'index',
+    sorter: true
+  }, {
+    title: 'Country',
+    key: 'nat',
+    filterRender: 'search'
+  }, {
+    title: 'Age',
+    key: 'age',
+    filters: [{
+      text: 3,
+      value: 3
+    }, {
+      text: 12,
+      value: 12
+    }, {
+      text: 18,
+      value: 18
+    }],
+  }, {
+    title: 'Name',
+    key: 'name'
+  }, {
+    title: 'Email',
+    key: 'email',
+  }, {
+    title: 'Operator',
+    key: 'operator',
+    render: [
+      {
+        confirm: 'delete or not',
+        type: 'icon',
+        props: {
+          type: 'delete'
+        },
+        action: [
+          {
+            type: 'request',
+            url: 'http://rap2.taobao.org:38080/app/mock/256045/table/detele',
+            method: 'POST',
+            params: {
+              id: '#{record.id}',
+            },
+            successMessage: 'successfully deleted',
           },
           'refreshTable'
         ]
@@ -663,30 +1417,20 @@ export default () => {
 
   const actionsRender = [{
     type: 'button',
-    disabled: ctx => {
-      var selectedRowKeys = ctx.table.getSelectedRowKeys() || [];
+    disable: ctx => {
+      const selectedRowKeys = ctx.table.getSelectedRowKeys() || [];
       return !selectedRowKeys.length;
     },
     props: {
-      icon: 'cloud-upload',
-      children: '批量导出'
+      children: 'Bulk Export',
+      type: 'primary'
     },
     action: [
       () => {
-        console.log('批量导出');
+        console.log('Bulk Export')
       },
       'refreshTable'
     ]
-  }, {
-    type: 'button',
-    props: {
-      type: 'primary',
-      children: '新增',
-    },
-    action: {
-      type: 'route',
-      path: '/'
-    }
   }]
 
   return (
@@ -694,108 +1438,11 @@ export default () => {
       layout="vertical"
       columns={columns}
       remoteDataSource={remoteDataSource}
-      fields={queryFields}
       actionsRender={actionsRender}
       rowSelection={{}}
+      fields={fields}
       rowKey="id"
     />
   )
 }
-
 ```
-
-### icon的使用
-**icon使用和其他插件有些区别；antd4.0版本后的icon都是按需导入的方式，sula也兼顾到了这种方式，把antd中的icon插件化，下面就聊聊sula中icon的使用**
-
-- icon使用前需要先注册（一般会在global.js中注册）
-- 说明：iconRegister函数接受一个对象，该对象的key是icon的类型，value有2种形式 `object | Element (antd icon)` *Element (antd icon)默认type为outlined* ；value为object时，该object的key表示的是icon形态`filled | outlined | twoTone`，object的value对应的是`Element (antd icon)`；
-
-```js
-import { Icon } from 'sula';
-import { TabletFilled, AppstoreOutlined, EditTwoTone, CoffeeOutlined } from '@ant-design/icons';
-
-Icon.iconRegister({
-  tablet: {
-    filled: TabletFilled,
-  },
-  appstore: {
-    outlined: AppstoreOutlined,
-  },
-  edit: {
-    twoTone: EditTwoTone,
-  },
-  coffee: CoffeeOutlined,
-});
-
-```
-- 使用就比较简单了，可以以组件、插件的方式使用，`使用的必须是你注册过的icon`
-- 参数
-  - type：注册过的icon的类型
-  - theme：icon的展示类型`filled | outlined | twoTone`；默认为outlined
-
-
-组件的形式使用
-```js
-import React from 'react';
-import { Icon } from 'sula';
-
-return (
-  <>
-    <Icon type="appstore" />
-    <Icon type="tablet" theme="filled" />
-    <Icon type="edit" theme="twoTone" />
-  </>
-)
-```
-插件的形式使用(拿table中的columns操作项为例)
-
-```js
-const columns = [
-  ...
-  {
-    title: '操作',
-    key: 'operation',
-    render: [
-      {
-        type: 'icon',
-        props: {
-          type: 'tablet',
-          theme: 'filled'
-        }
-      }
-    ]
-  }
-  ...
-]
-```
-
-### action的使用说明
-**事件列表**
-- 介绍：action配置的是事件列表（若干个事件），事件可以是`字符串或对象`的形式配置，action是字符串表示事件类型，action是对象时内部type表示类型，他们是通过链式来依次调用执行
-- 用处：一般用于table中的操作列事件组、table表头操作行事件组、form底部行操作组等;
-
-```js
-// 表头操作组
-const actionsRender = [{
-  type: 'button',
-  props: {
-    type: 'primary',
-    children: '删除'
-  },
-  action: [
-    {
-      type: 'request',
-      url: 'http://api/testMock/delete.json',
-      method: 'post',
-      params: {
-        rowkey: '#{table.getSelectedRowKeys()}'
-      }
-    },
-    'refreshtable'
-  ]
-}]
-
-```
-
-### 模版字符串
-- 介绍：sula中模版字符串为兼容区分es6中的模版字符串，以`"#{}"`形式表示；常用于table中的columns中的字段拼接
