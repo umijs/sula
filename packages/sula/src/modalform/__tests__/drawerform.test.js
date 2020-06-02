@@ -1,10 +1,11 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { act } from 'react-dom/test-utils';
+import { Table } from '../../table';
 import DrawerForm from '..';
 import { delay } from '../../__tests__/common';
 
-describe('modalform', () => {
+describe('drawerform', () => {
   it('close', async () => {
     let modalRef;
     const wrapper = mount(
@@ -107,5 +108,50 @@ describe('modalform', () => {
     wrapper.update();
 
     expect(wrapper.find('Drawer').props().visible).toEqual(false);
+  });
+
+  it('drawerform action plugin', async (done) => {
+    const wrapper = mount(
+      <Table
+        columns={[{ key: 'id', title: 'id' }]}
+        actionsRender={{
+          type: 'button',
+          props: {
+            children: 'button',
+          },
+          action: [
+            {
+              type: 'drawerform',
+              title: 'title',
+              fields: [
+                {
+                  name: 'input',
+                  label: 'input',
+                  field: 'input',
+                },
+              ],
+              initialValues: {
+                input: 123,
+              },
+              submit: () => {
+                return Promise.resolve({ id: 1 });
+              },
+            },
+            (ctx) => {
+              expect(ctx.result).toEqual({ $submit: { id: 1 }, $fieldsValue: { input: 123 } });
+              done();
+            },
+          ],
+        }}
+      />,
+    );
+
+    wrapper.find('button').first().simulate('click');
+    wrapper.update();
+    wrapper.find('button').forEach((node) => {
+      if (node.text() === 'Submit') {
+        node.simulate('click');
+      }
+    });
   });
 });
