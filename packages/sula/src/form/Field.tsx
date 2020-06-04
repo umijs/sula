@@ -24,7 +24,7 @@ import FormDependency from './dependency';
 const FormItem = AForm.Item;
 
 export interface FieldProps extends Omit<FormItemProps, 'children' | 'wrapperCol' | 'labelCol' | 'rules'> {
-  field: FieldPlugin;
+  field?: FieldPlugin;
   name?: FieldNamePath;
   collect?: boolean;
   initialDisabled?: boolean;
@@ -34,6 +34,8 @@ export interface FieldProps extends Omit<FormItemProps, 'children' | 'wrapperCol
   remoteSource?: RequestConfig;
   dependency?: Dependencies;
   children?: React.ReactElement;
+  wrapperCol?: object;
+  itemLayout?: object;
   rules?: Array<Omit<Rule, 'validator'> & {
     validator? : ValidatorPlugin;
   }>
@@ -51,15 +53,15 @@ export default class Field extends React.Component<FieldProps> {
    */
   private source: FieldSource;
 
-  private disabled: boolean;
+  private disabled: boolean = false;
 
   // 收集表单值相关
-  private visible: boolean;
+  private visible: boolean = true;
 
-  private collect: boolean;
+  private collect: boolean = false;
 
   // 如果不设置则给一个唯一值，并不会作为 FormItem 的 name
-  private fieldName: string;
+  private fieldName: string = '';
 
   componentDidMount() {
     const { registerField, getFormDependency, getCtx } = this.context.formContext.getInternalHooks(
@@ -221,8 +223,8 @@ export default class Field extends React.Component<FieldProps> {
     const {
       field: fieldProps,
       initialSource,
-      initialVisible,
-      initialDisabled,
+      initialVisible = true,
+      initialDisabled = false,
       collect,
       remoteSource,
       itemLayout, // 无cols

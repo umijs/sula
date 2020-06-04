@@ -55,9 +55,9 @@ export default class FieldGroup extends React.Component<FieldGroupProps> {
   private hasDependency = false;
 
   // 收集值相关
-  private visible: boolean;
+  private visible: boolean = true;
 
-  private groupName: string;
+  private groupName: string = '';
 
   componentDidMount() {
     this.inited = true;
@@ -78,9 +78,9 @@ export default class FieldGroup extends React.Component<FieldGroupProps> {
     }
 
     const formDependency: FormDependency = getFormDependency();
-    const groupFieldPropsWithName = pick(this.props, ['dependency', 'name']);
+    let groupFieldPropsWithName = pick(this.props, ['dependency', 'name']);
     if (!groupFieldPropsWithName.name) {
-      groupFieldPropsWithName.name = this.groupName;
+      groupFieldPropsWithName = {...groupFieldPropsWithName, name: this.groupName};
     }
     formDependency.parseFormDependency(groupFieldPropsWithName as FieldProps);
   }

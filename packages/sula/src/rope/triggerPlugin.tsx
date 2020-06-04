@@ -8,6 +8,7 @@ import { Space } from 'antd';
 import { LazyPluginCtx, LazyPluginCtxGetter, PluginCtx } from '../types/ctx';
 import {
   RenderPlugin,
+  RenderPluginItem,
   ActionPlugin,
   FieldPlugin,
   PluginType,
@@ -104,14 +105,18 @@ export const triggerFieldPlugin = (
   );
 };
 
+// type RenderPlugin = {
+//   visible: boolean;
+// }
+
 export const triggerRenderPlugin = (
   lazyCtx: LazyPluginCtx | PluginCtx,
-  config: RenderPlugin | RenderPlugin[],
+  config: RenderPlugin | RenderPlugin[] | undefined,
 ): React.ReactFragment | null => {
   const ctx = getLazyCtx(lazyCtx) as PluginCtx;
   //过滤掉不显示的
   const arrayConf = toArray(config).filter((iterConf) => {
-    const visible = transformConfig(iterConf.visible, ctx);
+    const visible = transformConfig((iterConf as RenderPluginItem).visible, ctx);
     return visible != false;
   });
 
@@ -141,7 +146,7 @@ export const triggerSingleRenderPlugin = (lazyCtx: LazyPluginCtx, config: Render
     skipFuncObjKeys: ['props'],
     skipKeys: ['action'],
   };
-  const normalizedRenderConfig = normalizeConfig(config) as RenderPlugin;
+  const normalizedRenderConfig = normalizeConfig(config) as RenderPluginItem;
 
   const isTwiceTrigger =
     normalizedRenderConfig.type === 'button' ||

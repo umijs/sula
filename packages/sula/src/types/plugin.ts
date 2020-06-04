@@ -56,12 +56,14 @@ type ConverterComboCtx = ConverterCtx & Partial<ActionResultComboCtx>;
 
 // 渲染插件
 export type RenderPluginFunction = (ctx: RenderCtx) => React.ReactElement;
-export type RenderPlugin = {
+export type RenderPluginItem = {
   type: string | RenderPluginFunction;
   props: Record<string, any>;
   functionProps: Record<string, (ctx: RenderCtx) => string>;
   action?: ActionPlugin | ActionPlugin[];
-} | string | RenderPluginFunction;
+  visible: boolean;
+}
+export type RenderPlugin = RenderPluginItem | string | RenderPluginFunction;
 
 // field插件
 export type FieldPluginFunction = (ctx: FormCtx) => React.ReactElement;

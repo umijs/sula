@@ -14,6 +14,9 @@ export interface FormActinProps {
   actionsPosition?: ActionsPosition;
   actionsRender?: RenderPlugin | RenderPlugin[];
   children?: React.ReactElement;
+  itemLayout: React.ReactElement;
+  style?: object;
+  className: string;
 }
 
 export default class FormAction extends React.Component<FormActinProps> {
