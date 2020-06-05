@@ -72,7 +72,6 @@ export default class DependencyDemo extends React.Component {
                 value: {
                   relates: ['input1'],
                   type: (ctx) => {
-                    debugger;
                     if (ctx.values[0] === '9527') {
                       ctx.form.setFieldValue(ctx.name, '9527');
                     } 

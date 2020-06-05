@@ -10,12 +10,23 @@ export default class ValidatorDemo extends React.Component {
       <Form
         fields={[
           {
-            name: 'input',
-            label: 'Input',
+            name: 'input1',
+            label: 'Input1',
             field: {
               type: 'input',
             },
             rules: [{
+              required: true,
+              message: 'input1 必填'
+            }]
+          },
+          {
+            name: 'input2',
+            label: 'Input2',
+            field: {
+              type: 'input',
+            },
+            rules: [{ // 自定义校验
               validator(ctx) {
                 return new Promise((resolve, reject) => {
                   if(ctx.value === 'sula') {
