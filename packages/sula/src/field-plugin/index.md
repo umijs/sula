@@ -82,7 +82,7 @@ export default () => {
       <Upload onChange={e => { console.log('e', e) }}>
         <Button>上传</Button>
       </Upload>
-      <RangePicker />{' '}
+      <RangePicker valueFormat="utc"onChange={(finalTime, timeString) => { console.log(finalTime, timeString, 'rangepicker') }} />{' '}
       <DatePicker />{' '}
       <TimePicker onChange={(finalTime, timeString) => { console.log(finalTime, timeString, 'timpicker time') }} />
     </div>

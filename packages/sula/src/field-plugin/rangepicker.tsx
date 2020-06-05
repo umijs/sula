@@ -13,9 +13,9 @@ export default class SulaTimePicker extends React.Component<SulaDatePickerProps>
   };
   onFormatChange = (time, timeString) => {
     const { valueFormat, onChange } = this.props;
-    let finalTime;
+    let finalTime = time || [];
 
-    finalTime = time.map((t, i) => {
+    finalTime = finalTime.map((t, i) => {
       let finalT;
       if (valueFormat === 'utc') {
         finalT = t ? t.valueOf() : null;
