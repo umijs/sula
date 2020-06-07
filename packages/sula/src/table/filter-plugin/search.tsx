@@ -1,6 +1,7 @@
 import React from 'react';
-import LocaleReceiver from '../../localereceiver';
 import { Input, Button } from 'antd';
+import isArray from 'lodash/isArray';
+import LocaleReceiver from '../../localereceiver';
 
 export default class SearchFilter {
   private searchInst: any;
@@ -19,6 +20,8 @@ export default class SearchFilter {
   };
 
   private filterDropdown = ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => {
+    // 初始状态是[]
+    const finalSelectedKeys = isArray(selectedKeys) ? selectedKeys[0] : selectedKeys;
     return (
       <LocaleReceiver>
         {(locale) => (
@@ -27,14 +30,14 @@ export default class SearchFilter {
               ref={(ref) => {
                 this.searchInst = ref;
               }}
-              value={(selectedKeys || [])[0]}
-              onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+              value={finalSelectedKeys}
+              onChange={(e) => setSelectedKeys(e.target.value)}
               onPressEnter={() => confirm()}
             />
             <div style={{ marginTop: 7 }}>
               <Button
                 size="small"
-                disabled={!selectedKeys.length}
+                disabled={!finalSelectedKeys}
                 type="link"
                 style={{ padding: 0 }}
                 onClick={() => clearFilters()}

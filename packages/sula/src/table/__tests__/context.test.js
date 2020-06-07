@@ -93,6 +93,7 @@ describe('use table context', () => {
         }
       });
       expect(tableRef.getSelectedRowKeys()).toEqual([]);
+      expect(tableRef.getSelectedRows()).toEqual([]);
       expect(checkboxes.at(3).props().checked).toEqual(false);
       expect(checkboxes.at(4).props().checked).toEqual(false);
 

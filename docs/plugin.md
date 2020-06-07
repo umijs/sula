@@ -40,7 +40,7 @@ Icon.iconRegister({
 - 说明：插件是全局作用的，所以建议在全局注册；为了好展示，暂且在组件中注册
 
 ### 自定义field插件
-`registerFieldPlugin` 是field插件注册的内部方法 `柯里化函数`
+`registerFieldPlugin` 是field插件注册的内部方法
 - 参数
 
 |  属性名  | 说明 | 类型 |
@@ -86,7 +86,7 @@ export default () => {
 ```
 
 ### 自定义render插件
-`registerRenderPlugin` 是render插件注册的内部方法 `柯里化函数`
+`registerRenderPlugin` 是render插件注册的内部方法
 - 属性
 
 |  属性名  | 说明 | 类型 | 默认值 |
@@ -618,7 +618,7 @@ field: {
 
 |  属性名  | 说明 | 类型 | 默认值 |
 |  ----  | ----  | ---- | - |
-|  type  | 类型  | `string | RenderPluginFunction` | - |
+|  type  | 类型  | `string` \| `RenderPluginFunction` | - |
 |  props  | 属性  | `Record<string, any>` | - |
 |  confirm  | 确认框的描述  | `string` | - |
 |  tooltip  | 文字提示  | `string` | - |
@@ -685,15 +685,50 @@ export default () => {
 
 ### button
 按钮渲染插件
+- 说明
+  - 导入Icon支持 `string`、`object`
+  - action有返回Promise时 `(request)`按钮会自动loading；Promise执行结束后loading消失
 - 示例
 ```js
 render: {
   type: 'button',
   props: {
     children: '按钮',
-    type: 'primary'
+    type: 'primary',
+    icon: 'appstore',
+    // icon: {
+    //   type: 'appstore', // appstore为注册过的icon
+    //   style: {
+    //     color: '#fff'
+    //   }
+    // }
   }
 }
+
+// 按钮自动loading
+render: [{
+  type: 'button',
+  props: {
+    children: '提交',
+    type: 'primary'
+  },
+  action: [{
+    url: 'https://www.mocky.io/v2/5ed7a8b63200001ad9274ab5',
+    method: 'post'
+  }, {
+    type: 'button',
+    props: {
+      children: 'loading 3秒'
+    },
+    action: () => {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          console.log('3 秒后出现')
+        }, 3000)
+      })
+    }
+  }]
+}]
 ```
 
 组件使用
@@ -702,7 +737,7 @@ import React from 'react';
 import { Button } from 'sula';
 
 export default () => {
-  return <Button type="primary">按钮</Button>
+  return <Button icon="appstore" type="primary">按钮</Button>
 }
 ```
 
@@ -710,6 +745,7 @@ export default () => {
 
 ### icon
 图标渲染插件
+- action有返回Promise时 `(request)`按钮会自动loading；Promise执行结束后loading消失
 - 示例
 插件使用
 ```js
@@ -717,6 +753,14 @@ render: {
   type: 'icon',
   props: {
     type: 'appstore', // appstore为注册过的icon
+    text: '其他' // icon右侧文本
+  },
+  action: () => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        console.log('3 秒后出现')
+      }, 3000)
+    })
   }
 }
 ```

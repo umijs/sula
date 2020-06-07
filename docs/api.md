@@ -7,6 +7,109 @@ nav:
 
 ## Form
 
+### ctx
+sula 内所有配置属性，均支持配置方法，ctx 为该方法的第一个参数，配置给不同属性时，ctx 内容会有差异
+
+**参数及适用范围**
+- form实例
+- history: 详情参考 [umi history](https://umijs.org/zh-CN/api#history)
+- mode: 表单模式, 支持 `'create' | 'view' | 'edit'`
+- disabled: 是否可点击
+- source：表单项数据源 `(select、checkboxgroup等支持source)`
+- results、 result：链式操作的上一个行为promise返回的结果
+
+|      | form | history | mode | disabled | source | results | result |
+| ---- | ---- | ------- | ---- | -------- | ------ | ------- | ------ |
+| field |  ✅  |  -  |  ✅  |  ✅  |  ✅  |  -  |  -  |
+| render | ✅ |  -  |  ✅  |  -  |  -  |  -  |  -  |
+| container | ✅ |  -  |  ✅  |  -  |  -  |  -  |  -  |
+| actionsRender |  ✅  |  ✅  |  ✅  | - | - |  -  |  -  |
+| action |  ✅  |  ✅  |  ✅  | - | - |  ✅  |  ✅  |
+
+
+#### field 示例
+表单控件插件
+- 示例
+```js
+const fields = [
+  {
+    name: 'name',
+    label: '姓名',
+    fields: ctx => {
+      return <Input disabled={ctx.mode === 'view'} />
+    }
+  },
+  {
+    name: 'age',
+    label: '年龄',
+    fields: {
+      type: 'input',
+      funcProps: {
+        disabled: ctx => {
+          if (ctx.text === '12') {
+            return true;
+          };
+          return false;
+        }
+      }
+    }
+  },
+  {
+    name: 'others',
+    label: '其他',
+    render: ctx => {
+      return <div>{ctx.mode} 渲染展示</div>
+    }
+  }
+]
+```
+
+#### container 示例
+容器插件
+- 示例
+```js
+const container = {
+  type: 'card',
+  props: {
+    title: '#{mode} 标题' // 可以通过 `'#{text}'` 来取值
+  }
+}
+```
+
+### actionsRender 示例
+表单底部操作组
+- 说明： `actionsRender` ctx返回的是 `form`、 `history`、 `mode`；`actions`会进行链式操作，promise执行后会返回`result`、`results`
+- 示例
+```js
+const actionsRender = [{
+  type: 'button',
+  props: {
+    children: '提交',
+    type: 'primary'
+  },
+  disabled: ctx => {
+    if (ctx.mode === 'view') {
+      return 'default';
+    }
+    return 'primary';
+  },
+  funcProps: {
+    type: ctx => {
+      if (ctx.mode === 'view') {
+        return 'default';
+      }
+      return 'primary';
+    }
+  },
+  action: [
+    ctx => {
+      console.log(ctx, 'action ctx')
+    },
+    // 行为链
+  ]
+}]
+```
+
 ### 实例API
 
 #### validateFields
@@ -356,6 +459,108 @@ const config = {
 ```
 
 ## Table
+
+### ctx
+
+**参数及适用范围**
+- table实例
+- dataSource: table数据源
+- history: 详情参考 [umi history](https://umijs.org/zh-CN/api#history)
+- index: 索引
+- record: 当前行数据
+- text: 当前行的值
+- params: 请求参数
+- data: 接口返回数据
+- result、results: 链式操作的上一个行为promise返回的结果
+
+|      | table | dataSource | history | index | record | text | params | data | results | result |
+| ---- | ---- | ------- | ---- | -------- | ------ | ------- | ------ | ------ | ------- | ------- |
+| columns |  ✅  |  -  |  ✅  |  ✅  |  ✅  |  ✅  |  -  | - | - | - |
+| remoteDataSource |  ✅  |  -  |  -  | - | - | - |  -  | - | - | - |
+| convertParams |  ✅  |  -  |  -  | - | - | - |  ✅  | - | - | - |
+| converter |  ✅  |  -  |  -  | - | - | - |  -  | ✅ | - | - |
+| actionsRender | ✅ |  ✅  |  ✅  |  -  |  -  |  -  |  -  | - | - | - |
+| leftActionsRender | ✅ |  ✅  |  ✅  |  -  |  -  |  -  |  -  | - | - | - |
+| action | ✅ |  ✅  |  ✅  |  -  |  -  |  -  |  -  |  -  |  ✅  |  ✅  |
+
+#### columns 示例
+表格列的配置
+- 注意：除了直接用ctx取值外，还可以通过 `'#{text}'` 来取值
+- 示例
+```js
+const columns = [{
+  title: '国家',
+  key: 'nat',
+  render: [{
+    type: 'tag',
+    funcProps: {
+      color: ctx => {
+        if (ctx.text  === 'China') {
+          return 'red';
+        }
+        return 'yellow';
+      }
+    },
+    props: {
+      children: '#text',
+      color: 
+    }
+  }]
+}]
+```
+
+#### remoteDataSource 示例
+表格初始值请求
+- 示例
+```js
+const config = {
+  remoteDataSource: {
+    url: 'https://randomuser.me/api',
+    method: 'GET',
+    params: {
+      id: 1
+    },
+    convertParams(ctx) {
+      return {
+        pageSize: ctx.params.pageSize,
+        ...ctx.params,
+      };
+    },
+
+    converter(ctx) {
+      // 返回结果
+    }
+  }
+}
+```
+
+#### actionsRender 示例
+操作组配置
+- 说明：actionsRender ctx返回的是 `table实例`、`history`、`dataSource`；actions会进行链式操作，promise执行后会返回`result`、`results`
+- 示例
+```js
+const actionsRender = [{
+  type: 'button',
+  funcProps: {
+    disabled: ctx => {
+      if (ctx.table.dataSource.length >= 5) {
+        return true;
+      }
+      return false;
+    }
+  },
+  props: {
+    type: 'primary',
+    children: '创建',
+  },
+  action: [
+    ctx => {
+      // ctx
+    },
+    // 行为链
+  ]
+}]
+```
 
 ### 实例API
 

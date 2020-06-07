@@ -20,6 +20,18 @@ export default () => {
         children: '一般',
       },
     },
+    {
+      type: 'button',
+      props: {
+        children: '刷新',
+        type: 'primary',
+      },
+      disabled: (ctx) => {
+        const { length } = ctx.table.getSelectedRows() || [];
+        return !length;
+      },
+      action: 'refreshtable',
+    },
   ];
 
   return (

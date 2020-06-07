@@ -276,7 +276,7 @@ describe('table', () => {
       await act(async () => {
         await delay(1000);
       });
-      expect(curFilters).toEqual({ name: ['a'] });
+      expect(curFilters).toEqual({ name: 'a' });
 
       openFilters(wrapper);
       wrapper.find('button').forEach((node) => {
@@ -295,7 +295,7 @@ describe('table', () => {
       await act(async () => {
         await delay(1000);
       });
-      expect(curFilters).toEqual({ name: ['a'] });
+      expect(curFilters).toEqual({ name: 'a' });
     });
   });
 

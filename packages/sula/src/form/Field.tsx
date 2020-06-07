@@ -5,7 +5,7 @@ import omit from 'lodash/omit';
 import assign from 'lodash/assign';
 import { FormItemProps } from 'antd/lib/form/FormItem';
 import { Rule } from 'antd/lib/form';
-import { FieldPlugin, ValidatorPlugin } from '../types/plugin';
+import { FieldPlugin, ValidatorPlugin, RenderPlugin } from '../types/plugin';
 import { FieldNamePath, FieldNameList } from '../types/form';
 import { RequestConfig } from '../types/request';
 import { Dependencies } from '../types/dependency';
@@ -20,6 +20,7 @@ import {
 import { Form as AForm, Col } from 'antd';
 import { needWrapCols } from './utils/layoutUtil';
 import FormDependency from './dependency';
+import { ItemLayout, Layout } from './FieldGroup';
 
 const FormItem = AForm.Item;
 
@@ -34,9 +35,12 @@ export interface FieldProps extends Omit<FormItemProps, 'children' | 'wrapperCol
   remoteSource?: RequestConfig;
   dependency?: Dependencies;
   children?: React.ReactElement;
+  itemLayout?: ItemLayout;
+  layout?: Layout;
   rules?: Array<Omit<Rule, 'validator'> & {
     validator? : ValidatorPlugin;
   }>
+  childrenContainer?: RenderPlugin;
 }
 
 export default class Field extends React.Component<FieldProps> {
