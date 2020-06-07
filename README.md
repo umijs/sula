@@ -52,7 +52,7 @@ import { Form, Table, CreateForm, QueryTable, StepForm, StepQueryTable } from 's
 
 - [x] umi-plugin-sula
 - [ ] 最终的模板设计
-- [ ] 更好的 typscript 支持
+- [ ] 更好的 typescript 支持
 - [ ] 文档
 
 ## 🔗 友情链接
