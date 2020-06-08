@@ -97,7 +97,7 @@ class ContextStore {
          */
         if (!internal && this.controls.selectedRowKeys && this.controls.selectedRowKeys.length) {
           if (this.tableProps.disableClearSelectedRows !== true) {
-            this.setSelectedRowKeys([]);
+            this.clearRowSelection();
           }
         }
         this.hideLoading();
@@ -182,6 +182,7 @@ class ContextStore {
 
   private clearRowSelection = () => {
     this.setSelectedRowKeys([]);
+    this.records.selectedRows = [];
   };
 
   private getPaging = () => {

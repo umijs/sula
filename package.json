@@ -35,6 +35,7 @@
     "lerna": "^3.20.2",
     "mockdate": "^2.0.5",
     "mockjs": "^1.1.0",
+    "react-live": "^2.2.2",
     "sula": "^1.0.0-alpha.35",
     "umi-test": "^1.9.6"
   },

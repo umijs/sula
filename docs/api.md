@@ -7,23 +7,157 @@ nav:
 
 ## Form
 
+### ctx
+sula 内所有配置属性，均支持配置方法，ctx 为该方法的第一个参数，配置给不同属性时，ctx 内容会有差异
+
+**参数及适用范围**
+- form实例
+- history: 详情参考 [umi history](https://umijs.org/zh-CN/api#history)
+- mode: 表单模式, 支持 `'create' | 'view' | 'edit'`
+- disabled: 是否可点击
+- source：表单项数据源 `(select、checkboxgroup等支持source)`
+- results、 result：链式操作的上一个行为promise返回的结果
+
+|      | form | history | mode | disabled | source | results | result |
+| ---- | ---- | ------- | ---- | -------- | ------ | ------- | ------ |
+| field |  ✅  |  -  |  ✅  |  ✅  |  ✅  |  -  |  -  |
+| render | ✅ |  -  |  ✅  |  -  |  -  |  -  |  -  |
+| container | ✅ |  -  |  ✅  |  -  |  -  |  -  |  -  |
+| actionsRender |  ✅  |  ✅  |  ✅  | - | - |  -  |  -  |
+| action |  ✅  |  ✅  |  ✅  | - | - |  ✅  |  ✅  |
+
+
+#### field 示例
+表单控件插件
+- 示例
+```js
+const fields = [
+  {
+    name: 'name',
+    label: '姓名',
+    fields: ctx => {
+      return <Input disabled={ctx.mode === 'view'} />
+    }
+  },
+  {
+    name: 'age',
+    label: '年龄',
+    fields: {
+      type: 'input',
+      funcProps: {
+        disabled: ctx => {
+          if (ctx.text === '12') {
+            return true;
+          };
+          return false;
+        }
+      }
+    }
+  },
+  {
+    name: 'others',
+    label: '其他',
+    render: ctx => {
+      return <div>{ctx.mode} 渲染展示</div>
+    }
+  }
+]
+```
+
+#### container 示例
+容器插件
+- 示例
+```js
+const container = {
+  type: 'card',
+  props: {
+    title: '#{mode} 标题' // 可以通过 `'#{text}'` 来取值
+  }
+}
+```
+
+### actionsRender 示例
+表单底部操作组
+- 说明： `actionsRender` ctx返回的是 `form`、 `history`、 `mode`；`actions`会进行链式操作，promise执行后会返回`result`、`results`
+- 示例
+```js
+const actionsRender = [{
+  type: 'button',
+  props: {
+    children: '提交',
+    type: 'primary'
+  },
+  disabled: ctx => {
+    if (ctx.mode === 'view') {
+      return 'default';
+    }
+    return 'primary';
+  },
+  funcProps: {
+    type: ctx => {
+      if (ctx.mode === 'view') {
+        return 'default';
+      }
+      return 'primary';
+    }
+  },
+  action: [
+    ctx => {
+      console.log(ctx, 'action ctx')
+    },
+    // 行为链
+  ]
+}]
+```
+
 ### 实例API
 
 #### validateFields
 触发表单验证
+- 参数类型: `NamePath | true`
 - 返回类型：`Promise`
-- 参数类型: `NamePath[] | true`
-> 忽略`visible`或`collect`为`false`的表单项
+- 介绍
+  - 忽略`visible`或`collect`为`false`的表单项
+- 用法
+```js
+// 返回格式同antd
+validateFields()
+  .then(values => {})
+  .catch(error => {})
+```
 
 #### validateGroupFields
 组触发表单验证
-- 返回类型：`promise`
 - 参数类型：`string`
-  - 必填: 只验证所选的组
+- 返回类型：`promise`
+- 介绍: 参数必填且只验证所选的组
+
+- 用法
+```js
+const fields = [{
+  name: 'name',
+  label: '姓名',
+  field: 'input'
+}, {
+  name: 'groups',
+  label: '组',
+  fields: [{
+    name: 'ages',
+    label: '年龄',
+    field: 'input'
+  }]
+}]
+
+// 返回格式同antd
+validateGroupFields('groups')
+  .then(values => {})
+  .catch(error => {})
+```
 
 #### setFieldValue
 设置表单项的值
-- 参数: `(name: NamePath[], any) => void`
+- 参数类型: `(name: NamePath, any) => void`
+- 介绍: setFieldValue执行会触发表单联动
 
 - 用法
 ```js
@@ -32,7 +166,7 @@ setFieldValue('name', '首富')
 
 #### setFieldSource
 设置表单项数据源
-- 参数: `(name: NamePath[], any) => void`
+- 参数类型: `(name: NamePath, any) => void`
 - 用法
 ```js
 setFieldSource('fruit', [{ value: 'apple', text: '苹果' }])
@@ -40,7 +174,7 @@ setFieldSource('fruit', [{ value: 'apple', text: '苹果' }])
 
 #### setFieldVisible
 设置表单项的显隐
-- 参数：`(name: NamePath[], boolean) => void`
+- 参数类型：`(name: NamePath, boolean) => void`
 - 用法
 ```js
 setFieldVisible('memo', false);
@@ -48,7 +182,7 @@ setFieldVisible('memo', false);
 
 #### setFieldDisabled
 设置表单项是否禁用的状态
-- 参数：`(name: NamePath[], boolean) => void`
+- 参数类型：`(name: NamePath, boolean) => void`
 - 用法
 ```js
 setFieldDisabled('memo', false);
@@ -56,8 +190,7 @@ setFieldDisabled('memo', false);
 
 #### getFieldSource
 获取表单项的数据源
-
-- 参数：`(NamePath[]) => any`
+- 参数类型：`(NamePath) => any`
 - 用法
 ```js
 getFieldSource('fruit');
@@ -65,7 +198,7 @@ getFieldSource('fruit');
 
 #### getFieldDisabled
 获取表单项是否禁用的状态
-- 参数：`(NamePath[]) => boolean`
+- 参数：`(NamePath) => boolean`
 - 用法
 ```js
 getFieldDisabled('fruit');
@@ -76,8 +209,7 @@ getFieldDisabled('fruit');
 - 类型: `{ [key: string]: any }`
 - 默认值: `{ span: 24, labelCol: { span: 6 }, wrapperCol: { span: 16 } }`
 - 属性：
-
-> `{number|object} cols`: 也可设置响应式 参考[antd/Col](https://ant.design/components/grid-cn/#Col)
+  - `cols`: 也可设置响应式 参考[antd/Col](https://ant.design/components/grid-cn/#Col)
 
 - 用法
 ```js
@@ -100,11 +232,9 @@ const config = {
 - 类型: 支持 `create: 创建模式；view: 查看模式；edit: 编辑模式`
 - 默认: `create`
 
-
 ### dependency
 表单关联
-- 详细：表单关联支持: 显隐关联`visible`、数据源关联`source`、禁用关联`disabled`、值关联`value`
-- 参数
+- 属性
   - dependency: 包裹的是级联配置对象，支持 `visible | source | disabled | value`
   - dependency下的属性
 
@@ -116,8 +246,9 @@ const config = {
 | ignores  | 数组中的每一个数组分别对应relates中需要忽略的值，当匹配忽略时则采用defaultOutput | `any[][]` |
 | defaultOutput  | 关联表单项的值匹配inputs值且相等时，当前表单项会被设置成defaultOutput的值 | `any` |
 | cases  | 更多的匹配场景，cases中同名字段优先级更高 | `array` |
-| type  | 自定义关联 | `string / (ctx,config) => void` |
+| type  | 自定义关联 | `string` \| `(ctx,config) => void` |
 
+- 介绍: 表单关联支持: 显隐关联`visible`、数据源关联`source`、禁用关联`disabled`、值关联`value`
 
 - 用法
 ```js
@@ -161,9 +292,9 @@ const config = {
 
 ### container
 容器插件
-- 类型：插件类型
+- 类型：`ReactElement | (ctx) => ReactElement | RenderType`
 - 属性
-  - type：`ReactElement | (ctx) => ReactElement | RenderType`
+  - type：插件类型
   - props: 属性
 - 用法
 ```js
@@ -181,15 +312,14 @@ const config = {
 表单控件配置
 - 类型：`Array<Field>`
 - 属性
-  - dependency: 配置表单关联，参考 `dependency`
 
 |  属性名  | 说明 | 类型 | 默认值 |
 |  ----  | ----  | ---- | - |
-| name  | 字段名, 支持数组 | `string \ number \ Array<string\number>` | - |
+| name  | 字段名, 支持数组 | `string` \| `number` \| `Array<string`\|`number>` | - |
 | lable  | 标签的文本 | `string` | - |
-| layout  | 表单布局配置，优先级高于顶层配置 | `vertical、horizontal、inline` | `horizontal` |
+| layout  | 表单布局配置，优先级高于顶层配置 | `vertical` \| `horizontal` \| `inline` | `horizontal` |
 | itemLayout  | 表单项布局分布，优先级高于顶层配置 | `object` | `{ span: 24, labelCol: { span: 6 }, wrapperCol: { span: 16 } }` |
-| field  | 表单项控件 | `(ctx) => ReactNode \ RenderType` | - |
+| field  | 表单项控件 | `(ctx) => ReactNode` \| `RenderType` | - |
 | initialVisible  | 表单项初始是否显示 | `boolean` | `true` |
 | initialDisabled  | 表单项初始禁用状态 | `boolean` | `false` |
 | initialSource  | 表单项初始数据源 | `any` | - |
@@ -231,6 +361,7 @@ const config = {
   - type：渲染插件类型 支持`文本 图标 按钮`等
   - confirm：确认框的描述
   - tooltip：文字提示
+  - disabled: 禁用点击
   - props：属性
   - action: 行为插件，点击触发行为，支持多种格式
     - string：行为插件类型，如refreshtable刷新表格
@@ -239,7 +370,7 @@ const config = {
       - type: 行为插件类型 `request类型可省略type`
       - before: 事件执行前的回调，可通过 `return false`或`return reject()` 阻断行为链
       - error: 事件执行报错回调
-      - finish: 事件完成后的回调
+      - finish: 成功回调
       - final: 最后回调
     - array：支持以上几种类型，promise链式调用
 
@@ -270,18 +401,21 @@ const actionsRender = [{
 ### actionsPosition
 底部操作位置
 - 类型: 支持 `default | center | right | bottom`
-- 默认值：default
+- 默认值：`default`
 
 ### remoteValues
 向服务器请求表单值
 - 类型：`object`
-- 参数
-  - ulr：请求地址
-  - method：请求方式
-  - params：参数
-  - converter: 处理返回数据
+- 属性
 
-> mode为view或edit时才会执行remoteValues请求
+|  属性名  | 说明 | 类型 | 默认值 |
+|  ----  | ----  | ---- | - |
+| url | 请求地址 | `string` | - |
+| method | 请求方式 | `string` | - |
+| params | 参数 | `object` | - |
+| converter | 处理返回数据 | `function` | - |
+
+- 介绍: mode为view或edit时才会执行remoteValues请求
 
 - 用法
 ```js
@@ -301,8 +435,8 @@ const config = {
 
 ### onRemoteValuesStart
 远程请求开始时的回调
-- 参数：-
-- 返回值： -
+- 参数：`-`
+- 返回值：`-`
 - 用法
 ```js
 const config = {
@@ -314,8 +448,8 @@ const config = {
 
 ### onRemoteValuesEnd
 远程请求结束时的回调
-- 参数：-
-- 返回值： -
+- 参数：`-`
+- 返回值：`-`
 ```js
 const config = {
   onRemoteValuesEnd: () => {
@@ -326,6 +460,108 @@ const config = {
 
 ## Table
 
+### ctx
+
+**参数及适用范围**
+- table实例
+- dataSource: table数据源
+- history: 详情参考 [umi history](https://umijs.org/zh-CN/api#history)
+- index: 索引
+- record: 当前行数据
+- text: 当前行的值
+- params: 请求参数
+- data: 接口返回数据
+- result、results: 链式操作的上一个行为promise返回的结果
+
+|      | table | dataSource | history | index | record | text | params | data | results | result |
+| ---- | ---- | ------- | ---- | -------- | ------ | ------- | ------ | ------ | ------- | ------- |
+| columns |  ✅  |  -  |  ✅  |  ✅  |  ✅  |  ✅  |  -  | - | - | - |
+| remoteDataSource |  ✅  |  -  |  -  | - | - | - |  -  | - | - | - |
+| convertParams |  ✅  |  -  |  -  | - | - | - |  ✅  | - | - | - |
+| converter |  ✅  |  -  |  -  | - | - | - |  -  | ✅ | - | - |
+| actionsRender | ✅ |  ✅  |  ✅  |  -  |  -  |  -  |  -  | - | - | - |
+| leftActionsRender | ✅ |  ✅  |  ✅  |  -  |  -  |  -  |  -  | - | - | - |
+| action | ✅ |  ✅  |  ✅  |  -  |  -  |  -  |  -  |  -  |  ✅  |  ✅  |
+
+#### columns 示例
+表格列的配置
+- 注意：除了直接用ctx取值外，还可以通过 `'#{text}'` 来取值
+- 示例
+```js
+const columns = [{
+  title: '国家',
+  key: 'nat',
+  render: [{
+    type: 'tag',
+    funcProps: {
+      color: ctx => {
+        if (ctx.text  === 'China') {
+          return 'red';
+        }
+        return 'yellow';
+      }
+    },
+    props: {
+      children: '#text',
+      color: 
+    }
+  }]
+}]
+```
+
+#### remoteDataSource 示例
+表格初始值请求
+- 示例
+```js
+const config = {
+  remoteDataSource: {
+    url: 'https://randomuser.me/api',
+    method: 'GET',
+    params: {
+      id: 1
+    },
+    convertParams(ctx) {
+      return {
+        pageSize: ctx.params.pageSize,
+        ...ctx.params,
+      };
+    },
+
+    converter(ctx) {
+      // 返回结果
+    }
+  }
+}
+```
+
+#### actionsRender 示例
+操作组配置
+- 说明：actionsRender ctx返回的是 `table实例`、`history`、`dataSource`；actions会进行链式操作，promise执行后会返回`result`、`results`
+- 示例
+```js
+const actionsRender = [{
+  type: 'button',
+  funcProps: {
+    disabled: ctx => {
+      if (ctx.table.dataSource.length >= 5) {
+        return true;
+      }
+      return false;
+    }
+  },
+  props: {
+    type: 'primary',
+    children: '创建',
+  },
+  action: [
+    ctx => {
+      // ctx
+    },
+    // 行为链
+  ]
+}]
+```
+
 ### 实例API
 
 #### setDataSource
@@ -333,6 +569,7 @@ const config = {
 - 类型: `array`
 - 参数: 
   - dataSource: 数据数组
+- 返回: `-`
 - 用法
 ```js
 setDataSource(dataSource);
@@ -356,7 +593,7 @@ setPagination({ pageSize: 10, total: 100 })
 
 #### setFilters
 设置过滤信息
-- 类型：`{[key: NamePath]: any}`
+- 参数类型：`{[key: NamePath]: any}`
 - 用法
 ```js
 setFilters({ phone: [123456] })
@@ -378,7 +615,7 @@ setSorter({
 
 #### getSelectedRowKeys
 获取当前勾选的表格行的 rowKey 列表
-- 类型: `() => number[]`
+- 参数类型: `() => number[]`
 - 用法
 ```js
 getSelectedRowKeys()
@@ -401,9 +638,9 @@ getSelectedRows()
 
 #### getPaging
 获取表格当前分页、排序、过滤信息
+- 参数类型: `() => ({ pagination, filters, sorter })`
 - 用法
 ```js
-// 返回值 { pagination, filters, sorter }
 getPaging()
 ```
 
@@ -429,23 +666,26 @@ refreshTable()
 resetTable(true)
 ```
 
-### columns （）
+### columns
 表格列的配置描述
 - 类型：`ColumnProps[]`
 - 参数
-  - `string` title: 列头显示文字
-  - `string` key: 列数据在数据项中对应的路径，支持通过数组查询嵌套路径
-  - filters: 表头的筛选菜单项
-  - filterRender: 过滤插件
-  - `function | boolean` sorter: 排序; 需要服务端排序可设为 true
-  - `function | array` render: 操作列配置, 同 `actionsRender`
+
+|  属性名  | 说明 | 类型 |
+|  ----  | ----  | ---- |
+| title | 列头显示文字 | `string` |
+| key | 列数据在数据项中对应的路径，支持通过数组查询嵌套路径 | `string` |
+| filters | 表头的筛选菜单项 | `object[]` |
+| filterRender | 过滤插件 | `FilterPlugin` |
+| sorter | 排序; 需要服务端排序可设为 true | `function` \| `boolean` |
+| render | 操作列配置, 同 `actionsRender` | `function` \| `array` |
 
 - 用法
 ```js
 const columns = [{
   title: '姓名',
   key: 'name',
-  filterRender: 'search'
+  filterRender: 'search' // search为sula内置过滤插件
 }, {
   title: '年龄',
   key: 'ages'
@@ -536,9 +776,48 @@ const config = {
 }
 ```
 
+## ModalForm
+一般作为行为插件 modalform 和 drawerform 使用
+
+### type
+弹窗类型
+
+- 类型: `modal | drawer`
+- 默认值: `modal`
+- 用法
+
+```js
+() => {
+  const modalFormRef = React.useRef();
+  
+  return <div>
+      <ModalForm type="drawer" ref={modalFormRef} />
+      <button onClick={() => {
+        modalFormRef.current.show({
+          title: 'Head',
+          width: 500,
+          fields: [
+            {
+              type: 'input',
+              name: 'input',
+              label: 'input',
+            }
+          ],
+          submit: {
+            url: '/v1/api',
+          },
+          // 与 CreateForm 一致
+        })
+      }}>
+        弹窗
+      </button>
+    </div>
+}
+```
+
 ## CreateForm
-> 介绍：CreateForm是在sulaForm基础上封装的模版，支持大多数的表单业务场景
-  - 只传submit的时候，默认处理成操作组 `提交、返回`(表单底部)，提交前会先处理表单验证；
+- 介绍：CreateForm是在sulaForm基础上封装的模版，支持大多数的表单业务场景
+  - 只传submit的时候，默认处理成操作组 `提交、返回`(表单底部)，提交前会先处理表单验证
   - 传入actionsRender配置会覆盖submit；配置同form中的 `actionsRender`
   - 添加非create状态下赋值前添加loading和赋值后的loading消失
 
@@ -550,6 +829,9 @@ const config = {
 - 参数
   - url: 提交地址
   - method：请求方式
+
+### actionsRender
+表单底部操作组配置, 详情参考 `actionsRender`
 
 ### back
 - 默认history.goBack()，也可配置事件
@@ -563,73 +845,78 @@ const config = {
 }
 ```
 
-- 用法
-```js
-import React from 'react';
-import { CreateForm } from 'sula';
+### submitButtonProps
+定义提交按钮属性，例如图标
 
-export default () => {
-  const initialSource = [{
-    text: '苹果',
-    value: 'apple'
-  }, {
-    text: '香蕉',
-    value: 'banana'
-  }];
-  return (
-    <div>
-      <CreateForm
-        fields={[
-          {
-            name: 'name',
-            label: '姓名',
-            field: 'input',
-          },
-          {
-            name: 'fruit',
-            label: '水果',
-            initialSource,
-            field: {
-              type: 'select',
-              props: {
-                placeholder: '请输入'
-              }
-            },
-          },
-          {
-            name: 'times',
-            label: '是否保密',
-            field: 'switch',
-          }
-        ]}
-        submit={{
-          url: 'https://www.testMoce.json',
-          method: 'POST',
-        }}
-      />
-    </div>
-  );
-}
-```
+### backButtonProps
+定义返回按钮属性，例如图标
+
+**其他属性参考sulaForm**
 
 ## QueryTable
-> 介绍：QueryTable是基于sulaTable封装的查询表格模版，在sulaTable上层添加了查询表单，由fields来配置；
+- 介绍：QueryTable是基于sulaTable封装的查询表格模版，在sulaTable上层添加了查询表单，由fields来配置
 
 ### fields
-- 搜索表单配置，详情参考sulaForm中的fields配置
+- 搜索表单配置，详情参考 `fields` 配置
 
 ### visibleFieldsCount
+设置超过多少个搜索项会出现展示图标
 - 类型：`number`
 - 默认：5
-- 设置超过多少个搜索项会显示展示图标
+
+### itemLayout
+查询表单布局
+- 默认值: `{ cols: 3 }`
+- 介绍：详细参考 `itemLayout`
+
+### fields
+查询表单控件配置
+- 介绍：详情参考 `fields`
 
 ### autoInit
+是否初始化表格数据
 - 类型：`boolean`
-- 控制是否初始化表格数据
 - 默认：`true`
 
+### actionsRender
+查询表格事件操作组
+- 介绍：详情参考 `actionsRender`
+
+### leftActionsRender
+查询表单左上方事件操作组
+- 介绍：详情参考 `leftActionsRender`
+
+### remoteDataSource
+查询表格初始值请求
+- 介绍：详情参考 `表格初始值请求`
+
+### formProps
+查询表单属性
+- 类型：`Omit<FormProps, FormPropsPicks>`
+- 默认值：`{}`
+- 介绍：详细参考 `form`
+
+### tableProps
+查询表格属性
+- 类型：`Omit<TableProps, TablePropsPicks>`
+- 默认值：`{}`
+- 介绍：详情参考 `table`
+
+**QueryTable中不透传属性如下, 其他的属性都可以通过tableProps、formProps传入**
+
+```js
+type FormPropsPicks = 'fields' | 'initialValues' | 'layout' | 'itemLayout';
+type TablePropsPicks =
+  | 'remoteDataSource'
+  | 'actionsRender'
+  | 'leftActionsRender'
+  | 'rowKey'
+  | 'columns'
+  | 'rowSelection';
+```
+
 ## StepForm
-> 介绍：StepForm是基于sulaForm封装的步骤表单模版
+- 介绍：StepForm是基于sulaForm封装的步骤表单模版
 
 ### direction
 横、纵向布局
@@ -638,14 +925,22 @@ export default () => {
 - 默认：`vertical`
 
 ### steps
-- 类型：`array`
-- steps配置步骤表单，title设置的是步骤标题；fields参考sulaForm
+步骤表单配置
+- 类型：`StepProps[]`
+- 属性：
+  - title：主标题
+  - subTitle：副标题
+  - fields：配置参考 `fields`
+  - description：描述
+
 - 用法
 ```js
 const config = {
   steps: [
     {
       title: 'Step1',
+      subTitle: '基础信息',
+      description: '所有项都是必填项',
       fields: [
         {
           name: 'name',
@@ -670,7 +965,7 @@ const config = {
 
 ### result
 - 类型: `true | object`
-- 默认不出现成功页
+- 默认：不出现成功页
 - 详细：result是配置提交后是否出现成功页面
 
 - 用法
@@ -683,11 +978,19 @@ const config = {
 // 设置成功页面提示文本
 const config = {
   result: {
-    successMessage: '成功'，
-    successDescription: '付款成功'
+    title: '成功'，
+    subTitle: '成功详情'
   }
 }
 ```
+
+### stepsStyle
+步骤表单的步骤条样式
+- 类型：`React.CSSProperties`
+
+### formStyle
+步骤表单的表单样式
+- 类型：`React.CSSProperties`
 
 ### submit
 详情参考CreateForm的submit
@@ -695,22 +998,32 @@ const config = {
 ### back
 详情参考CreateForm的back
 
+**其他属性参考sulaForm**
+
 ## StepQueryTable
 - 介绍：StepQueryTable是基于QueryTable模版封装的步骤表格
 
 ### autoRefresh
+切换步骤时是否自动刷新表格
 - 类型：`boolean`
 - 默认：`true`
-- 详细：切换步骤时是否自动刷新表格
+
+### stepsStyle
+步骤表格的步骤条样式
+- 类型：`React.CSSProperties`
+
+### queryTableStyle
+步骤表格的表格样式
+- 类型：`React.CSSProperties`
 
 ### steps
-- 详细：步骤表格的配置
+步骤表格的配置
 - 参数
   - title: 标题
   - subTitle：子标题
   - description：描述
   - fields: 搜索表单配置，详情参考sulaForm中fields配置 `覆盖外层的fields`
-  - columns: 同sula-table的columns，详情参考sulaTable `覆盖外层的columns`
+  - columns: 详情参考sulaTable的columns配置 `覆盖外层的columns`
 
 - 用法
 ```js

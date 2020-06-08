@@ -30,7 +30,7 @@ const bizDevErrorAdapter: BizDevErrorAdapter = (response: BizResponse) => {
   const { code, success, message, description } = response;
 
   const opCode = Number(code);
-  if (success == false && opCode >= 300) {
+  if (success == false && opCode >= 300 && opCode !== 302) {
     return {
       message: message || `${code}`,
       description: description || message,
@@ -41,14 +41,12 @@ const bizDevErrorAdapter: BizDevErrorAdapter = (response: BizResponse) => {
 };
 
 // 3. 用户级错误信息转换
-const bizErrorMessageAdapter: BizErrorMessageAdapter = (
-  response: BizResponse,
-) => {
+const bizErrorMessageAdapter: BizErrorMessageAdapter = (response: BizResponse) => {
   const { code, success, message } = response;
 
   const opCode = Number(code);
 
-  if (success === false && opCode < 300) {
+  if (success === false && (opCode < 300 || opCode === 302)) {
     // 错误信息只使用后端提供的
     return message;
   }

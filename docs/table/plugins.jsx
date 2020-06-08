@@ -46,11 +46,12 @@ const columns = [
   {
     title: 'No',
     key: 'index',
+    filterRender: 'search',
     render: {
-      type: 'a',
+      type: 'link',
       props: {
         children: '#{text}',
-      }
+      },
     }
   },
   {
@@ -144,6 +145,9 @@ export default class BasicDemo extends React.Component {
   render() {
     return (
       <Table
+        initialPaging={{filters: {
+          index: 'sula',
+        }}}
         columns={columns}
         remoteDataSource={remoteDataSource}
         rowKey="id"
