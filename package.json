@@ -37,6 +37,7 @@
     "mockjs": "^1.1.0",
     "react-live": "^2.2.2",
     "sula": "^1.0.0-alpha.35",
+    "@sula/charts": "^1.0.0-alpha.0",
     "umi-test": "^1.9.6"
   },
   "dependencies": {

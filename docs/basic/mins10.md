@@ -1,7 +1,7 @@
 ---
 group:
   title: 基础指南
-  order: 1
+  order: 2
 title: 十分钟快速开始
 order: 0
 ---

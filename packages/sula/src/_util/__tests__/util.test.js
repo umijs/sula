@@ -8,6 +8,8 @@ import { toArray, assignWithDefined } from '../common';
 import transStore from '../filterStore';
 import warning from '../warning';
 
+process.env.SULA_LOGGER = 'all';
+
 describe('sula utils', () => {
   describe('is', () => {
     it('isPromise', () => {

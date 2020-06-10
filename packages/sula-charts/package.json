@@ -1,0 +1,23 @@
+{
+  "name": "@sula/charts",
+  "version": "1.0.0-alpha.2",
+  "module": "./es/index.js",
+  "types": "typings/index.d.ts",
+  "description": "sula",
+  "peerDependencies": {
+    "react": "^16.8.6"
+  },
+  "files": [
+    "es",
+    "typings"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "echarts": "^4.8.0",
+    "element-resize-event": "^3.0.3",
+    "lodash.assign": "^4.2.0"
+  },
+  "devDependencies": {
+    "@types/echarts": "^4.6.1"
+  }
+}

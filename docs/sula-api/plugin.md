@@ -1,6 +1,6 @@
 ---
-title: 插件
-order: 101
+title: 内置插件列表
+order: 1
 ---
 
 # 插件
@@ -8,10 +8,10 @@ order: 101
 ## 介绍
 - 注意：插件使用前需先注册，注册流程如下
 
-1、安装 umi-plugin-sula `项目安装过可忽略`
+1、安装 umi-plugin-sula
 ```js
 // 推荐cnpm
-npm install umi-plugin-sula --save
+npm i -S umi-plugin-sula
 ```
 
 2、在 .umirc.ts 中启用 umi-plugin-sula 插件
@@ -36,8 +36,8 @@ Icon.iconRegister({
 ```
 
 ## 自定义插件
-如果以下插件满足不了你的需求，你可以根据需求自定义插件
-- 说明：插件是全局作用的，所以建议在全局注册；为了好展示，暂且在组件中注册
+如果以下插件满足不了你的需求，可根据需求自定义插件
+- 说明：插件是全局作用的，所以建议在全局注册；为了好展示，示例暂且在组件中注册
 
 ### 自定义field插件
 `registerFieldPlugin` 是field插件注册的内部方法
@@ -96,8 +96,8 @@ export default () => {
 |  extraPropsName  | 筛选config的值  | `string[]` | - |
 |  needCtxAndConfig  | 是否有ctx和config  | `boolean` | - |
 
+- 调用形式
 ```js
-// 调用形式
 registerRenderPlugin(pluginName, extraPropsName)(Component, needCtxAndConfig);
 ```
 
@@ -148,13 +148,13 @@ export default () => {
 `registerActionPlugin` 是action插件注册的内部方法
 - 属性
 
-|  属性名  | 说明 | 类型 | 默认值 |
-|  ----  | ----  | ---- | - |
-|  pluginName  | 插件名  | `string` | - |
-|  actionPlugin  | 行为插件  | `ActionImpl` | - |
+|  属性名  | 说明 | 类型 |
+|  ----  | ----  | ---- |
+|  pluginName  | 插件名  | `string` |
+|  actionPlugin  | 行为插件  | `ActionImpl` |
 
+- 调用形式
 ```js
-// 调用形式
 registerActionPlugin(pluginName, actionPlugin)
 ```
 
@@ -207,13 +207,13 @@ export default () => {
 field插件用于表单项的配置中
 - 对象配置属性如下
 
-|  属性名  | 说明 | 类型 | 默认值 |
-|  ----  | ----  | ---- | - |
-|  type  |  插件类型（sula内置插件） | `string` \| `(ctx, config) => ReactElement` | - |
-|  props  |  属性 应用于组件上的属性设置 | `object` | - |
-|  funcProps | 处理属性 | `Record<string, (ctx: FormCtx) => string>` | - |
+|  属性名  | 说明 | 类型 |
+|  ----  | ----  | ---- |
+|  type  |  插件类型（sula内置插件） | `string` \| `(ctx, config) => ReactElement` |
+|  props  |  属性 应用于组件上的属性设置 | `object` |
+|  funcProps | 处理属性 | `Record<string, (ctx: FormCtx) => string>` |
 
-- 说明：field支持`对象` `字符串` `函数`配置；字符串配置表示插件类型；
+- 说明：field支持`对象` `字符串` `函数`配置；字符串配置表示插件类型
 
 ```js
 // 字符串
@@ -223,7 +223,7 @@ field插件用于表单项的配置中
 // 对象配置
 {
   field: {
-    type: 'input',
+    type: 'input', // 插件类型
     funcProps: {
       disabled: ctx => {
         if (ctx.mode === 'view') {
@@ -263,7 +263,7 @@ field: {
 表单控件下拉框
 - 示例
 
-1、数据源赋值
+1、数据源默认值
 ```js
 {
   name: 'select',
@@ -283,7 +283,7 @@ field: {
   }],
 }
 ```
-2、下拉框选项分组
+2、数据源默认值选项分组
 ```js
 {
   name: 'select',
@@ -307,7 +307,7 @@ field: {
   }
 }
 ```
-3、远程数据源赋值
+3、远程数据源
 ```js
 {
   name: 'select',
@@ -375,17 +375,17 @@ field: {
 - 示例
 ```js
 {
-  valuePropName: 'checked',
   field: {
     type: 'switch',
     props: {
       checkedChildren: '开启',
       unCheckedChildren: '关闭'
     }
-  }
+  },
+  valuePropName: 'checked'
 }
 ```
-- 说明：valuePropName 是子节点的值的属性，如 Switch 的是 'checked'
+- 说明：valuePropName 是子节点的值的属性，如 Switch 的是 `'checked'`
 
 开关选择器 Switch 对应 props 内，更多配置参考[antd Switch](https://ant.design/components/switch-cn/)
 
@@ -403,7 +403,7 @@ field: {
   valuePropName: 'checked',
 }
 ```
-- 说明：valuePropName 是子节点的值的属性，如 checkbox 的是 'checked'
+- 说明：valuePropName 是子节点的值的属性，如 checkbox 的是 `'checked'`
 
 多选框 Checkbox 对应 props 内，更多配置参考[antd Checkbox](https://ant.design/components/checkbox-cn/)
 
@@ -435,16 +435,16 @@ field: {
 - 示例
 ```js
 {
-  valuePropName: 'checked',
   field: {
     type: 'radio',
     props: {
       children: '橘子'
     }
-  }
+  },
+  valuePropName: 'checked'
 }
 ```
-- 说明：valuePropName 是子节点的值的属性，如 radio 的是 'checked'
+- 说明：valuePropName 是子节点的值的属性，如 radio 的是 `'checked'`
 
 单选框 Radio 对应 props 内，更多配置参考[antd Radio](https://ant.design/components/radio-cn/)
 
@@ -531,14 +531,14 @@ field: {
 }
 ```
 - 属性
-  - valueFormat：返回日期格式
-    - 默认值：`-`
-    - 存在以下几种情况
-      - `"utc"`：返回毫秒时间戳格式, 例如：`1593508518351`
-      - `true`：返回格式同 `format`, 例如：`"2020-06-23 17:19:46"`
-      - `默认不设置`：返回moment格式
-  - format: 设置日期格式, valueFormat为 `true` 时生效
-    - 默认值：`"YYYY-MM-DD"`
+- valueFormat：返回日期格式
+  - 默认值：`-`
+  - 存在以下几种情况
+    - `"utc"`：返回毫秒时间戳格式, 例如：`1593508518351`
+    - `true`：返回格式同 `format`, 例如：`"2020-06-23 17:19:46"`
+    - `默认不设置`：返回moment格式
+- format: 设置日期格式, valueFormat为 `true` 时生效
+  - 默认值：`"YYYY-MM-DD"`
 
 日期选择框 Datepicker 对应 props 内，更多配置参考[antd Datepicker](https://ant.design/components/date-picker-cn/)
 
@@ -554,14 +554,14 @@ field: {
 }
 ```
 - 属性
-  - valueFormat：返回日期格式
-    - 默认值：`-`
-    - 存在以下几种情况
-      - `"utc"`：返回毫秒时间戳格式, 例如：`[1593508518351, 1595927718351]`
-      - `true`：返回格式同 `format`, 例如：`["2020-06-23 17:19:46", "2020-07-28 17:19:46"]`
-      - `默认不设置`：返回moment格式
-  - format: 设置日期格式, valueFormat为 `true` 时生效
-    - 默认值：`"YYYY-MM-DD HH:mm:ss"`
+- valueFormat：返回日期格式
+  - 默认值：`-`
+  - 存在以下几种情况
+    - `"utc"`：返回毫秒时间戳格式, 例如：`[1593508518351, 1595927718351]`
+    - `true`：返回格式同 `format`, 例如：`["2020-06-23 17:19:46", "2020-07-28 17:19:46"]`
+    - `默认不设置`：返回moment格式
+- format: 设置日期格式, valueFormat为 `true` 时生效
+  - 默认值：`"YYYY-MM-DD HH:mm:ss"`
 
 日期范围选择框 DatePicker.RangePicker 对应 props 内，更多配置参考[antd DatePicker.RangePicker](https://ant.design/components/date-picker-cn/)
 
@@ -574,14 +574,14 @@ field: {
 }
 ```
 - 属性
-  - valueFormat：返回时间格式
-    - 默认值：`-`
-    - 存在以下几种情况
-      - `"utc"`：返回毫秒时间戳格式, 例如：`1591175526204`
-      - `true`：返回格式同 `format`, 例如：`"17:05:05"`
-      - `默认不设置`：返回moment格式
-  - format: 设置日期格式, valueFormat为 `true` 时生效
-    - 默认值：`"HH:mm:ss"`
+- valueFormat：返回时间格式
+  - 默认值：`-`
+  - 存在以下几种情况
+    - `"utc"`：返回毫秒时间戳格式, 例如：`1591175526204`
+    - `true`：返回格式同 `format`, 例如：`"17:05:05"`
+    - `默认不设置`：返回moment格式
+- format: 设置日期格式, valueFormat为 `true` 时生效
+  - 默认值：`"HH:mm:ss"`
     
 时间选择框 TimePicker 对应 props 内，更多配置参考[TimePicker](https://ant.design/components/time-picker-cn/)
 
@@ -620,27 +620,25 @@ field: {
 |  ----  | ----  | ---- | - |
 |  type  | 类型  | `string` \| `RenderPluginFunction` | - |
 |  props  | 属性  | `Record<string, any>` | - |
-|  confirm  | 确认框的描述  | `string` | - |
-|  tooltip  | 文字提示  | `string` | - |
-|  disabled  | 禁用点击  | `boolean` | `false` |
+|  confirm  | 确认框的描述  | `string` \| `(ctx: RenderCtx) => string` | - |
+|  tooltip  | 文字提示  | `string` \| `(ctx: RenderCtx) => string` | - |
+|  disabled  | 禁用点击  | `boolean` \| `(ctx: RenderCtx) => boolean` | `false` |
 |  funcProps  | 属性处理 | `Record<string, (ctx: RenderCtx) => string>` | - |
 |  action  | 事件组配置  | `ActionPlugin` \| `ActionPlugin[]` | - |
 
 ```js
 render: {
   type: 'icon',
-  confirm: '确定要删除吗？',
   tooltip: '删除该项',
+  confirm: '确定要删除 #{record.index} 吗？',
+  disabled: ctx => {
+    if (ctx.record.nat === 'China') {
+      return true;
+    }
+    return false;
+  },
   props: {
     type: 'delete'
-  },
-  funcProps: {
-    disabled: ctx => {
-      if (ctx.record.nat === 'China') {
-        return true;
-      }
-      return false;
-    }
   },
   action: [
     () => {
@@ -676,7 +674,7 @@ export default () => {
 
 |  属性名  | 说明 | 类型 | 默认值 |
 |  ----  | ----  | ---- | - |
-|  type  | 文本类型  | `secondary | warning | danger` | - |
+|  type  | 文本类型  | `secondary` \| `warning` \| `danger` | - |
 |  ellipsis  | 设置自动溢出省略，需要设置元素宽度  | `boolean` | `false` |
 |  disabled  | 禁用文本  | `boolean` | `false` |
 |  delete  | 添加删除线样式	  | `boolean` | `false` |
@@ -747,7 +745,6 @@ export default () => {
 图标渲染插件
 - action有返回Promise时 `(request)`按钮会自动loading；Promise执行结束后loading消失
 - 示例
-插件使用
 ```js
 render: {
   type: 'icon',
@@ -935,7 +932,7 @@ container: {
 
 ### validateFields
 表单验证行为插件
-示例
+- 示例
 ```js
 actionsRender: [{
   type: 'button',
@@ -953,7 +950,7 @@ actionsRender: [{
   ]
 }]
 ```
-- 说明：配合actionsRender这个插件使用，用在提交前校验表单，CreateForm模版通过接收submit配置后内置了该插件
+- 说明：可配合actionsRender使用，用于提交前校验表单，CreateForm模版内置了该插件
 
 ### validateGroupFields
 表单组验证行为插件
@@ -984,7 +981,7 @@ actionsRender: [{
   }]
 }]
 ```
-- 说明 步骤表单 `StepForm` 校验且下一步中内置了该插件
+- 说明: 步骤表单 `StepForm` 校验且下一步中内置了该插件
 
 ### validateQueryFields
 搜索列表行为插件

@@ -5,19 +5,25 @@ import { Button } from 'antd';
 const steps = [
   {
     title: 'Step1',
+    subTitle: 'step1 的子标题',
+    description: 'step1 的简单描述',
     fields: [
       {
         name: 'input1',
         label: 'Input1',
         field: 'input',
-        rules: [{
-          required: true,
-        }]
+        rules: [
+          {
+            required: true,
+          },
+        ],
       },
     ],
   },
   {
     title: 'Step2',
+    subTitle: 'step2 的子标题',
+    description: 'step2 的简单描述',
     fields: [
       {
         name: 'input2',
@@ -28,6 +34,8 @@ const steps = [
   },
   {
     title: 'Step3',
+    subTitle: 'step3 的子标题',
+    description: 'step3 的简单描述',
     fields: [
       {
         name: 'input3',
@@ -64,8 +72,9 @@ export default class BasicDemo extends React.Component {
         >
           vertical
         </Button>{' '}
-        <div style={{ background: '#fff', padding: 24 }}>
+        <div style={{ background: 'rgb(241, 242, 246)', padding: 16, marginTop: 16 }}>
           <StepForm
+            stepsStyle={{width: 1180, marginLeft: 'auto', marginRight: 'auto'}}
             direction={direction}
             steps={steps}
             submit={{

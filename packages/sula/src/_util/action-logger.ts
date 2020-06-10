@@ -27,7 +27,10 @@ const actionLoggers = {
 };
 
 export default function actionLogger(type: ActionsStage, payload?: any) {
-  actionLoggers[type](type, payload);
+  // @ts-ignore
+  if(process.env.SULA_LOGGER==="action" || process.env.SULA_LOGGER==="all") {
+    actionLoggers[type](type, payload);
+  }
 }
 
 function getStyle(color: string, isBold: boolean = true) {
