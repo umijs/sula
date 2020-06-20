@@ -51,15 +51,15 @@ export const sulaChartsTheme = {
       type: 'all',
       name: '通用坐标轴',
       axisLineShow: true,
-      axisLineColor: '#cccccc',
+      axisLineColor: '#333',
       axisTickShow: false,
       axisTickColor: '#333',
       axisLabelShow: true,
-      axisLabelColor: '#999999',
+      axisLabelColor: '#333',
       splitLineShow: true,
-      splitLineColor: ['#eeeeee'],
+      splitLineColor: ['#ccc'],
       splitAreaShow: false,
-      splitAreaColor: ['rgba(250,250,250,0.05)', 'rgba(200,200,200,0.02)'],
+      splitAreaColor: ['rgba(250,250,250,0.3)', 'rgba(200,200,200,0.3)'],
     },
     {
       type: 'category',
@@ -118,7 +118,7 @@ export const sulaChartsTheme = {
       splitAreaColor: ['rgba(250,250,250,0.3)', 'rgba(200,200,200,0.3)'],
     },
   ],
-  axisSeperateSetting: false,
+  axisSeperateSetting: true,
   toolboxColor: '#999999',
   toolboxEmpasisColor: '#666666',
   tooltipAxisColor: '#cccccc',
@@ -141,9 +141,3 @@ export const sulaChartsTheme = {
   datazoomHandleWidth: '100',
   datazoomLabelColor: '#999999',
 };
-
-export const theme = 'sula-charts';
-
-export default function registerTheme(echarts: ECharts) {
-  echarts.registerTheme(theme, sulaChartsTheme);
-}

@@ -6,7 +6,7 @@ import {
   resetFields,
 } from './validateFields';
 import { refreshTable, resetTable } from './refreshTable';
-import { modalform, drawerform } from './modalform';
+import { modalform, drawerform, modalOk, modalCancel } from './modalform';
 import { request } from './request';
 import { back, forward, route } from './history';
 import { ActionImpl } from '../types/plugin';
@@ -28,6 +28,8 @@ function registerActionPlugins() {
 
   registerActionPlugin('modalform', modalform);
   registerActionPlugin('drawerform', drawerform);
+  registerActionPlugin('modalOk', modalOk);
+  registerActionPlugin('modalCancel', modalCancel);
 
   // ================= request =============
   registerActionPlugin('request', (ctx, config) => {

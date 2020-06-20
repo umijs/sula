@@ -2,6 +2,7 @@ import React from 'react';
 import debounce from 'lodash/debounce';
 import isUndefined from 'lodash/isUndefined';
 import { ChartRef } from './interface';
+import formatter from './formatter';
 
 const ECHARTS_APIS = [
   'setOption',
@@ -38,6 +39,14 @@ class ContextStore {
       // @ts-ignore
       chart[key] = (...args) => this.chartRef.current[key](...args);
     });
+
+    const oldSetOption = chart.setOption;
+
+    // 覆写 setOption
+    chart.setOption = (option) => {
+      const finalOption = formatter(option);
+      oldSetOption(finalOption);
+    };
 
     return chart;
   };

@@ -11,7 +11,7 @@ const ChartDataset = () => {
       ['Cheese Cocoa', 86.4, 65.2, 82.5, 93, 40],
     ],
   };
-  // bar 是二位的
+  // bar 是二维的
   const barOptions = {
     dataset,
     legend: {},
@@ -49,7 +49,7 @@ const ChartDataset = () => {
     },
     xAxis: { type: 'category' },
     yAxis: {
-      type: 'value'
+      type: 'value',
     },
     series: [
       {
@@ -59,7 +59,7 @@ const ChartDataset = () => {
           seriesName: 1,
           x: 0,
           y: 1,
-        }
+        },
       },
       {
         type: 'line',
@@ -68,7 +68,7 @@ const ChartDataset = () => {
           seriesName: 2,
           x: 0,
           y: 2,
-        }
+        },
       },
     ],
   };

@@ -43,10 +43,11 @@ const RefModalForm: React.FC<RefModalProps> = ({ type }, ref) => {
     };
   });
 
-  return React.createElement(type === 'drawer' ? InnerDrawerForm : InnerModalForm, {
+  return React.createElement(InnerModalForm, {
     key: resetCount,
     visible,
     modal,
+    isDrawer: type === 'drawer',
   });
 };
 

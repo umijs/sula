@@ -1,7 +1,7 @@
 import React from 'react';
 import echarts from 'echarts';
 import elementResizeEvent from 'element-resize-event';
-import assign from 'lodash.assign';
+import assign from 'lodash/assign';
 import { ChartsProps, ChartInstance } from './interface';
 import useChartContext from './useChartContext';
 import { setCanvas } from './utils';
@@ -28,17 +28,18 @@ const Charts: React.FC<ChartsProps> = (props, ref) => {
     });
     /** unmount resize event listener, destroy chart */
     return () => {
+      const chartInst = context.getChart();
       try {
         elementResizeEvent.unbind(canvasRef.current);
-        (chartRef.current as ChartInstance).dispose();
+        (chartInst as ChartInstance).dispose();
       } catch (_) {}
     };
   }, []);
 
   React.useEffect(() => {
-    /** 对echarts option进行浅比较，避免不必要渲染 */
     if (chartRef.current) {
-      chartRef.current.setOption(option);
+      const chartInst = context.getChart();
+      chartInst.setOption(option);
     }
   }, [option]);
 
@@ -50,3 +51,5 @@ const Charts: React.FC<ChartsProps> = (props, ref) => {
 };
 
 export default Charts;
+
+export { echarts };
