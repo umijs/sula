@@ -39,7 +39,7 @@
 
 ## 🥗 Real Sula
 
-[sula-real](https://real.sula.now.sh/) 是面向 admin 中台应用场景的 low pro code 解决方案。
+[sula-real](https://github.com/umijs/sula-real) 是面向 admin 中台应用场景的 low pro code 解决方案，[预览地址](https://real.sula.now.sh/)。
 
 ## 🍙 例子
 
