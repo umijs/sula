@@ -4,6 +4,11 @@
 
 > Sula 当前还处于 alpha 社区内测阶段，请不要直接在生产环境使用。
 
+## 里程碑
+
+- 7月8日：发布 beta 版本
+- 7月29日：发布 1.0 正式版
+
 [![codecov](https://codecov.io/gh/umijs/sula/branch/master/graph/badge.svg)](https://codecov.io/gh/umijs/sula) [![CircleCI](https://circleci.com/gh/umijs/sula/tree/master.svg?style=svg)](https://circleci.com/gh/umijs/sula/tree/master) [![GitHub Actions status](https://github.com/umijs/sula/workflows/Node%20CI/badge.svg)](https://github.com/umijs/sula) ![npm](https://img.shields.io/npm/v/sula) ![npm](https://img.shields.io/npm/dm/sula) ![Automated Release Notes by gren](https://img.shields.io/badge/%F0%9F%A4%96-release%20notes-00B2EE.svg)
 
 ## 特点
@@ -31,6 +36,10 @@
   <img src="https://img.alicdn.com/tfs/TB1l6A_HXY7gK0jSZKzXXaikpXa-2680-1412.png" width="49%"/>
   <img src="https://img.alicdn.com/tfs/TB1VWE5HkT2gK0jSZFkXXcIQFXa-2682-1412.png" width="49%"/>
 </div>
+
+## 🥗 Real Sula
+
+[sula-real](https://real.sula.now.sh/) 是面向 admin 中台应用场景的 low pro code 解决方案。
 
 ## 🍙 例子
 
