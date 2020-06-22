@@ -276,4 +276,84 @@ describe('form', () => {
       wrapper2.unmount();
     });
   });
+
+  describe('dynamic form', () => {
+    it('should not error', () => {
+      const fn = jest.fn();
+      class DynamicForm extends React.Component {
+        state = {
+          templates: [
+            {
+              name: 'input1',
+              label: 'input1',
+              field: {
+                type: 'input',
+                props: {
+                  className: 'defaultInput',
+                },
+              },
+            },
+          ],
+        };
+        componentDidMount() {}
+        render() {
+          const { templates } = this.state;
+          return (
+            <div>
+              <button
+                className="changeBtn"
+                onClick={() => {
+                  this.setState({
+                    templates: [
+                      {
+                        name: 'input2',
+                        label: 'input2',
+                        field: {
+                          type: 'input',
+                          props: {
+                            className: 'changedInput',
+                          },
+                        },
+                      },
+                    ],
+                  });
+                }}
+              >
+                change
+              </button>
+              <Form
+                fields={[
+                  ...templates,
+                  {
+                    render: {
+                      type: 'button',
+                      props: {
+                        children: 'getValues',
+                        className: 'getValuesBtn',
+                      },
+                      action: (ctx) => {
+                        const values = ctx.form.getFieldsValue();
+                        fn(values);
+                      },
+                    },
+                  },
+                ]}
+              />
+            </div>
+          );
+        }
+      }
+
+      const wrapper = mount(<DynamicForm />);
+      wrapper.find('.getValuesBtn').first().simulate('click');
+      expect(fn.mock.calls[0][0]).toEqual({ input1: undefined });
+
+      wrapper.find('.changeBtn').first().simulate('click');
+      wrapper.find('.getValuesBtn').first().simulate('click');
+      expect(fn.mock.calls[1][0]).toEqual({ input2: undefined });
+
+      expect(wrapper.find('.defaultInput').length).toBeFalsy();
+      expect(wrapper.find('.changedInput').length).toBeTruthy();
+    });
+  });
 });

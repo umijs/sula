@@ -24,11 +24,11 @@ describe('rope', () => {
       </RopeContainer>,
     );
     wrapper.find('#hello').simulate('mouseenter');
-    await sleep(100);
+    await sleep(1000);
+    wrapper.update();
     expect(document.querySelectorAll('.ant-tooltip').length).toEqual(1);
-    const tooltip = wrapper.find(Tooltip).instance();
-    expect(tooltip.props.visible).toEqual(true);
-    expect(tooltip.props.title).toEqual('tips!!!');
+    expect(wrapper.find(Tooltip).props().visible).toEqual(true);
+    expect(wrapper.find(Tooltip).props().title).toEqual('tips!!!');
   });
 
   it('popconfirm visible change', async () => {
@@ -38,7 +38,7 @@ describe('rope', () => {
       </RopeContainer>,
     );
     wrapper.find('#hello').simulate('click');
-    await sleep(100);
+    await sleep(1000);
     expect(document.querySelectorAll('.ant-popover').length).toEqual(1);
     const popconfirm = wrapper.find(Popconfirm);
     expect(popconfirm.props().visible).toEqual(true);
@@ -53,16 +53,16 @@ describe('rope', () => {
     );
     wrapper.find('#hello').simulate('mouseenter');
     wrapper.find('#hello').simulate('click');
-    await sleep(100);
-    const tooltip = wrapper.find(Tooltip).last().instance();
-    expect(tooltip.props.visible).toEqual(false);
+    await sleep(1000);
+    wrapper.update();
+    expect(wrapper.find(Tooltip).last().props().visible).toEqual(false);
     expect(wrapper.find(Popconfirm).props().visible).toEqual(true);
     expect(wrapper.find(Popconfirm).props().title).toEqual('confirm!!!');
 
     wrapper.find('#hello').simulate('mouseleave');
     wrapper.find('#hello').simulate('mouseenter');
-    await sleep(100);
-    expect(tooltip.props.visible).toEqual(false);
+    await sleep(1000);
+    expect(wrapper.find(Tooltip).last().props().visible).toEqual(false);
     expect(wrapper.find(Popconfirm).props().visible).toEqual(true);
   });
 
@@ -83,13 +83,13 @@ describe('rope', () => {
         <div id="hello">Hello world!</div>
       </RopeContainer>,
     );
-    const tooltip = wrapper.find(Tooltip).last().instance();
     wrapper.find('#hello').simulate('mouseenter');
-    expect(tooltip.props.visible).toEqual(true);
-    expect(tooltip.props.title).toEqual('tips!!!');
+    expect(wrapper.find(Tooltip).last().props().visible).toEqual(true);
+    expect(wrapper.find(Tooltip).last().props().title).toEqual('tips!!!');
+
     wrapper.find('#hello').simulate('click');
     expect(wrapper.find(Popconfirm).props().visible).toEqual(true);
-    expect(tooltip.props.visible).toEqual(false);
+    expect(wrapper.find(Tooltip).last().props().visible).toEqual(false);
     expect(wrapper.find(Popconfirm).props().title).toEqual('confirm!!!');
   });
 
