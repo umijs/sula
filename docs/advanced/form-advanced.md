@@ -1,21 +1,24 @@
 ---
-group: 
 title: Form 进阶
-order: 21
+order: 1
 ---
+
+## 动态渲染表单
+
+<code src="../form-advanced/dynamic-form.jsx" />
 
 ## 使用组件（非配置）
 
-<code src="./form-advanced/use-component.jsx" />
+<code src="../form-advanced/use-component.jsx" />
 
 ## collect 值收集
 
-<code src="./form-advanced/value-collect.jsx" />
+<code src="../form-advanced/value-collect.jsx" />
 
 
 ## field.children
 
-<code src="./form-advanced/field-children.jsx" />
+<code src="../form-advanced/field-children.jsx" />
 
 
 ## dependency
@@ -43,6 +46,19 @@ export default () => {
           type: 'input',
           props: {
             placeholder: '请输入'
+          }
+        }
+      },
+      {
+        name: 'vegetable',
+        label: '类型输入土豆',
+        field: 'input',
+        dependency: {
+          visible: {
+            relates: ['type'],
+            inputs: [['土豆']],
+            output: false,
+            defaultOutput: true,
           }
         }
       },

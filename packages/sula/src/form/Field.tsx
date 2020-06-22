@@ -65,6 +65,8 @@ export default class Field extends React.Component<FieldProps> {
   // 如果不设置则给一个唯一值，并不会作为 FormItem 的 name
   private fieldName: string;
 
+  private cancelRegisterField: () => void | null = null;
+
   componentDidMount() {
     const { registerField, getFormDependency, getCtx } = this.context.formContext.getInternalHooks(
       HOOK_MARK,
@@ -73,7 +75,7 @@ export default class Field extends React.Component<FieldProps> {
     this.initFieldSource(getCtx());
 
     const { parentGroupName } = this.context;
-    registerField(parentGroupName, this);
+    this.cancelRegisterField = registerField(parentGroupName, this);
 
     if (!this.props.dependency) {
       return;
@@ -86,8 +88,16 @@ export default class Field extends React.Component<FieldProps> {
   }
 
   componentWillUnmount() {
+    this.cancelRegister();
     this.destroy = true;
   }
+
+  private cancelRegister = () => {
+    if (this.cancelRegisterField) {
+      this.cancelRegisterField();
+    }
+    this.cancelRegisterField = null;
+  };
 
   private initFieldSource = (ctx) => {
     if (this.props.remoteSource && this.props.remoteSource.init !== false) {

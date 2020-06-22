@@ -331,7 +331,7 @@ Array [
         class="ant-spin-container ant-spin-blur"
       >
         <div
-          class="ant-table"
+          class="ant-table ant-table-empty"
         >
           <div
             class="ant-table-title"
@@ -883,7 +883,7 @@ Array [
         class="ant-spin-container ant-spin-blur"
       >
         <div
-          class="ant-table"
+          class="ant-table ant-table-empty"
         >
           <div
             class="ant-table-title"
@@ -1387,7 +1387,7 @@ Array [
         class="ant-spin-container ant-spin-blur"
       >
         <div
-          class="ant-table"
+          class="ant-table ant-table-empty"
         >
           <div
             class="ant-table-title"

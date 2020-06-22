@@ -1,7 +1,7 @@
 ---
 group: 
   title: 模板
-  order: 6
+  order: 4
 title: CreateForm
 order: 0
 ---

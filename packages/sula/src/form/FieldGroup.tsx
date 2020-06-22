@@ -59,6 +59,10 @@ export default class FieldGroup extends React.Component<FieldGroupProps> {
 
   private groupName: string;
 
+  private cancelRegisterField: () => void | null = null;
+
+  private cancelRegisterFieldGroup: () => void | null = null;
+
   componentDidMount() {
     this.inited = true;
 
@@ -68,9 +72,9 @@ export default class FieldGroup extends React.Component<FieldGroupProps> {
       getFormDependency,
     } = this.context.formContext.getInternalHooks(HOOK_MARK);
 
-    registerFieldGroup(this.context.parentGroupName, this);
+    this.cancelRegisterFieldGroup = registerFieldGroup(this.context.parentGroupName, this);
 
-    registerField(this.getName(), this, true);
+    this.cancelRegisterField = registerField(this.getName(), this, true);
 
     // visible级联
     if (!this.props.dependency) {
@@ -86,8 +90,21 @@ export default class FieldGroup extends React.Component<FieldGroupProps> {
   }
 
   componentWillUnmount() {
+    this.cancelRegister();
     this.destory = true;
   }
+
+  private cancelRegister = () => {
+    if (this.cancelRegisterField) {
+      this.cancelRegisterField();
+    }
+    this.cancelRegisterField = null;
+
+    if (this.cancelRegisterFieldGroup) {
+      this.cancelRegisterFieldGroup();
+    }
+    this.cancelRegisterFieldGroup = null;
+  };
 
   // ================ 对外 API ================
   public setVisible(visible: boolean) {

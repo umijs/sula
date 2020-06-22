@@ -618,7 +618,7 @@ exports[`step-query-table basic 1`] = `
               class="ant-spin-container ant-spin-blur"
             >
               <div
-                class="ant-table"
+                class="ant-table ant-table-empty"
               >
                 <div
                   class="ant-table-container"

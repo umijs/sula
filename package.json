@@ -24,7 +24,7 @@
   "devDependencies": {
     "@ant-design/icons": "^4.1.0",
     "@umijs/fabric": "^2.0.8",
-    "antd": "4.2.2",
+    "antd": "4.3.4",
     "babel-plugin-import": "^1.13.0",
     "cross-env": "^7.0.2",
     "del": "^5.1.0",
