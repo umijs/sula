@@ -74,7 +74,7 @@ export default class BasicDemo extends React.Component {
         </Button>{' '}
         <div style={{ background: 'rgb(241, 242, 246)', padding: 16, marginTop: 16 }}>
           <StepForm
-            stepsStyle={{width: 1180, marginLeft: 'auto', marginRight: 'auto'}}
+            stepsStyle={{padding: '0 64px'}}
             direction={direction}
             steps={steps}
             submit={{

@@ -1,6 +1,5 @@
 import React from 'react';
 import InnerModalForm from './ModalForm';
-import InnerDrawerForm from './DrawerForm';
 import { RopeActionResult, STOP } from '../rope';
 import { FormProps } from '../form';
 

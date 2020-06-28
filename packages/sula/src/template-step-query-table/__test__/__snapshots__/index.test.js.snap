@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`step-query-table basic 1`] = `
+exports[`step query table snapshot 1`] = `
 <div>
   <div
     class="sula-template-step-query-table-steps"
@@ -117,7 +117,7 @@ exports[`step-query-table basic 1`] = `
               style="margin-left: -12px; margin-right: -12px;"
             >
               <div
-                class="ant-col ant-col-12"
+                class="ant-col ant-col-8"
                 style="padding-left: 12px; padding-right: 12px;"
               >
                 <div
@@ -128,10 +128,10 @@ exports[`step-query-table basic 1`] = `
                   >
                     <label
                       class=""
-                      for="input0"
-                      title="Input0"
+                      for="name"
+                      title="name"
                     >
-                      Input0
+                      name
                     </label>
                   </div>
                   <div
@@ -145,7 +145,7 @@ exports[`step-query-table basic 1`] = `
                       >
                         <input
                           class="ant-input"
-                          id="input0"
+                          id="name"
                           type="text"
                           value=""
                         />
@@ -155,349 +155,7 @@ exports[`step-query-table basic 1`] = `
                 </div>
               </div>
               <div
-                class="ant-col ant-col-12"
-                style="padding-left: 12px; padding-right: 12px;"
-              >
-                <div
-                  class="ant-row ant-form-item"
-                >
-                  <div
-                    class="ant-col ant-col-8 ant-form-item-label"
-                  >
-                    <label
-                      class=""
-                      for="input1"
-                      title="Input1"
-                    >
-                      Input1
-                    </label>
-                  </div>
-                  <div
-                    class="ant-col ant-col-16 ant-form-item-control"
-                  >
-                    <div
-                      class="ant-form-item-control-input"
-                    >
-                      <div
-                        class="ant-form-item-control-input-content"
-                      >
-                        <input
-                          class="ant-input"
-                          id="input1"
-                          type="text"
-                          value=""
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div
-                class="ant-col ant-col-12"
-                style="padding-left: 12px; padding-right: 12px;"
-              >
-                <div
-                  class="ant-row ant-form-item"
-                >
-                  <div
-                    class="ant-col ant-col-8 ant-form-item-label"
-                  >
-                    <label
-                      class=""
-                      for="input2"
-                      title="Input2"
-                    >
-                      Input2
-                    </label>
-                  </div>
-                  <div
-                    class="ant-col ant-col-16 ant-form-item-control"
-                  >
-                    <div
-                      class="ant-form-item-control-input"
-                    >
-                      <div
-                        class="ant-form-item-control-input-content"
-                      >
-                        <input
-                          class="ant-input"
-                          id="input2"
-                          type="text"
-                          value=""
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div
-                class="ant-col ant-col-12"
-                style="padding-left: 12px; padding-right: 12px; display: none;"
-              >
-                <div
-                  class="ant-row ant-form-item"
-                >
-                  <div
-                    class="ant-col ant-col-8 ant-form-item-label"
-                  >
-                    <label
-                      class=""
-                      for="input3"
-                      title="Input3"
-                    >
-                      Input3
-                    </label>
-                  </div>
-                  <div
-                    class="ant-col ant-col-16 ant-form-item-control"
-                  >
-                    <div
-                      class="ant-form-item-control-input"
-                    >
-                      <div
-                        class="ant-form-item-control-input-content"
-                      >
-                        <input
-                          class="ant-input"
-                          id="input3"
-                          type="text"
-                          value=""
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div
-                class="ant-col ant-col-12"
-                style="padding-left: 12px; padding-right: 12px; display: none;"
-              >
-                <div
-                  class="ant-row ant-form-item"
-                >
-                  <div
-                    class="ant-col ant-col-8 ant-form-item-label"
-                  >
-                    <label
-                      class=""
-                      for="input4"
-                      title="Input4"
-                    >
-                      Input4
-                    </label>
-                  </div>
-                  <div
-                    class="ant-col ant-col-16 ant-form-item-control"
-                  >
-                    <div
-                      class="ant-form-item-control-input"
-                    >
-                      <div
-                        class="ant-form-item-control-input-content"
-                      >
-                        <input
-                          class="ant-input"
-                          id="input4"
-                          type="text"
-                          value=""
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div
-                class="ant-col ant-col-12"
-                style="padding-left: 12px; padding-right: 12px; display: none;"
-              >
-                <div
-                  class="ant-row ant-form-item"
-                >
-                  <div
-                    class="ant-col ant-col-8 ant-form-item-label"
-                  >
-                    <label
-                      class=""
-                      for="input5"
-                      title="Input5"
-                    >
-                      Input5
-                    </label>
-                  </div>
-                  <div
-                    class="ant-col ant-col-16 ant-form-item-control"
-                  >
-                    <div
-                      class="ant-form-item-control-input"
-                    >
-                      <div
-                        class="ant-form-item-control-input-content"
-                      >
-                        <input
-                          class="ant-input"
-                          id="input5"
-                          type="text"
-                          value=""
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div
-                class="ant-col ant-col-12"
-                style="padding-left: 12px; padding-right: 12px; display: none;"
-              >
-                <div
-                  class="ant-row ant-form-item"
-                >
-                  <div
-                    class="ant-col ant-col-8 ant-form-item-label"
-                  >
-                    <label
-                      class=""
-                      for="input6"
-                      title="Input6"
-                    >
-                      Input6
-                    </label>
-                  </div>
-                  <div
-                    class="ant-col ant-col-16 ant-form-item-control"
-                  >
-                    <div
-                      class="ant-form-item-control-input"
-                    >
-                      <div
-                        class="ant-form-item-control-input-content"
-                      >
-                        <input
-                          class="ant-input"
-                          id="input6"
-                          type="text"
-                          value=""
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div
-                class="ant-col ant-col-12"
-                style="padding-left: 12px; padding-right: 12px; display: none;"
-              >
-                <div
-                  class="ant-row ant-form-item"
-                >
-                  <div
-                    class="ant-col ant-col-8 ant-form-item-label"
-                  >
-                    <label
-                      class=""
-                      for="input7"
-                      title="Input7"
-                    >
-                      Input7
-                    </label>
-                  </div>
-                  <div
-                    class="ant-col ant-col-16 ant-form-item-control"
-                  >
-                    <div
-                      class="ant-form-item-control-input"
-                    >
-                      <div
-                        class="ant-form-item-control-input-content"
-                      >
-                        <input
-                          class="ant-input"
-                          id="input7"
-                          type="text"
-                          value=""
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div
-                class="ant-col ant-col-12"
-                style="padding-left: 12px; padding-right: 12px; display: none;"
-              >
-                <div
-                  class="ant-row ant-form-item"
-                >
-                  <div
-                    class="ant-col ant-col-8 ant-form-item-label"
-                  >
-                    <label
-                      class=""
-                      for="input8"
-                      title="Input8"
-                    >
-                      Input8
-                    </label>
-                  </div>
-                  <div
-                    class="ant-col ant-col-16 ant-form-item-control"
-                  >
-                    <div
-                      class="ant-form-item-control-input"
-                    >
-                      <div
-                        class="ant-form-item-control-input-content"
-                      >
-                        <input
-                          class="ant-input"
-                          id="input8"
-                          type="text"
-                          value=""
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div
-                class="ant-col ant-col-12"
-                style="padding-left: 12px; padding-right: 12px; display: none;"
-              >
-                <div
-                  class="ant-row ant-form-item"
-                >
-                  <div
-                    class="ant-col ant-col-8 ant-form-item-label"
-                  >
-                    <label
-                      class=""
-                      for="input9"
-                      title="Input9"
-                    >
-                      Input9
-                    </label>
-                  </div>
-                  <div
-                    class="ant-col ant-col-16 ant-form-item-control"
-                  >
-                    <div
-                      class="ant-form-item-control-input"
-                    >
-                      <div
-                        class="ant-form-item-control-input-content"
-                      >
-                        <input
-                          class="ant-input"
-                          id="input9"
-                          type="text"
-                          value=""
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div
-                class="ant-col ant-col-12"
+                class="ant-col ant-col-16"
                 style="padding-left: 12px; padding-right: 12px;"
               >
                 <div
@@ -535,7 +193,6 @@ exports[`step-query-table basic 1`] = `
                             </div>
                             <div
                               class="ant-space-item"
-                              style="margin-right: 8px;"
                             >
                               <button
                                 class="ant-btn"
@@ -545,36 +202,6 @@ exports[`step-query-table basic 1`] = `
                                   Reset
                                 </span>
                               </button>
-                            </div>
-                            <div
-                              class="ant-space-item"
-                            >
-                              <a>
-                                <span>
-                                  Expand
-                                </span>
-                                <span
-                                  aria-label="down"
-                                  class="anticon anticon-down"
-                                  role="img"
-                                  style="transition: 0.3s all; transform: rotate(0turn);"
-                                >
-                                  <svg
-                                    aria-hidden="true"
-                                    class=""
-                                    data-icon="down"
-                                    fill="currentColor"
-                                    focusable="false"
-                                    height="1em"
-                                    viewBox="64 64 896 896"
-                                    width="1em"
-                                  >
-                                    <path
-                                      d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
-                                    />
-                                  </svg>
-                                </span>
-                              </a>
                             </div>
                           </div>
                         </div>
@@ -627,19 +254,9 @@ exports[`step-query-table basic 1`] = `
                     class="ant-table-content"
                   >
                     <table
-                      style="table-layout: fixed;"
+                      style="table-layout: auto;"
                     >
-                      <colgroup>
-                        <col
-                          style="width: 110px; min-width: 110px;"
-                        />
-                        <col
-                          style="width: 110px; min-width: 110px;"
-                        />
-                        <col
-                          style="width: 200px; min-width: 200px;"
-                        />
-                      </colgroup>
+                      <colgroup />
                       <thead
                         class="ant-table-thead"
                       >
@@ -647,18 +264,12 @@ exports[`step-query-table basic 1`] = `
                           <th
                             class="ant-table-cell"
                           >
-                            序号
+                            Id
                           </th>
                           <th
                             class="ant-table-cell"
                           >
-                            国家
-                          </th>
-                          <th
-                            class="ant-table-cell ant-table-cell-ellipsis"
-                            title="名字"
-                          >
-                            名字
+                            name
                           </th>
                         </tr>
                       </thead>
@@ -670,7 +281,7 @@ exports[`step-query-table basic 1`] = `
                         >
                           <td
                             class="ant-table-cell"
-                            colspan="3"
+                            colspan="2"
                           >
                             <div
                               class="ant-empty ant-empty-normal"

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Input, Swicth } from 'antd';
 import { mount } from 'enzyme';
 import sula from '../../core';
 
@@ -7,85 +6,97 @@ import { registerRenderPlugin } from '../plugin';
 import Text from '../text';
 import Card from '../card';
 import Div from '../div';
+import Link from '../link';
 
 describe('render Plugin', () => {
-  describe('renderPlugin', () => {
-    it('has extraPropsName && config has extraPropsName', () => {
-      registerRenderPlugin('text', ['type'])(Text, true);
-      expect(sula.render(
-        'text',
+  describe('registerRenderPlugin', () => {
+    function Span(props) {
+      if (props.ctx) {
+        const { config = {}, ctx } = props;
+        return <span {...config.props} disabled={ctx.disabled} />;
+      }
+
+      return <span {...props} />;
+    }
+
+    it('extra props', () => {
+      registerRenderPlugin('spanWithExtra', ['extra'])(Span);
+
+      const spanWithExtra = sula.render(
+        'spanWithExtra',
         {},
         {
-          type: 'danger',
           props: {
-            children: 'danger',
-          }
-        }
-      )).toEqual(<Text type="danger" ctx={{}} config={{ type: 'danger', props: { children: 'danger' } }}>danger</Text>);
-    })
-  
-    it('has extraPropsName && config has not extraPropsName', () => {
-      registerRenderPlugin('switch', ['defaultValue'])(Swicth, true);
-      expect(sula.render(
-        'switch',
-        {
-          value: true
+            style: {
+              fontSize: 16,
+            },
+          },
+          extra: true,
         },
-        {}
-      )).toEqual(<Swicth ctx={{ value: true }} config={{}} />);
-    })
-  
-    it('input test', () => {
-      registerRenderPlugin('input')(Input, true);
-      expect(sula.render(
-        'input',
-        {},
-        {}
-      )).toEqual(
-        <Input ctx={{}} config={{}} type="text"/>
       );
-    })
-  })
-  
-  describe('Text snapshot', () => {
-    it('Text no props', () => {
-      const wrapper = mount(<Text>children</Text>);
-      expect(wrapper.render()).toMatchSnapshot();
-      wrapper.unmount();
-    })
-  
-    it('Text props', () => {
-      const wrapper = mount(<Text type="danger">children</Text>);
-      expect(wrapper.render()).toMatchSnapshot();
-      wrapper.unmount();
-    })
-  })
-
-  describe('Card snapshot', () => {
-    it('Card no props', () => {
-      const wrapper = mount(<Card>children</Card>);
-      expect(wrapper.render()).toMatchSnapshot();
-      wrapper.unmount();
-    })
-
-    it('Card props', () => {
-      const wrapper = mount(<Card title="Head">children</Card>);
-      expect(wrapper.render()).toMatchSnapshot();
-      wrapper.unmount();
-    })
-  })
-
-  describe('div snapshot', () => {
-    it('has children className', () => {
-      const wrapper = mount(<Div className="testDiv">test</Div>);
-      expect(wrapper.find('.testDiv').length).toBeTruthy();
-      expect(wrapper.render()).toMatchSnapshot();
-      wrapper.unmount();
+      expect(spanWithExtra).toEqual(<Span extra={true} style={{ fontSize: 16 }} />);
     });
-    it('no children', () => {
+
+    it('without extra props', () => {
+      registerRenderPlugin('spanWithOutExtra')(Span);
+
+      const spanWithOutExtra = sula.render(
+        'spanWithOutExtra',
+        {},
+        {
+          extra: true,
+        },
+      );
+      expect(spanWithOutExtra).toEqual(<Span />);
+    });
+
+    it('ctx', () => {
+      registerRenderPlugin('spanWithCtx')(Span, true);
+
+      const spanWithCtx = sula.render(
+        'spanWithCtx',
+        { disabled: true },
+        {
+          props: {
+            children: 'Hello world',
+          },
+        },
+      );
+
+      expect(mount(spanWithCtx).find('span').props()).toEqual({
+        children: 'Hello world',
+        disabled: true,
+      });
+    });
+  });
+
+  it('text', () => {
+    const wrapper = mount(<Text>Hello world</Text>);
+    expect(wrapper.text()).toEqual('Hello world');
+  });
+
+  it('link', () => {
+    const wrapper = mount(<Link style={{ fontSize: 16 }}>Href</Link>);
+    expect(wrapper.find('Button').props().style).toEqual({ fontSize: 16, padding: 0 });
+    expect(wrapper.find('Button').props().children).toEqual('Href');
+    expect(wrapper.find('Button').props().type).toEqual('link');
+  });
+
+  describe('div', () => {
+    it('empty', () => {
       const wrapper = mount(<Div />);
-      expect(wrapper.render()).toMatchSnapshot();
-      wrapper.unmount();
-    })
-  })
-})
+      expect(wrapper.find('div').length).toBeFalsy();
+    });
+
+    it('div', () => {
+      const wrapper = mount(<Div>Hello world</Div>);
+      expect(wrapper.find('div').text()).toEqual('Hello world');
+    });
+  });
+
+  it('card', () => {
+    const wrapper = mount(<Card title="Title">Hello world</Card>);
+    expect(wrapper.find('.ant-card-head-title').text()).toEqual('Title');
+    expect(wrapper.find('.ant-card-body').text()).toEqual('Hello world');
+  });
+});

@@ -123,16 +123,6 @@ describe('action plugin', () => {
     expect(history.goForward).toHaveBeenCalled();
   });
 
-  it('modalform', () => {
-    wrapper.find('.modalform').last().simulate('click');
-    expect(wrapper.find('Modal').props().visible).toEqual(true);
-  });
-
-  it('drawerform', () => {
-    wrapper.find('.drawerform').last().simulate('click');
-    expect(wrapper.find('Drawer').props().visible).toEqual(true);
-  });
-
   it('route', () => {
     wrapper.find('.route1').last().simulate('click');
     expect(history.push).toHaveBeenCalledWith('#/a');

@@ -1,6 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { act } from 'react-dom/test-utils';
+import { Table } from '../../table';
 import DrawerForm from '..';
 import { delay } from '../../__tests__/common';
 
@@ -53,59 +54,11 @@ describe('drawerform', () => {
     expect(wrapper.find('Drawer').props().visible).toEqual(false);
   });
 
-  it('internal close', () => {
-    let modalRef;
-    const wrapper = mount(
-      <div>
-        <DrawerForm
-          isDrawer
-          type="drawer"
-          ref={(ref) => {
-            modalRef = ref;
-          }}
-        />
-        <button
-          type="button"
-          onClick={() => {
-            modalRef.show({
-              title: 'Title',
-              mode: 'create',
-              fields: [
-                {
-                  name: 'name',
-                  label: '姓名',
-                  field: 'input',
-                },
-              ],
-              submit: {
-                url: 'https://www.mocky.io/v2/5185415ba171ea3a00704eed',
-                method: 'POST',
-              },
-            });
-          }}
-        >
-          click
-        </button>
-      </div>,
-    );
-    wrapper.find('button').simulate('click');
-    wrapper.update();
-
-    const { onClose } = wrapper.find('Drawer').props();
-    expect(wrapper.find('Drawer').props().visible).toEqual(true);
-    act(() => {
-      onClose();
-    });
-    wrapper.update();
-    expect(wrapper.find('Drawer').props().visible).toEqual(false);
-  });
-
   it('customize close', async () => {
     let modalRef;
     const wrapper = mount(
       <div>
         <DrawerForm
-          isDrawer
           type="drawer"
           ref={(ref) => {
             modalRef = ref;
@@ -120,7 +73,7 @@ describe('drawerform', () => {
               fields: [
                 {
                   name: 'name',
-                  label: '姓名',
+                  label: 'name',
                   field: 'input',
                 },
               ],
@@ -128,12 +81,10 @@ describe('drawerform', () => {
                 {
                   type: 'button',
                   props: {
-                    children: '返回',
-                    className: 'backs',
+                    children: 'back',
+                    className: 'backBtn',
                   },
-                  action: (ctx) => {
-                    ctx.modal.modalCancel();
-                  },
+                  action: 'modalOk',
                 },
               ],
             });
@@ -146,7 +97,7 @@ describe('drawerform', () => {
     wrapper.find('button').simulate('click');
     wrapper.update();
     expect(wrapper.find('Drawer').props().visible).toEqual(true);
-    wrapper.find('.backs').first().simulate('click');
+    wrapper.find('.backBtn').first().simulate('click');
 
     await delay(1000);
     expect(wrapper.find('Drawer').props().visible).toEqual(false);
@@ -157,7 +108,6 @@ describe('drawerform', () => {
     const wrapper = mount(
       <div>
         <DrawerForm
-          isDrawer
           type="drawer"
           ref={(ref) => {
             modalRef = ref;
@@ -172,7 +122,7 @@ describe('drawerform', () => {
               fields: [
                 {
                   name: 'name',
-                  label: 'label',
+                  label: 'name',
                   field: 'input',
                 },
               ],
@@ -181,14 +131,9 @@ describe('drawerform', () => {
                   type: 'button',
                   props: {
                     children: 'submit',
-                    className: 'submits',
+                    className: 'submitBtn',
                   },
-                  action: [
-                    (ctx) => {
-                      ctx.modal.modalOk(ctx);
-                    },
-                    jest.fn()
-                  ],
+                  action: 'modalOk',
                 },
               ],
             });
@@ -203,117 +148,121 @@ describe('drawerform', () => {
     wrapper.update();
     expect(wrapper.find('Drawer').props().visible).toEqual(true);
 
-    wrapper.find('.submits').first().simulate('click');
+    wrapper.find('.submitBtn').first().simulate('click');
 
     await delay(1000);
     wrapper.update();
     expect(wrapper.find('Drawer').props().visible).toEqual(false);
   });
 
+  it('modalCancel plugin', async () => {
+    let modalRef;
+    const wrapper = mount(
+      <div>
+        <DrawerForm
+          type="drawer"
+          ref={(ref) => {
+            modalRef = ref;
+          }}
+        />
+        <button
+          type="button"
+          onClick={() => {
+            modalRef.show({
+              title: 'Title',
+              mode: 'create',
+              fields: [
+                {
+                  name: 'name',
+                  label: 'name',
+                  field: 'input',
+                },
+              ],
+              actionsRender: [
+                {
+                  type: 'button',
+                  props: {
+                    children: 'back',
+                    className: 'backBtn',
+                  },
+                  action: 'modalCancel',
+                },
+              ],
+            });
+          }}
+        >
+          click
+        </button>
+      </div>,
+    );
+
+    wrapper.find('button').simulate('click');
+    wrapper.update();
+    expect(wrapper.find('Drawer').props().visible).toEqual(true);
+    wrapper.find('.backBtn').first().simulate('click');
+
+    await delay(1000);
+    wrapper.update();
+    expect(wrapper.find('Drawer').props().visible).toEqual(false);
+  });
+
+  it('modalOk plugin', async (done) => {
+    const wrapper = mount(
+      <Table
+        columns={[{ key: 'id', title: 'id' }]}
+        actionsRender={{
+          type: 'button',
+          props: {
+            children: 'button',
+          },
+          action: [
+            {
+              type: 'drawerform',
+              resultPropName: 'res',
+              title: 'title',
+              fields: [
+                {
+                  name: 'input',
+                  label: 'input',
+                  field: 'input',
+                },
+              ],
+              initialValues: {
+                input: 123,
+              },
+              actionsRender: [
+                {
+                  type: 'button',
+                  props: {
+                    children: 'submit',
+                    className: 'submitBtn',
+                  },
+                  action: [
+                    (ctx) => Promise.resolve({ ...ctx.form.getFieldsValue(), success: true }),
+                    'modalOk',
+                  ],
+                },
+              ],
+            },
+            (ctx) => {
+              expect(ctx.result).toEqual({ $submit: { input: 123, success: true } });
+              expect(ctx.results).toEqual({
+                res: {
+                  $submit: {
+                    input: 123,
+                    success: true,
+                  },
+                },
+              });
+              done();
+            },
+          ],
+        }}
+      />,
+    );
+
+    wrapper.find('button').first().simulate('click');
+    wrapper.update();
+    wrapper.find('.submitBtn').first().simulate('click');
+  });
 });
-
-it('modalCancel plugin', async() => {
-  let modalRef;
-  const wrapper = mount(
-    <div>
-      <DrawerForm
-        isDrawer
-        type="drawer"
-        ref={(ref) => {
-          modalRef = ref;
-        }}
-      />
-      <button
-        type="button"
-        onClick={() => {
-          modalRef.show({
-            title: 'Title',
-            mode: 'create',
-            fields: [
-              {
-                name: 'name',
-                label: 'label',
-                field: 'input',
-              },
-            ],
-            actionsRender: [
-              {
-                type: 'button',
-                props: {
-                  children: 'back',
-                  className: 'backs',
-                },
-                action: 'modalCancel',
-              },
-            ],
-          });
-        }}
-      >
-        click
-      </button>
-    </div>,
-  );
-
-  wrapper.find('button').simulate('click');
-  wrapper.update();
-  expect(wrapper.find('Drawer').props().visible).toEqual(true);
-  wrapper.find('.backs').first().simulate('click');
-
-  await delay(1000);
-  wrapper.update();
-  expect(wrapper.find('Drawer').props().visible).toEqual(false);
-  
-})
-
-it('modalOk plugin', async() => {
-  let modalRef;
-  const wrapper = mount(
-    <div>
-      <DrawerForm
-        isDrawer
-        type="drawer"
-        ref={(ref) => {
-          modalRef = ref;
-        }}
-      />
-      <button
-        type="button"
-        onClick={() => {
-          modalRef.show({
-            title: 'Title',
-            mode: 'create',
-            fields: [
-              {
-                name: 'name',
-                label: 'label',
-                field: 'input',
-              },
-            ],
-            actionsRender: [
-              {
-                type: 'button',
-                props: {
-                  children: 'back',
-                  className: 'backs',
-                },
-                action: 'modalOk',
-              },
-            ],
-          });
-        }}
-      >
-        click
-      </button>
-    </div>,
-  );
-
-  wrapper.find('button').simulate('click');
-  wrapper.update();
-  expect(wrapper.find('Drawer').props().visible).toEqual(true);
-  wrapper.find('.backs').first().simulate('click');
-
-  await delay(1000);
-  wrapper.update();
-  expect(wrapper.find('Drawer').props().visible).toEqual(false);
-  
-})

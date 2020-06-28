@@ -1,5 +1,4 @@
 import Mock from 'mockjs';
-import { act } from 'react-dom/test-utils';
 
 import { registerRenderPlugins } from '../render-plugin';
 import { registerFieldPlugins } from '../field-plugin';
@@ -36,20 +35,6 @@ export const delay = (timeout) => {
     setTimeout(resolve, timeout);
   });
 };
-
-export async function actWait(callback = () => {}, timeout = 1000) {
-  await act(async () => {
-    await callback();
-    await delay(timeout);
-  });
-}
-
-export async function updateWrapper(wrapper, amount = 0) {
-  await act(async () => {
-    await delay(amount);
-    wrapper.update();
-  });
-}
 
 mock('/source.json', {
   success: true,
@@ -88,6 +73,15 @@ mock('/datasource.json', ({ body }) => {
       sorter,
       list: dataSource.slice(0, pageSize),
     },
+  };
+});
+
+mock('/submit.json', ({ body }) => {
+  const data = JSON.parse(body);
+  return {
+    success: true,
+    code: 200,
+    data,
   };
 });
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
+import { act } from 'react-dom/test-utils';
 import { Form, Field } from '..';
 import { delay } from '../../__tests__/common';
 
@@ -199,7 +200,7 @@ describe('field', () => {
       );
 
       return { formRef, wrapper };
-    }
+    };
 
     it('validator ctx', async () => {
       const fn = jest.fn(() => Promise.resolve());
@@ -219,7 +220,7 @@ describe('field', () => {
       expect(formRef.getFieldError('test').length).toBeFalsy();
     });
 
-    it ('validator error', async () => {
+    it('validator error', async () => {
       // eslint-disable-next-line prefer-promise-reject-errors
       const fn = jest.fn(() => Promise.reject('value can not be 1'));
       const { formRef, wrapper } = validatorMount(fn);
@@ -229,9 +230,11 @@ describe('field', () => {
         .first()
         .simulate('change', { target: { value: '1' } });
 
-      await delay(1000);
+      await act(async () => {
+        await delay(1000);
+      });
       expect(formRef.getFieldError('test')).toEqual(['value can not be 1']);
-    })
+    });
   });
 
   describe('other', () => {
