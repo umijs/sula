@@ -183,7 +183,9 @@ describe('field plugin', () => {
         const wrapper = mount(<DatePicker onChange={onChange} valueFormat="utc" />);
         openPicker(wrapper);
         selectCell(wrapper, 3);
-        expect(onChange).toHaveBeenCalledWith(1591113600000, '2020-06-03');
+
+        expect(moment(onChange.mock.calls[0][0]).isSame('2020-06-03', 'date')).toBeTruthy();
+        expect(onChange.mock.calls[0][1]).toEqual('2020-06-03');
       });
 
       it('valueformat', () => {
@@ -241,7 +243,11 @@ describe('field plugin', () => {
         act(() => {
           wrapper.update();
         });
-        expect(onChange).toHaveBeenCalledWith(1592841602000, '00:00:02');
+
+        expect(
+          moment(onChange.mock.calls[0][0]).isSame('2020-06-23 00:00:02', 'second'),
+        ).toBeTruthy();
+        expect(onChange.mock.calls[0][1]).toEqual('00:00:02');
       });
 
       it('default format value', () => {
@@ -278,10 +284,10 @@ describe('field plugin', () => {
         openPicker(wrapper, 1);
         selectCell(wrapper, 5, 1);
         closePicker(wrapper, 1);
-        expect(onChange).toHaveBeenCalledWith(
-          [1591113600000, 1593878400000],
-          ['2020-06-03 00:00:00', '2020-07-05 00:00:00'],
-        );
+
+        expect(moment(onChange.mock.calls[0][0][0]).isSame('2020-06-03', 'date')).toBeTruthy();
+        expect(moment(onChange.mock.calls[0][0][1]).isSame('2020-07-05', 'date')).toBeTruthy();
+        expect(onChange.mock.calls[0][1]).toEqual(['2020-06-03 00:00:00', '2020-07-05 00:00:00']);
       });
 
       it('value format', () => {
