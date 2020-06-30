@@ -220,14 +220,11 @@ export default class Field extends React.Component<FieldProps> {
         </Col>
       );
     } else {
-      if (this.props.dependency && this.props.dependency.visible) {
-        return React.cloneElement(fieldItemElem, {
-          style: assign({}, fieldItemElem.props.style, {
-            display: visible === false ? 'none' : '',
-          }),
-        });
-      }
-      return fieldItemElem;
+      return React.cloneElement(fieldItemElem, {
+        style: assign({}, fieldItemElem.props.style, {
+          display: visible === false ? 'none' : '',
+        }),
+      })
     }
   }
 
