@@ -62,8 +62,8 @@ describe('field', () => {
         const wrapper = fieldMount({ initialVisible: false });
         const instance = wrapper.find('Field').first().instance();
         expect(instance.getVisible()).toEqual(false);
-        // 没有级联时 visible不生效
-        expect(wrapper.find('FormItem').props().style).toEqual(undefined);
+        // 没有级联时 visible生效
+        expect(wrapper.find('FormItem').props().style.display).toEqual('none');
       });
 
       it("col's visible will be false while span not 24", () => {
