@@ -7,6 +7,7 @@
 ## 里程碑
 
 - 7月8日：发布 beta 版本
+- 7月24日：发布可视化搭建平台 sula-builder
 - 7月29日：发布 1.0 正式版
 
 [![codecov](https://codecov.io/gh/umijs/sula/branch/master/graph/badge.svg)](https://codecov.io/gh/umijs/sula) [![CircleCI](https://circleci.com/gh/umijs/sula/tree/master.svg?style=svg)](https://circleci.com/gh/umijs/sula/tree/master) [![GitHub Actions status](https://github.com/umijs/sula/workflows/Node%20CI/badge.svg)](https://github.com/umijs/sula) ![npm](https://img.shields.io/npm/v/sula) ![npm](https://img.shields.io/npm/dm/sula) ![Automated Release Notes by gren](https://img.shields.io/badge/%F0%9F%A4%96-release%20notes-00B2EE.svg)
