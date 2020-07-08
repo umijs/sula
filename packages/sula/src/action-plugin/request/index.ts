@@ -47,7 +47,7 @@ export const request = (config: RequestConfig, ctx?) => {
     ...restAxiosConfig
   } = config;
 
-  const requestOptions = {
+  let requestOptions = {
     ...restAxiosConfig,
     url,
     method,
@@ -64,6 +64,8 @@ export const request = (config: RequestConfig, ctx?) => {
     bizSuccessMessageAdapter,
     bizNotifyHandler,
     bizDataAdapter,
+    bizParamsAdapter,
+    bizRequestAdapter,
   } = curConf;
 
   let finalParams = params || {};
@@ -81,12 +83,20 @@ export const request = (config: RequestConfig, ctx?) => {
     }, finalParams);
   }
 
+  if(bizParamsAdapter) {
+    finalParams = bizParamsAdapter(finalParams);
+  }
+
   const lMethod = toLower(method);
 
   if (lMethod === 'get' || lMethod === 'delete') {
     requestOptions.params = finalParams;
   } else {
     requestOptions.data = finalParams;
+  }
+
+  if(bizRequestAdapter) {
+    requestOptions = bizRequestAdapter(requestOptions);
   }
 
   return axios(requestOptions)

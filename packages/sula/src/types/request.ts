@@ -1,6 +1,5 @@
 import { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { ConvertParamsPlugin, ConverterPlugin } from './plugin';
-import sula from '../core';
 
 export interface BizResponse {
   code: number; // biz 响应状态码
@@ -16,7 +15,7 @@ export interface DevErrorDesc {
   description: string;
 }
 
-export type Message = boolean | string | undefined; // 默认是false代，表不出成功提示，true代表使用后端返回message，string代表自定义提示信息
+export type Message = boolean | string | undefined; // 默认是false代表不出成功提示，true代表使用后端返回message，string代表自定义提示信息
 
 export interface NotifyMessages {
   successMessage: string | null | undefined;
@@ -42,6 +41,12 @@ export type BizNotifyHandler = (notifyMessages: NotifyMessages) => void;
 // 6. 业务数据获取
 export type BizDataAdapter = (response: BizResponse) => any;
 
+// 7. 参数转换
+export type BizParamsAdapter = (params: Record<string, any>) => Record<string, any>;
+
+// 8. axios 转换
+export type BizRequestAdapter = (requestConfig: AxiosRequestConfig) => AxiosRequestConfig;
+
 export type BizExtendConfig = {
   bizRedirectHandler: BizRedirectHandler;
   bizDevErrorAdapter: BizDevErrorAdapter;
@@ -49,6 +54,8 @@ export type BizExtendConfig = {
   bizSuccessMessageAdapter: BizSuccessMessageAdapter;
   bizNotifyHandler: BizNotifyHandler;
   bizDataAdapter: BizDataAdapter;
+  bizParamsAdapter?: BizParamsAdapter;
+  bizRequestAdapter?: BizRequestAdapter;
 }
 
 export interface RequestConfig extends AxiosRequestConfig {

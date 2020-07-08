@@ -9,7 +9,7 @@
     "test:unit": "umi-test 'test.(j|t)s' --coverage",
     "test:watch": "umi-test 'test.(j|t)s' --coverage --watch",
     "predeploy": "npm run doc:build",
-    "deploy": "now deploy ./dist -n sula --prod --confirm",
+    "deploy": "now deploy ./dist -n sula --prod",
     "doc:dev": "cross-env DOC_ENV=dev dumi dev",
     "doc:build": "cross-env DOC_ENV=prod dumi build",
     "publish": "npm run build && lerna publish -m \"chore: publish\""
