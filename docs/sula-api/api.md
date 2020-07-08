@@ -1,7 +1,9 @@
 ---
-nav:
+group: 
   title: API
-  order: 100
+  order: 6
+title: 基础API
+order: 0
 ---
 # API
 
@@ -71,7 +73,7 @@ const fields = [
 const container = {
   type: 'card',
   props: {
-    title: '#{mode} 标题' // 可以通过 `'#{text}'` 来取值
+    title: '#{mode} 标题' // 可以通过 '#{}' 来取值
   }
 }
 ```
@@ -234,6 +236,7 @@ const config = {
 
 ### dependency
 表单关联
+- 详细用法参考 [dependency](#/form-advanced/)
 - 属性
   - dependency: 包裹的是级联配置对象，支持 `visible | source | disabled | value`
   - dependency下的属性
@@ -243,12 +246,13 @@ const config = {
 | relates  | 关联表单项 | `Array<NamePath>` |
 | inputs  | 设定关联表单项的匹配值，inputs和relates遵循一一映射关系 | `any[][]` |
 | output  | 关联表单项的值匹配inputs值且相等时，当前表单项会被设置成output的值 | `any` |
-| ignores  | 数组中的每一个数组分别对应relates中需要忽略的值，当匹配忽略时则采用defaultOutput | `any[][]` |
+| ignores  | 数组中的元素`(数组)`一一映射relates中需要忽略的值，当匹配忽略时则采用defaultOutput | `any[][]` |
 | defaultOutput  | 关联表单项的值匹配inputs值且相等时，当前表单项会被设置成defaultOutput的值 | `any` |
 | cases  | 更多的匹配场景，cases中同名字段优先级更高 | `array` |
 | type  | 自定义关联 | `string` \| `(ctx,config) => void` |
 
-- 介绍: 表单关联支持: 显隐关联`visible`、数据源关联`source`、禁用关联`disabled`、值关联`value`
+- 介绍: 表单关联支持: 显隐关联 `visible`、数据源关联 `source`、禁用关联 `disabled`、值关联 `value`
+- 注意: `*` 表示匹配所有
 
 - 用法
 ```js
@@ -315,9 +319,9 @@ const config = {
 
 |  属性名  | 说明 | 类型 | 默认值 |
 |  ----  | ----  | ---- | - |
-| name  | 字段名, 支持数组 | `string` \| `number` \| `Array<string`\|`number>` | - |
+| name  | 字段名(支持数组) | `string` \| `number` \| `Array<string`\|`number>` | - |
 | lable  | 标签的文本 | `string` | - |
-| layout  | 表单布局配置，优先级高于顶层配置 | `vertical` \| `horizontal` \| `inline` | `horizontal` |
+| layout  | 表单布局，优先级高于顶层配置 | `vertical` \| `horizontal` \| `inline` | `horizontal` |
 | itemLayout  | 表单项布局分布，优先级高于顶层配置 | `object` | `{ span: 24, labelCol: { span: 6 }, wrapperCol: { span: 16 } }` |
 | field  | 表单项控件 | `(ctx) => ReactNode` \| `RenderType` | - |
 | initialVisible  | 表单项初始是否显示 | `boolean` | `true` |
@@ -659,7 +663,7 @@ refreshTable()
 重置表格
 - 参数：`boolean`
 
-> 重置表格，参数为`true`时，刷新表格
+- 介绍: 重置表格，参数为`true`时，刷新表格
 
 - 用法
 ```js
@@ -817,9 +821,9 @@ const config = {
 
 ## CreateForm
 - 介绍：CreateForm是在sulaForm基础上封装的模版，支持大多数的表单业务场景
-  - 只传submit的时候，默认处理成操作组 `提交、返回`(表单底部)，提交前会先处理表单验证
-  - 传入actionsRender配置会覆盖submit；配置同form中的 `actionsRender`
-  - 添加非create状态下赋值前添加loading和赋值后的loading消失
+  - 只传submit的时候，默认处理成操作组 `提交、返回`(表单底部)，提交前会处理表单验证
+  - 配置actionsRender会覆盖submit；配置同form中的 `actionsRender`
+  - 添加非create状态下，赋值前添加loading、赋值后的loading消失
 
 ### fields
 表单配置, 详情参考sulaForm中的fields配置

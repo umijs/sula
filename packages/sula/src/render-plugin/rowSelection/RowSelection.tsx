@@ -1,7 +1,6 @@
 import React from 'react';
 import { InfoCircleOutlined } from '@ant-design/icons';
 import LocaleReceiver, { t } from '../../localereceiver';
-import Icon from '../icon';
 
 export default class RowSelection extends React.Component {
   renderRowSelection = (locale) => {

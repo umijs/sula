@@ -1,6 +1,5 @@
 import React from 'react';
 import InnerModalForm from './ModalForm';
-import InnerDrawerForm from './DrawerForm';
 import { RopeActionResult, STOP } from '../rope';
 import { FormProps } from '../form';
 
@@ -43,10 +42,11 @@ const RefModalForm: React.FC<RefModalProps> = ({ type }, ref) => {
     };
   });
 
-  return React.createElement(type === 'drawer' ? InnerDrawerForm : InnerModalForm, {
+  return React.createElement(InnerModalForm, {
     key: resetCount,
     visible,
     modal,
+    isDrawer: type === 'drawer',
   });
 };
 

@@ -214,13 +214,22 @@ class ContextStore {
     this.fieldNameMap.set(fieldNameList as FieldNameList, field);
 
     if (isFieldGroup) {
-      return;
+      // cancelRegisterFieldGroup
+      return () => {
+        this.fieldNameMap.delete(fieldNameList);
+      };
     }
 
     if (this.fieldsByGroup[groupName]) {
       this.fieldsByGroup[groupName].push(field as Field);
     } else {
       this.fieldsByGroup[groupName] = [field as Field];
+    }
+
+    // cancelRegisterField
+    return () => {
+      this.fieldNameMap.delete(fieldNameList);
+      this.fieldsByGroup[groupName] = this.fieldsByGroup[groupName].filter(item => item !== field);
     }
   };
 
@@ -232,6 +241,11 @@ class ContextStore {
       this.groupsByParentGroup[parentGroupName].push(fieldGroup);
     } else {
       this.groupsByParentGroup[parentGroupName] = [fieldGroup];
+    }
+
+    // cancelRegisterFieldGroup
+    return () => {
+      this.groupsByParentGroup[parentGroupName] = this.groupsByParentGroup[parentGroupName].filter(item => item !== fieldGroup);
     }
   };
 

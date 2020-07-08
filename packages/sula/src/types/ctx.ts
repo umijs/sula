@@ -1,7 +1,7 @@
 export type PluginCtx = Record<string, any>;
 export type LazyPluginCtxGetter = () => PluginCtx;
 export type LazyPluginCtx = {
-  ctxGetter?: LazyPluginCtxGetter;
+  ctxGetter?: LazyPluginCtxGetter | Record<string, LazyPluginCtxGetter>;
   [key: string]: any;
 };
 

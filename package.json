@@ -9,7 +9,7 @@
     "test:unit": "umi-test 'test.(j|t)s' --coverage",
     "test:watch": "umi-test 'test.(j|t)s' --coverage --watch",
     "predeploy": "npm run doc:build",
-    "deploy": "now deploy ./dist -n sula --prod --confirm",
+    "deploy": "now deploy ./dist -n sula --prod",
     "doc:dev": "cross-env DOC_ENV=dev dumi dev",
     "doc:build": "cross-env DOC_ENV=prod dumi build",
     "publish": "npm run build && lerna publish -m \"chore: publish\""
@@ -24,7 +24,7 @@
   "devDependencies": {
     "@ant-design/icons": "^4.1.0",
     "@umijs/fabric": "^2.0.8",
-    "antd": "4.2.2",
+    "antd": "4.3.4",
     "babel-plugin-import": "^1.13.0",
     "cross-env": "^7.0.2",
     "del": "^5.1.0",
@@ -37,6 +37,7 @@
     "mockjs": "^1.1.0",
     "react-live": "^2.2.2",
     "sula": "^1.0.0-alpha.35",
+    "@sula/charts": "^1.0.0-alpha.0",
     "umi-test": "^1.9.6"
   },
   "dependencies": {

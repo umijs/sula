@@ -1,4 +1,4 @@
-export class NameListMap<T, K> {
+export class NameListMap<T extends Array<any>, K> {
   private list: Array<{ nameList: T; value: any }> = [];
 
   public set(nameList: T, value: K) {
@@ -16,7 +16,7 @@ export class NameListMap<T, K> {
     });
   }
 
-  public get(nameList: T): K {
+  public get(nameList: T): K | null {
     for (let i = 0, len = this.list.length; i < len; i += 1) {
       const listItem = this.list[i];
       if (matchNameList(listItem.nameList, nameList)) {
@@ -24,6 +24,10 @@ export class NameListMap<T, K> {
       }
     }
     return null;
+  }
+
+  public delete(nameList: T) {
+    this.list = this.list.filter(item => !matchNameList(item.nameList, nameList));
   }
 
   public getNameLists(): T[] {
@@ -35,7 +39,7 @@ export class NameListMap<T, K> {
  * ['a'] ['a'] = true
  * ['a'] ['a', 'b'] = false
  */
-export function matchNameList(nameListA, nameListB) {
+export function matchNameList<T extends Array<any>>(nameListA: T, nameListB: T) {
   if (nameListA.length !== nameListB.length) {
     return false;
   }

@@ -1,7 +1,7 @@
 ---
 group: 
   title: 进阶指南
-  order: 2
+  order: 3
 title: 什么是插件
 order: 0
 ---
@@ -154,7 +154,7 @@ const config = {
 
 ### input 插件
 
-插件其实是对可服用逻辑封装后的定义，目的是通过简单的字符串配置就可以实现其背后的一段服用逻辑。
+插件其实是对可复用逻辑封装后的定义，目的是通过简单的字符串配置就可以实现其背后的一段复用逻辑。
 
 ```js
 sula.fieldType('input', (ctx, config) => {

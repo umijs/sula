@@ -54,7 +54,7 @@ describe('drawerform', () => {
     expect(wrapper.find('Drawer').props().visible).toEqual(false);
   });
 
-  it('costom close', async () => {
+  it('customize close', async () => {
     let modalRef;
     const wrapper = mount(
       <div>
@@ -70,19 +70,21 @@ describe('drawerform', () => {
             modalRef.show({
               title: 'Title',
               mode: 'create',
-              submit: {
-                url: '/success.json',
-                method: 'post',
-                convertParams: ({ params }) => {
-                  expect(params).toEqual({ test: '111' });
-                  return params;
-                },
-              },
               fields: [
                 {
-                  name: 'test',
-                  label: 'test',
+                  name: 'name',
+                  label: 'name',
                   field: 'input',
+                },
+              ],
+              actionsRender: [
+                {
+                  type: 'button',
+                  props: {
+                    children: 'back',
+                    className: 'backBtn',
+                  },
+                  action: 'modalOk',
                 },
               ],
             });
@@ -94,23 +96,117 @@ describe('drawerform', () => {
     );
     wrapper.find('button').simulate('click');
     wrapper.update();
-    wrapper
-      .find('input')
-      .last()
-      .simulate('change', { target: { value: '111' } });
+    expect(wrapper.find('Drawer').props().visible).toEqual(true);
+    wrapper.find('.backBtn').first().simulate('click');
 
-    wrapper.update();
-
-    const { modal } = wrapper.find('DrawerForm').props();
-    act(() => {
-      modal.close('@@sula_action_stop');
-    });
-    wrapper.update();
-
+    await delay(1000);
     expect(wrapper.find('Drawer').props().visible).toEqual(false);
   });
 
-  it('drawerform action plugin', async (done) => {
+  it('submit', async () => {
+    let modalRef;
+    const wrapper = mount(
+      <div>
+        <DrawerForm
+          type="drawer"
+          ref={(ref) => {
+            modalRef = ref;
+          }}
+        />
+        <button
+          type="button"
+          onClick={() => {
+            modalRef.show({
+              title: 'Title',
+              mode: 'create',
+              fields: [
+                {
+                  name: 'name',
+                  label: 'name',
+                  field: 'input',
+                },
+              ],
+              actionsRender: [
+                {
+                  type: 'button',
+                  props: {
+                    children: 'submit',
+                    className: 'submitBtn',
+                  },
+                  action: 'modalOk',
+                },
+              ],
+            });
+          }}
+        >
+          click
+        </button>
+      </div>,
+    );
+
+    wrapper.find('button').simulate('click');
+    wrapper.update();
+    expect(wrapper.find('Drawer').props().visible).toEqual(true);
+
+    wrapper.find('.submitBtn').first().simulate('click');
+
+    await delay(1000);
+    wrapper.update();
+    expect(wrapper.find('Drawer').props().visible).toEqual(false);
+  });
+
+  it('modalCancel plugin', async () => {
+    let modalRef;
+    const wrapper = mount(
+      <div>
+        <DrawerForm
+          type="drawer"
+          ref={(ref) => {
+            modalRef = ref;
+          }}
+        />
+        <button
+          type="button"
+          onClick={() => {
+            modalRef.show({
+              title: 'Title',
+              mode: 'create',
+              fields: [
+                {
+                  name: 'name',
+                  label: 'name',
+                  field: 'input',
+                },
+              ],
+              actionsRender: [
+                {
+                  type: 'button',
+                  props: {
+                    children: 'back',
+                    className: 'backBtn',
+                  },
+                  action: 'modalCancel',
+                },
+              ],
+            });
+          }}
+        >
+          click
+        </button>
+      </div>,
+    );
+
+    wrapper.find('button').simulate('click');
+    wrapper.update();
+    expect(wrapper.find('Drawer').props().visible).toEqual(true);
+    wrapper.find('.backBtn').first().simulate('click');
+
+    await delay(1000);
+    wrapper.update();
+    expect(wrapper.find('Drawer').props().visible).toEqual(false);
+  });
+
+  it('modalOk plugin', async (done) => {
     const wrapper = mount(
       <Table
         columns={[{ key: 'id', title: 'id' }]}
@@ -122,6 +218,7 @@ describe('drawerform', () => {
           action: [
             {
               type: 'drawerform',
+              resultPropName: 'res',
               title: 'title',
               fields: [
                 {
@@ -133,12 +230,30 @@ describe('drawerform', () => {
               initialValues: {
                 input: 123,
               },
-              submit: () => {
-                return Promise.resolve({ id: 1 });
-              },
+              actionsRender: [
+                {
+                  type: 'button',
+                  props: {
+                    children: 'submit',
+                    className: 'submitBtn',
+                  },
+                  action: [
+                    (ctx) => Promise.resolve({ ...ctx.form.getFieldsValue(), success: true }),
+                    'modalOk',
+                  ],
+                },
+              ],
             },
             (ctx) => {
-              expect(ctx.result).toEqual({ $submit: { id: 1 }, $fieldsValue: { input: 123 } });
+              expect(ctx.result).toEqual({ $submit: { input: 123, success: true } });
+              expect(ctx.results).toEqual({
+                res: {
+                  $submit: {
+                    input: 123,
+                    success: true,
+                  },
+                },
+              });
               done();
             },
           ],
@@ -148,10 +263,6 @@ describe('drawerform', () => {
 
     wrapper.find('button').first().simulate('click');
     wrapper.update();
-    wrapper.find('button').forEach((node) => {
-      if (node.text() === 'Submit') {
-        node.simulate('click');
-      }
-    });
+    wrapper.find('.submitBtn').first().simulate('click');
   });
 });

@@ -1,37 +1,37 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`query-table basic has actionsRender 1`] = `
+exports[`querytable basic 1`] = `
 Array [
   <form
-    class="ant-form ant-form-vertical"
+    class="ant-form ant-form-horizontal"
   >
     <div
-      class="sula-template-query-table-fields-wrapper sula-template-query-table-fields-divider"
+      class="sula-template-query-table-fields-wrapper"
     >
       <div
         class="ant-row"
         style="margin-left: -12px; margin-right: -12px;"
       >
         <div
-          class="ant-col"
+          class="ant-col ant-col-8"
           style="padding-left: 12px; padding-right: 12px;"
         >
           <div
             class="ant-row ant-form-item"
           >
             <div
-              class="ant-col ant-form-item-label"
+              class="ant-col ant-col-8 ant-form-item-label"
             >
               <label
                 class=""
-                for="input0"
-                title="Input0"
+                for="name"
+                title="name"
               >
-                Input0
+                name
               </label>
             </div>
             <div
-              class="ant-col ant-form-item-control"
+              class="ant-col ant-col-16 ant-form-item-control"
             >
               <div
                 class="ant-form-item-control-input"
@@ -41,7 +41,7 @@ Array [
                 >
                   <input
                     class="ant-input"
-                    id="input0"
+                    id="name"
                     type="text"
                     value=""
                   />
@@ -51,197 +51,7 @@ Array [
           </div>
         </div>
         <div
-          class="ant-col ant-col-[object Object]"
-          style="padding-left: 12px; padding-right: 12px;"
-        >
-          <div
-            class="ant-row ant-form-item"
-          >
-            <div
-              class="ant-col ant-form-item-label"
-            >
-              <label
-                class=""
-                for="input1"
-                title="Input1"
-              >
-                Input1
-              </label>
-            </div>
-            <div
-              class="ant-col ant-form-item-control"
-            >
-              <div
-                class="ant-form-item-control-input"
-              >
-                <div
-                  class="ant-form-item-control-input-content"
-                >
-                  <input
-                    class="ant-input"
-                    id="input1"
-                    type="text"
-                    value=""
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="ant-col ant-col-3"
-          style="padding-left: 12px; padding-right: 12px;"
-        >
-          <div
-            class="ant-row ant-form-item"
-          >
-            <div
-              class="ant-col ant-form-item-label"
-            >
-              <label
-                class=""
-                for="input2"
-                title="Input2"
-              >
-                Input2
-              </label>
-            </div>
-            <div
-              class="ant-col ant-form-item-control"
-            >
-              <div
-                class="ant-form-item-control-input"
-              >
-                <div
-                  class="ant-form-item-control-input-content"
-                >
-                  <input
-                    class="ant-input"
-                    id="input2"
-                    type="text"
-                    value=""
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="ant-col"
-          style="padding-left: 12px; padding-right: 12px;"
-        >
-          <div
-            class="ant-row ant-form-item"
-          >
-            <div
-              class="ant-col ant-form-item-label"
-            >
-              <label
-                class=""
-                for="input3"
-                title="Input3"
-              >
-                Input3
-              </label>
-            </div>
-            <div
-              class="ant-col ant-form-item-control"
-            >
-              <div
-                class="ant-form-item-control-input"
-              >
-                <div
-                  class="ant-form-item-control-input-content"
-                >
-                  <input
-                    class="ant-input"
-                    id="input3"
-                    type="text"
-                    value=""
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="ant-col"
-          style="padding-left: 12px; padding-right: 12px;"
-        >
-          <div
-            class="ant-row ant-form-item"
-          >
-            <div
-              class="ant-col ant-form-item-label"
-            >
-              <label
-                class=""
-                for="input4"
-                title="Input4"
-              >
-                Input4
-              </label>
-            </div>
-            <div
-              class="ant-col ant-form-item-control"
-            >
-              <div
-                class="ant-form-item-control-input"
-              >
-                <div
-                  class="ant-form-item-control-input-content"
-                >
-                  <input
-                    class="ant-input"
-                    id="input4"
-                    type="text"
-                    value=""
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="ant-col"
-          style="padding-left: 12px; padding-right: 12px;"
-        >
-          <div
-            class="ant-row ant-form-item"
-          >
-            <div
-              class="ant-col ant-form-item-label"
-            >
-              <label
-                class=""
-                for="input5"
-                title="Input5"
-              >
-                Input5
-              </label>
-            </div>
-            <div
-              class="ant-col ant-form-item-control"
-            >
-              <div
-                class="ant-form-item-control-input"
-              >
-                <div
-                  class="ant-form-item-control-input-content"
-                >
-                  <input
-                    class="ant-input"
-                    id="input5"
-                    type="text"
-                    value=""
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="ant-col ant-col-NaN"
+          class="ant-col ant-col-16"
           style="padding-left: 12px; padding-right: 12px;"
         >
           <div
@@ -249,7 +59,7 @@ Array [
             style="margin-bottom: 0px;"
           >
             <div
-              class="ant-col ant-form-item-control"
+              class="ant-col ant-col-16 ant-col-offset-8 ant-form-item-control"
             >
               <div
                 class="ant-form-item-control-input"
@@ -259,7 +69,7 @@ Array [
                 >
                   <div
                     class="sula-form-action-default"
-                    style="display: flex; justify-content: flex-end; margin-top: 30px;"
+                    style="display: flex; justify-content: flex-end;"
                   >
                     <div
                       class="ant-space ant-space-horizontal ant-space-align-center"
@@ -331,31 +141,8 @@ Array [
         class="ant-spin-container ant-spin-blur"
       >
         <div
-          class="ant-table"
+          class="ant-table ant-table-empty"
         >
-          <div
-            class="ant-table-title"
-          >
-            <div
-              class="sula-table-action-wrapper"
-            >
-              <div
-                class="sula-table-action-left"
-              />
-              <div
-                class="sula-table-action-right"
-              >
-                <button
-                  class="ant-btn"
-                  type="button"
-                >
-                  <span>
-                    right
-                  </span>
-                </button>
-              </div>
-            </div>
-          </div>
           <div
             class="ant-table-container"
           >
@@ -363,19 +150,9 @@ Array [
               class="ant-table-content"
             >
               <table
-                style="table-layout: fixed;"
+                style="table-layout: auto;"
               >
-                <colgroup>
-                  <col
-                    style="width: 110px; min-width: 110px;"
-                  />
-                  <col
-                    style="width: 110px; min-width: 110px;"
-                  />
-                  <col
-                    style="width: 200px; min-width: 200px;"
-                  />
-                </colgroup>
+                <colgroup />
                 <thead
                   class="ant-table-thead"
                 >
@@ -383,18 +160,17 @@ Array [
                     <th
                       class="ant-table-cell"
                     >
-                      序号
+                      id
                     </th>
                     <th
                       class="ant-table-cell"
                     >
-                      国家
+                      name
                     </th>
                     <th
-                      class="ant-table-cell ant-table-cell-ellipsis"
-                      title="名字"
+                      class="ant-table-cell"
                     >
-                      名字
+                      age
                     </th>
                   </tr>
                 </thead>
@@ -473,13 +249,13 @@ Array [
 ]
 `;
 
-exports[`query-table basic has leftActionsRender 1`] = `
+exports[`querytable fields length fields length > 3 1`] = `
 Array [
   <form
-    class="ant-form ant-form-vertical"
+    class="ant-form ant-form-horizontal"
   >
     <div
-      class="sula-template-query-table-fields-wrapper sula-template-query-table-fields-divider"
+      class="sula-template-query-table-fields-wrapper"
     >
       <div
         class="ant-row"
@@ -493,18 +269,18 @@ Array [
             class="ant-row ant-form-item"
           >
             <div
-              class="ant-col ant-form-item-label"
+              class="ant-col ant-col-8 ant-form-item-label"
             >
               <label
                 class=""
                 for="input0"
-                title="Input0"
+                title="input0"
               >
-                Input0
+                input0
               </label>
             </div>
             <div
-              class="ant-col ant-form-item-control"
+              class="ant-col ant-col-16 ant-form-item-control"
             >
               <div
                 class="ant-form-item-control-input"
@@ -524,25 +300,25 @@ Array [
           </div>
         </div>
         <div
-          class="ant-col ant-col-[object Object]"
+          class="ant-col ant-col-8"
           style="padding-left: 12px; padding-right: 12px;"
         >
           <div
             class="ant-row ant-form-item"
           >
             <div
-              class="ant-col ant-form-item-label"
+              class="ant-col ant-col-8 ant-form-item-label"
             >
               <label
                 class=""
                 for="input1"
-                title="Input1"
+                title="input1"
               >
-                Input1
+                input1
               </label>
             </div>
             <div
-              class="ant-col ant-form-item-control"
+              class="ant-col ant-col-16 ant-form-item-control"
             >
               <div
                 class="ant-form-item-control-input"
@@ -562,25 +338,25 @@ Array [
           </div>
         </div>
         <div
-          class="ant-col ant-col-3"
+          class="ant-col ant-col-8"
           style="padding-left: 12px; padding-right: 12px;"
         >
           <div
             class="ant-row ant-form-item"
           >
             <div
-              class="ant-col ant-form-item-label"
+              class="ant-col ant-col-8 ant-form-item-label"
             >
               <label
                 class=""
                 for="input2"
-                title="Input2"
+                title="input2"
               >
-                Input2
+                input2
               </label>
             </div>
             <div
-              class="ant-col ant-form-item-control"
+              class="ant-col ant-col-16 ant-form-item-control"
             >
               <div
                 class="ant-form-item-control-input"
@@ -607,18 +383,18 @@ Array [
             class="ant-row ant-form-item"
           >
             <div
-              class="ant-col ant-form-item-label"
+              class="ant-col ant-col-8 ant-form-item-label"
             >
               <label
                 class=""
                 for="input3"
-                title="Input3"
+                title="input3"
               >
-                Input3
+                input3
               </label>
             </div>
             <div
-              class="ant-col ant-form-item-control"
+              class="ant-col ant-col-16 ant-form-item-control"
             >
               <div
                 class="ant-form-item-control-input"
@@ -645,18 +421,18 @@ Array [
             class="ant-row ant-form-item"
           >
             <div
-              class="ant-col ant-form-item-label"
+              class="ant-col ant-col-8 ant-form-item-label"
             >
               <label
                 class=""
                 for="input4"
-                title="Input4"
+                title="input4"
               >
-                Input4
+                input4
               </label>
             </div>
             <div
-              class="ant-col ant-form-item-control"
+              class="ant-col ant-col-16 ant-form-item-control"
             >
               <div
                 class="ant-form-item-control-input"
@@ -681,48 +457,10 @@ Array [
         >
           <div
             class="ant-row ant-form-item"
-          >
-            <div
-              class="ant-col ant-form-item-label"
-            >
-              <label
-                class=""
-                for="input5"
-                title="Input5"
-              >
-                Input5
-              </label>
-            </div>
-            <div
-              class="ant-col ant-form-item-control"
-            >
-              <div
-                class="ant-form-item-control-input"
-              >
-                <div
-                  class="ant-form-item-control-input-content"
-                >
-                  <input
-                    class="ant-input"
-                    id="input5"
-                    type="text"
-                    value=""
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="ant-col ant-col-NaN"
-          style="padding-left: 12px; padding-right: 12px;"
-        >
-          <div
-            class="ant-row ant-form-item"
             style="margin-bottom: 0px;"
           >
             <div
-              class="ant-col ant-form-item-control"
+              class="ant-col ant-col-16 ant-col-offset-8 ant-form-item-control"
             >
               <div
                 class="ant-form-item-control-input"
@@ -732,7 +470,7 @@ Array [
                 >
                   <div
                     class="sula-form-action-default"
-                    style="display: flex; justify-content: flex-end; margin-top: 30px;"
+                    style="display: flex; justify-content: flex-end;"
                   >
                     <div
                       class="ant-space ant-space-horizontal ant-space-align-center"
@@ -742,33 +480,9 @@ Array [
                         style="margin-right: 8px;"
                       >
                         <button
-                          class="ant-btn ant-btn-primary ant-btn-loading"
+                          class="ant-btn ant-btn-primary"
                           type="button"
                         >
-                          <span
-                            class="ant-btn-loading-icon"
-                          >
-                            <span
-                              aria-label="loading"
-                              class="anticon anticon-loading"
-                              role="img"
-                            >
-                              <svg
-                                aria-hidden="true"
-                                class="anticon-spin"
-                                data-icon="loading"
-                                fill="currentColor"
-                                focusable="false"
-                                height="1em"
-                                viewBox="0 0 1024 1024"
-                                width="1em"
-                              >
-                                <path
-                                  d="M988 548c-19.9 0-36-16.1-36-36 0-59.4-11.6-117-34.6-171.3a440.45 440.45 0 00-94.3-139.9 437.71 437.71 0 00-139.9-94.3C629 83.6 571.4 72 512 72c-19.9 0-36-16.1-36-36s16.1-36 36-36c69.1 0 136.2 13.5 199.3 40.3C772.3 66 827 103 874 150c47 47 83.9 101.8 109.7 162.7 26.7 63.1 40.2 130.2 40.2 199.3.1 19.9-16 36-35.9 36z"
-                                />
-                              </svg>
-                            </span>
-                          </span>
                           <span>
                             Query
                           </span>
@@ -776,70 +490,15 @@ Array [
                       </div>
                       <div
                         class="ant-space-item"
-                        style="margin-right: 8px;"
                       >
                         <button
-                          class="ant-btn ant-btn-loading"
+                          class="ant-btn"
                           type="button"
                         >
-                          <span
-                            class="ant-btn-loading-icon"
-                          >
-                            <span
-                              aria-label="loading"
-                              class="anticon anticon-loading"
-                              role="img"
-                            >
-                              <svg
-                                aria-hidden="true"
-                                class="anticon-spin"
-                                data-icon="loading"
-                                fill="currentColor"
-                                focusable="false"
-                                height="1em"
-                                viewBox="0 0 1024 1024"
-                                width="1em"
-                              >
-                                <path
-                                  d="M988 548c-19.9 0-36-16.1-36-36 0-59.4-11.6-117-34.6-171.3a440.45 440.45 0 00-94.3-139.9 437.71 437.71 0 00-139.9-94.3C629 83.6 571.4 72 512 72c-19.9 0-36-16.1-36-36s16.1-36 36-36c69.1 0 136.2 13.5 199.3 40.3C772.3 66 827 103 874 150c47 47 83.9 101.8 109.7 162.7 26.7 63.1 40.2 130.2 40.2 199.3.1 19.9-16 36-35.9 36z"
-                                />
-                              </svg>
-                            </span>
-                          </span>
                           <span>
                             Reset
                           </span>
                         </button>
-                      </div>
-                      <div
-                        class="ant-space-item"
-                      >
-                        <a>
-                          <span>
-                            Collapse
-                          </span>
-                          <span
-                            aria-label="down"
-                            class="anticon anticon-down"
-                            role="img"
-                            style="transition: 0.3s all; transform: rotate(0.5turn);"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              class=""
-                              data-icon="down"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
-                              />
-                            </svg>
-                          </span>
-                        </a>
                       </div>
                     </div>
                   </div>
@@ -883,31 +542,8 @@ Array [
         class="ant-spin-container ant-spin-blur"
       >
         <div
-          class="ant-table"
+          class="ant-table ant-table-empty"
         >
-          <div
-            class="ant-table-title"
-          >
-            <div
-              class="sula-table-action-wrapper"
-            >
-              <div
-                class="sula-table-action-left"
-              >
-                <button
-                  class="ant-btn"
-                  type="button"
-                >
-                  <span>
-                    left
-                  </span>
-                </button>
-              </div>
-              <div
-                class="sula-table-action-right"
-              />
-            </div>
-          </div>
           <div
             class="ant-table-container"
           >
@@ -915,19 +551,9 @@ Array [
               class="ant-table-content"
             >
               <table
-                style="table-layout: fixed;"
+                style="table-layout: auto;"
               >
-                <colgroup>
-                  <col
-                    style="width: 110px; min-width: 110px;"
-                  />
-                  <col
-                    style="width: 110px; min-width: 110px;"
-                  />
-                  <col
-                    style="width: 200px; min-width: 200px;"
-                  />
-                </colgroup>
+                <colgroup />
                 <thead
                   class="ant-table-thead"
                 >
@@ -935,18 +561,17 @@ Array [
                     <th
                       class="ant-table-cell"
                     >
-                      序号
+                      id
                     </th>
                     <th
                       class="ant-table-cell"
                     >
-                      国家
+                      name
                     </th>
                     <th
-                      class="ant-table-cell ant-table-cell-ellipsis"
-                      title="名字"
+                      class="ant-table-cell"
                     >
-                      名字
+                      age
                     </th>
                   </tr>
                 </thead>
@@ -1025,13 +650,13 @@ Array [
 ]
 `;
 
-exports[`query-table has rowSelection 1`] = `
+exports[`querytable fields length fields length > 6 1`] = `
 Array [
   <form
     class="ant-form ant-form-horizontal"
   >
     <div
-      class="sula-template-query-table-fields-wrapper sula-template-query-table-fields-divider"
+      class="sula-template-query-table-fields-wrapper"
     >
       <div
         class="ant-row"
@@ -1050,9 +675,9 @@ Array [
               <label
                 class=""
                 for="input0"
-                title="Input0"
+                title="input0"
               >
-                Input0
+                input0
               </label>
             </div>
             <div
@@ -1076,7 +701,7 @@ Array [
           </div>
         </div>
         <div
-          class="ant-col ant-col-[object Object]"
+          class="ant-col ant-col-8"
           style="padding-left: 12px; padding-right: 12px;"
         >
           <div
@@ -1088,9 +713,9 @@ Array [
               <label
                 class=""
                 for="input1"
-                title="Input1"
+                title="input1"
               >
-                Input1
+                input1
               </label>
             </div>
             <div
@@ -1114,7 +739,7 @@ Array [
           </div>
         </div>
         <div
-          class="ant-col ant-col-3"
+          class="ant-col ant-col-8"
           style="padding-left: 12px; padding-right: 12px;"
         >
           <div
@@ -1126,9 +751,9 @@ Array [
               <label
                 class=""
                 for="input2"
-                title="Input2"
+                title="input2"
               >
-                Input2
+                input2
               </label>
             </div>
             <div
@@ -1164,9 +789,9 @@ Array [
               <label
                 class=""
                 for="input3"
-                title="Input3"
+                title="input3"
               >
-                Input3
+                input3
               </label>
             </div>
             <div
@@ -1202,9 +827,9 @@ Array [
               <label
                 class=""
                 for="input4"
-                title="Input4"
+                title="input4"
               >
-                Input4
+                input4
               </label>
             </div>
             <div
@@ -1240,9 +865,9 @@ Array [
               <label
                 class=""
                 for="input5"
-                title="Input5"
+                title="input5"
               >
-                Input5
+                input5
               </label>
             </div>
             <div
@@ -1266,7 +891,83 @@ Array [
           </div>
         </div>
         <div
-          class="ant-col ant-col-NaN"
+          class="ant-col ant-col-8"
+          style="padding-left: 12px; padding-right: 12px; display: none;"
+        >
+          <div
+            class="ant-row ant-form-item"
+          >
+            <div
+              class="ant-col ant-col-8 ant-form-item-label"
+            >
+              <label
+                class=""
+                for="input6"
+                title="input6"
+              >
+                input6
+              </label>
+            </div>
+            <div
+              class="ant-col ant-col-16 ant-form-item-control"
+            >
+              <div
+                class="ant-form-item-control-input"
+              >
+                <div
+                  class="ant-form-item-control-input-content"
+                >
+                  <input
+                    class="ant-input"
+                    id="input6"
+                    type="text"
+                    value=""
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="ant-col ant-col-8"
+          style="padding-left: 12px; padding-right: 12px; display: none;"
+        >
+          <div
+            class="ant-row ant-form-item"
+          >
+            <div
+              class="ant-col ant-col-8 ant-form-item-label"
+            >
+              <label
+                class=""
+                for="input7"
+                title="input7"
+              >
+                input7
+              </label>
+            </div>
+            <div
+              class="ant-col ant-col-16 ant-form-item-control"
+            >
+              <div
+                class="ant-form-item-control-input"
+              >
+                <div
+                  class="ant-form-item-control-input-content"
+                >
+                  <input
+                    class="ant-input"
+                    id="input7"
+                    type="text"
+                    value=""
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="ant-col ant-col-8"
           style="padding-left: 12px; padding-right: 12px;"
         >
           <div
@@ -1387,22 +1088,8 @@ Array [
         class="ant-spin-container ant-spin-blur"
       >
         <div
-          class="ant-table"
+          class="ant-table ant-table-empty"
         >
-          <div
-            class="ant-table-title"
-          >
-            <div
-              class="sula-table-action-wrapper"
-            >
-              <div
-                class="sula-table-action-left"
-              />
-              <div
-                class="sula-table-action-right"
-              />
-            </div>
-          </div>
           <div
             class="ant-table-container"
           >
@@ -1410,66 +1097,27 @@ Array [
               class="ant-table-content"
             >
               <table
-                style="table-layout: fixed;"
+                style="table-layout: auto;"
               >
-                <colgroup>
-                  <col
-                    class="ant-table-selection-col"
-                  />
-                  <col
-                    style="width: 110px; min-width: 110px;"
-                  />
-                  <col
-                    style="width: 110px; min-width: 110px;"
-                  />
-                  <col
-                    style="width: 200px; min-width: 200px;"
-                  />
-                </colgroup>
+                <colgroup />
                 <thead
                   class="ant-table-thead"
                 >
                   <tr>
                     <th
-                      class="ant-table-cell ant-table-selection-column"
+                      class="ant-table-cell"
                     >
-                      <div
-                        class="ant-table-selection"
-                      >
-                        <label
-                          class="ant-checkbox-wrapper ant-checkbox-wrapper-disabled"
-                        >
-                          <span
-                            class="ant-checkbox ant-checkbox-disabled"
-                          >
-                            <input
-                              class="ant-checkbox-input"
-                              disabled=""
-                              type="checkbox"
-                              value=""
-                            />
-                            <span
-                              class="ant-checkbox-inner"
-                            />
-                          </span>
-                        </label>
-                      </div>
+                      id
                     </th>
                     <th
                       class="ant-table-cell"
                     >
-                      序号
+                      name
                     </th>
                     <th
                       class="ant-table-cell"
                     >
-                      国家
-                    </th>
-                    <th
-                      class="ant-table-cell ant-table-cell-ellipsis"
-                      title="名字"
-                    >
-                      名字
+                      age
                     </th>
                   </tr>
                 </thead>
@@ -1481,7 +1129,310 @@ Array [
                   >
                     <td
                       class="ant-table-cell"
-                      colspan="4"
+                      colspan="3"
+                    >
+                      <div
+                        class="ant-empty ant-empty-normal"
+                      >
+                        <div
+                          class="ant-empty-image"
+                        >
+                          <svg
+                            class="ant-empty-img-simple"
+                            height="41"
+                            viewBox="0 0 64 41"
+                            width="64"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <g
+                              fill="none"
+                              fill-rule="evenodd"
+                              transform="translate(0 1)"
+                            >
+                              <ellipse
+                                class="ant-empty-img-simple-ellipse"
+                                cx="32"
+                                cy="33"
+                                rx="32"
+                                ry="7"
+                              />
+                              <g
+                                class="ant-empty-img-simple-g"
+                                fill-rule="nonzero"
+                              >
+                                <path
+                                  d="M55 12.76L44.854 1.258C44.367.474 43.656 0 42.907 0H21.093c-.749 0-1.46.474-1.947 1.257L9 12.761V22h46v-9.24z"
+                                />
+                                <path
+                                  class="ant-empty-img-simple-path"
+                                  d="M41.613 15.931c0-1.605.994-2.93 2.227-2.931H55v18.137C55 33.26 53.68 35 52.05 35h-40.1C10.32 35 9 33.259 9 31.137V13h11.16c1.233 0 2.227 1.323 2.227 2.928v.022c0 1.605 1.005 2.901 2.237 2.901h14.752c1.232 0 2.237-1.308 2.237-2.913v-.007z"
+                                />
+                              </g>
+                            </g>
+                          </svg>
+                        </div>
+                        <p
+                          class="ant-empty-description"
+                        >
+                          No Data
+                        </p>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>,
+  <form
+    class="ant-form ant-form-horizontal"
+  />,
+  <form
+    class="ant-form ant-form-horizontal"
+  />,
+]
+`;
+
+exports[`querytable fields length fields length 3 1`] = `
+Array [
+  <form
+    class="ant-form ant-form-horizontal"
+  >
+    <div
+      class="sula-template-query-table-fields-wrapper"
+    >
+      <div
+        class="ant-row"
+        style="margin-left: -12px; margin-right: -12px;"
+      >
+        <div
+          class="ant-col ant-col-8"
+          style="padding-left: 12px; padding-right: 12px;"
+        >
+          <div
+            class="ant-row ant-form-item"
+          >
+            <div
+              class="ant-col ant-col-8 ant-form-item-label"
+            >
+              <label
+                class=""
+                for="input0"
+                title="input0"
+              >
+                input0
+              </label>
+            </div>
+            <div
+              class="ant-col ant-col-16 ant-form-item-control"
+            >
+              <div
+                class="ant-form-item-control-input"
+              >
+                <div
+                  class="ant-form-item-control-input-content"
+                >
+                  <input
+                    class="ant-input"
+                    id="input0"
+                    type="text"
+                    value=""
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="ant-col ant-col-8"
+          style="padding-left: 12px; padding-right: 12px;"
+        >
+          <div
+            class="ant-row ant-form-item"
+          >
+            <div
+              class="ant-col ant-col-8 ant-form-item-label"
+            >
+              <label
+                class=""
+                for="input1"
+                title="input1"
+              >
+                input1
+              </label>
+            </div>
+            <div
+              class="ant-col ant-col-16 ant-form-item-control"
+            >
+              <div
+                class="ant-form-item-control-input"
+              >
+                <div
+                  class="ant-form-item-control-input-content"
+                >
+                  <input
+                    class="ant-input"
+                    id="input1"
+                    type="text"
+                    value=""
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="ant-col ant-col-8"
+          style="padding-left: 12px; padding-right: 12px;"
+        >
+          <div
+            class="ant-row ant-form-item"
+          >
+            <div
+              class="ant-col ant-col-8 ant-form-item-label"
+            >
+              <label
+                class=""
+                for="input2"
+                title="input2"
+              >
+                input2
+              </label>
+            </div>
+            <div
+              class="ant-col ant-col-16 ant-form-item-control"
+            >
+              <div
+                class="ant-form-item-control-input"
+              >
+                <div
+                  class="ant-form-item-control-input-content"
+                >
+                  <input
+                    class="ant-input"
+                    id="input2"
+                    type="text"
+                    value=""
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="sula-form-action-right"
+        style="margin-bottom: 24px;"
+      >
+        <div
+          class="ant-space ant-space-horizontal ant-space-align-center"
+        >
+          <div
+            class="ant-space-item"
+            style="margin-right: 8px;"
+          >
+            <button
+              class="ant-btn ant-btn-primary"
+              type="button"
+            >
+              <span>
+                Query
+              </span>
+            </button>
+          </div>
+          <div
+            class="ant-space-item"
+          >
+            <button
+              class="ant-btn"
+              type="button"
+            >
+              <span>
+                Reset
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>,
+  <div
+    class="ant-table-wrapper"
+  >
+    <div
+      class="ant-spin-nested-loading"
+    >
+      <div>
+        <div
+          class="ant-spin ant-spin-spinning"
+        >
+          <span
+            class="ant-spin-dot ant-spin-dot-spin"
+          >
+            <i
+              class="ant-spin-dot-item"
+            />
+            <i
+              class="ant-spin-dot-item"
+            />
+            <i
+              class="ant-spin-dot-item"
+            />
+            <i
+              class="ant-spin-dot-item"
+            />
+          </span>
+        </div>
+      </div>
+      <div
+        class="ant-spin-container ant-spin-blur"
+      >
+        <div
+          class="ant-table ant-table-empty"
+        >
+          <div
+            class="ant-table-container"
+          >
+            <div
+              class="ant-table-content"
+            >
+              <table
+                style="table-layout: auto;"
+              >
+                <colgroup />
+                <thead
+                  class="ant-table-thead"
+                >
+                  <tr>
+                    <th
+                      class="ant-table-cell"
+                    >
+                      id
+                    </th>
+                    <th
+                      class="ant-table-cell"
+                    >
+                      name
+                    </th>
+                    <th
+                      class="ant-table-cell"
+                    >
+                      age
+                    </th>
+                  </tr>
+                </thead>
+                <tbody
+                  class="ant-table-tbody"
+                >
+                  <tr
+                    class="ant-table-placeholder"
+                  >
+                    <td
+                      class="ant-table-cell"
+                      colspan="3"
                     >
                       <div
                         class="ant-empty ant-empty-normal"

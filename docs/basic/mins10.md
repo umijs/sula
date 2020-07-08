@@ -1,7 +1,7 @@
 ---
 group:
   title: 基础指南
-  order: 1
+  order: 2
 title: 十分钟快速开始
 order: 0
 ---
@@ -11,6 +11,8 @@ order: 0
 ### 起步
 
 **本文将从umi搭建项目开始，帮助你在项目中轻松运用sula。**
+
+> 注意：sula在非umi项目中使用如下文
 
 1. 先找个文件夹建个空目录
 ```js
@@ -1448,4 +1450,27 @@ export default () => {
     />
   )
 }
+```
+
+### 非umi中使用sula
+
+非umi项目需要手动注册插件和icon，一般在入口文件中注册并 `引入antd主题`
+
+- 注册示例如下
+```js
+import { registerFieldPlugins, registerRenderPlugins, registerActionPlugins, registerFilterPlugins, Icon } from 'sula';
+import 'antd/dist/antd.css'; // 引入antd主题
+import { UserOutlined } from '@ant-design/icons';
+
+// 注册插件
+registerFieldPlugins();
+registerRenderPlugins();
+registerActionPlugins();
+registerFilterPlugins();
+
+// 注册icon
+Icon.iconRegister({
+  user: UserOutlined
+})
+
 ```

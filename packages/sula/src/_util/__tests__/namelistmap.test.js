@@ -50,5 +50,13 @@ describe('namelistmap', () => {
       ['height'],
     ]);
     expect(map.get(['height'])).toEqual('185cm');
+
+    // delete
+    map.delete(['height']);
+    expect(map.getNameLists()).toEqual([
+      ['user', 'name'],
+      ['user', 'age'],
+      ['user', 'address'],
+    ]);
   });
 });

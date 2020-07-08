@@ -1,177 +1,150 @@
 import React from 'react';
-import { TabletFilled, AppstoreOutlined } from '@ant-design/icons';
-import { mount, shallow } from 'enzyme';
-import Icon from '../icon/Icon';
+import { mount } from 'enzyme';
+import { EditOutlined, EditTwoTone, FormOutlined } from '@ant-design/icons';
+import SulaIcon, { IconPlugin } from '../icon';
 import LoadingIcon from '../icon/InnerLoadingIcon';
-import { IconPlugin } from '../icon';
-import '../../__tests__/common';
+import { delay } from '../../__tests__/common';
+
+SulaIcon.iconRegister({
+  edit: {
+    outlined: EditOutlined,
+    twoTone: EditTwoTone,
+  },
+});
 
 describe('icon', () => {
-  jest.useFakeTimers(); // 设置快速时间
-  beforeEach(() => {
-    Icon.iconRegister({
-      tablet: {
-        filled: TabletFilled,
-      },
-      appstore: {
-        outlined: AppstoreOutlined,
-      }
-    })
+  it('loading icon', () => {
+    const loadingIconRef = React.createRef();
+    const wrapper = mount(<LoadingIcon ref={loadingIconRef} />);
+    expect(wrapper.find('Icon').props().type).toEqual('loading');
+    expect(wrapper.find('Icon').props().loading).toEqual(true);
+    expect(loadingIconRef.current).not.toBeNull();
   });
 
-  describe('Icon test', () => {
-    it('basic icon', () => {
-      const wrapper = mount(<Icon type="Head" />);
-      expect(wrapper.render()).toMatchSnapshot();
-      wrapper.unmount();
-    })
-  
-    it('no text', () => {
-      const wrapper = mount(<Icon type="tablet" theme="filled" className="testClassName" />);
-      expect(wrapper.render()).toMatchSnapshot();
-      wrapper.unmount();
-    })
-  
-    it('has text', () => {
-      const wrapper = mount(<Icon type="tablet" theme="filled" text="testIcon" onClick={() => {}} disabled={false} />);
-      expect(wrapper.render()).toMatchSnapshot();
-      wrapper.unmount();
-    })
-  
-    it('icon click', () => {
-      class TestIcon extends React.Component{
-        state = {
-          iconText: 'iconText',
-          disabled: false,
-        }
-  
-        render() {
-          const { iconText, disabled } = this.state;
-          return (
-            <Icon
-              disabled
-              type="tablet"
-              theme="filled"
-              text={iconText}
-              onClick={() => {
-                this.setState({
-                  iconText: iconText ? undefined : 'iconText',
-                  disabled: !disabled
-                })
-              }}
-            />
-          )
-        }
-      }
-      const wrapper = shallow(<TestIcon />);
-      expect(wrapper.state('iconText')).toBe('iconText');
-      expect(wrapper.state('disabled')).toBe(false);
-      wrapper.find(Icon).simulate('click');
-      expect(wrapper.state('iconText')).toBe(undefined);
-      expect(wrapper.state('disabled')).toBe(true);
-    })
-  })
+  describe('component icon', () => {
+    it('globalIconMapper', () => {
+      const wrapper = mount(<SulaIcon type="edit" theme="twoTone" />);
+      expect(wrapper.find('span').props()).toMatchObject({
+        'aria-label': 'edit',
+        className: 'anticon anticon-edit',
+      });
+    });
 
-  describe('LoadingIcon', () => {
-    it('basic loadingIcon', () => {
-      const wrapper = mount(<LoadingIcon />);
-      expect(wrapper.render()).toMatchSnapshot();
-    })
-  })
+    it('iconMapper', () => {
+      const wrapper = mount(<SulaIcon type="form" iconMapper={{ form: FormOutlined }} />);
+      expect(wrapper.find('span').props()).toMatchObject({
+        'aria-label': 'form',
+        className: 'anticon anticon-form',
+      });
+    });
 
-  describe('LoadingIconManager', () => {
-    it('no config', () => {
-      const wrapper = mount(
-        <IconPlugin type="appstore"/>
-      );
-      expect(wrapper.render()).toMatchSnapshot();
-    })
+    it('null', () => {
+      const wrapper = mount(<SulaIcon type="notExist" />);
+      expect(wrapper.find('span').length).toBeFalsy();
+    });
+  });
 
-    it('autoLoading is false', () => {
-      const actions = jest.fn();
+  it('disabled', () => {
+    const wrapper = mount(<SulaIcon type="edit" disabled />);
+    expect(wrapper.find('span').props()).toMatchObject({
+      className: 'anticon anticon-edit sula-icon-disabled',
+    });
+  });
+
+  it('loading', () => {
+    const wrapper = mount(<SulaIcon type="edit" loading />);
+    expect(wrapper.find('span').props()).toMatchObject({
+      className: 'anticon anticon-edit sula-icon-loading',
+    });
+  });
+
+  it('clickable', () => {
+    const wrapper = mount(<SulaIcon type="edit" onClick={() => {}} />);
+    expect(wrapper.find('span').props()).toMatchObject({
+      className: 'anticon anticon-edit sula-icon-clickable',
+    });
+  });
+
+  it('text', () => {
+    const wrapper = mount(<SulaIcon type="edit" text="edit" />);
+    expect(wrapper.find('span').last().text()).toEqual('edit');
+  });
+
+  describe('iconPlugin', () => {
+    async function testLoading(action, autoLoading = true) {
       const wrapper = mount(
         <IconPlugin
+          autoLoading={autoLoading}
+          text="loading"
+          type="edit"
           config={{
-            action: [
-              ctx => {
-                ctx.icon.showLoading();
-                setTimeout(() => {
-                  ctx.icon.hideLoading();
-                }, 2000);
-              },
-              actions
-            ]
+            action,
           }}
-          autoLoading={false}
-          type="appstore"
-        />
+        />,
       );
-      expect(wrapper.render()).toMatchSnapshot();
-      wrapper.find(Icon).at(1).simulate('click');
-      jest.runAllTimers(); // 时间快进
-
-      expect(actions).toBeCalled();
+      wrapper.find('Icon').first().simulate('click');
+      await delay(1000);
       wrapper.update();
-      wrapper.unmount();
-    })
+      expect(wrapper.find('.sula-icon-loading').props().style).toEqual({ display: '' });
+      expect(wrapper.find('.sula-icon-clickable').props().style).toEqual({ display: 'none' });
 
-    it('autoLoading is true', () => {
-      const actions = jest.fn();
-      const wrapper = mount(
-        <IconPlugin
-          config={{
-            action: [
-              actions,
-              'finallyAction'
-            ]
-          }}
-          type="appstore"
-        />
+      await delay(1500);
+      wrapper.update();
+      expect(wrapper.find('.sula-icon-loading').props().style).toEqual({ display: 'none' });
+      expect(wrapper.find('.sula-icon-clickable').props().style).toEqual({ display: '' });
+    }
+
+    it('not have config', () => {
+      const wrapper = mount(<IconPlugin config={{}} type="edit" />);
+      expect(wrapper.find('Icon').props()).toEqual({ theme: 'outlined', type: 'edit' });
+      expect(wrapper.find('Icon').type()).toEqual(SulaIcon);
+    });
+
+    it('loading', () => {
+      testLoading(
+        [
+          (ctx) => {
+            ctx.icon.showLoading();
+            setTimeout(() => {
+              ctx.icon.hideLoading();
+            }, 2000);
+          },
+        ],
+        false,
       );
-      expect(wrapper.render()).toMatchSnapshot();
-      
-    })
+    });
 
-    it('autoLoading is true, has lastAction.final', () => {
-      const actions = jest.fn();
-      const wrapper = mount(
-        <IconPlugin
-          config={{
-            action: [
-              actions,
-              {
-                type: jest.fn(),
-                final: jest.fn()
-              }
-            ]
-          }}
-          type="appstore"
-        />
-      );
-      expect(wrapper.render()).toMatchSnapshot();
-      wrapper.find(Icon).at(1).simulate('click');
-      expect(actions).toBeCalled();
-    })
+    it('autoLoading', () => {
+      testLoading([
+        async () => {
+          await delay(2000);
+          return Promise.resolve();
+        },
+      ]);
+    });
 
-    it('autoLoading is true, no lastAction.final', () => {
-      const actions = jest.fn();
-      const wrapper = mount(
-        <IconPlugin
-          config={{
-            action: [
-              actions,
-              {
-                before: jest.fn()
-              }
-            ]
-          }}
-          type="appstore"
-        />
-      );
-      expect(wrapper.render()).toMatchSnapshot();
-      wrapper.find(Icon).at(1).simulate('click');
-      expect(actions).toBeCalled();
-    })
+    it('final', () => {
+      const fn = jest.fn(() => Promise.resolve());
+      testLoading([
+        {
+          type: fn,
+          final: async () => {
+            await delay(2000);
+            return Promise.resolve();
+          },
+        },
+      ]);
+    });
 
-  })
-})
+    it('other type', () => {
+      testLoading([
+        {
+          type: async () => {
+            await delay(2000);
+            return Promise.resolve();
+          },
+        },
+      ]);
+    });
+  });
+});

@@ -4,6 +4,7 @@ let rope;
 let logSpy;
 
 beforeEach(() => {
+  process.env.SULA_LOGGER = 'action';
   const trigger = jest.fn((ctx, config) => {
     if (typeof config.type === 'function') {
       return config.type(ctx);

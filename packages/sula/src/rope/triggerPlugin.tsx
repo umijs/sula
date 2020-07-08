@@ -30,7 +30,16 @@ export const getLazyCtx = (ctx: LazyPluginCtx) => {
   return Object.keys(ctx).reduce((memo, key) => {
     if (key === 'ctxGetter') {
       const ctxGetter = ctx[key] as LazyPluginCtxGetter;
-      return assign(isFunction(ctxGetter) ? ctxGetter() : {}, memo);
+      return assign(
+        isFunction(ctxGetter)
+          ? ctxGetter()
+          : Object.keys(ctxGetter).reduce((ctxMemo, ctxKey) => {
+              const curCtxGetter = ctxGetter[ctxKey] as LazyPluginCtxGetter;
+              assign(ctxMemo, isFunction(curCtxGetter) ? curCtxGetter() : {});
+              return ctxMemo;
+            }, {}),
+        memo,
+      );
     }
     memo[key] = ctx[key];
     return memo;

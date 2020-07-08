@@ -1,6 +1,6 @@
 import React from 'react';
 import * as sula from 'sula';
-import { Tabs, Input, Select } from 'antd';
+import { Tabs, Button } from 'antd';
 import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live';
 import theme from 'prism-react-renderer/themes/nightOwlLight';
 import './playground.less';
@@ -11,6 +11,7 @@ const scope = {
   ...sula,
   Tabs,
   TabPane,
+  Button,
 };
 
 const createFormCode = `// import { CreateForm } from 'sula';
@@ -159,6 +160,48 @@ function () {
 }
 `
 
+const formCode = `
+// import { Form } from 'sula';
+
+function () {
+  const formRef = React.useRef(null);
+  return (
+    <div>
+      <Button onClick={() => {
+        formRef.current.setFieldVisible('input', false);
+      }}>隐藏 input</Button>
+      <Form
+        onValuesChange={(values) => {
+          console.log('values: ', values);
+        }}
+        ref={formRef}
+        fields={[
+          {
+            field: { 
+              type: 'input',
+              props: {
+                placeholder: 'Please input',
+              }
+            },
+            name: 'input',
+            label: 'Input',
+          },
+          {
+            field: 'select',
+            name: 'select',
+            label: 'Select',
+            initialSource: [{
+              text: '苹果',
+              value: 'apple',
+            }]
+          }
+        ]}
+      />
+    </div>
+  );
+}
+`
+
 const codes = [
   {
     name: 'CreateForm',
@@ -172,6 +215,10 @@ const codes = [
     name: 'StepForm',
     code: stepFormCode,
   },
+  {
+    name: 'Form',
+    code: formCode,
+  }
 ];
 
 export default class Playground extends React.Component {
