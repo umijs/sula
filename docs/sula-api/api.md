@@ -2,7 +2,7 @@
 group: 
   title: API
   order: 6
-title: 基础API
+title: 配置API
 order: 0
 ---
 # API
