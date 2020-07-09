@@ -16,6 +16,7 @@ const config = {
     prettier: true,
   },
   pkgs: ['sula','umi-plugin-sula','sula-charts'],
+  extraBabelPlugins,
 };
 
 export default config;
