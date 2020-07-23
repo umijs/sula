@@ -1,13 +1,13 @@
 简体中文 | [English](https://github.com/umijs/sula/blob/master/README.en-US.md)
 
-# sula (alpha)
+# sula (beta)
 
-> Sula 当前还处于 alpha 社区内测阶段，请不要直接在生产环境使用。
+> Sula 当前还处于 beta 社区内测阶段，请不要直接在生产环境使用。
 
 ## 里程碑
 
-- 7月24日：发布可视化搭建平台 sula-builder
 - 7月29日：发布 1.0 正式版
+- 8月20日：发布 Sula Builder 前后端完整版
 
 [![codecov](https://codecov.io/gh/umijs/sula/branch/master/graph/badge.svg)](https://codecov.io/gh/umijs/sula) [![CircleCI](https://circleci.com/gh/umijs/sula/tree/master.svg?style=svg)](https://circleci.com/gh/umijs/sula/tree/master) [![GitHub Actions status](https://github.com/umijs/sula/workflows/Node%20CI/badge.svg)](https://github.com/umijs/sula) ![npm](https://img.shields.io/npm/v/sula) ![npm](https://img.shields.io/npm/dm/sula) ![Automated Release Notes by gren](https://img.shields.io/badge/%F0%9F%A4%96-release%20notes-00B2EE.svg)
 
@@ -25,6 +25,10 @@
 - [表单快速配置](https://www.bilibili.com/video/BV1rC4y1p71m/) 3分钟
 - [查询表格快速配置](https://www.bilibili.com/video/BV1qA411q7kb/) 4分钟
 - [Sula-Cooker 的使用](https://www.bilibili.com/video/BV1jz4y197EG/) 3分钟
+
+## 🔥 Sula 可视化搭建平台（尝鲜版）
+
+- [sula-builder](https://build.sula.now.sh)
 
 ## 🍳 Sula 在线配置化工具
 
