@@ -79,7 +79,7 @@ export default class QueryFields extends React.Component<QueryFieldsProps> {
           { type: 'validateQueryFields', resultPropName: '$queryFieldsValue' },
           {
             type: 'refreshTable',
-            args: [null, '#{result}'],
+            args: [{ current: 1 }, '#{result}'],
           },
         ],
       },

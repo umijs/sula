@@ -156,6 +156,43 @@ describe('sula request', () => {
       });
       expect(res).toEqual({ a: 123, extra: true });
     });
+
+    request.use({
+      bizParamsAdapter(params) {
+        const { testParams, ...otherParams } = params || {};
+        return otherParams;
+      },
+    });
+
+    it('bizParamsAdapter', async () => {
+      const res = await fetch({
+        url: '/params.json',
+        method: 'post',
+        params: { testParams: 12, id: 1 },
+      });
+      expect(res.body).toEqual(JSON.stringify({ id: 1 }));
+    });
+
+    request.use({
+      bizRequestAdapter(requestConfig) {
+        const { method, params, data } = requestConfig;
+        const { requestParams, ...otherParams } = data || params || {};
+        let keys = 'params';
+        if (method === 'post') {
+          keys = 'data';
+        }
+        return { ...requestConfig, [keys]: otherParams };
+      },
+    });
+
+    it('bizRequestAdapter', async () => {
+      const res = await fetch({
+        url: '/params.json',
+        method: 'post',
+        params: { requestParams: 12, id: 1 },
+      });
+      expect(res.body).toEqual(JSON.stringify({ id: 1 }));
+    });
   });
 
   describe('getFormDataParams', () => {
