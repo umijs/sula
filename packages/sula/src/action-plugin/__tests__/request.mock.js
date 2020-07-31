@@ -18,6 +18,15 @@ Mock.mock('/redirect.json', {
   },
 });
 
+Mock.mock('/global/redirect.json', {
+  code: 300,
+  success: true,
+  message: 'success',
+  data: {
+    redirectUrl: 'http://www.github.com',
+  },
+});
+
 Mock.mock('/error.json', {
   code: 200,
   success: false,
@@ -73,4 +82,30 @@ Mock.mock('/matchers.json', {
   data: {
     a: 123,
   },
+});
+
+Mock.mock('/global/errorAdapter.json', {
+  code: 404,
+  success: false,
+  errorMessage: 'error',
+  description: 'error description',
+});
+
+Mock.mock('/global/errorMessageAdapter.json', {
+  code: 100,
+  success: false,
+  errorMessage: 'error message',
+});
+
+Mock.mock('/global/successMessageAdapter.json', {
+  code: 200,
+  success: true,
+  message: 'success message',
+  description: 'memo',
+});
+
+Mock.mock('/global/dataAdapter.json', {
+  code: 200,
+  success: true,
+  list: [{ name: 'name' }],
 });
