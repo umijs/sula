@@ -399,7 +399,7 @@ export default () => {
       method: 'POST',
     },
 +    remoteValues: {
-+      url: 'http://www.mocky.io/v2/5ed7af12320000a0cc274b00',
++      url: 'https://www.mocky.io/v2/5ed7af12320000a0cc274b00',
 +      method: 'get',
 +    },
 +    mode: 'edit'
@@ -468,7 +468,7 @@ export default () => {
       method: 'POST',
     },
     remoteValues: {
-      url: 'http://www.mocky.io/v2/5ed7af12320000a0cc274b00',
+      url: 'https://www.mocky.io/v2/5ed7af12320000a0cc274b00',
       method: 'get'
     },
     mode: 'edit',

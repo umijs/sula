@@ -1,8 +1,8 @@
 import sula from './core';
-import { ConvertParamsImpl, ConverterImpl, DependencyImpl } from './types/plugin';
+import { ConvertParamsImpl, ConverterImpl, DependencyImpl, ValidatorImpl } from './types/plugin';
 import warning from './_util/warning';
 
-export const registerPlugin = (pluginType: 'convertParams' | 'converter' | 'dependency', pluginName: string, pluginImpl: ConvertParamsImpl | ConverterImpl | DependencyImpl) => {
+export const registerPlugin = (pluginType: 'convertParams' | 'converter' | 'dependency' | 'validator', pluginName: string, pluginImpl: ConvertParamsImpl | ConverterImpl | DependencyImpl | ValidatorImpl) => {
   if(pluginType === 'convertParams') {
     sula.convertParamsType(pluginName, pluginImpl as ConvertParamsImpl);
     return;
@@ -11,6 +11,9 @@ export const registerPlugin = (pluginType: 'convertParams' | 'converter' | 'depe
     return;
   } else if(pluginType === 'dependency') {
     sula.dependencyType(pluginName, pluginImpl as DependencyImpl);
+    return;
+  } else if(pluginType === 'validator') {
+    sula.validatorType(pluginName, pluginImpl as ValidatorImpl);
     return;
   }
 

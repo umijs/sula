@@ -482,5 +482,118 @@ describe('form', () => {
       expect(wrapper.find('input').first().props().value).toEqual(14);
       expect(wrapper.find('input').last().props().value).toEqual(2);
     });
+
+    it('container dependency', () => {
+      const wrapper = mount(
+        <Form
+          fields={[
+            {
+              name: 'name',
+              label: 'name',
+              field: {
+                type: 'input',
+                props: {
+                  className: 'input-test',
+                },
+              },
+            },
+            {
+              container: {
+                type: 'card',
+                props: {
+                  title: 'card',
+                  className: 'container-card',
+                },
+              },
+              initialVisible: false,
+              dependency: {
+                visible: {
+                  relates: ['name'],
+                  inputs: [['a']],
+                  output: true,
+                  defaultOutput: false,
+                },
+              },
+              fields: [
+                {
+                  name: 'others',
+                  label: 'others',
+                  field: 'input',
+                },
+              ],
+            },
+          ]}
+        />,
+      );
+
+      expect(wrapper.find('.container-card').first().props().style.display).toEqual('none');
+      wrapper
+        .find('.input-test')
+        .at(0)
+        .simulate('change', { target: { value: 'a' } });
+
+      expect(wrapper.find('.container-card').first().props().style.display).toEqual('');
+      wrapper
+        .find('.input-test')
+        .at(0)
+        .simulate('change', { target: { value: 'aa' } });
+
+      expect(wrapper.find('.container-card').first().props().style.display).toEqual('none');
+    });
+
+    it('combination dependency', () => {
+      const wrapper = mount(
+        <Form
+          fields={[
+            {
+              name: 'name',
+              label: 'name',
+              field: {
+                type: 'input',
+              },
+            },
+            {
+              name: 'age',
+              label: 'age',
+              field: 'input',
+            },
+            {
+              name: 'others',
+              label: 'others',
+              field: 'input',
+              className: 'input-others',
+              initialVisible: false,
+              dependency: {
+                visible: {
+                  relates: ['name', 'age'],
+                  inputs: [['a'], ['b']],
+                  output: true,
+                  defaultOutput: false,
+                },
+              },
+            },
+          ]}
+        />,
+      );
+
+      expect(wrapper.find('.input-others').last().props().style.display).toEqual('none');
+
+      wrapper
+        .find('input')
+        .at(0)
+        .simulate('change', { target: { value: 'a' } });
+      wrapper
+        .find('input')
+        .at(1)
+        .simulate('change', { target: { value: 'b' } });
+
+      expect(wrapper.find('.input-others').last().props().style.display).toEqual('');
+      wrapper
+        .find('input')
+        .at(1)
+        .simulate('change', { target: { value: 'bb' } });
+
+      expect(wrapper.find('.input-others').last().props().style.display).toEqual('none');
+    });
   });
 });
