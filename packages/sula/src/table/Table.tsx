@@ -127,7 +127,8 @@ const RefTable: React.FunctionComponent<TableProps> = (props, ref) => {
   React.useEffect(() => {
     if (props.remoteDataSource && props.remoteDataSource.init !== false) {
       const table = context.getTable();
-      table.refreshTable();
+      // 初始化数据源不能清空选中项
+      table.refreshTable(null, null, null, true);
     }
   }, []);
 

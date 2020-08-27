@@ -178,6 +178,7 @@ export default class BasicDemo extends React.Component {
         columns={columns}
         remoteDataSource={remoteDataSource}
         rowKey="id"
+        initialSelectedRowKeys={['0', '2']}
         rowSelection={{}}
       />
     );

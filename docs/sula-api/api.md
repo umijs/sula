@@ -2,7 +2,7 @@
 group: 
   title: API
   order: 6
-title: 基础API
+title: 配置API
 order: 0
 ---
 # API
@@ -156,14 +156,41 @@ validateGroupFields('groups')
   .catch(error => {})
 ```
 
+#### setFieldsValue
+设置表单的值
+- 参数类型: `({ [key: string]: any; }) => void`
+- 介绍: 用法可参考[antd/setFieldsValue](https://ant-design.gitee.io/components/form-cn/#API)
+- 用法
+```js
+setFieldsValue({
+  name: 'value1',
+  ages: 'value2',
+})
+```
+
 #### setFieldValue
-设置表单项的值
+设置单个表单项的值
 - 参数类型: `(name: NamePath, any) => void`
 - 介绍: setFieldValue执行会触发表单联动
 
 - 用法
 ```js
 setFieldValue('name', '首富')
+```
+
+#### setFields
+设置一组字段状态
+- 参数：`(fields: FieldData[]) => void`
+- 用法
+```js
+setFields([{
+  name: 'name',  // 字段名称
+  validating: false,  // 是否正在校验
+  value: 'value', // 字段对应值
+  // 可以在form实例isFieldValidating中获取
+  touched: true,  // 是否被用户操作过
+  errors: ['please input', 'others'],  // 错误信息
+}])
 ```
 
 #### setFieldSource
@@ -233,6 +260,7 @@ const config = {
 表单模式
 - 类型: 支持 `create: 创建模式；view: 查看模式；edit: 编辑模式`
 - 默认: `create`
+- 介绍: mode为 `create` 时不会触发remoteValues方法
 
 ### dependency
 表单关联
@@ -461,6 +489,230 @@ const config = {
   }
 }
 ```
+
+### Field 组件
+表单域
+- 类型: `ReactElement`
+- 属性
+
+|  属性名  | 说明 | 类型 | 默认值 |
+|  ----  | ----  | ---- | - |
+| field | 表单项控件 | `FieldPlugin` | - |
+| name | 字段名(支持数组) | `FieldNamePath` | - |
+| collect | 收集值 | `boolean` | - |
+| initialDisabled | 表单项初始禁用状态 | `boolean` | - |
+| initialVisible | 表单项初始是否显示 | `boolean` | - |
+| initialSource | 表单项初始数据源 | `any` | - |
+| initialValue | 表单项初始值 | `any` | - |
+| remoteSource | 表单项远程数据源 | `RequestConfig` | - |
+| dependency | 配置表单关联 `参考 dependency` | `Dependencies` | - |
+| children | 子组件 | `ReactElement` \| `FieldPlugin[]` | - |
+| layout | 表单布局 | `'horizontal'` \| `'vertical'` \| `'inline'` | - |
+| rules | 校验规则 | `Array<Omit<Rule, 'validator'> & {validator? : ValidatorPlugin;}>` | - |
+| childrenContainer | 表单项容器 | `RenderPlugin` | - |
+
+- 示例
+```js
+import React from 'react';
+import { Form, FieldGroup, Field } from 'sula';
+
+export default () => {
+  const fieldChildren = [{
+    name: 'a',
+    label: 'a',
+    field: 'input',
+  }, {
+    name: 'b',
+    label: 'b',
+    field: 'input',
+  }, {
+    name: 'c',
+    label: 'c',
+    field: 'input',
+  }]
+  return (
+    <Form>
+      <FieldGroup>
+        <Field field="input" name="name" label="name" rules={[{ required: true, message: 'Please input' }]} />
+        <Field label="aa">
+          <div>view</div>
+        </Field>
+        <Field label="bb">
+          <>
+            <Field field="input" name="h" label="h" />
+            <Field field="input" name="f" label="f" />
+            <Field field="input" name="j" label="j" />
+          </>
+        </Field>
+        <Field label="cc" childrenContainer={{ type: 'card', props: { title: 'card' } }}>
+          {fieldChildren}
+        </Field>
+      </FieldGroup>
+    </Form>
+  )
+}
+```
+
+### FormAction 组件
+表单操作组
+- 类型: `ReactElement`
+- 属性
+
+|  属性名  | 说明 | 类型 | 默认值 |
+|  ----  | ----  | ---- | - |
+| actionsPosition | 底部操作位置 | `'default'` \| `'bottom'` \| `'right'` \| `'center'` | `'default'` |
+| actionsRender | 操作组配置 | `RenderPlugin` \| `RenderPlugin[]` | - |
+| children | 子组件 | `ReactElement` | - |
+
+- 示例
+```js
+import React from 'react';
+import { Form, FieldGroup, FormAction } from 'sula';
+
+export default () => {
+  const fields = [{
+    name: 'name',
+    label: 'name',
+    field: 'input',
+  }, {
+    name: 'age',
+    label: 'age',
+    field: 'input'
+  }]
+  return (
+    <Form>
+      <FieldGroup fields={fields} />
+      <FieldGroup>
+        {/* 属性配置 */}
+        <FormAction
+          actionsPosition="bottom"
+          actionsRender={[{
+            type: 'button',
+            props: {
+              type: 'primary',
+              children: 'submit'
+            },
+            action: [
+              'validateFields',
+              {
+                type: 'request',
+                url: 'https://www.mocky.io/v2/5ed7a8b63200001ad9274ab5',
+                method: 'post',
+                convertParams: ({ result }) => result
+              }
+            ]
+          }]}
+        />
+        {/* children */}
+        {/*
+          <FormAction>
+            <Button type='primary'>提交</Button>
+          </FormAction>
+        */}
+      </FieldGroup>
+    </Form>
+  )
+}
+```
+
+### FieldGroup 组件
+表单控件配置化管理组件
+- 类型: `ReactElement`
+- 属性
+
+|  属性名  | 说明 | 类型 | 默认值 |
+|  ----  | ----  | ---- | - |
+| name | 分组值 | `string` | - |
+| layout | 表单布局	 | `'horizontal'` \| `'vertical'` \| `'inline'` | - |
+| itemLayout | 表单项布局分布 | `{ cols?: number, span?: number, offset?: 'number', gutter?: number, wrapper?: ColProps` \| `undefined, labelCoL?: ColProps` \| `undefined  }` | - |
+| initialVisible | 表单控件组初始是否显示 | `boolean` | `true` |
+| children | 子组件 | `ReactElement` | - |
+| fields | 表单控件配置 | `Array<Field>` | - |
+| dependency | 配置表单关联 `参考dependency` | `object` | - |
+| container | 容器 `参考container插件` | `RenderPlugin` | - |
+| actionsRender | 操作组配置 | `RenderPlugin` \| `RenderPlugin[]` | - |
+| actionsPosition | 底部操作位置 | `'center'` \| `'right'` \| `'bottom'` | - |
+
+- 注意
+  - `fields` 和 `children` 不能同时生效，设置 `fields` 且不为空，`fields` 生效；否则 `children` 生效；
+  - `FieldGroup` 组件外层须包裹Form(sula暴露的Form)
+
+- 示例
+```js
+import React from 'react';
+import { Form, FieldGroup, Field, FormAction } from 'sula';
+
+export default () => {
+  const fields = [{
+    name: 'name',
+    label: 'name',
+    field: 'input',
+  }, {
+    name: 'age',
+    label: 'age',
+    field: 'input'
+  }]
+  return (
+    <Form>
+      {/* fields配置 */}
+      <FieldGroup fields={fields} />
+      {/* children */}
+      <FieldGroup>
+        <Field field="input" name="others" label="others" />
+      </FieldGroup>
+      {/* 底部事件组 */}
+      <FieldGroup>
+        <FormAction
+          actionsRender={[{
+            type: 'button',
+            props: {
+              type: 'primary',
+              children: 'submit'
+            },
+            action: [
+              'validateFields',
+              {
+                type: 'request',
+                url: 'https://www.mocky.io/v2/5ed7a8b63200001ad9274ab5',
+                method: 'post',
+                convertParams: ({ result }) => result
+              }
+            ]
+          }]}
+        />
+      </FieldGroup>
+    </Form>
+  )
+}
+```
+
+### MediaQueries组件
+媒体查询组件
+- 介绍：示例中的`matches`会根据浏览器窗口变化而变化，实现媒体查询；规则如下
+
+| 浏览器窗口`width` | matches |
+|  ----  | ----  |
+| width >= 1600 | `'xxl'` |
+| 1600 > width >= 1200 | `'xl'` |
+| 1200 > width >= 992 | `'lg'` |
+| 992 > width >= 768 | `'md'` |
+| 768 > width >= 576 | `'sm'` |
+| 576 > width | `'xs'` |
+
+- 示例
+```js
+import { MediaQueries } from 'sula';
+
+export default () => {
+  return (
+    <MediaQueries>
+      {(matches) => <span>{matches}</span>}
+    </MediaQueries>
+  )
+}
+
+```
+
 
 ## Table
 

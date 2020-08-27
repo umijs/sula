@@ -130,31 +130,159 @@ describe('sula request', () => {
   });
 
   describe('global config matchers', () => {
-    request.use(
-      (reqConfig) => {
-        if (reqConfig.url === '/matchers.json') {
-          return true;
-        }
-        return false;
-      },
-      {
-        bizDataAdapter(res) {
-          return {
-            ...res.data,
-            extra: true,
-          };
-        },
-      },
-    );
-
-    request.use(true, {});
-
     it('costom matchers', async () => {
+      await request.use(
+        (reqConfig) => {
+          if (reqConfig.url === '/matchers.json') {
+            return true;
+          }
+          return false;
+        },
+        {
+          bizDataAdapter(res) {
+            return {
+              ...res.data,
+              extra: true,
+            };
+          },
+        },
+      );
+
+      request.use(true, {});
       const res = await fetch({
         url: '/matchers.json',
         method: 'post',
       });
       expect(res).toEqual({ a: 123, extra: true });
+    });
+
+    it('bizParamsAdapter', async () => {
+      await request.use({
+        bizParamsAdapter(params) {
+          const { testParams, ...otherParams } = params || {};
+          return otherParams;
+        },
+      });
+      const res = await fetch({
+        url: '/params.json',
+        method: 'post',
+        params: { testParams: 12, id: 1 },
+      });
+      expect(res.body).toEqual(JSON.stringify({ id: 1 }));
+    });
+
+    it('bizRequestAdapter', async () => {
+      await request.use({
+        bizRequestAdapter(requestConfig) {
+          const { method, params, data } = requestConfig;
+          const { requestParams, ...otherParams } = data || params || {};
+          let keys = 'params';
+          if (method === 'post') {
+            keys = 'data';
+          }
+          return { ...requestConfig, [keys]: otherParams };
+        },
+      });
+      const res = await fetch({
+        url: '/params.json',
+        method: 'post',
+        params: { requestParams: 12, id: 1 },
+      });
+      expect(res.body).toEqual(JSON.stringify({ id: 1 }));
+    });
+
+    it('global bizRedirectHandler', async () => {
+      window.location.assign = jest.fn();
+      await request.use({
+        bizRedirectHandler(response) {
+          const { data, code } = response;
+          const codeNum = Number(code);
+          if (codeNum >= 300 && codeNum < 400 && data?.redirectUrl) {
+            window.location.assign(data.redirectUrl);
+          }
+        },
+      });
+      await fetch({ url: '/global/redirect.json' });
+      expect(window.location.assign).toHaveBeenCalledWith('http://www.github.com');
+      window.location.assign.mockClear();
+    });
+
+    it('global bizDevErrorAdapter', async () => {
+      await request.use({
+        bizDevErrorAdapter(response) {
+          const { code, success, errorMessage, description } = response;
+          const codeNum = Number(code);
+          if (success === false && codeNum >= 400) {
+            return {
+              message: errorMessage,
+              description: description,
+            };
+          }
+          return null;
+        },
+      });
+      return fetch({ url: '/global/errorAdapter.json' }).catch((error) => {
+        expect(error).toEqual({ message: 'error', description: 'error description' });
+      });
+    });
+
+    it('global bizErrorMessageAdapter', async () => {
+      await request.use({
+        bizErrorMessageAdapter(response) {
+          const { code, success, errorMessage } = response;
+          const codeNum = Number(code);
+          if (success === false && codeNum < 300) {
+            return errorMessage;
+          }
+          return null;
+        },
+      });
+
+      return fetch({ url: '/global/errorMessageAdapter.json' }).catch((error) => {
+        expect(error).toEqual('error message');
+      });
+    });
+
+    it('global bizSuccessMessageAdapter', async () => {
+      await request.use({
+        bizSuccessMessageAdapter(response, successMessage) {
+          const { success, message: successMes } = response;
+          if (successMessage === false) {
+            return null;
+          }
+          if (success !== false) {
+            if (successMessage === true) {
+              return successMes;
+            }
+            return successMessage;
+          }
+        },
+      });
+
+      await request.use({
+        bizNotifyHandler(notifyMessages) {
+          const { successMessage } = notifyMessages;
+          if (successMessage) {
+            expect(successMessage).toEqual('success message');
+          }
+        },
+      });
+
+      return fetch({ url: '/global/successMessageAdapter.json', successMessage: true });
+    });
+
+    it('global bizDataAdapter', async () => {
+      await request.use({
+        bizDataAdapter(response) {
+          if (response?.list) {
+            return response.list;
+          }
+          return response;
+        },
+      });
+      return fetch({ url: '/global/dataAdapter.json' }).then((response) => {
+        expect(response).toEqual([{ name: 'name' }]);
+      });
     });
   });
 

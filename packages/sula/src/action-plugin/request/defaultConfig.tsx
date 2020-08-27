@@ -23,10 +23,6 @@ const bizRedirectHandler: BizRedirectHandler = (response: BizResponse) => {
 
 // 2. 开发级错误信息转换
 const bizDevErrorAdapter: BizDevErrorAdapter = (response: BizResponse) => {
-  if (process.env.NODE_ENV !== 'development') {
-    return null;
-  }
-
   const { code, success, message, description } = response;
 
   const opCode = Number(code);

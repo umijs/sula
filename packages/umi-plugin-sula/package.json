@@ -1,13 +1,13 @@
 {
   "name": "umi-plugin-sula",
-  "version": "1.0.0-alpha.6",
+  "version": "1.0.0-beta.1",
   "main": "lib/index.js",
   "peerDependencies": {
-    "sula": "^1.0.0-alpha.1",
+    "sula": "^1.0.0-beta.1",
     "umi": "^3.0.0"
   },
   "devDependencies": {
-    "sula": "^1.0.0-alpha.1",
+    "sula": "^1.0.0-beta.1",
     "umi": "^3.1.3"
   },
   "files": [

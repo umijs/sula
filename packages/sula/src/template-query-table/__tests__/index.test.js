@@ -12,6 +12,9 @@ const config = {
       name: 'name',
       label: 'name',
       field: 'input',
+      itemLayout: {
+        span: 4,
+      },
     },
   ],
   columns: [
@@ -44,6 +47,36 @@ describe('querytable', () => {
   it('basic', () => {
     const wrapper = mount(<QueryTable {...config} />);
     expect(wrapper.render()).toMatchSnapshot();
+  });
+
+  describe('layout', () => {
+    const fields = [
+      {
+        name: 'age',
+        label: 'age',
+        field: 'input',
+        itemLayout: {
+          span: {
+            xxl: 4,
+            xl: 3,
+            lg: 2,
+            md: 2,
+            sm: 1,
+            xs: 1,
+          },
+        },
+      },
+    ];
+    it('layout span number', () => {
+      const wrapper = mount(<QueryTable {...config} />);
+      expect(wrapper.find('.ant-col-4').length).toEqual(1);
+    });
+
+    it('layout span object', () => {
+      const wrapper = mount(<QueryTable {...config} fields={fields} />);
+      expect(wrapper.render()).toMatchSnapshot();
+    });
+
   });
 
   describe('fields length', () => {

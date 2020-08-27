@@ -51,7 +51,7 @@ export default class QueryTable extends React.Component<Props> {
   componentDidMount() {
     const { autoInit, initialValues } = this.props;
     if (autoInit) {
-      this.tableRef.current.refreshTable(null, initialValues);
+      this.tableRef.current.refreshTable(null, initialValues, null, true);
     }
   }
 

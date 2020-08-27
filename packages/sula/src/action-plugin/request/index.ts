@@ -13,10 +13,7 @@ type ExtendConfigMatcher = (requestConfig: AxiosRequestConfig) => boolean;
 
 let globalConfig = extendConfig;
 
-const globalConfigMatchers = [] as [
-  ExtendConfigMatcher,
-  BizExtendConfig,
-][];
+const globalConfigMatchers = [] as [ExtendConfigMatcher, BizExtendConfig][];
 
 const getMatchedConfig = (requestConfig: AxiosRequestConfig) => {
   if (!globalConfigMatchers.length) {
@@ -83,7 +80,7 @@ export const request = (config: RequestConfig, ctx?) => {
     }, finalParams);
   }
 
-  if(bizParamsAdapter) {
+  if (bizParamsAdapter) {
     finalParams = bizParamsAdapter(finalParams);
   }
 
@@ -95,7 +92,7 @@ export const request = (config: RequestConfig, ctx?) => {
     requestOptions.data = finalParams;
   }
 
-  if(bizRequestAdapter) {
+  if (bizRequestAdapter) {
     requestOptions = bizRequestAdapter(requestOptions);
   }
 
@@ -194,11 +191,10 @@ function mergeFormDataWithParams(formDataParams, params) {
 
 request.defaults = axios.defaults;
 
-request.use = (matcher: ExtendConfigMatcher, extendConfig: BizExtendConfig) => {
-  if(isFunction(matcher)) {
-    globalConfigMatchers.push([matcher, extendConfig]);
+request.use = (matcher: ExtendConfigMatcher | BizExtendConfig, extendConfig?: BizExtendConfig) => {
+  if (isFunction(matcher)) {
+    globalConfigMatchers.push([matcher, extendConfig as BizExtendConfig]);
   } else {
-    globalConfig = assign({}, globalConfig, extendConfig);
+    globalConfig = assign({}, globalConfig, matcher as BizExtendConfig);
   }
-
-}
+};
