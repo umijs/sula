@@ -10,8 +10,10 @@
 
 ## 里程碑
 
-- 7月29日：发布 1.0 正式版
-- 8月20日：发布 Sula Builder 前后端完整版
+非常抱歉，由于最近业务爆发导致没有按照既定里程碑发布 sula 1.0 和 builder，我们根据目前看到业务排期修改里程碑，如下，
+
+- 10月30日：发布 1.0 正式版，以及配套文档
+- 11月6日：开源 Sula Builder 前端部分（后端部分还无法给出准确时间点）
 
 [![codecov](https://codecov.io/gh/umijs/sula/branch/master/graph/badge.svg)](https://codecov.io/gh/umijs/sula) [![CircleCI](https://circleci.com/gh/umijs/sula/tree/master.svg?style=svg)](https://circleci.com/gh/umijs/sula/tree/master) [![GitHub Actions status](https://github.com/umijs/sula/workflows/Node%20CI/badge.svg)](https://github.com/umijs/sula) ![npm](https://img.shields.io/npm/v/sula) ![npm](https://img.shields.io/npm/dm/sula) ![Automated Release Notes by gren](https://img.shields.io/badge/%F0%9F%A4%96-release%20notes-00B2EE.svg)
 
