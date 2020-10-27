@@ -206,7 +206,7 @@ describe('drawerform', () => {
     expect(wrapper.find('Drawer').props().visible).toEqual(false);
   });
 
-  it('modalOk plugin', async (done) => {
+  it('modalOk plugin', (done) => {
     const wrapper = mount(
       <Table
         columns={[{ key: 'id', title: 'id' }]}

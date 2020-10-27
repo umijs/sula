@@ -55,7 +55,7 @@ describe('form', () => {
       expect(renderFn.mock.calls[0][0].form).not.toBeNull();
     });
 
-    it('onValueChange cascade', async () => {
+    it('onValueChange cascade', () => {
       const onValuesChange = jest.fn();
       const { wrapper, formRef } = formMount({
         fields: [{ name: 'input3', label: 'input3', field: 'input' }],

@@ -238,7 +238,7 @@ describe('field', () => {
   });
 
   describe('other', () => {
-    it('willmount', async () => {
+    it('willmount', () => {
       const wrapper = mount(
         <Form>
           <Field name="test" label="test" field="input" />

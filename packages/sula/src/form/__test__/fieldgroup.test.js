@@ -177,7 +177,7 @@ describe('fieldgroup', () => {
     });
   });
 
-  it('willmount', async () => {
+  it('willmount', () => {
     const wrapper = fieldGroupMount();
     const willUnmount = jest.spyOn(wrapper.find('FieldGroup').instance(), 'componentWillUnmount');
     wrapper.unmount();

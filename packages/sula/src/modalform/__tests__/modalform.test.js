@@ -51,7 +51,7 @@ describe('modalform', () => {
     expect(wrapper.find('Modal').props().visible).toEqual(false);
   });
 
-  it('costom close', async () => {
+  it('costom close', () => {
     let modalRef;
     const wrapper = mount(
       <div>
@@ -107,7 +107,7 @@ describe('modalform', () => {
     expect(wrapper.find('Modal').props().visible).toEqual(false);
   });
 
-  it('modalform action plugin', async (done) => {
+  it('modalform action plugin', (done) => {
     const wrapper = mount(
       <Table
         columns={[{ key: 'id', title: 'id' }]}

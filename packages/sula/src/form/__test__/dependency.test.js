@@ -190,7 +190,7 @@ describe('depstore', () => {
         });
     });
 
-    it('not remoteSource dep', async () => {
+    it('not remoteSource dep', () => {
       const form = {
         setFieldDisabled: jest.fn(),
         setFieldVisible: jest.fn(),

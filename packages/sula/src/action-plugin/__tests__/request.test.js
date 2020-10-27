@@ -49,14 +49,14 @@ describe('sula request', () => {
       expect(successSpy).not.toHaveBeenCalled();
     });
 
-    it('error message', async (done) => {
+    it('error message', (done) => {
       return fetch({ url: '/error.json' }).catch(() => {
         expect(errorSpy).toHaveBeenCalledWith('error');
         done();
       });
     });
 
-    it('error message development', async (done) => {
+    it('error message development', (done) => {
       process.env.NODE_ENV = 'development';
       return fetch({ url: '/error.json' }).catch(() => {
         expect(errorSpy).toHaveBeenCalledWith('error');
@@ -64,7 +64,7 @@ describe('sula request', () => {
       });
     });
 
-    it('biz error with desc & message', async (done) => {
+    it('biz error with desc & message', (done) => {
       return fetch({ url: '/bizerror.json' }).catch(() => {
         expect(errorSpy).not.toHaveBeenCalled();
         expect(notiSpy).toHaveBeenCalledWith({ description: 'error desc', message: 'error' });
@@ -72,7 +72,7 @@ describe('sula request', () => {
       });
     });
 
-    it('biz error with desc', async (done) => {
+    it('biz error with desc', (done) => {
       return fetch({ url: '/bizerror/nomessage.json' }).catch(() => {
         expect(errorSpy).not.toHaveBeenCalled();
         expect(notiSpy).toHaveBeenCalledWith({ description: 'error desc', message: '500' });
@@ -80,7 +80,7 @@ describe('sula request', () => {
       });
     });
 
-    it('biz error with message', async (done) => {
+    it('biz error with message', (done) => {
       return fetch({ url: '/bizerror/nodesc.json' }).catch(() => {
         expect(errorSpy).not.toHaveBeenCalled();
         expect(notiSpy).toHaveBeenCalledWith({ description: 'error', message: 'error' });
