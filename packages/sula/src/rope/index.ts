@@ -168,7 +168,7 @@ export default class Rope {
             type: STOP,
           });
         },
-      ).catch(() => {});
+      );
     } else {
       if (beforeResult === false) {
         dispatch({
