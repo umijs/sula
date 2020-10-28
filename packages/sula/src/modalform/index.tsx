@@ -33,7 +33,7 @@ const RefModalForm: React.FC<RefModalProps> = ({ type }, ref) => {
           resolve(result);
         }
       };
-    });
+    }).catch(() => {});
   };
 
   React.useImperativeHandle(ref, () => {

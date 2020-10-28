@@ -144,7 +144,7 @@ export default class Rope {
             payload: error,
           });
         },
-      );
+      ).catch(() => {});
     } else {
       dispatch({
         type: FINISH,
@@ -168,7 +168,7 @@ export default class Rope {
             type: STOP,
           });
         },
-      );
+      ).catch(() => {});
     } else {
       if (beforeResult === false) {
         dispatch({

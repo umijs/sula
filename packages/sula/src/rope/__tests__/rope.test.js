@@ -147,7 +147,15 @@ describe('sula rope', () => {
     await expect(fn3).not.toHaveBeenCalled();
   });
 
-  it('rejectSTOP', () => {
-    expect(rejectSTOP()).toEqual(Promise.reject(STOP));
+  it('rejectSTOP', async () => {
+    const fn = jest.fn();
+    try {
+      await rejectSTOP();
+    } catch (s) {
+      expect(s).toEqual(STOP);
+      fn();
+    }
+
+    expect(fn).toHaveBeenCalled();
   });
 });
