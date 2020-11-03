@@ -1,4 +1,4 @@
-import {isValidElement} from 'react';
+import { isValidElement } from 'react';
 import isFunction from 'lodash/isFunction';
 import isNumber from 'lodash/isNumber';
 import isBoolean from 'lodash/isBoolean';
@@ -7,6 +7,7 @@ import isString from 'lodash/isString';
 import isArray from 'lodash/isArray';
 import isObject from 'lodash/isObject';
 import assign from 'lodash/assign';
+import moment from 'moment';
 import template from './template';
 import { assignWithDefined } from './common';
 
@@ -50,7 +51,17 @@ function innerTransformConfig(
 ) {
   const { skipFuncObjKeys, skipKeys, skipSelector, __skipFunc } = skipOptions as InnerSkipOptions;
 
-  if (obj === '' || obj === undefined || obj === null || isNumber(obj) || isBoolean(obj) || isRegExp(obj) || isValidElement(obj) || obj instanceof FormData) {
+  if (
+    obj === '' ||
+    obj === undefined ||
+    obj === null ||
+    isNumber(obj) ||
+    isBoolean(obj) ||
+    isRegExp(obj) ||
+    isValidElement(obj) ||
+    obj instanceof FormData ||
+    moment.isMoment(obj)
+  ) {
     return obj;
   }
 

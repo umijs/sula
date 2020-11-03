@@ -1,5 +1,6 @@
 /* eslint-disable no-template-curly-in-string,import/no-extraneous-dependencies */
 import React from 'react';
+import moment from 'moment';
 import { isPromise, isFormData } from '../is';
 import actionLogger from '../action-logger';
 import template from '../template';
@@ -200,6 +201,19 @@ describe('sula utils', () => {
           { f: 1 },
         ),
       ).toEqual({ action: [{ ctx: 1, type: 'a' }, 'b', { type: <div>123</div> }], type: 'text' });
+    });
+
+    it('is moment', () => {
+      expect(transformConfig([moment('2020-11-01'), moment('2020-11-11')], {})).toEqual([
+        moment('2020-11-01'),
+        moment('2020-11-11'),
+      ]);
+    });
+
+    it('is formData', () => {
+      const formData = new FormData();
+      formData.append('name', 'sula');
+      expect(transformConfig(formData, {}).get('name')).toEqual('sula');
     });
   });
 
