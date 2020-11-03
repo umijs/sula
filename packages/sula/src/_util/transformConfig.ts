@@ -50,7 +50,7 @@ function innerTransformConfig(
 ) {
   const { skipFuncObjKeys, skipKeys, skipSelector, __skipFunc } = skipOptions as InnerSkipOptions;
 
-  if (obj === '' || obj === undefined || obj === null || isNumber(obj) || isBoolean(obj) || isRegExp(obj) || isValidElement(obj)) {
+  if (obj === '' || obj === undefined || obj === null || isNumber(obj) || isBoolean(obj) || isRegExp(obj) || isValidElement(obj) || obj instanceof FormData) {
     return obj;
   }
 

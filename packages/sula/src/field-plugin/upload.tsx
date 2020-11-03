@@ -18,9 +18,7 @@ export default class Upload extends React.Component<UploadProps> {
   customRequest = ({ filename, file, onError, onProgress, onSuccess }) => {
     const { request: requestConfig, ctx } = this.props;
     let formDataPrams = { [filename]: file };
-    formDataPrams = requestConfig.params
-      ? getFormDataParams(formDataPrams, requestConfig.params)
-      : formDataPrams;
+    formDataPrams = getFormDataParams(formDataPrams, requestConfig.params)
 
     const finalRequestConfig = assign({}, requestConfig, {
       params: formDataPrams,
@@ -29,7 +27,7 @@ export default class Upload extends React.Component<UploadProps> {
         onProgress({ percent: Math.round((loaded / total) * 100).toFixed(2) }, file);
       },
     });
-
+    
     triggerActionPlugin(ctx, finalRequestConfig)
       .then((data) => {
         onSuccess({ response: data }, file);
