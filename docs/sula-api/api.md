@@ -499,7 +499,7 @@ const config = {
 |  ----  | ----  | ---- | - |
 | field | 表单项控件 | `FieldPlugin` | - |
 | name | 字段名(支持数组) | `FieldNamePath` | - |
-| collect | 收集值 | `boolean` | - |
+| collect | 是否收集表单项的值 | `boolean` | - |
 | initialDisabled | 表单项初始禁用状态 | `boolean` | - |
 | initialVisible | 表单项初始是否显示 | `boolean` | - |
 | initialSource | 表单项初始数据源 | `any` | - |
