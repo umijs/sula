@@ -21,8 +21,6 @@ type StackItem = {
   actionType: any;
 };
 
-
-
 export const STOP = '@@sula_action_stop';
 export const ERROR = '@@sula_action_error';
 export const FINISH = '@@sula_action_finish';
@@ -144,7 +142,7 @@ export default class Rope {
             payload: error,
           });
         },
-      ).catch(() => {});
+      );
     } else {
       dispatch({
         type: FINISH,

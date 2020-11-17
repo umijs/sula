@@ -10,6 +10,15 @@ Mock.setup({
   timeout: 800,
 });
 
+// https://github.com/nodejs/node/issues/35232
+process.on('unhandledRejection', (e, p) => {
+  p.catch((e) => {
+    if (process.domain === self._domain) {
+      self._domain.emit('error', e);
+    }
+  });
+});
+
 beforeAll(() => {
   // https://jestjs.io/docs/en/manual-mocks#mocking-methods-which-are-not-implemented-in-jsdom
   Object.defineProperty(window, 'matchMedia', {

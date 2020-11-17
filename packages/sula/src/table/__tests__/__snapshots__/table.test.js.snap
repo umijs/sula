@@ -273,7 +273,6 @@ Array [
               >
                 <svg
                   aria-hidden="true"
-                  class=""
                   data-icon="left"
                   fill="currentColor"
                   focusable="false"
@@ -322,7 +321,6 @@ Array [
               >
                 <svg
                   aria-hidden="true"
-                  class=""
                   data-icon="right"
                   fill="currentColor"
                   focusable="false"

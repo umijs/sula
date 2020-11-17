@@ -32,6 +32,29 @@ export default () => {
       },
       action: 'refreshtable',
     },
+    {
+      type: 'button',
+      props: {
+        children: '弹框',
+      },
+      action: [
+        {
+          type: 'modalform',
+          title: 'Modalform',
+          fields: [
+            {
+              name: 'input',
+              label: 'Input',
+              field: 'input',
+            },
+          ],
+          submit: {
+            url: 'https://jsonplaceholder.typicode.com/todos/1',
+          },
+        },
+        'refreshtable',
+      ],
+    },
   ];
 
   return (
