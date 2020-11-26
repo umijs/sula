@@ -5,7 +5,7 @@ import { Steps, Result, Spin } from 'antd';
 import Memorize from './memorize';
 import { Form, FieldGroup, FormProps, FieldGroupProps, FormAction } from '../form';
 import { RequestConfig } from '../types/request';
-import LocaleReceiver from '../localereceiver';
+import LocaleReceiver, { Locale } from '../localereceiver';
 import { transformSubmit } from '../template-create-form/CreateForm';
 import './style/step-form.less';
 
@@ -17,6 +17,7 @@ export interface StepProps extends Omit<FieldGroupProps, 'name'> {
   title: string;
   subTitle?: string;
   description?: string;
+  fetch?: RequestConfig;
 }
 
 export type StepType = 'first' | 'middle' | 'submit' | 'result';
@@ -65,8 +66,17 @@ export default class StepForm extends React.Component<StepFormProps, StepFormSta
     });
   };
 
-  renderStepActions = (stepType, locale) => {
-    const { mode, submit, result } = this.props;
+  // 校验 step 是否需要发起请求
+  checkStepFetch = (step: StepProps, cb: Function) => {
+      if (step.fetch) {
+        return [...transformSubmit(step.fetch, cb)]
+      } else {
+        return cb
+      }
+  };
+
+  renderStepActions = (stepType: StepType, locale: Locale) => {
+    const { mode, submit, result, steps } = this.props;
     const isView = mode === 'view';
     const { current } = this.state;
     // 取消或者返回
@@ -117,7 +127,7 @@ export default class StepForm extends React.Component<StepFormProps, StepFormSta
           type: 'validateGroupFields',
           args: [this.getStepName(current)],
         },
-        this.nextStep,
+        this.checkStepFetch(steps[current], this.nextStep),
       ],
     };
 
@@ -148,7 +158,7 @@ export default class StepForm extends React.Component<StepFormProps, StepFormSta
     }
   };
 
-  renderStepForm = (locale) => {
+  renderStepForm = (locale: Locale) => {
     const { steps, result, direction, stepsStyle, formStyle, ...restFormProps } = this.props;
     const { loading } = this.state;
 

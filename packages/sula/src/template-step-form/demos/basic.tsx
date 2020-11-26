@@ -9,6 +9,7 @@ const steps = [
     title: 'Step1',
     // subTitle: 'sub',
     // description: '我需要好好简述下这个步骤',
+    fetch: submit,
     fields: [
       {
         name: 'input1',
