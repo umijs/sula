@@ -41,6 +41,9 @@ export default () => {
         {
           type: 'modalform',
           title: 'Modalform',
+          props: {
+            maskClosable: false,
+          },
           fields: [
             {
               name: 'input',

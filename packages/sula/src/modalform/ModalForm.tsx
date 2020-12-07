@@ -28,7 +28,7 @@ export default class ModalForm extends React.Component<ModalFormProps> {
     const { props = {} } = modal;
 
     // 存在 type 说明是插件场景
-    const { type, title, width = isDrawer ? 550 : undefined, ...formProps } = props;
+    const { type, title, width = isDrawer ? 550 : undefined, props: modalProps = {}, ...formProps } = props;
 
     const {
       actionsRender,
@@ -101,6 +101,7 @@ export default class ModalForm extends React.Component<ModalFormProps> {
               }}
             >
               <ModalClass
+                {...modalProps}
                 title={title}
                 width={width}
                 visible={visible}

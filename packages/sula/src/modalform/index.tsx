@@ -2,6 +2,8 @@ import React from 'react';
 import InnerModalForm from './ModalForm';
 import { RopeActionResult, STOP } from '../rope';
 import { FormProps } from '../form';
+import { ModalProps } from 'antd/lib/modal';
+import { DrawerProps } from 'antd/lib/drawer';
 
 export interface RefModalProps {
   type: 'modal' | 'drawer';
@@ -10,6 +12,7 @@ export interface RefModalProps {
 export interface ModalFormProps extends FormProps {
   title: string | React.ReactElement;
   width?: number;
+  props?: ModalProps | DrawerProps;
 }
 
 const RefModalForm: React.FC<RefModalProps> = ({ type }, ref) => {
