@@ -54,6 +54,7 @@
 ## 🍙 例子
 
 - [sula-samples](https://github.com/umijs/sula-samples) by umi
+- [sula-samples-cra](https://github.com/umijs/sula-samples-cra) by create-react-app
 
 ## 📦 安装
 
