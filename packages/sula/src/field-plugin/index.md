@@ -6,7 +6,7 @@ title: 表单插件
 
 ```jsx
 import React from 'react';
-import { Select, CheckboxGroup, Cascader, RadioGroup, Upload, TimePicker, DatePicker, RangePicker } from './';
+import { Select, CheckboxGroup, Cascader, RadioGroup, Upload, TimePicker, DatePicker, RangePicker, TreeSelect } from './';
 import { Button } from '../render-plugin';
 
 const source = [
@@ -78,6 +78,7 @@ export default () => {
       />{' '}
       <CheckboxGroup source={source} />{' '}
       <Cascader source={cascaderoptions} placeholder="Please select" />{' '}
+      <TreeSelect source={cascaderoptions} style={{ width: '100%' }} placeholder="Please select" />{' '}
       <RadioGroup source={source} />{' '}
       <Upload onChange={e => { console.log('e', e) }}>
         <Button>上传</Button>

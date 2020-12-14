@@ -519,6 +519,10 @@ interface CascaderSource {
 ```
 级联选择框 Cascader 对应props 内，更多配置参考[antd Cascader](https://ant.design/components/cascader-cn/)
 
+### treeselect
+
+source 同 cascader
+
 ### datepicker
 表单控件日期选择框
 - 示例

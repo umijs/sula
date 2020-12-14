@@ -1,6 +1,7 @@
 import Select from './select';
 import Upload from './upload';
 import Cascader from './cascader';
+import TreeSelect from './treeselect';
 import CheckboxGroup from './checkboxgroup';
 import RadioGroup from './radiogroup';
 import DatePicker from './datepicker';
@@ -21,6 +22,7 @@ function registerFieldPlugins() {
   registerFieldPlugin('slider')(Slider);
 
   registerFieldPlugin('cascader')(Cascader, true);
+  registerFieldPlugin('treeselct')(TreeSelect, true);
   registerFieldPlugin('datepicker')(DatePicker);
   registerFieldPlugin('rangepicker')(RangePicker);
   registerFieldPlugin('timepicker')(TimePicker);
@@ -30,4 +32,4 @@ function registerFieldPlugins() {
   registerFieldPlugin('radiogroup')(RadioGroup, true);
 }
 
-export { Select, CheckboxGroup, TimePicker, DatePicker, RangePicker, Cascader, RadioGroup, Upload, registerFieldPlugins, registerFieldPlugin };
+export { Select, CheckboxGroup, TimePicker, DatePicker, RangePicker, Cascader, TreeSelect, RadioGroup, Upload, registerFieldPlugins, registerFieldPlugin };
