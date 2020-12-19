@@ -11,6 +11,9 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6"
   },
+  "devDependencies": {
+    "@types/classnames": "^2.2.10"
+  },
   "dependencies": {
     "axios": "^0.19.2",
     "classnames": "^2.2.6",
