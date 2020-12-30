@@ -8,6 +8,7 @@ import { RequestConfig } from '../types/request';
 import LocaleReceiver from '../localereceiver';
 import { transformSubmit } from '../template-create-form/CreateForm';
 import './style/step-form.less';
+import { ActionPlugin } from '../types/plugin';
 
 const { Step } = Steps;
 
@@ -27,6 +28,7 @@ export interface StepFormProps extends FormProps {
     subTitle: string;
   };
   steps: StepProps[];
+  back?: ActionPlugin;
   submit: RequestConfig;
   direction?: 'vertical' | 'horizontal';
   stepsStyle?: React.CSSProperties;
@@ -66,7 +68,7 @@ export default class StepForm extends React.Component<StepFormProps, StepFormSta
   };
 
   renderStepActions = (stepType, locale) => {
-    const { mode, submit, result } = this.props;
+    const { mode, submit, back = 'back', result } = this.props;
     const isView = mode === 'view';
     const { current } = this.state;
     // 取消或者返回
@@ -83,7 +85,7 @@ export default class StepForm extends React.Component<StepFormProps, StepFormSta
       props: {
         children: locale.backText,
       },
-      action: 'back',
+      action: back,
     };
 
     // 上一步
