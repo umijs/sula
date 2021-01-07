@@ -2,6 +2,7 @@
   "name": "sula",
   "version": "1.0.0-alpha.38",
   "module": "./es/index.js",
+  "main": "./es/index.js",
   "types": "typings/index.d.ts",
   "description": "sula",
   "peerDependencies": {
