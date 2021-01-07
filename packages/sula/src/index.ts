@@ -1,5 +1,7 @@
 import ConfigProvider from './config-provider';
 import ModalForm from './modalform';
+import LocaleReceiver from './localereceiver';
+
 export * from './form';
 export * from './table';
 export * from './template-create-form';
@@ -16,4 +18,5 @@ export * from './plugin';
 export {
   ConfigProvider,
   ModalForm,
+  LocaleReceiver,
 }

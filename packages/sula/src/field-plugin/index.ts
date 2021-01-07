@@ -22,7 +22,7 @@ function registerFieldPlugins() {
   registerFieldPlugin('slider')(Slider);
 
   registerFieldPlugin('cascader')(Cascader, true);
-  registerFieldPlugin('treeselct')(TreeSelect, true);
+  registerFieldPlugin('treeselect')(TreeSelect, true);
   registerFieldPlugin('datepicker')(DatePicker);
   registerFieldPlugin('rangepicker')(RangePicker);
   registerFieldPlugin('timepicker')(TimePicker);
