@@ -1,6 +1,6 @@
 {
   "name": "sula",
-  "version": "1.0.0-beta.20",
+  "version": "1.0.0-beta.21",
   "module": "./es/index.js",
   "main": "./es/index.js",
   "types": "typings/index.d.ts",
@@ -13,7 +13,7 @@
     "react-dom": "^16.8.6"
   },
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "classnames": "^2.2.6",
     "query-string": "^6.12.1",
     "react-media": "^1.10.0",

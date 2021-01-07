@@ -31,7 +31,7 @@
     "dumi": "^1.0.15",
     "enzyme-to-json": "^3.4.4",
     "eslint": "^6.8.0",
-    "father-build": "^1.17.2",
+    "father-build": "^1.19.1",
     "lerna": "^3.20.2",
     "mockdate": "^2.0.5",
     "mockjs": "^1.1.0",
@@ -39,10 +39,5 @@
     "sula": "^1.0.0-alpha.35",
     "@sula/charts": "^1.0.0-alpha.0",
     "umi-test": "^1.9.6"
-  },
-  "dependencies": {
-    "axios": "^0.19.2",
-    "react-media": "^1.10.0",
-    "tplstr": "^1.0.1"
   }
 }
