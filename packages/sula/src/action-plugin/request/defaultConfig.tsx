@@ -2,6 +2,7 @@ import { notification, message as amessage } from 'antd';
 import isUndefined from 'lodash/isUndefined';
 import {
   BizResponse,
+  ErrorMessageAdapter,
   BizRedirectHandler,
   BizDevErrorAdapter,
   BizErrorMessageAdapter,
@@ -12,6 +13,16 @@ import {
   Message,
   NotifyMessages,
 } from '../../types/request';
+
+// 0. 网络错误 / 跨域 / 服务不存在 等，message 将被传递到 bizErrorMessageAdapter
+const errorMessageAdapter: ErrorMessageAdapter = (error: Error) => {
+  const message = error.message;
+  return {
+    success: false,
+    code: 200,
+    message,
+  };
+};
 
 // 1. 业务重定向
 const bizRedirectHandler: BizRedirectHandler = (response: BizResponse) => {
@@ -102,6 +113,7 @@ const bizDataAdapter: BizDataAdapter = (response: BizResponse) => {
 };
 
 const extendConfig = {
+  errorMessageAdapter,
   bizDataAdapter,
   bizDevErrorAdapter,
   bizErrorMessageAdapter,

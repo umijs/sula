@@ -23,8 +23,13 @@ export interface NotifyMessages {
   errorDesc: DevErrorDesc | null | undefined;
 }
 
+// 0. 网络错误 / 跨域 / 服务不存在 / 服务器错误 错误信息转换
+export type ErrorMessageAdapter = (
+  error: Error,
+) => { success: false; code: number; message: string };
+
 // 1. 业务重定向
-export type BizRedirectHandler = (response: BizResponse) => void
+export type BizRedirectHandler = (response: BizResponse) => void;
 
 // 2. 开发级错误转换
 export type BizDevErrorAdapter = (response: BizResponse) => DevErrorDesc | null | undefined;
@@ -33,7 +38,10 @@ export type BizDevErrorAdapter = (response: BizResponse) => DevErrorDesc | null 
 export type BizErrorMessageAdapter = (response: BizResponse) => string | null | undefined;
 
 // 4. 成功信息提示
-export type BizSuccessMessageAdapter = (response: BizResponse, successMessage: Message) => string | null | undefined;
+export type BizSuccessMessageAdapter = (
+  response: BizResponse,
+  successMessage: Message,
+) => string | null | undefined;
 
 // 5. 消息通知
 export type BizNotifyHandler = (notifyMessages: NotifyMessages) => void;
@@ -48,6 +56,7 @@ export type BizParamsAdapter = (params: Record<string, any>) => Record<string, a
 export type BizRequestAdapter = (requestConfig: AxiosRequestConfig) => AxiosRequestConfig;
 
 export type BizExtendConfig = {
+  errorMessageAdapter: ErrorMessageAdapter
   bizRedirectHandler: BizRedirectHandler;
   bizDevErrorAdapter: BizDevErrorAdapter;
   bizErrorMessageAdapter: BizErrorMessageAdapter;
@@ -56,7 +65,7 @@ export type BizExtendConfig = {
   bizDataAdapter: BizDataAdapter;
   bizParamsAdapter?: BizParamsAdapter;
   bizRequestAdapter?: BizRequestAdapter;
-}
+};
 
 export interface RequestConfig extends AxiosRequestConfig {
   init?: boolean; // 默认是true，该参数并不为plugin-request使用

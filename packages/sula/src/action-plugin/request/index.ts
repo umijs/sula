@@ -55,6 +55,7 @@ export const request = (config: RequestConfig, ctx?) => {
   const curConf = assign({}, globalConfig, matchedConfig);
 
   const {
+    errorMessageAdapter,
     bizRedirectHandler,
     bizDevErrorAdapter,
     bizErrorMessageAdapter,
@@ -99,6 +100,8 @@ export const request = (config: RequestConfig, ctx?) => {
   return axios(requestOptions)
     .then((raw: AxiosResponse) => {
       return raw && raw.data;
+    }, (error) => {
+      return errorMessageAdapter(error);
     })
     .then((res: BizResponse) => {
       return new Promise((resolve, reject) => {

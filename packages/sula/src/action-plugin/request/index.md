@@ -92,3 +92,27 @@ export default () => {
   );
 };
 ```
+
+### 网络错误请求测试
+
+```jsx
+import React from 'react';
+import { Button } from 'antd';
+import { request } from './';
+
+export default () => {
+  return (
+    <Button
+      onClick={() => {
+        request({
+          url: 'https://www.baidu.com',
+        }).then((data) => {
+          console.log('data: ', data);
+        });
+      }}
+    >
+      请求
+    </Button>
+  );
+};
+```

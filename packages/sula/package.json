@@ -1,6 +1,6 @@
 {
   "name": "sula",
-  "version": "1.0.0-beta.21",
+  "version": "1.0.0-beta.22",
   "module": "./es/index.js",
   "main": "./es/index.js",
   "types": "typings/index.d.ts",
