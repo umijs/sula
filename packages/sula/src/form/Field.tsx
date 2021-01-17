@@ -225,7 +225,7 @@ export default class Field extends React.Component<FieldProps> {
       </FormItem>
     );
 
-    if (!isList && needWrapCols(itemLayout.span)) {
+    if (!isList && (needWrapCols(itemLayout.span) || itemLayout.offset)) {
       return (
         <Col
           style={{ display: visible === false ? 'none' : '' }}

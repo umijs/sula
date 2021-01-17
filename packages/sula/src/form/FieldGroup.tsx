@@ -166,9 +166,10 @@ export default class FieldGroup extends React.Component<FieldGroupProps> {
          * ]
          */
         const formListName = fieldConfig.name;
-        const listRenderPlugin = omit(fieldConfig, ['isList', 'name']);
+        const formListLabel = fieldConfig.label;
+        const listRenderPlugin = omit(fieldConfig, ['isList', 'name', 'label']);
         fieldElem = (
-          <FormList {...listRenderPlugin} name={formListName} key={fieldKey}>
+          <FormList {...listRenderPlugin} name={formListName} label={formListLabel} key={fieldKey}>
             {(...listArgs) => {
               return triggerFieldPlugin(
                 ctx,

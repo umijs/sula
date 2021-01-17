@@ -1,4 +1,5 @@
 import React from 'react';
+import {QueryResults} from 'react-media';
 import { FormInstance } from '../types/form';
 import { NormalizedItemLayout, Layout } from './FieldGroup';
 
@@ -16,6 +17,7 @@ export interface FieldGroupContextProps {
   layout: Layout;
   parentGroupName: string;
   isList?: boolean;
+  matchedPoint?: QueryResults; 
 }
 
 const FieldGroupContext = React.createContext<FieldGroupContextProps>({
