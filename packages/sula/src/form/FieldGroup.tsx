@@ -12,10 +12,11 @@ import FieldGroupContext, { HOOK_MARK } from './FieldGroupContext';
 import FormDependency from './dependency';
 import { Dependencies } from '../types/dependency';
 import { getItemLayout, needWrapCols } from './utils/layoutUtil';
-import { triggerRenderPlugin, normalizeConfig } from '../rope/triggerPlugin';
+import { triggerRenderPlugin, normalizeConfig, triggerFieldPlugin } from '../rope/triggerPlugin';
 import { toArray } from '../_util/common';
 import FormAction from './FormAction';
 import { RenderPlugin } from '../types/plugin';
+import FormList from './FormList';
 
 export type Layout = 'horizontal' | 'vertical' | 'inline';
 
@@ -35,14 +36,15 @@ export type NormalizedItemLayout = Omit<ItemLayout, 'cols'> & {
 export interface FieldGroupProps {
   name?: string; // 获取分组值
   layout?: Layout;
-  itemLayout: ItemLayout;
+  itemLayout?: ItemLayout;
   initialVisible?: boolean;
   children?: React.ReactFragment;
   fields?: FieldProps[];
-  dependency: Pick<Dependencies, 'visible'>;
+  dependency?: Pick<Dependencies, 'visible'>;
   container?: RenderPlugin;
   actionsRender?: RenderPlugin | RenderPlugin[];
   actionsPosition?: 'center' | 'right' | 'bottom';
+  isList?: boolean;
 }
 
 export default class FieldGroup extends React.Component<FieldGroupProps> {
@@ -155,6 +157,28 @@ export default class FieldGroup extends React.Component<FieldGroupProps> {
             {triggerRenderPlugin(ctx, renderPlugin)}
           </Field>
         );
+      } else if (fieldConfig.isList) {
+        /**
+         * fields: [
+         *   {
+         *     name: "users", type: "dynamicList", props: { listFields: [...]},
+         *   }
+         * ]
+         */
+        const formListName = fieldConfig.name;
+        const listRenderPlugin = omit(fieldConfig, ['isList', 'name']);
+        fieldElem = (
+          <FormList {...listRenderPlugin} name={formListName} key={fieldKey}>
+            {(...listArgs) => {
+              return triggerFieldPlugin(
+                ctx,
+                assign(listRenderPlugin, {
+                  props: assign({}, listRenderPlugin.props, { list: listArgs }),
+                }),
+              );
+            }}
+          </FormList>
+        );
       } else {
         fieldElem = <Field {...fieldConfig} key={fieldKey} />;
       }
@@ -168,7 +192,7 @@ export default class FieldGroup extends React.Component<FieldGroupProps> {
   private renderChildren = (ctx, props, extraConf) => {
     const { itemLayout } = extraConf;
     const { fields } = props;
-    const { span, gutter } = itemLayout;
+    const { span, gutter } = itemLayout || {};
 
     const children = fields ? this.transFieldToElems(ctx, fields) : props.children;
 
@@ -259,7 +283,7 @@ export default class FieldGroup extends React.Component<FieldGroupProps> {
   };
 
   private renderFieldGroup = (ctx, props, extraConf) => {
-    const { container } = props;
+    const { container, isList } = props;
     let finalContainer = container || {
       type: () => (this.hasDependency ? <div /> : <React.Fragment />),
     };
@@ -270,7 +294,7 @@ export default class FieldGroup extends React.Component<FieldGroupProps> {
 
     let containerNode = triggerRenderPlugin(ctx, finalContainer);
 
-    const children = this.renderChildren(ctx, props, extraConf);
+    const children = isList ? props.children : this.renderChildren(ctx, props, extraConf);
 
     containerNode = React.cloneElement(containerNode as React.ReactElement, {
       children,
@@ -283,9 +307,11 @@ export default class FieldGroup extends React.Component<FieldGroupProps> {
   };
 
   render() {
-    const { layout, itemLayout, formContext, size, matchedPoint } = this.context;
+    const { layout, itemLayout, formContext, matchedPoint } = this.context;
 
     const { getCtx } = formContext.getInternalHooks(HOOK_MARK);
+
+    const { isList } = this.props;
 
     if (!this.inited) {
       this.hasDependency = !isUndefined(this.props.dependency);
@@ -293,8 +319,10 @@ export default class FieldGroup extends React.Component<FieldGroupProps> {
       this.groupName = getGroupName(this.props.name);
     }
 
-    const finalLayout = this.props.layout || layout;
-    const finalItemLayout = this.props.itemLayout
+    const finalLayout = isList ? this.props.layout : this.props.layout || layout;
+    const finalItemLayout = isList
+      ? this.props.itemLayout
+      : this.props.itemLayout
       ? getItemLayout(this.props.itemLayout, finalLayout, matchedPoint)
       : itemLayout;
 
@@ -312,7 +340,7 @@ export default class FieldGroup extends React.Component<FieldGroupProps> {
       layout: finalLayout,
       itemLayout: finalItemLayout,
       parentGroupName: this.groupName,
-      size,
+      isList,
     };
 
     return (

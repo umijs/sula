@@ -55,7 +55,6 @@ const Form: React.FC<FormProps> = (props, ref) => {
   const {
     layout = 'horizontal',
     itemLayout,
-    size = 'middle',
     mode,
     remoteValues,
     initialValues,
@@ -134,7 +133,6 @@ const Form: React.FC<FormProps> = (props, ref) => {
           layout,
           itemLayout: normalizedItemLayout,
           parentGroupName: rootGroupName,
-          size,
           matchedPoint,
         };
         const wrapperChildren = (

@@ -24,7 +24,8 @@ import { ItemLayout, Layout } from './FieldGroup';
 
 const FormItem = AForm.Item;
 
-export interface FieldProps extends Omit<FormItemProps, 'children' | 'wrapperCol' | 'labelCol' | 'rules'> {
+export interface FieldProps
+  extends Omit<FormItemProps, 'children' | 'wrapperCol' | 'labelCol' | 'rules'> {
   field: FieldPlugin;
   name?: FieldNamePath;
   collect?: boolean;
@@ -37,9 +38,11 @@ export interface FieldProps extends Omit<FormItemProps, 'children' | 'wrapperCol
   children?: React.ReactElement;
   itemLayout?: ItemLayout;
   layout?: Layout;
-  rules?: Array<Omit<Rule, 'validator'> & {
-    validator? : ValidatorPlugin;
-  }>
+  rules?: Array<
+    Omit<Rule, 'validator'> & {
+      validator?: ValidatorPlugin;
+    }
+  >;
   childrenContainer?: RenderPlugin;
 }
 
@@ -108,9 +111,17 @@ export default class Field extends React.Component<FieldProps> {
   };
 
   public getName(): FieldNameList | undefined {
-    if (!isUndefined(this.props.name)) {
-      return toArray(this.props.name);
+    const { name } = this.props;
+    if (isUndefined(name)) {
+      return;
     }
+
+    const { isList, parentGroupName } = this.context;
+
+    if (isList) {
+      return getFieldName(parentGroupName, name);
+    }
+    return toArray(name);
   }
 
   public getSource() {
@@ -178,10 +189,11 @@ export default class Field extends React.Component<FieldProps> {
   };
 
   private renderField(ctx, fieldConfig: FieldPlugin, extraConf) {
-    const { itemLayout, visible, childrenContainer, formItemProps } = extraConf;
+    const { itemLayout, visible, childrenContainer, formItemProps, isList } = extraConf;
 
     const { children, valuePropName = 'value' } = formItemProps;
 
+    /** 如果是 isList 可能没有 itemLayout */
     const { wrapperCol, labelCol } = itemLayout;
 
     let fieldElem;
@@ -204,12 +216,16 @@ export default class Field extends React.Component<FieldProps> {
     }
 
     const fieldItemElem = (
-      <FormItem labelCol={labelCol} wrapperCol={wrapperCol} {...formItemProps}>
+      <FormItem
+        labelCol={isList ? labelCol || { span: 0 } : labelCol}
+        wrapperCol={isList ? wrapperCol || { span: 24 } : wrapperCol}
+        {...formItemProps}
+      >
         {fieldElem}
       </FormItem>
     );
 
-    if (needWrapCols(itemLayout.span)) {
+    if (!isList && needWrapCols(itemLayout.span)) {
       return (
         <Col
           style={{ display: visible === false ? 'none' : '' }}
@@ -224,7 +240,7 @@ export default class Field extends React.Component<FieldProps> {
         style: assign({}, fieldItemElem.props.style, {
           display: visible === false ? 'none' : '',
         }),
-      })
+      });
     }
   }
 
@@ -241,9 +257,11 @@ export default class Field extends React.Component<FieldProps> {
       ...restProps
     } = this.props;
 
+    const { formContext, layout, isList, parentGroupName } = this.context;
+
     if (!this.inited) {
       this.inited = true;
-      this.fieldName = getFieldName(this.props.name);
+      this.fieldName = getFieldName(parentGroupName, this.props.name).join('-');
       this.collect = collect !== false;
       this.source = initialSource;
       this.visible = initialVisible;
@@ -256,7 +274,7 @@ export default class Field extends React.Component<FieldProps> {
       formItemProps.rules = restProps.rules.map((rule) => {
         if (rule.validator) {
           return {
-            validator: (_, value) : Promise<void> | void => {
+            validator: (_, value): Promise<void> | void => {
               const validatorCtx = getCtx({
                 value,
                 name: this.props.name,
@@ -269,17 +287,18 @@ export default class Field extends React.Component<FieldProps> {
       });
     }
 
-    const { formContext, layout } = this.context;
-
     const { getCtx } = formContext.getInternalHooks(HOOK_MARK);
     const ctx = getCtx({ disabled: this.disabled, source: this.source });
 
     const extraConfig = {
       layout,
-      itemLayout: assignWithDefined({}, this.context.itemLayout, itemLayout),
+      itemLayout: isList
+        ? itemLayout || {}
+        : assignWithDefined({}, this.context.itemLayout, itemLayout),
       visible: this.visible,
       childrenContainer,
       formItemProps,
+      isList,
     };
 
     const fieldNode = this.renderField(ctx, fieldProps, extraConfig);
@@ -288,6 +307,7 @@ export default class Field extends React.Component<FieldProps> {
   }
 }
 
-function getFieldName(fieldName) {
-  return fieldName || uniqueId('fieldName_');
+function getFieldName(parentName: string, name?: string | string[]) {
+  const finalName = name ? toArray(name) : [uniqueId('fieldName_')];
+  return [parentName, ...finalName];
 }

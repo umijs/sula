@@ -14,6 +14,8 @@ export interface FieldGroupContextProps {
   },
   itemLayout: NormalizedItemLayout;
   layout: Layout;
+  parentGroupName: string;
+  isList?: boolean;
 }
 
 const FieldGroupContext = React.createContext<FieldGroupContextProps>({

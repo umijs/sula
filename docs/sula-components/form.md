@@ -13,3 +13,5 @@ order: 0
 <code title="container" src="../form/container.jsx" />
 
 <code title="validator" src="../form/validator.jsx" />
+
+<code title="dynamic" src="../form/dynamic.jsx" />
