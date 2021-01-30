@@ -12,6 +12,11 @@ const initialSource = [
     text: '桃子 🍑',
     value: 'peach',
   },
+  {
+    text: '西瓜 🍉',
+    value: 'watermelon',
+    disabled: true,
+  },
 ];
 
 const cascaderSource = [
@@ -84,6 +89,12 @@ export default class BasicDemo extends React.Component {
             name: 'cascader',
             label: 'cascader',
             field: 'cascader',
+            initialSource: cascaderSource,
+          },
+          {
+            name: 'treeselect',
+            label: 'treeselect',
+            field: 'treeselect',
             initialSource: cascaderSource,
           },
           {

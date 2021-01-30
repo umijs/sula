@@ -1,29 +1,33 @@
 import React from 'react';
 import { TreeSelect as ATreeSelect } from 'antd';
 import { TreeSelectProps as ATreeSelectProps } from 'antd/lib/tree-select';
+import { AntTreeNodeProps } from 'antd/lib/tree';
 
-export type TreeNodeSource = {
+export type TreeNodeSourceItem = {
   text: any;
   value: any;
-  children?: TreeNodeSource[];
-};
+  children?: TreeNodeSourceItem[];
+} & AntTreeNodeProps;
 
 export interface TreeSelectProps extends Omit<ATreeSelectProps<any>, 'treeData' | 'children'> {
-  source: TreeNodeSource[];
+  source: TreeNodeSourceItem[];
 }
 
 export default class TreeSelect extends React.Component<TreeSelectProps> {
-  renderTreeNode = (item: TreeNodeSource) => {
-    if (item.children) {
+  renderTreeNode = (item: TreeNodeSourceItem) => {
+    const { children, text, value, ...otherProps } = item;
+    if (children) {
       return (
-        <ATreeSelect.TreeNode title={item.text} value={item.value} key={item.value}>
-          {item.children.map((it) => {
+        <ATreeSelect.TreeNode key={value} {...otherProps} title={text} value={value}>
+          {children.map((it) => {
             return this.renderTreeNode(it);
           })}
         </ATreeSelect.TreeNode>
       );
     }
-    return <ATreeSelect.TreeNode title={item.text} value={item.value} key={item.value} />;
+    return (
+      <ATreeSelect.TreeNode key={value} {...otherProps} title={text} value={value} />
+    );
   };
 
   render() {

@@ -32,9 +32,10 @@ export default class DynamicDemo extends React.Component {
           console.log('Success:', values);
         }}
         fields={[
-          { name: 'input', label: 'input', field: 'input' },
+          { name: 'input', label: '姓名', field: 'input' },
           {
             name: 'users',
+            label: '动态信息',
             isList: true,
             type: 'dynamicfieldcomp',
             props: {

@@ -1,15 +1,25 @@
 import React from 'react';
 import { Radio } from 'antd';
+import { RadioGroupProps as ARadioGroupProps, RadioProps } from 'antd/lib/radio';
 
 const RadioGroup = Radio.Group;
 
-export default class SulaRadioGroup extends React.Component {
+type RadioItemProps = {
+  text: string;
+} & RadioProps;
+
+export interface RadioGroupProps extends ARadioGroupProps {
+  source: RadioItemProps[];
+}
+
+export default class SulaRadioGroup extends React.Component<RadioGroupProps> {
   render() {
     const { source = [], ...restProps } = this.props;
     return (
       <RadioGroup {...restProps}>
-        {source.map((item) => {
-          return <Radio value={item.value} key={item.value}>{item.text}</Radio>;
+        {source.map((item: RadioItemProps) => {
+          const { text, value, ...restProps } = item;
+          return <Radio value={value} key={value} {...restProps}>{text}</Radio>;
         })}
       </RadioGroup>
     );

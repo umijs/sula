@@ -1,11 +1,10 @@
 import React from 'react';
 import { Select as ASelect } from 'antd';
-import { SelectProps as ASelectProps } from 'antd/lib/select';
+import { SelectProps as ASelectProps, OptionProps } from 'antd/lib/select';
 
 export type SelectSourceItem = {
   text: any;
-  value: any;
-}
+} & Omit<OptionProps, 'children'>;
 
 export interface SelectGroupItem {
   text: any;
@@ -18,9 +17,10 @@ export interface SelectProps extends ASelectProps<any> {
 
 export default class Select extends React.Component<SelectProps> {
   renderOption = (item: SelectSourceItem) => {
+    const { text, value, ...restProps } = item;
     return (
-      <ASelect.Option value={item.value} key={item.value}>
-        {item.text}
+      <ASelect.Option value={value} key={value} {...restProps}>
+        {text}
       </ASelect.Option>
     );
   };
