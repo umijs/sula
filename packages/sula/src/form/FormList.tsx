@@ -3,7 +3,7 @@ import { Form as AForm, Row, Col } from 'antd';
 import { FormListProps as AFormListProps } from 'antd/lib/form';
 import FieldGroup, { FieldGroupProps } from './FieldGroup';
 import FieldGroupContext, { FieldGroupContextProps } from './FieldGroupContext';
-import { getItemLayout, needWrapCols } from './utils/layoutUtil';
+import { needWrapCols } from './utils/layoutUtil';
 
 const FormItem = AForm.Item;
 

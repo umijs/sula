@@ -206,7 +206,8 @@ class ContextStore {
     field: Field | FieldGroup,
     isFieldGroup: boolean = false,
   ) => {
-    const fieldNameList = field.getName();
+    /** 注册field不能用name，因为dynamic的name是变化的，这个name一定是唯一的，新版本这块要重点重构 */
+    const fieldNameList = field.getName(true);
     // 如果没有name的field不放入到fieldMap中
     if (isUndefined(fieldNameList)) {
       return;
@@ -280,7 +281,10 @@ class ContextStore {
 
     finalStore.forEach(({ name }) => {
       const field = this.getField(name);
-      field.reRender();
+      /** 动态表单删掉前面的field为空 */
+      if(field) {
+        field.reRender();
+      }
     });
   }
 
@@ -303,7 +307,8 @@ class ContextStore {
       if (field.getVisible() === false || field.getCollect() === false) {
         return;
       }
-      visibleFieldsName.push(fieldNameList);
+      /** 这里的 fieldNameList 可能是fieldKey，要重新取 */
+      visibleFieldsName.push(field.getName()!);
     });
   };
 
@@ -326,7 +331,7 @@ class ContextStore {
       const fieldNameLists: FieldNameList[] = (
         this.fieldsByGroup[fieldGroup.getGroupName()] || []
       ).map((field) => {
-        return field.getName() as FieldNameList;
+        return field.getName(true) as FieldNameList;
       });
 
       this.getVisibleFieldsName(fieldNameLists, visibleFieldsName);

@@ -1,6 +1,6 @@
 import isEmpty from 'lodash/isEmpty';
 import omit from 'lodash/omit';
-import { FieldNameList } from '../../types/form';
+import { FieldNameList, FieldNamePath } from '../../types/form';
 import { FieldProps } from '../Field';
 import DepStore from './DepStore';
 
@@ -13,12 +13,15 @@ export default class FormDependency {
     this.depStore = new DepStore();
   }
 
-  public parseFormDependency = (fieldConfig: FieldProps) => {
+  public parseFormDependency = (
+    fieldConfig: FieldProps,
+    getName?: (name: FieldNamePath) => FieldNameList,
+  ) => {
     const dependencies = fieldConfig[DEP_NAME];
     if (isEmpty(dependencies)) {
       return fieldConfig;
     }
-    this.depStore.parse(fieldConfig.name, dependencies, fieldConfig);
+    this.depStore.parse(fieldConfig, dependencies!, getName);
     return omit(fieldConfig, [DEP_NAME]);
   };
 

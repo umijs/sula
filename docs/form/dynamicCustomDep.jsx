@@ -1,18 +1,7 @@
 import React from 'react';
 import { Form } from 'sula';
 
-const initialSource = [
-  {
-    text: '苹果 🍎',
-    value: 'apple',
-  },
-  {
-    text: '桃子 🍑',
-    value: 'peach',
-  },
-];
-
-export default class DynamicDemo extends React.Component {
+export default class DynamicCustomDepDemo extends React.Component {
   ref = React.createRef();
 
   componentDidMount() {}
@@ -32,7 +21,7 @@ export default class DynamicDemo extends React.Component {
             name: 'users',
             label: '动态信息',
             isList: true,
-            type: 'dynamicfieldcomp',
+            type: 'dynamicdepfieldcomp',
             props: {
               fields: [
                 {
@@ -44,6 +33,19 @@ export default class DynamicDemo extends React.Component {
                   name: 'last',
                   rules: [{ required: true, message: 'Missing last name' }],
                   field: 'input',
+                  dependency: {
+                    value: {
+                      relates: ['first'],
+                      type: ctx => {
+                        const { values = [], form: { setFieldValue }, name } = ctx;
+                        if (values[0] === '95') {
+                          setFieldValue(name, values[0] + '27');
+                        } else {
+                          setFieldValue(name, 'please type 95');
+                        }
+                      }
+                    },
+                  },
                 },
               ],
             },
@@ -60,6 +62,7 @@ export default class DynamicDemo extends React.Component {
               },
             },
           },
+
           {
             colon: false,
             render: {

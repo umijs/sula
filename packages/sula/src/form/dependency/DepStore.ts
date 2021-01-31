@@ -15,11 +15,19 @@ import isEqual from 'lodash/isEqual';
 import { triggerPlugin, triggerActionPlugin } from '../../rope/triggerPlugin';
 
 export default class DepStore {
+  public getName: (name: FieldNamePath) => FieldNameList = null!;
+
   // 主动触发配置
   public depsByFieldNameList: NameListMap<FieldNameList, TransedDependencies> = new NameListMap();
 
-  public parse(fieldName: FieldNamePath, deps: Dependencies, fieldConfig: any) {
-    const fieldNameList: FieldNameList = toArray(fieldName);
+  public parse(
+    fieldConfig: any,
+    deps: Dependencies,
+    getName?: (name: FieldNamePath) => FieldNameList,
+  ) {
+    const fieldNameList: FieldNameList = getName
+      ? getName(fieldConfig.name as FieldNamePath)
+      : toArray(fieldConfig.name);
     Object.keys(deps).forEach((type) => {
       const dependency: Dependency = deps[type as DependencyType];
       const { cases, ...globalDep } = dependency;
@@ -27,10 +35,10 @@ export default class DepStore {
       if (cases) {
         cases.forEach((kase, index) => {
           const finalDep: Dependency = assign({}, globalDep, kase);
-          this.parseCase(fieldNameList, type, finalDep, fieldConfig, index);
+          this.parseCase(fieldNameList, type, finalDep, fieldConfig, getName, index);
         });
       } else {
-        this.parseCase(fieldNameList, type, globalDep, fieldConfig);
+        this.parseCase(fieldNameList, type, globalDep, fieldConfig, getName);
       }
     });
   }
@@ -39,7 +47,8 @@ export default class DepStore {
     fieldNameList: FieldNameList,
     type: DependencyType,
     dependency: Dependency,
-    fieldConfig,
+    fieldConfig: any,
+    getName: (name: FieldNamePath) => FieldNameList,
     caseIndex?: number,
   ) {
     const {
@@ -52,7 +61,9 @@ export default class DepStore {
       autoResetValue,
     } = dependency;
 
-    const relatedFieldNameLists: FieldNameList[] = relates.map((relate) => toArray(relate));
+    const relatedFieldNameLists: FieldNameList[] = relates.map((relate) =>
+      getName ? getName(relate) : toArray(relate),
+    );
 
     // 被动配置变主动
     relatedFieldNameLists.forEach((relatedFieldNameList) => {
@@ -177,7 +188,7 @@ export default class DepStore {
             return this.cascadeSource(ctx, dep, cascadePayload);
           }
 
-          const isAllMatched = allMatch(inputs, values);
+          const isAllMatched = inputs && allMatch(inputs, values);
           // 第一个匹配的终止
           if (isAllMatched) {
             fn(affectedFieldNameList, output);

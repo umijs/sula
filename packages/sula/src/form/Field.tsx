@@ -87,7 +87,7 @@ export default class Field extends React.Component<FieldProps> {
     // field 依赖
     const formDependency: FormDependency = getFormDependency();
 
-    formDependency.parseFormDependency(this.props);
+    formDependency.parseFormDependency(this.props, this.getFieldNameList);
   }
 
   componentWillUnmount() {
@@ -110,19 +110,28 @@ export default class Field extends React.Component<FieldProps> {
     }
   };
 
-  public getName(): FieldNameList | undefined {
-    const { name } = this.props;
-    if (isUndefined(name)) {
-      return;
-    }
-
+  public getFieldNameList = (name: FieldNamePath) => {
     const { isList, parentGroupName } = this.context;
 
     if (isList) {
+      /**
+       * name 是加了rc formList 数字的
+       * paranGroupName 是 FormList的name
+       */
       return getFieldName(parentGroupName, name);
     }
     return toArray(name);
-  }
+  };
+
+  public getName = (needFieldKey?: boolean): FieldNameList | undefined => {
+    const { name, fieldKey } = this.props;
+    const finalName = (needFieldKey && isUndefined(fieldKey) ? name : fieldKey) as FieldNamePath;
+    if (isUndefined(finalName)) {
+      return;
+    }
+
+    return this.getFieldNameList(finalName);
+  };
 
   public getSource() {
     return this.source;
