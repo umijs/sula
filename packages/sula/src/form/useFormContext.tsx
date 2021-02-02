@@ -281,7 +281,7 @@ class ContextStore {
 
     finalStore.forEach(({ name }) => {
       const field = this.getField(name);
-      /** 动态表单删掉前面的field为空 */
+      /** 动态表单删掉前面的field为空，应该不需要加了，下个版本验证下 */
       if(field) {
         field.reRender();
       }

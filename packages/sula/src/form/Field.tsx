@@ -125,7 +125,7 @@ export default class Field extends React.Component<FieldProps> {
 
   public getName = (needFieldKey?: boolean): FieldNameList | undefined => {
     const { name, fieldKey } = this.props;
-    const finalName = (needFieldKey && isUndefined(fieldKey) ? name : fieldKey) as FieldNamePath;
+    const finalName = (needFieldKey && !isUndefined(fieldKey) ? fieldKey : name) as FieldNamePath;
     if (isUndefined(finalName)) {
       return;
     }

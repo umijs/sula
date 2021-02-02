@@ -7,6 +7,8 @@ import DepStore, {
 import FormDependency from '../dependency';
 import '../../__tests__/common';
 
+const getName = (name) => [name];
+
 describe('depstore', () => {
   describe('store', () => {
     let store;
@@ -59,7 +61,7 @@ describe('depstore', () => {
         },
       ];
 
-      store.parse(fields[1].name, fields[1].dependency, fields[1]);
+      store.parse(fields[1], fields[1].dependency, getName);
       expect(store.depsByFieldNameList.getNameLists()).toEqual([['input']]);
       const inputType = store.depsByFieldNameList.get(['input']);
       expect(inputType).toMatchSnapshot();
@@ -100,7 +102,7 @@ describe('depstore', () => {
         },
       ];
 
-      store.parse('select', field[1].dependency, field[1]);
+      store.parse(field[1], field[1].dependency, getName);
       const form = {
         setFieldDisabled: jest.fn(),
         setFieldVisible: jest.fn(),
@@ -130,7 +132,7 @@ describe('depstore', () => {
         },
       };
 
-      store.parse('select', field.dependency, field);
+      store.parse(field, field.dependency, getName);
       const form = {
         setFieldDisabled: jest.fn(),
         setFieldVisible: jest.fn(),
@@ -160,7 +162,7 @@ describe('depstore', () => {
         },
       };
 
-      store.parse('select', field.dependency, field);
+      store.parse(field, field.dependency, getName);
       const form = {
         setFieldDisabled: jest.fn(),
         setFieldVisible: jest.fn(),
@@ -234,7 +236,7 @@ describe('depstore', () => {
         },
       };
 
-      store.parse('select', field.dependency, field);
+      store.parse(field, field.dependency, getName);
       const form = {
         setFieldDisabled: jest.fn(),
         setFieldVisible: jest.fn(),
@@ -318,9 +320,9 @@ describe('depstore', () => {
         },
       ];
 
-      store.parse(fields[1].name, fields[1].dependency, fields[1]);
-      store.parse(fields[2].name, fields[2].dependency, fields[2]);
-      store.parse(fields[3].name, fields[3].dependency, fields[3]);
+      store.parse(fields[1], fields[1].dependency, getName);
+      store.parse(fields[2], fields[2].dependency, getName);
+      store.parse(fields[3], fields[3].dependency, getName);
 
       const inputType = store.depsByFieldNameList.get(['input']);
 
@@ -416,7 +418,7 @@ describe('depstore', () => {
               defaultOutput: '',
             },
           },
-        }),
+        }, getName),
       ).toEqual({ name: 'input2', label: 'input2', field: 'input' });
       expect(formDependency.depStore.depsByFieldNameList.getNameLists()).toEqual([['input']]);
       expect(formDependency.getCascades()).toEqual([['input']]);
@@ -443,7 +445,7 @@ describe('depstore', () => {
           label: 'input2',
           field: 'input',
           dependency: {},
-        }),
+        }, getName),
       ).toEqual({ name: 'input2', label: 'input2', field: 'input', dependency: {} });
       expect(formDependency.depStore.depsByFieldNameList.getNameLists()).toEqual([]);
     });
