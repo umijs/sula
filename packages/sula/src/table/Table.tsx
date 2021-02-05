@@ -177,44 +177,53 @@ const RefTable: React.FunctionComponent<TableProps> = (props, ref) => {
   }
 
   // =============== Column 级别 ===============
-  tableProps.columns = tableProps.columns.map((column, index) => {
-    const { key, sorter, filters } = column;
+  const getColumns = (columns: ColumnProps[]): AColumnProps<any>[] => {
+    return columns.map((column) => {
+      const { children, key, sorter, filters } = column;
 
-    const newColumn = {} as ColumnProps<any>;
+      const newColumn = {} as AColumnProps<any>;
 
-    if (!column.hasOwnProperty('dataIndex')) {
-      newColumn.dataIndex = key;
-    }
+      if (children) {
+        newColumn.children = (getColumns(children) as unknown) as AColumnProps<any>['children'];
+      } else {
+        if (!column.hasOwnProperty('dataIndex')) {
+          newColumn.dataIndex = key;
+        }
 
-    const sorterColumnKey = controls && controls.sorter ? controls.sorter.columnKey : '';
-    if (sorter && sorterColumnKey === key) {
-      newColumn.sortOrder = controls.sorter.order;
-    }
+        const sorterColumnKey = controls && controls.sorter ? controls.sorter.columnKey : '';
+        if (sorter && sorterColumnKey === key) {
+          newColumn.sortOrder = controls.sorter.order;
+        }
 
-    if ((filters && filters.length) || column.filterRender) {
-      newColumn.filteredValue = controls && controls.filters ? controls.filters[key] : undefined;
-    }
+        if ((filters && filters.length) || column.filterRender) {
+          newColumn.filteredValue =
+            controls && controls.filters ? controls.filters[key!] : undefined;
+        }
 
-    if(column.filterRender) {
-      const filterOptions = triggerPlugin('filter', getCtx(), column.filterRender);
-      assign(newColumn, filterOptions);
-    }
+        if (column.filterRender) {
+          const filterOptions = triggerPlugin('filter', getCtx(), column.filterRender);
+          assign(newColumn, filterOptions);
+        }
 
-    if (column.render) {
-      newColumn.render = (text, record, index) => {
-        const ctx = getCtx({
-          text,
-          record,
-          index,
-          history: configContext.history,
-        });
+        if (column.render) {
+          newColumn.render = (text, record, index) => {
+            const ctx = getCtx({
+              text,
+              record,
+              index,
+              history: configContext.history,
+            });
 
-        return triggerRenderPlugin(ctx, column.render);
-      };
-    }
+            return triggerRenderPlugin(ctx, column.render);
+          };
+        }
+      }
 
-    return assign({}, column, newColumn);
-  });
+      return assign({}, column, newColumn);
+    });
+  };
+
+  tableProps.columns = getColumns(tableProps.columns as ColumnProps[]);
 
   return (
     <React.Fragment>
