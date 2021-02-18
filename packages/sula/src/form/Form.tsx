@@ -35,7 +35,7 @@ export interface FormInstance extends Omit<AFormInstance, 'validateFields'> {
   getFieldDisabled: (name: FieldNamePath) => any;
 }
 
-const Form: React.FC<FormProps> = (props, ref) => {
+const Form: React.FunctionComponent<FormProps> = (props, ref) => {
   const [formInstance] = AForm.useForm();
 
   const [context] = useFormContext(formInstance);

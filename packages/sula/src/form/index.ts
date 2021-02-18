@@ -8,7 +8,9 @@ import { default as InternalForm, FormProps as InternalFormProps, FormInstance a
 import { FieldGroupProps as InternalFieldGroupProps } from './FieldGroup';
 import { FieldProps as InternalFieldProps } from './Field';
 
-export const Form = React.forwardRef<FormInstanceProps, InternalFormProps>(InternalForm);
+export const Form = React.forwardRef<FormInstanceProps, InternalFormProps>(InternalForm) as (
+  props: React.PropsWithChildren<InternalFormProps> & { ref?: React.Ref<FormInstanceProps> },
+) => React.ReactElement;
 
 type InternalForm = typeof InternalForm;
 
