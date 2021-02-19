@@ -77,6 +77,7 @@ describe('form', () => {
       const startFn = jest.fn();
       const endFn = jest.fn();
       const { wrapper, formRef } = formMount({
+        mode: 'edit',
         remoteValues: {
           url: '/manage.json',
           method: 'post',
@@ -107,6 +108,7 @@ describe('form', () => {
       const startFn = jest.fn();
       const endFn = jest.fn();
       const { wrapper, formRef } = formMount({
+        mode: 'edit',
         remoteValues: {
           url: '/error.json', // 模拟请求报错
           method: 'post',

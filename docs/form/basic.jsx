@@ -33,7 +33,17 @@ export default class BasicDemo extends React.Component {
   render() {
     return (
       <Form
-        initialValues={{ radiogroup: 'peach' }}
+        mode="edit"
+        remoteValues={{
+          url: 'https://www.mocky.io/v2/5ed7a8b63200001ad9274ab5',
+          method: 'post',
+          converter() {
+            return { radiogroup: 'peach' };
+          },
+        }}
+        onRemoteValuesStart={() => {
+          console.log('onRemoteValuesStart');
+        }}
         onFinish={(values) => {
           console.log('Success:', values);
         }}
@@ -102,7 +112,7 @@ export default class BasicDemo extends React.Component {
             label: 'checkboxgroup',
             field: 'checkboxgroup',
             initialSource,
-            initialValue: ['peach'] // antd 4.2.0开始支持
+            initialValue: ['peach'], // antd 4.2.0开始支持
           },
           {
             name: 'radiogroup',
