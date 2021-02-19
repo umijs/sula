@@ -15,13 +15,14 @@ import { RequestConfig } from '../types/request';
 import { FieldNamePath, Mode } from '../types/form';
 
 export interface FormProps
-  extends Omit<AFormProps, 'children' | 'fields'>,
+  extends Omit<AFormProps, 'children' | 'fields' | 'form'>,
     Omit<FieldGroupProps, 'name' | 'initialVisible' | 'dependency'> {
   remoteValues?: RequestConfig;
   onRemoteValuesStart?: () => void;
   onRemoteValuesEnd?: () => void;
   ctxGetter?: () => Record<string, any>;
-  mode: Mode;
+  form?: FormInstance;
+  mode?: Mode;
 }
 
 export interface FormInstance extends Omit<AFormInstance, 'validateFields'> {
@@ -36,15 +37,17 @@ export interface FormInstance extends Omit<AFormInstance, 'validateFields'> {
 }
 
 const Form: React.FunctionComponent<FormProps> = (props, ref) => {
-  const [formInstance] = AForm.useForm();
+  const [formInstance] = useFormContext(props.form);
 
-  const [context] = useFormContext(formInstance);
+  React.useImperativeHandle(ref, () => formInstance);
 
-  React.useImperativeHandle(ref, context.getForm);
-
-  const { saveFormProps, saveFormDependency, cascade, getCtx } = context.getInternalHooks(
-    HOOK_MARK,
-  );
+  const {
+    saveFormProps,
+    saveFormDependency,
+    cascade,
+    getCtx,
+    getAFormInstance,
+  } = formInstance.getInternalHooks(HOOK_MARK);
 
   const formDependencyRef = React.useRef(new FormDependency());
 
@@ -55,7 +58,7 @@ const Form: React.FunctionComponent<FormProps> = (props, ref) => {
   const {
     layout = 'horizontal',
     itemLayout,
-    mode,
+    mode = 'create',
     remoteValues,
     initialValues,
     container,
@@ -108,7 +111,7 @@ const Form: React.FunctionComponent<FormProps> = (props, ref) => {
     'actionsPosition',
     'ctxGetter',
     'onRemoteValuesStart',
-    'onRemoteValuesEnd'
+    'onRemoteValuesEnd',
   ]);
 
   const originValuesChange = formProps.onValuesChange;
@@ -129,7 +132,9 @@ const Form: React.FunctionComponent<FormProps> = (props, ref) => {
           matchedPoint,
         );
         const fieldGroupContext = {
-          formContext: context,
+          formContext: {
+            getInternalHooks: formInstance.getInternalHooks,
+          },
           layout,
           itemLayout: normalizedItemLayout,
           parentGroupName: rootGroupName,
@@ -147,7 +152,7 @@ const Form: React.FunctionComponent<FormProps> = (props, ref) => {
             wrapperCol={normalizedItemLayout.wrapperCol}
             labelCol={normalizedItemLayout.labelCol}
             children={wrapperChildren}
-            form={formInstance}
+            form={getAFormInstance()}
           />
         );
       }}

@@ -10,7 +10,6 @@ export const rootGroupName = '@@root_group_name';
 
 export interface FieldGroupContextProps {
   formContext: {
-    getForm: () => FormInstance;
     getInternalHooks: () => any;
   },
   itemLayout: NormalizedItemLayout;

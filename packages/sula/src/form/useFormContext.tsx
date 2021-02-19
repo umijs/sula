@@ -4,17 +4,18 @@ import isBoolean from 'lodash/isBoolean';
 import isArray from 'lodash/isArray';
 import assign from 'lodash/assign';
 import { FormInstance as AFormInstance } from 'antd/lib/form';
+import { Form as AForm } from 'antd';
 import FormDependency from './dependency';
 import { HOOK_MARK, rootGroupName } from './FieldGroupContext';
 import FieldGroup from './FieldGroup';
 import Field from './Field';
 import { FieldNameList, FormCtx, FieldNamePath, FieldValue } from '../types/form';
 import { NameListMap, matchNameList } from '../_util/NameListMap';
-import { FormProps } from './Form';
+import { FormInstance, FormProps } from './Form';
 import { toArray } from 'antd/lib/form/util';
 import transStore from '../_util/filterStore';
 
-export type FieldsValue = {name: FieldNamePath, value: any}[];
+export type FieldsValue = { name: FieldNamePath; value: any }[];
 
 class ContextStore {
   private fieldsByGroup: Record<string, Field[]> = {};
@@ -31,12 +32,7 @@ class ContextStore {
     this.formInstance = formInstance;
   }
 
-  public getContext = () => ({
-    getForm: () => this.getForm(),
-    getInternalHooks: this.getInternalHooks,
-  });
-
-  private getForm = () => {
+  public getForm = () => {
     return {
       ...this.formInstance,
       /**
@@ -57,6 +53,8 @@ class ContextStore {
       setFieldValue: this.setFieldValue,
       setFieldsValue: this.setFieldsValue,
       setFields: this.setFields,
+
+      getInternalHooks: this.getInternalHooks,
     };
   };
 
@@ -178,11 +176,18 @@ class ContextStore {
         },
         getCtx: this.getCtx,
         cascade: this.cascade,
+
+        /** useForm */
+        getAFormInstance: this.getAFormInstance,
       };
     }
   };
 
   // ================== Internal Hooks ===================
+  private getAFormInstance = (): AFormInstance => {
+    return this.formInstance;
+  };
+
   private getCtx = (extraCtx = {}) => {
     const form = this.getForm();
 
@@ -230,8 +235,10 @@ class ContextStore {
     // cancelRegisterField
     return () => {
       this.fieldNameMap.delete(fieldNameList);
-      this.fieldsByGroup[groupName] = this.fieldsByGroup[groupName].filter(item => item !== field);
-    }
+      this.fieldsByGroup[groupName] = this.fieldsByGroup[groupName].filter(
+        (item) => item !== field,
+      );
+    };
   };
 
   /**
@@ -246,8 +253,10 @@ class ContextStore {
 
     // cancelRegisterFieldGroup
     return () => {
-      this.groupsByParentGroup[parentGroupName] = this.groupsByParentGroup[parentGroupName].filter(item => item !== fieldGroup);
-    }
+      this.groupsByParentGroup[parentGroupName] = this.groupsByParentGroup[parentGroupName].filter(
+        (item) => item !== fieldGroup,
+      );
+    };
   };
 
   private cascade = (store: any, cascadePayload = {}) => {
@@ -282,7 +291,7 @@ class ContextStore {
     finalStore.forEach(({ name }) => {
       const field = this.getField(name);
       /** 动态表单删掉前面的field为空，应该不需要加了，下个版本验证下 */
-      if(field) {
+      if (field) {
         field.reRender();
       }
     });
@@ -339,13 +348,21 @@ class ContextStore {
   };
 }
 
-export default function useFormContext(formInstance) {
-  const contextRef = React.useRef(null);
+export default function useFormContext(formInstance?: FormInstance): [FormInstance] {
+  const formRef = React.useRef(null);
 
-  if (!contextRef.current) {
-    const contextStore = new ContextStore(formInstance);
-    contextRef.current = contextStore.getContext();
+  const [aFormInstance] = AForm.useForm(
+    formInstance ? formInstance.getInternalHooks(HOOK_MARK).getAFormInstance() : undefined,
+  );
+
+  if (!formRef.current) {
+    if (formInstance) {
+      formRef.current = formInstance;
+    } else {
+      const contextStore = new ContextStore(aFormInstance);
+      formRef.current = contextStore.getForm();
+    }
   }
 
-  return [contextRef.current];
+  return [formRef.current];
 }
