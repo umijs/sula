@@ -18,6 +18,7 @@ export default {
     '@sula/charts': join(__dirname, './packages/sula-charts/src'),
   },
   title: 'Sula',
+  exportStatic: {},
   resolve: {
     includes: ['docs'],
   },
