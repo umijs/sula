@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "github": {
+    "silent": true
+  },
+  "scope": "umijs",
+  "name": "sula",
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": { "distDir": ".doc" }
+    }
+  ],
+  "routes": [
+    { "src": "/(.*)", "dest": "/dist/$1" }
+  ]
+}
