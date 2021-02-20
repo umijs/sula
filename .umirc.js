@@ -2,10 +2,8 @@ import { join } from 'path';
 
 export default {
   plugins: [join(__dirname, './packages/umi-plugin-sula/src')],
-  history: {
-    type: 'hash',
-  },
   sula: {},
+  outputPath: '.doc',
   extraBabelPlugins: [
     [
       'babel-plugin-import',
@@ -17,7 +15,6 @@ export default {
     ],
   ],
   alias: {
-    sula: join(__dirname, './packages/sula/src'),
     '@sula/charts': join(__dirname, './packages/sula-charts/src'),
   },
   title: 'Sula',

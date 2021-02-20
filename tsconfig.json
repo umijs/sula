@@ -10,7 +10,8 @@
     "baseUrl": ".",
     "strict": true,
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "sula": ["./packages/sula/src/index.ts"]
     },
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,

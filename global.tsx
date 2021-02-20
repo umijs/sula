@@ -67,3 +67,57 @@ const DynamicFieldComp = (props) => {
 };
 
 registerFieldPlugin('dynamicfieldcomp')(DynamicFieldComp);
+
+const DynamicDepFieldComp = (props) => {
+  const { list } = props;
+  const [fields, { add, remove }] = list;
+  return (
+    <>
+      {fields.map((field) => {
+        const { name, key, fieldKey, ...rest } = field;
+
+        return (
+          <Space key={key} style={{ display: 'flex', marginBottom: 8 }} align="baseline">
+            {props.fields.map((fieldConfig) => {
+              const { dependency = {} } = fieldConfig;
+              const transedDep = Object.keys(dependency).reduce((memo, depType) => {
+                const dep = dependency[depType];
+                const relates = dep.relates.map((r) => {
+                  return [name, ...(Array.isArray(r) ? r : [r])];
+                });
+                memo[depType] = {
+                  ...dep,
+                  relates,
+                };
+                return memo;
+              }, {});
+              return (
+                <Field
+                  {...rest}
+                  key={key}
+                  name={[name, fieldConfig.name]}
+                  fieldKey={[fieldKey, fieldConfig.name]}
+                  rules={fieldConfig.rules}
+                  field={fieldConfig.field}
+                  dependency={transedDep}
+                />
+              );
+            })}
+            <MinusCircleOutlined onClick={() => remove(field.name)} key="remove" />
+          </Space>
+        );
+      })}
+      <Button
+        style={{ width: 300 }}
+        type="dashed"
+        onClick={() => add()}
+        block
+        icon={<PlusOutlined />}
+      >
+        添加
+      </Button>
+    </>
+  );
+};
+
+registerFieldPlugin('dynamicdepfieldcomp')(DynamicDepFieldComp);

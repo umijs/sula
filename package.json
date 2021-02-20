@@ -5,7 +5,7 @@
     "dev": "dumi dev",
     "build": "dumi build",
     "compile": "father-build && node ./scripts/clean-build.js",
-    "bootstrap": "lerna bootstrap",
+    "postinstall": "lerna bootstrap",
     "test": "npm run test:unit",
     "test:unit": "umi-test 'test.(j|t)s' --coverage",
     "test:watch": "umi-test 'test.(j|t)s' --coverage --watch",
@@ -21,6 +21,7 @@
   },
   "devDependencies": {
     "@ant-design/icons": "^4.1.0",
+    "@sula/charts": "^1.0.0-alpha.0",
     "@umijs/fabric": "^2.0.8",
     "antd": "4.3.4",
     "babel-plugin-import": "^1.13.0",
@@ -34,8 +35,6 @@
     "mockdate": "^2.0.5",
     "mockjs": "^1.1.0",
     "react-live": "^2.2.2",
-    "sula": "^1.0.0-alpha.35",
-    "@sula/charts": "^1.0.0-alpha.0",
     "umi-test": "^1.9.6"
   }
 }
