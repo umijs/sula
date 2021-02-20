@@ -6,7 +6,7 @@
 
 ## 旧文档地址
 
-- https://sula.now.sh/
+- https://sula.vercel.app/
 
 ## 里程碑
 
