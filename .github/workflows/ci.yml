@@ -23,10 +23,8 @@ jobs:
           node-version: ${{ matrix.node_version }}
       - run: yarn -v
       - run: yarn --ignore-engines
-      - run: yarn bootstrap
       - run: yarn build
       - run: yarn test --forceExit
-      - run: bash <(curl -s https://codecov.io/bash)
         env:
           CI: true
           HEADLESS: false

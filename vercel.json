@@ -1,5 +1,8 @@
 {
   "version": 2,
+  "github": {
+    "silent": true
+  },
   "scope": "umijs",
   "name": "sula",
   "builds": [

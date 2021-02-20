@@ -75,7 +75,10 @@ class ContextStore {
       return;
     }
 
-    this.setPagination(pagination);
+    /** 不能通过refreshTable去改变pagination的有无分页 */
+    if (this.controls.pagination) {
+      this.setPagination(pagination);
+    }
     this.setFilters(filters);
     this.setSorter(sorter);
 
@@ -83,8 +86,7 @@ class ContextStore {
 
     return this.requestDataSource()
       .then((data) => {
-        const { pagination } = this.getControls();
-        if (!pagination) {
+        if (!this.controls.pagination) {
           this.setDataSource(data);
         } else {
           const { list, pageSize, total } = data;
