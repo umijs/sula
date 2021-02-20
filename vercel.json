@@ -1,7 +1,8 @@
 {
   "version": 2,
+  "public": false,
   "github": {
-    "silent": true
+    "enable": false
   },
   "scope": "umijs",
   "name": "sula",
