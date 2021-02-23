@@ -39,7 +39,7 @@ export interface FieldProps
   itemLayout?: ItemLayout;
   layout?: Layout;
   rules?: Array<
-    Omit<Rule, 'validator'> & {
+    Rule & {
       validator?: ValidatorPlugin;
     }
   >;
