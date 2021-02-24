@@ -297,7 +297,7 @@ export default class Field extends React.Component<FieldProps> {
     }
 
     const { getCtx } = formContext.getInternalHooks(HOOK_MARK);
-    const ctx = getCtx({ disabled: this.disabled, source: this.source });
+    const ctx = getCtx({ disabled: this.disabled, source: this.source, name: this.props.name });
 
     const extraConfig = {
       layout,

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon, registerFieldPlugin, Field } from './packages/sula/src/index';
+import { Icon, registerFieldPlugin, Field, request } from './packages/sula/src/index';
 import {
   TabletFilled,
   AppstoreOutlined,
@@ -8,7 +8,7 @@ import {
   PlusOutlined,
   MinusCircleOutlined,
 } from '@ant-design/icons';
-import { Button, Space } from 'antd';
+import { Button, Space, Select } from 'antd';
 
 // umi-plugin-sula 承载
 // registerFieldPlugins();
@@ -121,3 +121,51 @@ const DynamicDepFieldComp = (props) => {
 };
 
 registerFieldPlugin('dynamicdepfieldcomp')(DynamicDepFieldComp);
+
+const RemoteSearch = (props) => {
+  const { source = [], ctx, value, onChange, placeholder } = props;
+  const handleSearch = (q) => {
+    if(!q) {
+      return;
+    }
+    request({
+      url: 'https://jsonplaceholder.typicode.com/todos/1',
+      params: {
+        q,
+      },
+    }).then(() => {
+      
+
+      ctx.form.setFieldSource(ctx.name, Array(10).fill(0).map((_, index) => {
+        return {
+          text: `商品_${q}_${index}`,
+          value: `价格_${q}_${index}`,
+        }
+      }));
+    });
+  };
+
+  return (
+    <Select
+      showSearch
+      placeholder={placeholder}
+      defaultActiveFirstOption={false}
+      showArrow={false}
+      filterOption={false}
+      notFoundContent={null}
+      value={value}
+      onChange={onChange}
+      onSearch={handleSearch}
+    >
+      {source.map((item) => {
+        return (
+          <Select.Option key={item.value} value={item.value}>
+            {item.text}
+          </Select.Option>
+        );
+      })}
+    </Select>
+  );
+};
+
+registerFieldPlugin('customremotesearch')(RemoteSearch, true, true);
