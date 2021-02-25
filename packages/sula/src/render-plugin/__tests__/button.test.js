@@ -21,7 +21,6 @@ describe('button', () => {
       const wrapper = mount(<ButtonPlugin config={{}}>Edit</ButtonPlugin>);
       expect(wrapper.find('Button').props()).toMatchObject({
         children: 'Edit',
-        loading: false,
       });
     });
 

@@ -36,6 +36,10 @@ const config = {
       title: 'Steps3',
     },
   ],
+  remoteDataSource: {
+    url: '/datasource.json',
+    method: 'post',
+  },
 };
 
 describe('step query table', () => {

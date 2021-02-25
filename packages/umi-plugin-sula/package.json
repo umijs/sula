@@ -4,9 +4,12 @@
   "main": "lib/index.js",
   "peerDependencies": {
     "sula": "^1.0.0-beta.1",
-    "umi": "^3.0.0"
+    "umi": "^3.0.0",
+    "@umijs/plugin-locale": "^0.10.8"
+
   },
   "devDependencies": {
+    "@umijs/plugin-locale": "^0.10.8",
     "sula": "^1.0.0-beta.1",
     "umi": "^3.1.3"
   },
