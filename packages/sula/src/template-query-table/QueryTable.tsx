@@ -6,6 +6,7 @@ import { TableInstance, TableProps } from '../table/Table';
 import { FormInstance } from '../types/form';
 import { Table } from '../table';
 import QueryFields from './QueryFields';
+import warning from '../_util/warning';
 
 type FormPropsPicks = 'fields' | 'initialValues' | 'layout' | 'itemLayout';
 type TablePropsPicks =
@@ -50,7 +51,7 @@ export default class QueryTable extends React.Component<Props> {
 
   componentDidMount() {
     const { autoInit, initialValues } = this.props;
-    if (autoInit) {
+    if (autoInit && this.remoteDataSource.url) {
       this.tableRef.current.refreshTable(null, initialValues, null, true);
     }
   }
@@ -101,6 +102,10 @@ export default class QueryTable extends React.Component<Props> {
       rowSelection,
       rowKey,
     } = this.props;
+
+    if(!remoteDataSource) {
+      warning(false, 'QueryTable', '`remoteDataSource` is required.');
+    }
 
     this.remoteDataSource = assign(remoteDataSource, { init: false });
 
