@@ -36,6 +36,7 @@ export const columns = [
   {
     title: '序号',
     key: 'index',
+    sorter: true,
   },
   {
     title: '国家',
@@ -139,11 +140,10 @@ export default class BasicDemo extends React.Component {
           fields={queryFields}
           rowKey="id"
           actionsRender={actions}
-          rowSelection={{}}
           tableProps={{
             initialPaging: {
               pagination: false,
-            }
+            },
           }}
         />
       </div>

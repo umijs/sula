@@ -1,5 +1,6 @@
 import React from 'react';
 import assign from 'lodash/assign';
+import cx from 'classnames';
 import { Form, FormProps } from '../form';
 import { RequestConfig } from '../types/request';
 import { TableInstance, TableProps } from '../table/Table';
@@ -7,6 +8,7 @@ import { FormInstance } from '../types/form';
 import { Table } from '../table';
 import QueryFields from './QueryFields';
 import warning from '../_util/warning';
+import './style/query-table.less';
 
 type FormPropsPicks = 'fields' | 'initialValues' | 'layout' | 'itemLayout';
 type TablePropsPicks =
@@ -39,6 +41,8 @@ const defaultProps = {
   autoInit: true,
 };
 
+const prefixCls = 'sula-template-query-table';
+
 type Props = QueryTableProps & typeof defaultProps;
 
 export default class QueryTable extends React.Component<Props> {
@@ -51,7 +55,7 @@ export default class QueryTable extends React.Component<Props> {
 
   componentDidMount() {
     const { autoInit, initialValues } = this.props;
-    if (autoInit && this.remoteDataSource.url) {
+    if (autoInit && this.remoteDataSource) {
       this.tableRef.current.refreshTable(null, initialValues, null, true);
     }
   }
@@ -103,7 +107,7 @@ export default class QueryTable extends React.Component<Props> {
       rowKey,
     } = this.props;
 
-    if(!remoteDataSource) {
+    if (!remoteDataSource) {
       warning(false, 'QueryTable', '`remoteDataSource` is required.');
     }
 
@@ -112,6 +116,7 @@ export default class QueryTable extends React.Component<Props> {
     return (
       <Table
         {...tableProps}
+        className={cx(tableProps.className, `${prefixCls}`)}
         rowSelection={rowSelection}
         columns={columns}
         actionsRender={actionsRender}
