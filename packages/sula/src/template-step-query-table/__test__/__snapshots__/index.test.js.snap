@@ -214,7 +214,7 @@ exports[`step query table snapshot 1`] = `
           </div>
         </form>
         <div
-          class="ant-table-wrapper"
+          class="ant-table-wrapper sula-template-query-table"
         >
           <div
             class="ant-spin-nested-loading"
