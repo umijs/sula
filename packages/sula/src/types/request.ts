@@ -1,4 +1,4 @@
-import { AxiosRequestConfig, AxiosResponse } from 'axios';
+import { AxiosRequestConfig } from 'axios';
 import { ConvertParamsPlugin, ConverterPlugin } from './plugin';
 
 export interface BizResponse {

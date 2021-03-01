@@ -6,7 +6,7 @@ import assign from 'lodash/assign';
 import { FormItemProps } from 'antd/lib/form/FormItem';
 import { Rule } from 'antd/lib/form';
 import { FieldPlugin, ValidatorPlugin, RenderPlugin } from '../types/plugin';
-import { FieldNamePath, FieldNameList } from '../types/form';
+import { FieldNamePath, FieldNameList, FieldSource } from '../types/form';
 import { RequestConfig } from '../types/request';
 import { Dependencies } from '../types/dependency';
 import { toArray, assignWithDefined } from '../_util/common';
@@ -31,7 +31,7 @@ export interface FieldProps
   collect?: boolean;
   initialDisabled?: boolean;
   initialVisible?: boolean;
-  initialSource?: any;
+  initialSource?: FieldSource;
   initialValue?: any;
   remoteSource?: RequestConfig;
   dependency?: Dependencies;

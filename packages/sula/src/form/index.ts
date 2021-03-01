@@ -5,7 +5,7 @@ import FieldGroup from './FieldGroup';
 import FormAction from './FormAction';
 import MediaQueries from './MediaQueries';
 import {
-  default as InternalForm,
+  default as FieldForm,
   FormProps as InternalFormProps,
   FormInstance as FormInstanceProps,
 } from './Form';
@@ -13,7 +13,7 @@ import { FieldGroupProps as InternalFieldGroupProps } from './FieldGroup';
 import { FieldProps as InternalFieldProps } from './Field';
 import useFormContext from './useFormContext';
 
-export const Form = React.forwardRef<FormInstanceProps, InternalFormProps>(InternalForm) as (
+const InternalForm = React.forwardRef<FormInstanceProps, InternalFormProps>(FieldForm) as (
   props: React.PropsWithChildren<InternalFormProps> & { ref?: React.Ref<FormInstanceProps> },
 ) => React.ReactElement;
 
@@ -34,7 +34,9 @@ RefForm.FieldGroup = FieldGroup;
 RefForm.FormList = FormList;
 RefForm.useForm = useForm;
 
-export { Field, FieldGroup, FormList, FormAction, MediaQueries, useForm };
+const Form = RefForm;
+
+export { Form, Field, FieldGroup, FormList, FormAction, MediaQueries, useForm };
 
 export interface FormProps extends InternalFormProps {}
 export interface FieldGroupProps extends InternalFieldGroupProps {}

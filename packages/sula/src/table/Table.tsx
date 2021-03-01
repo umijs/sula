@@ -11,11 +11,12 @@ import { triggerRenderPlugin, triggerPlugin } from '../rope/triggerPlugin';
 import TableAction from './TableAction';
 import ModalForm from '../modalform';
 import { SulaConfigContext } from '../config-provider/context';
-import { RenderPlugin, ActionPlugin, FilterPlugin } from '../types/plugin';
+import { RenderPlugin, FilterPlugin } from '../types/plugin';
 import { RequestConfig } from '../types/request';
 
-type DataSource = Record<string, any>;
-export interface TableProps extends Omit<ATableProps<Record<string, any>>, 'title'> {
+type RowRecord = Record<string, any>;
+export interface TableProps extends Omit<ATableProps<RowRecord>, 'title' | 'dataSource' | 'pagination' | 'columns'> {
+  columns: ColumnProps[];
   remoteDataSource?: RequestConfig;
   initialPaging?:
     | false
@@ -24,7 +25,7 @@ export interface TableProps extends Omit<ATableProps<Record<string, any>>, 'titl
         sorter?: Sorter;
         filters?: Filters;
       };
-  initialDataSource?: DataSource;
+  initialDataSource?: RowRecord[];
   initialSelectedRowKeys?: string[];
   actionsRender?: RenderPlugin | RenderPlugin[];
   leftActionsRender?: RenderPlugin | RenderPlugin[];
@@ -32,8 +33,8 @@ export interface TableProps extends Omit<ATableProps<Record<string, any>>, 'titl
 }
 
 export interface ColumnProps extends Omit<AColumnProps<any>, 'render'> {
-  filterRender: FilterPlugin;
-  render: RenderPlugin | RenderPlugin[];
+  filterRender?: FilterPlugin;
+  render?: RenderPlugin | RenderPlugin[];
 }
 
 export interface Sorter {

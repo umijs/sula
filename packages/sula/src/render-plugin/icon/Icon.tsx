@@ -36,21 +36,23 @@ export type IconProps = Props & NativeAttrs;
 let globalIconMapper: IconMapper = {};
 
 const normalizeIconMapper = (iconMapperOfType) => {
-  if(iconMapperOfType.filled || iconMapperOfType.outlined || iconMapperOfType.twoTone) {
+  if (iconMapperOfType.filled || iconMapperOfType.outlined || iconMapperOfType.twoTone) {
     return iconMapperOfType;
   }
 
   return {
-    outlined: iconMapperOfType
-  }
-}
+    outlined: iconMapperOfType,
+  };
+};
 
 export default class Icon extends React.Component<IconProps> {
   static defaultProps = {
     theme: 'outlined',
   };
 
-  static iconRegister = (iconMapper: IconMapper) => {
+  static iconRegister = (
+    iconMapper: Record<string, React.ComponentType<any> | { [key in 'outlined' | 'filled' | 'twoTone']?: React.ComponentType<any> }>,
+  ) => {
     globalIconMapper = iconMapper;
   };
 
@@ -65,7 +67,6 @@ export default class Icon extends React.Component<IconProps> {
         'sula-icon-clickable': !!iconProps.onClick && disabled !== true && loading !== true,
         'sula-icon-loading': !!loading,
       });
-
 
       const IconCompClass = iconMapperOfType[theme] as React.ComponentClass<BasicIconProps>;
       if (text) {

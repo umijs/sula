@@ -1,7 +1,7 @@
 import React from 'react';
-import { QueryTable } from 'sula';
+import { QueryTable, QueryTableProps } from 'sula';
 
-const queryFields = Array(10)
+const queryFields: QueryTableProps['fields'] = Array(10)
   .fill(0)
   .map((_, index) => {
     return {
@@ -11,7 +11,7 @@ const queryFields = Array(10)
     };
   });
 
-export const remoteDataSource = {
+export const remoteDataSource: QueryTableProps['remoteDataSource'] = {
   url: 'https://randomuser.me/api',
   method: 'GET',
   convertParams({ params }) {
@@ -22,7 +22,7 @@ export const remoteDataSource = {
   },
   converter({ data }) {
     return {
-      list: data.results.map((item, index) => {
+      list: data.results.map((item: any, index: number) => {
         return {
           ...item,
           id: `${index}`,
@@ -35,7 +35,7 @@ export const remoteDataSource = {
   },
 };
 
-export const columns = [
+export const columns: QueryTableProps['columns'] = [
   {
     title: '序号',
     key: 'index',
@@ -84,7 +84,7 @@ export const columns = [
   },
 ];
 
-const actions = [
+const actions: QueryTableProps['actionsRender'] = [
   {
     type: 'button',
     disabled: (ctx) => {
@@ -115,9 +115,8 @@ const actions = [
             return {
               ...ctx.params,
               uuids,
-            }
-
-          }
+            };
+          },
         },
       },
       (ctx) => {

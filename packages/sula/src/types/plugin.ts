@@ -2,6 +2,8 @@ import { ColumnProps } from 'antd/lib/table';
 import { Mode, FieldNamePath } from './form';
 import { FormInstance } from '../form/Form';
 import { TableInstance } from '../table/Table';
+import { PopconfirmProps } from 'antd/lib/popconfirm';
+import { TooltipProps } from 'antd/lib/tooltip';
 
 export type PluginType = 'render' | 'field' | 'action' | 'dependency' | 'validator' | 'converter' | 'convertParams' | 'filter';
 
@@ -26,13 +28,13 @@ type ValidatorCtx = {
 // Table Context 
 type TableCtx = {
   table: TableInstance;
-  record?: Record<string, any>;
-  text?: any;
-  index?: number;
-  dataSource?: Record<string, any>[];
+  record: Record<string, any>;
+  text: any;
+  index: number;
+  dataSource: Record<string, any>[];
 }
 
-type RenderCtx = Partial<FormCtx> & Partial<TableCtx>;
+type RenderCtx = FormCtx & TableCtx;
 
 // Action Context
 type ActionResultCtx = {
@@ -59,7 +61,10 @@ export type RenderPluginFunction = (ctx: RenderCtx) => React.ReactElement;
 export type RenderPlugin = {
   type: string | RenderPluginFunction;
   props?: Record<string, any>;
-  functionProps?: Record<string, (ctx: RenderCtx) => string>;
+  funcProps?: Record<string, (ctx: RenderCtx) => string>;
+  confirm?: string | PopconfirmProps;
+  tooltip?: string | TooltipProps;
+  disabled?: boolean;
   action?: ActionPlugin | ActionPlugin[];
 } | string | RenderPluginFunction;
 
@@ -68,7 +73,7 @@ export type FieldPluginFunction = (ctx: FormCtx) => React.ReactElement;
 export type FieldPlugin = {
   type: string | FieldPluginFunction;
   props?: Record<string, any>;
-  functionProps?: Record<string, (ctx: FormCtx) => string>;
+  funcProps?: Record<string, (ctx: FormCtx) => string>;
   action?: ActionPlugin | ActionPlugin[];
 } | string | FieldPluginFunction;
 
