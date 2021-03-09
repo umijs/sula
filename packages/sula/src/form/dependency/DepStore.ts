@@ -211,11 +211,12 @@ export default class DepStore {
 
     if (dep.inputs || dep.type) return; // 非远程数据源场景
 
-    const fetchDepInfo = relates.reduce((memo, relatedFieldNameList: FieldNameList) => {
+    const fetchDepInfo = (relates as FieldNameList[]).reduce((memo, relatedFieldNameList) => {
       const value = form.getFieldValue(relatedFieldNameList);
-      memo[relatedFieldNameList.join('.')] = value;
+      // memo[relatedFieldNameList.join('.')] = value;
+      memo[relatedFieldNameList[relatedFieldNameList.length - 1]] = value;
       return memo;
-    }, {});
+    }, {} as Record<string, any>);
 
     return triggerActionPlugin(
       ctx,
@@ -249,13 +250,16 @@ function isWillingSetValue(fieldNameList, cascadePayload) {
  * 不清空 - (ctx.cascadeTrigger === setFieldsValue || setFields) && values.hasOwnProperty(x);
  * 否则清空
  */
-export function hasOwnPropWithNameList(fieldNameList: FieldNameList, payload) {
+export function hasOwnPropWithNameList(
+  fieldNameList: FieldNameList,
+  payload: Record<string, Record<string, any>>,
+) {
   const len = fieldNameList.length;
   let recurValue = payload;
   for (let i = 0; i < len; i += 1) {
     const namePath = fieldNameList[i];
     if (isObject(recurValue) && recurValue.hasOwnProperty(namePath)) {
-      recurValue = recurValue[name];
+      recurValue = recurValue[namePath];
     } else {
       // 提前退出
       return false;

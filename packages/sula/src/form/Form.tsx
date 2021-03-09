@@ -117,7 +117,11 @@ const Form: React.FunctionComponent<FormProps> = (props, ref) => {
   const originValuesChange = formProps.onValuesChange;
 
   formProps.onValuesChange = (changedValue, allValues) => {
-    cascade(changedValue);
+    /**
+     * 针对formList的dependency add/remove的处理
+     * 例如remove的时候，changedValue是整个formList的值，比如value关联，isWilling直接跳过，不用再触发一次关联逻辑
+     */
+    cascade(changedValue, { cascadeTrigger: 'setFieldsValue', cascadeStore: changedValue });
     if (originValuesChange) {
       originValuesChange(changedValue, allValues);
     }

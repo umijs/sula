@@ -15,6 +15,7 @@ import { RenderPlugin, FilterPlugin } from '../types/plugin';
 import { RequestConfig } from '../types/request';
 
 type RowRecord = Record<string, any>;
+type DataSource = RowRecord[];
 export interface TableProps extends Omit<ATableProps<RowRecord>, 'title' | 'dataSource' | 'pagination' | 'columns'> {
   columns: ColumnProps[];
   remoteDataSource?: RequestConfig;
@@ -25,7 +26,7 @@ export interface TableProps extends Omit<ATableProps<RowRecord>, 'title' | 'data
         sorter?: Sorter;
         filters?: Filters;
       };
-  initialDataSource?: RowRecord[];
+  initialDataSource?: DataSource;
   initialSelectedRowKeys?: string[];
   actionsRender?: RenderPlugin | RenderPlugin[];
   leftActionsRender?: RenderPlugin | RenderPlugin[];

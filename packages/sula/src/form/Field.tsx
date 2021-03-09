@@ -105,7 +105,10 @@ export default class Field extends React.Component<FieldProps> {
   private initFieldSource = (ctx) => {
     if (this.props.remoteSource && this.props.remoteSource.init !== false) {
       triggerActionPlugin(ctx, this.props.remoteSource).then((data: any) => {
-        ctx.form.setFieldSource(this.getName(), data);
+        /**
+         * 如果有fieldKey，则使用fieldKey注册
+         */
+        ctx.form.setFieldSource(this.getName(true), data);
       });
     }
   };
