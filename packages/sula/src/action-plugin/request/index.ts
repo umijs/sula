@@ -8,10 +8,16 @@ import { RequestConfig, BizExtendConfig, BizResponse } from '../../types/request
 import extendConfig from './defaultConfig';
 import { toArray } from '../../_util/common';
 import { triggerPlugin } from '../../rope/triggerPlugin';
+import { request as axiosRequest, dataResolver as axiosDataResolver } from './axiosImpl';
 
 type ExtendConfigMatcher = (requestConfig: AxiosRequestConfig) => boolean;
 
 let globalConfig = extendConfig;
+
+const requestRegistry = {
+  request: axiosRequest,
+  dataResolver: axiosDataResolver,
+};
 
 const globalConfigMatchers = [] as [ExtendConfigMatcher, BizExtendConfig][];
 
@@ -97,12 +103,16 @@ export const request = (config: RequestConfig, ctx?) => {
     requestOptions = bizRequestAdapter(requestOptions);
   }
 
-  return axios(requestOptions)
-    .then((raw: AxiosResponse) => {
-      return raw && raw.data;
-    }, (error) => {
-      return errorMessageAdapter(error);
-    })
+  return requestRegistry
+    .request(requestOptions)
+    .then(
+      (raw: AxiosResponse) => {
+        return requestRegistry.dataResolver(raw);
+      },
+      (error) => {
+        return errorMessageAdapter(error);
+      },
+    )
     .then((res: BizResponse) => {
       return new Promise((resolve, reject) => {
         // 1. 重定向
@@ -200,4 +210,12 @@ request.use = (matcher: ExtendConfigMatcher | BizExtendConfig, extendConfig?: Bi
   } else {
     globalConfig = assign({}, globalConfig, matcher as BizExtendConfig);
   }
+};
+
+const invariant = (raw: any) => raw;
+
+request.impl = (requestFn: (options: any) => Promise<any>, dataResolverFn?: (raw: any) => any) => {
+  const finalDataResolverFn = dataResolverFn || invariant;
+  requestRegistry.request = requestFn;
+  requestRegistry.dataResolver = finalDataResolverFn;
 };
