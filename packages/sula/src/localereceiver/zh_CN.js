@@ -1,4 +1,5 @@
 export default {
+  stageText: '暂存',
   saveText: '保存',
   submitText: '提交',
   updateText: '更新',

@@ -1,9 +1,11 @@
 import React from 'react';
 import cx from 'classnames';
 import omit from 'lodash/omit';
+import isFunction from 'lodash/isFunction';
+import assign from 'lodash/assign';
 import { Steps, Result, Spin } from 'antd';
 import Memorize from './memorize';
-import { Form, FieldGroup, FormProps, FieldGroupProps, FormAction } from '../form';
+import { Form, FieldGroup, FormProps, FieldGroupProps, FormAction, FormInstance } from '../form';
 import { RequestConfig } from '../types/request';
 import LocaleReceiver from '../localereceiver';
 import { transformSubmit } from '../template-create-form/CreateForm';
@@ -30,14 +32,18 @@ export interface StepFormProps extends FormProps {
   steps: StepProps[];
   back?: ActionPlugin;
   submit: RequestConfig;
+  save?: RequestConfig;
   direction?: 'vertical' | 'horizontal';
   stepsStyle?: React.CSSProperties;
   formStyle?: React.CSSProperties;
 }
 
+type StepStatus = 'success' | 'error';
+
 interface StepFormState {
   current: number;
   loading: boolean;
+  stepsStatus: Array<StepStatus>;
 }
 
 export default class StepForm extends React.Component<StepFormProps, StepFormState> {
@@ -49,6 +55,48 @@ export default class StepForm extends React.Component<StepFormProps, StepFormSta
   state = {
     current: 0,
     loading: false,
+    stepsStatus: [] as Array<StepStatus>,
+  };
+
+  validateStep = (
+    form: FormInstance,
+    stepIndex: number,
+    stepsStatus: Array<StepStatus>,
+  ): Promise<any> => {
+    return form
+      .validateGroupFields(this.getStepName(stepIndex))
+      .then(
+        () => {
+          stepsStatus.push('success');
+        },
+        () => {
+          stepsStatus.push('error');
+        },
+      )
+      .then(() => {
+        if (stepIndex === this.props.steps.length - 1) {
+          return;
+        } else {
+          return this.validateStep(form, stepIndex + 1, stepsStatus);
+        }
+      });
+  };
+
+  validateSteps = (form: FormInstance) => {
+    const stepsStatus = [] as Array<StepStatus>;
+    return new Promise((resolve, reject) => {
+      this.validateStep(form, 0, stepsStatus).then(() => {
+        if (stepsStatus.indexOf('error') > -1) {
+          /** 如果存在校验错误，不再执行后续action */
+          reject();
+        } else {
+          resolve(stepsStatus);
+        }
+        this.setState({
+          stepsStatus,
+        });
+      });
+    });
   };
 
   getStepName = (stepIndex: number) => {
@@ -59,16 +107,38 @@ export default class StepForm extends React.Component<StepFormProps, StepFormSta
     this.setState({
       current: this.state.current + 1,
     });
+
+    this.clearStepErrorStatus(this.state.current + 1);
   };
 
   previousStep = () => {
     this.setState({
       current: this.state.current - 1,
     });
+
+    this.clearStepErrorStatus(this.state.current - 1);
+  };
+
+  /** save 才会开启 */
+  handleChange = (current: number) => {
+    this.setState({ current });
+    this.clearStepErrorStatus(current);
+  };
+
+  clearStepErrorStatus = (stepIndex: number) => {
+    const { save } = this.props;
+    const { stepsStatus } = this.state;
+    if (save && stepsStatus[stepIndex] === 'error') {
+      const newStepsStatus = [...stepsStatus];
+      newStepsStatus[stepIndex] = 'success' as StepStatus;
+      this.setState({
+        stepsStatus: newStepsStatus,
+      });
+    }
   };
 
   renderStepActions = (stepType, locale) => {
-    const { mode, submit, back = 'back', result } = this.props;
+    const { mode, submit, back = 'back', result, save } = this.props;
     const isView = mode === 'view';
     const { current } = this.state;
     // 取消或者返回
@@ -101,7 +171,7 @@ export default class StepForm extends React.Component<StepFormProps, StepFormSta
     const nextAction = {
       type: 'button',
       props: {
-        type: 'primary',
+        type: save && !isView ? 'default' : 'primary',
         children: locale.nextText,
       },
       action: [this.nextStep],
@@ -123,6 +193,29 @@ export default class StepForm extends React.Component<StepFormProps, StepFormSta
       ],
     };
 
+    /**
+     * 仅提交不校验
+     */
+    const saveAction = save && {
+      type: 'button',
+      props: {
+        type: stepType === 'submit' ? 'default' : 'primary',
+        children: locale.stageText,
+      },
+      action: [
+        {
+          type: 'getFieldsValue',
+          resultPropName: '$fieldsValue',
+        },
+        ...transformSubmit(
+          isFunction(save) ? save : assign({ successMessage: locale.stageText }, save),
+        ),
+      ],
+    };
+
+    /**
+     * 校验并提交
+     */
     const submitAction = {
       type: 'button',
       props: {
@@ -130,6 +223,16 @@ export default class StepForm extends React.Component<StepFormProps, StepFormSta
         children: mode === 'create' ? locale.submitText : locale.updateText,
       },
       action: [
+        /** 如果是暂存模式，先对各step做校验，如果有校验不过的就不走后面的action */
+        ...(save
+          ? [
+              {
+                type: (ctx: {form: FormInstance}) => {
+                  return this.validateSteps(ctx.form);
+                },
+              },
+            ]
+          : []),
         {
           type: 'validateFields',
           resultPropName: '$fieldsValue',
@@ -139,11 +242,30 @@ export default class StepForm extends React.Component<StepFormProps, StepFormSta
     };
 
     if (stepType === 'first') {
-      return [isView ? nextAction : validateFieldsAndNextAction, cancelAction];
+      return [
+        ...(isView
+          ? [nextAction]
+          : save
+          ? [saveAction, nextAction]
+          : [validateFieldsAndNextAction]),
+        cancelAction,
+      ];
     } else if (stepType === 'middle') {
-      return [isView ? nextAction : validateFieldsAndNextAction, previousAction, cancelAction];
+      return [
+        ...(isView
+          ? [nextAction]
+          : save
+          ? [saveAction, nextAction]
+          : [validateFieldsAndNextAction]),
+        previousAction,
+        cancelAction,
+      ];
     } else if (stepType === 'submit') {
-      return [...(isView ? [] : [submitAction]), previousAction, cancelAction];
+      return [
+        ...(isView ? [] : [submitAction, ...(save ? [saveAction] : [])]),
+        previousAction,
+        cancelAction,
+      ];
     } else {
       // result
       return [okAction];
@@ -151,8 +273,8 @@ export default class StepForm extends React.Component<StepFormProps, StepFormSta
   };
 
   renderStepForm = (locale) => {
-    const { steps, result, direction, stepsStyle, formStyle, ...restFormProps } = this.props;
-    const { loading } = this.state;
+    const { steps, result, direction, stepsStyle, formStyle, save, ...restFormProps } = this.props;
+    const { loading, stepsStatus } = this.state;
 
     const formProps = omit(restFormProps, ['submit', 'back']);
 
@@ -168,11 +290,20 @@ export default class StepForm extends React.Component<StepFormProps, StepFormSta
             direction={direction}
             size={direction === 'vertical' ? 'small' : 'default'}
             current={current}
+            {...(save ? { onChange: this.handleChange } : {})}
           >
             {steps.map((step, stepIndex) => {
               const { title, subTitle, description } = step;
               return (
-                <Step title={title} subTitle={subTitle} description={description} key={stepIndex} />
+                <Step
+                  title={title}
+                  subTitle={subTitle}
+                  description={description}
+                  {...(save
+                    ? { status: stepsStatus[stepIndex] !== 'error' ? undefined : 'error' }
+                    : {})}
+                  key={stepIndex}
+                />
               );
             })}
           </Steps>

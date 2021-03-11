@@ -1,4 +1,5 @@
 export default {
+  stageText: 'Save',
   saveText: 'Save',
   submitText: 'Submit',
   updateText: 'Update',

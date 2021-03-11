@@ -41,11 +41,18 @@ const steps = [
         name: 'input3',
         label: 'Input3',
         field: 'input',
+        rules: [
+          {
+            required: true,
+          },
+        ],
       },
     ],
   },
 ];
-const initialValues = { input1: '我是初始数据' };
+
+const initialValues = { input1: '我是初始表单数据' };
+
 export default class BasicDemo extends React.Component {
   state = {
     direction: 'horizontal',
@@ -74,6 +81,7 @@ export default class BasicDemo extends React.Component {
         >
           vertical
         </Button>
+
         <Button
           onClick={() => {
             this.setState({ mode: 'create' });
@@ -106,6 +114,17 @@ export default class BasicDemo extends React.Component {
             submit={{
               url: 'https://www.mocky.io/v2/5185415ba171ea3a00704eed',
               method: 'POST',
+              params: {
+                tag: '__sula-submit-test__',
+              },
+            }}
+            save={{
+              url: 'https://www.mocky.io/v2/5185415ba171ea3a00704eed',
+              method: 'POST',
+              params: {
+                tag: '__sula-save-test__',
+              },
+              successMessage: '暂存成功',
             }}
             result
           />

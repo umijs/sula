@@ -41,7 +41,15 @@ export default class CreateForm extends React.Component<CreateFormProps> {
   }
 
   render() {
-    const { submit, back, submitButtonProps, backButtonProps, actionsPosition, actionsRender, ...formProps } = this.props;
+    const {
+      submit,
+      back,
+      submitButtonProps,
+      backButtonProps,
+      actionsPosition,
+      actionsRender,
+      ...formProps
+    } = this.props;
     const { mode, itemLayout } = formProps;
     const { loading } = this.state;
 
@@ -150,13 +158,13 @@ function resultToParams(ctx) {
   return assign({}, ctx.params, ctx.result);
 }
 
-export function transformSubmit(submit, back) {
+export function transformSubmit(submit, back?) {
   if (isFunction(submit)) {
-    return [submit, back];
+    return [submit, ...(back ? [back] : [])];
   }
 
   const convertParams = toArray(submit.convertParams || []);
   convertParams.unshift(resultToParams);
   const submitAction = assign({}, submit, { convertParams });
-  return [submitAction, back];
+  return [submitAction, ...(back ? [back] : [])];
 }

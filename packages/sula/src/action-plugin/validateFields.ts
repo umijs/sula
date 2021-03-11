@@ -27,3 +27,7 @@ export const validateQueryFields = (ctx) => {
 export const resetFields = (ctx) => {
   return ctx.form.resetFields();
 };
+
+export const getFieldsValue = (ctx) => {
+  return ctx.form.getFieldsValue();
+}

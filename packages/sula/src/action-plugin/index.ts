@@ -4,6 +4,7 @@ import {
   validateGroupFields,
   validateQueryFields,
   resetFields,
+  getFieldsValue,
 } from './validateFields';
 import { refreshTable, resetTable } from './refreshTable';
 import { modalform, drawerform, modalOk, modalCancel } from './modalform';
@@ -21,6 +22,7 @@ function registerActionPlugins() {
   registerActionPlugin('validateGroupFields', validateGroupFields);
   registerActionPlugin('validateQueryFields', validateQueryFields);
   registerActionPlugin('resetFields', resetFields);
+  registerActionPlugin('getFieldsValue', getFieldsValue);
 
   // ================= table ==================
   registerActionPlugin('refreshTable', refreshTable);
