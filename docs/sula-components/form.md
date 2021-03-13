@@ -18,8 +18,10 @@ order: 0
 
 <code title="validator" src="../form/validator.jsx" />
 
-<code title="dynamic" src="../form/dynamic.jsx" />
+<code title="dynamic" src="../form/dynamic.jsx" /> -->
 
 <code title="dynamic dependency" src="../form/dynamicDep.jsx" />
+
+<code title="数据源 dynamic dependency（有问题）" src="../form/dynamicDepSource.jsx" />
 
 <code title="自定义 dynamic dependency" src="../form/dynamicCustomDep.jsx" />

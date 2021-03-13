@@ -88,7 +88,7 @@ export default class FieldGroup extends React.Component<FieldGroupProps> {
     if (!groupFieldPropsWithName.name) {
       groupFieldPropsWithName.name = this.groupName;
     }
-    formDependency.parseFormDependency(groupFieldPropsWithName as FieldProps);
+    formDependency.parseFormDependency(groupFieldPropsWithName as FieldProps, (name) => toArray(name));
   }
 
   componentWillUnmount() {
@@ -119,7 +119,7 @@ export default class FieldGroup extends React.Component<FieldGroupProps> {
   }
 
   // 放入 NameListMap
-  public getName(): FieldNameList {
+  public getName = (): FieldNameList => {
     return toArray(this.groupName);
   }
 
@@ -174,7 +174,7 @@ export default class FieldGroup extends React.Component<FieldGroupProps> {
               return triggerFieldPlugin(
                 ctx,
                 assign(listRenderPlugin, {
-                  props: assign({}, listRenderPlugin.props, { list: listArgs }),
+                  props: assign({}, listRenderPlugin.props, { list: asyncWrap(listArgs, ctx) }),
                 }),
               );
             }}
@@ -354,4 +354,23 @@ export default class FieldGroup extends React.Component<FieldGroupProps> {
 
 function getGroupName(groupName) {
   return groupName || uniqueId('groupName_');
+}
+
+function asyncWrap(list, ctx) {
+  const actions = list[1];
+  const newActions = Object.keys(actions).reduce((memo, actionName) => {
+    const action = actions[actionName];
+
+    memo[actionName] = (...args: any[]) => {
+      const { setAsyncCascade } = ctx.form.getInternalHooks(HOOK_MARK);
+      setAsyncCascade(true);
+      action(...args);
+    };
+
+    return memo;
+  }, {});
+
+  const newList = [...list];
+  newList[1] = newActions;
+  return newList;
 }

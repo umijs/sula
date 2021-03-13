@@ -71,7 +71,10 @@ export default class Field extends React.Component<FieldProps> {
   private cancelRegisterField: () => void | null = null;
 
   componentDidMount() {
-    const { registerField, getFormDependency, getCtx } = this.context.formContext.getInternalHooks(
+    if(!this.props.name) {
+      return;
+    }
+    const { registerField, getFormDependency, getCtx, linkFieldNameAndFieldKey } = this.context.formContext.getInternalHooks(
       HOOK_MARK,
     );
 
@@ -79,6 +82,7 @@ export default class Field extends React.Component<FieldProps> {
 
     const { parentGroupName } = this.context;
     this.cancelRegisterField = registerField(parentGroupName, this);
+    linkFieldNameAndFieldKey(this.getName(true), this.getName());
 
     if (!this.props.dependency) {
       return;
@@ -90,7 +94,31 @@ export default class Field extends React.Component<FieldProps> {
     formDependency.parseFormDependency(this.props, this.getFieldNameList);
   }
 
+  componentDidUpdate(prevProps: FieldProps) {
+    if(this.props.fieldKey && this.props.fieldKey !== prevProps.fieldKey) {
+      const { linkFieldNameAndFieldKey, unlinkFieldNameAndFieldKey } = this.context.formContext.getInternalHooks(
+        HOOK_MARK,
+      );
+
+      const oldFieldName = this.getFieldNameList(prevProps.name!);
+
+      // 动态添加
+      unlinkFieldNameAndFieldKey(oldFieldName);
+      linkFieldNameAndFieldKey(this.getName(true), this.getName());
+    }
+  }
+
   componentWillUnmount() {
+    const { getFormDependency, unlinkFieldNameAndFieldKey } = this.context.formContext.getInternalHooks(HOOK_MARK);
+    if (this.props.dependency) {
+
+      const formDependency: FormDependency = getFormDependency();
+      formDependency.removeDependency(this.getName());
+    }
+
+    // 动态删除
+    unlinkFieldNameAndFieldKey(this.getName(true));
+
     this.cancelRegister();
     this.destroy = true;
   }
@@ -108,7 +136,7 @@ export default class Field extends React.Component<FieldProps> {
         /**
          * 如果有fieldKey，则使用fieldKey注册
          */
-        ctx.form.setFieldSource(this.getName(true), data);
+        ctx.form.setFieldSource(this.getName(), data);
       });
     }
   };
@@ -126,9 +154,12 @@ export default class Field extends React.Component<FieldProps> {
     return toArray(name);
   };
 
-  public getName = (needFieldKey?: boolean): FieldNameList | undefined => {
+  public getName = (needFieldNameList?: boolean): FieldNameList | undefined => {
+    /** fieldKey 只在动态增减使用，此时fieldKey是确定的，name是变化的 */
     const { name, fieldKey } = this.props;
-    const finalName = (needFieldKey && !isUndefined(fieldKey) ? fieldKey : name) as FieldNamePath;
+    const finalName = (!isUndefined(fieldKey) && !needFieldNameList
+      ? fieldKey
+      : name) as FieldNamePath;
     if (isUndefined(finalName)) {
       return;
     }

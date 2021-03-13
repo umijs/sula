@@ -13,21 +13,18 @@ import isUndefined from 'lodash/isUndefined';
 import isObject from 'lodash/isObject';
 import isEqual from 'lodash/isEqual';
 import { triggerPlugin, triggerActionPlugin } from '../../rope/triggerPlugin';
+import { HOOK_MARK } from '../FieldGroupContext';
+import { getStoreValue } from '../utils/valueUtil';
 
 export default class DepStore {
   public getName: (name: FieldNamePath) => FieldNameList = null!;
 
   // 主动触发配置
+  // TODO 如果删除了，要动态更新
   public depsByFieldNameList: NameListMap<FieldNameList, TransedDependencies> = new NameListMap();
 
-  public parse(
-    fieldConfig: any,
-    deps: Dependencies,
-    getName?: (name: FieldNamePath) => FieldNameList,
-  ) {
-    const fieldNameList: FieldNameList = getName
-      ? getName(fieldConfig.name as FieldNamePath)
-      : toArray(fieldConfig.name);
+  public parse(fieldConfig: any, deps: Dependencies, getName: (name: FieldNamePath) => FieldNameList) {
+    const fieldNameList: FieldNameList = getName(fieldConfig.fieldKey || fieldConfig.name);
     Object.keys(deps).forEach((type) => {
       const dependency: Dependency = deps[type as DependencyType];
       const { cases, ...globalDep } = dependency;
@@ -102,8 +99,22 @@ export default class DepStore {
     });
   }
 
-  public triggerDependency(ctx, depsOfType: TransedDependencies, cascadePayload) {
+  private getDepForm = (ctx) => {
+    const { getFieldValueByFieldKey, setFieldValueByFieldKey } = ctx.form.getInternalHooks(HOOK_MARK);
+    return {
+      getFieldValue: getFieldValueByFieldKey,
+      setFieldValue: setFieldValueByFieldKey,
+    };
+  };
+
+  private getDepCtx = (ctx) => {
+    return assign({}, ctx, { form: assign({}, ctx.form, this.getDepForm(ctx)) });
+  };
+
+  public triggerDependency(originCtx, depsOfType: TransedDependencies, cascadePayload) {
+    const ctx = this.getDepCtx(originCtx);
     const { form } = ctx;
+    const { getFieldNameByFieldKey } = form.getInternalHooks(HOOK_MARK);
 
     Object.keys(depsOfType).forEach((type) => {
       const allDeps: TransedDependency[][] = depsOfType[type as DependencyType];
@@ -131,9 +142,23 @@ export default class DepStore {
             }
           }
 
-          const values = relates.map((relatedFieldNameList) => {
-            return form.getFieldValue(relatedFieldNameList);
-          });
+          const values = [];
+          let valuesChanged: boolean = false;
+
+          for(let i = 0, len = relates.length; i < len; i+=1) {
+            const relatedFieldNameList = relates[i];
+            const relatedFieldValue = form.getFieldValue(relatedFieldNameList);
+            const prevRelatedFieldValue = getStoreValue(cascadePayload.cascadePrevStore, getFieldNameByFieldKey(relatedFieldNameList));
+            if(prevRelatedFieldValue !== relatedFieldValue) {
+              valuesChanged = true;
+            }
+            values.push(relatedFieldValue);
+          }
+
+          if(valuesChanged === false) {
+            return;
+          }
+
 
           if (depPlugin) {
             if (type === 'source' && !autoResetValue) {

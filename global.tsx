@@ -83,7 +83,7 @@ const DynamicDepFieldComp = (props) => {
               const transedDep = Object.keys(dependency).reduce((memo, depType) => {
                 const dep = dependency[depType];
                 const relates = dep.relates.map((r) => {
-                  return [name, ...(Array.isArray(r) ? r : [r])];
+                  return [fieldKey, ...(Array.isArray(r) ? r : [r])];
                 });
                 memo[depType] = {
                   ...dep,
@@ -99,6 +99,9 @@ const DynamicDepFieldComp = (props) => {
                   fieldKey={[fieldKey, fieldConfig.name]}
                   rules={fieldConfig.rules}
                   field={fieldConfig.field}
+                  remoteSource={fieldConfig.remoteSource}
+                  initialSource={fieldConfig.initialSource}
+                  initialValue={fieldConfig.initialValue}
                   dependency={transedDep}
                 />
               );

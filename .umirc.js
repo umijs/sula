@@ -2,7 +2,16 @@ import { join } from 'path';
 
 export default {
   plugins: [join(__dirname, './packages/umi-plugin-sula/src')],
-  sula: {},
+  sula: {
+    locale: {
+      default: 'zh-CN',
+    },
+  },
+  locale: {
+    default: 'zh-CN',
+    antd: true,
+    baseNavigator: false,
+  },
   outputPath: '.doc',
   extraBabelPlugins: [
     [

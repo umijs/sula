@@ -20,6 +20,10 @@ export type FieldsValue = { name: FieldNamePath; value: any }[];
 class ContextStore {
   private fieldsByGroup: Record<string, Field[]> = {};
   private fieldNameMap: NameListMap<FieldNameList, Field | FieldGroup> = new NameListMap();
+  /** dep */
+  private fieldNameAndFieldKeyMap: NameListMap<FieldNameList, FieldNameList> = new NameListMap();
+  private needAsyncCascade: boolean = false;
+
   private groupsByParentGroup: Record<string, FieldGroup[]> = {};
 
   private formDependency: FormDependency;
@@ -64,23 +68,25 @@ class ContextStore {
     if (isBoolean(nameList) && nameList) {
       return this.formInstance.validateFields();
     }
-    const visibleFieldsName = [] as FieldNameList[];
+    let visibleFieldsName = [] as FieldNameList[];
     // 从nameList剔除不显示的
     if (nameList) {
       this.getVisibleFieldsName(nameList, visibleFieldsName);
     } else {
       const rootFieldGroups = this.groupsByParentGroup[rootGroupName];
       this.getVisibleFieldsNameFromGroup(rootFieldGroups, visibleFieldsName);
+      visibleFieldsName = visibleFieldsName.map((n) => this.getFieldNameByFieldKey(n));
     }
 
     return this.formInstance.validateFields(visibleFieldsName);
   };
 
   public validateGroupFields = (groupName: string) => {
-    const visibleFieldsName = [] as FieldNameList[];
+    let visibleFieldsName = [] as FieldNameList[];
 
     const fieldGroup = this.fieldNameMap.get(toArray(groupName)) as FieldGroup;
     this.getVisibleFieldsNameFromGroup([fieldGroup], visibleFieldsName);
+    visibleFieldsName = visibleFieldsName.map((n) => this.getFieldNameByFieldKey(n));
     return this.formInstance.validateFields(visibleFieldsName);
   };
 
@@ -167,11 +173,13 @@ class ContextStore {
       return {
         registerField: this.registerField,
         registerFieldGroup: this.registerFieldGroup,
+        linkFieldNameAndFieldKey: this.linkFieldNameAndFieldKey,
+        unlinkFieldNameAndFieldKey: this.unlinkFieldNameAndFieldKey,
         saveFormDependency: (formDependency: FormDependency) => {
           this.formDependency = formDependency;
         },
         getFormDependency: () => this.formDependency,
-        saveFormProps: (formProps) => {
+        saveFormProps: (formProps: FormProps) => {
           this.formProps = formProps;
         },
         getCtx: this.getCtx,
@@ -179,11 +187,50 @@ class ContextStore {
 
         /** useForm */
         getAFormInstance: this.getAFormInstance,
+
+        /** dependency */
+        getFieldValueByFieldKey: this.getFieldValueByFieldKey,
+        setFieldValueByFieldKey: this.setFieldValueByFieldKey,
+
+        getFieldKeyByFieldName: this.getFieldKeyByFieldName,
+        getFieldNameByFieldKey: this.getFieldNameByFieldKey,
+
+        setAsyncCascade: this.setAsyncCascade,
+        getAsyncCascade: this.getAsyncCascade,
       };
     }
   };
 
   // ================== Internal Hooks ===================
+  /** dep start */
+  // 值关联的时候用fieldName找fieldKey再找dep
+  private getFieldKeyByFieldName = (fieldNameList: FieldNameList): FieldNameList => {
+    return this.fieldNameAndFieldKeyMap.get(fieldNameList)!;
+  };
+
+  private getFieldValueByFieldKey = (fieldNameList: FieldNameList): any => {
+    return this.formInstance.getFieldValue(this.getFieldNameByFieldKey(fieldNameList));
+  };
+
+  private setFieldValueByFieldKey = (fieldNameList: FieldNameList, value: any) => {
+    return this.setFieldValue(this.getFieldNameByFieldKey(fieldNameList), value);
+  };
+
+  private getFieldNameByFieldKey = (fieldNameKey: FieldNameList): FieldNameList => {
+    return this.getField(fieldNameKey).getName(true)!;
+  };
+
+
+  private setAsyncCascade = (needAsyncCascade: boolean) => {
+    this.needAsyncCascade = needAsyncCascade;
+  }
+
+  private getAsyncCascade = () => {
+    return this.needAsyncCascade;
+  }
+
+  /** dep end */
+
   private getAFormInstance = (): AFormInstance => {
     return this.formInstance;
   };
@@ -202,6 +249,14 @@ class ContextStore {
     return finalCtx;
   };
 
+  private linkFieldNameAndFieldKey = (newFieldName: FieldNameList, newFieldKey: FieldNameList) => {
+    this.fieldNameAndFieldKeyMap.set(newFieldName, newFieldKey);
+  }
+
+  private unlinkFieldNameAndFieldKey = (oldFieldName: FieldNameList) => {
+    this.fieldNameAndFieldKeyMap.delete(oldFieldName);
+  }
+
   /**
    * fieldNameMap: 以 fieldNameList 保存 field 或 支持依赖的 fieldGroup 实例
    * fieldsByGroup: 以 groupName(string) 保存直接子 Field 组
@@ -212,7 +267,7 @@ class ContextStore {
     isFieldGroup: boolean = false,
   ) => {
     /** 注册field不能用name，因为dynamic的name是变化的，这个name一定是唯一的，新版本这块要重点重构 */
-    const fieldNameList = field.getName(true);
+    const fieldNameList = field.getName();
     // 如果没有name的field不放入到fieldMap中
     if (isUndefined(fieldNameList)) {
       return;
@@ -260,7 +315,10 @@ class ContextStore {
   };
 
   private cascade = (store: any, cascadePayload = {}) => {
-    const cascades: FieldNameList[] = this.formDependency.getCascades();
+    /** dep 是按照 fieldKey 存的，需要转成 fieldName 再来检测 */
+    const cascades: FieldNameList[] = this.formDependency.getCascades().map((fieldKey) => {
+      return this.getFieldNameByFieldKey(fieldKey);
+    });
     if (cascades && cascades.length) {
       let finalStore = store;
       // setFieldsValue的场景
@@ -340,7 +398,7 @@ class ContextStore {
       const fieldNameLists: FieldNameList[] = (
         this.fieldsByGroup[fieldGroup.getGroupName()] || []
       ).map((field) => {
-        return field.getName(true) as FieldNameList;
+        return field.getName() as FieldNameList;
       });
 
       this.getVisibleFieldsName(fieldNameLists, visibleFieldsName);

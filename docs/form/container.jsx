@@ -30,6 +30,15 @@ export default class FieldContainer extends React.Component {
                 type: 'inner',
               },
             },
+            initialVisible: false,
+            dependency: {
+              visible: {
+                relates: ['input1', 'input2'],
+                inputs: [['95'], ['27']],
+                output: true,
+                defaultOutput: false,
+              }
+            },
             fields: [
               {
                 label: '输入框3',

@@ -66,15 +66,26 @@ describe('depstore', () => {
       const inputType = store.depsByFieldNameList.get(['input']);
       expect(inputType).toMatchSnapshot();
 
+      const depForm = {
+        getFieldValueByFieldKey: jest.fn(() => 'aaa'),
+        setFieldValueByFieldKey: jest.fn(),
+        getFieldKeyByFieldName: jest.fn((a) => a),
+        getFieldNameByFieldKey: jest.fn((a) => a),
+      };
+
       const form = {
         setFieldDisabled: jest.fn(),
         setFieldVisible: jest.fn(),
         setFieldValue: jest.fn(),
         setFieldSource: jest.fn(),
         getFieldValue: jest.fn(() => 'aaa'),
+        getInternalHooks: () => {
+          return depForm;
+        },
       };
       store.triggerDependency({ form }, inputType, {});
-      expect(form.setFieldValue).toHaveBeenCalledWith(['input2'], 'one');
+      expect(form.setFieldValue).not.toHaveBeenCalled();
+      expect(depForm.setFieldValueByFieldKey).toHaveBeenCalledWith(['input2'], 'one');
       expect(form.setFieldDisabled).toHaveBeenCalledWith(['input2'], false);
       expect(form.setFieldVisible).toHaveBeenCalledWith(['input2'], true);
       expect(form.setFieldSource).toHaveBeenCalledWith(['input2'], []);
@@ -103,12 +114,22 @@ describe('depstore', () => {
       ];
 
       store.parse(field[1], field[1].dependency, getName);
+      const depForm = {
+        getFieldValueByFieldKey: jest.fn(() => 'aaa'),
+        setFieldValueByFieldKey: jest.fn(),
+        getFieldKeyByFieldName: jest.fn((a) => a),
+        getFieldNameByFieldKey: jest.fn((a) => a),
+      };
+
       const form = {
         setFieldDisabled: jest.fn(),
         setFieldVisible: jest.fn(),
         setFieldValue: jest.fn(),
         setFieldSource: jest.fn(),
         getFieldValue: jest.fn(() => 'aaa'),
+        getInternalHooks: () => {
+          return depForm;
+        },
       };
       const selectType = store.depsByFieldNameList.get(['input']);
       store.triggerDependency({ form }, selectType, {
@@ -133,16 +154,26 @@ describe('depstore', () => {
       };
 
       store.parse(field, field.dependency, getName);
+      const depForm = {
+        getFieldValueByFieldKey: jest.fn(() => 'aaa'),
+        setFieldValueByFieldKey: jest.fn(),
+        getFieldKeyByFieldName: jest.fn((a) => a),
+        getFieldNameByFieldKey: jest.fn((a) => a),
+      };
+
       const form = {
         setFieldDisabled: jest.fn(),
         setFieldVisible: jest.fn(),
         setFieldValue: jest.fn(),
         setFieldSource: jest.fn(),
         getFieldValue: jest.fn(() => 'aaa'),
+        getInternalHooks: () => {
+          return depForm;
+        },
       };
       const selectType = store.depsByFieldNameList.get(['input']);
       store.triggerDependency({ form }, selectType, {});
-      expect(form.setFieldValue).toHaveBeenCalledWith(['select'], undefined);
+      expect(depForm.setFieldValueByFieldKey).toHaveBeenCalledWith(['select'], undefined);
     });
 
     it('remoteSource', async () => {
@@ -163,12 +194,22 @@ describe('depstore', () => {
       };
 
       store.parse(field, field.dependency, getName);
+      const depForm = {
+        getFieldValueByFieldKey: jest.fn(() => 'input'),
+        setFieldValueByFieldKey: jest.fn(),
+        getFieldKeyByFieldName: jest.fn((a) => a),
+        getFieldNameByFieldKey: jest.fn((a) => a),
+      };
+
       const form = {
         setFieldDisabled: jest.fn(),
         setFieldVisible: jest.fn(),
         setFieldValue: jest.fn(),
         setFieldSource: jest.fn(),
         getFieldValue: jest.fn(() => 'input'),
+        getInternalHooks: () => {
+          return depForm;
+        },
       };
       await store.triggerDependency({ form }, store.depsByFieldNameList.get(['input']), {});
 
@@ -193,12 +234,22 @@ describe('depstore', () => {
     });
 
     it('not remoteSource dep', () => {
+      const depForm = {
+        getFieldValueByFieldKey: jest.fn(() => 'input'),
+        setFieldValueByFieldKey: jest.fn(),
+        getFieldKeyByFieldName: jest.fn((a) => a),
+        getFieldNameByFieldKey: jest.fn((a) => a),
+      };
+
       const form = {
         setFieldDisabled: jest.fn(),
         setFieldVisible: jest.fn(),
         setFieldValue: jest.fn(),
         setFieldSource: jest.fn(),
         getFieldValue: jest.fn(() => 'input'),
+        getInternalHooks: () => {
+          return depForm;
+        },
       };
 
       const res = store.cascadeSource(
@@ -237,12 +288,22 @@ describe('depstore', () => {
       };
 
       store.parse(field, field.dependency, getName);
+      const depForm = {
+        getFieldValueByFieldKey: jest.fn(() => 'a'),
+        setFieldValueByFieldKey: jest.fn(),
+        getFieldKeyByFieldName: jest.fn((a) => a),
+        getFieldNameByFieldKey: jest.fn((a) => a),
+      };
+
       const form = {
         setFieldDisabled: jest.fn(),
         setFieldVisible: jest.fn(),
         setFieldValue: jest.fn(),
         setFieldSource: jest.fn(),
         getFieldValue: jest.fn(() => 'a'),
+        getInternalHooks: () => {
+          return depForm;
+        },
       };
       const selectType = store.depsByFieldNameList.get(['input']);
       store.triggerDependency({ form }, selectType, {});
@@ -326,15 +387,25 @@ describe('depstore', () => {
 
       const inputType = store.depsByFieldNameList.get(['input']);
 
+      const depForm = {
+        getFieldValueByFieldKey: jest.fn(() => 'aaa'),
+        setFieldValueByFieldKey: jest.fn(),
+        getFieldKeyByFieldName: jest.fn((a) => a),
+        getFieldNameByFieldKey: jest.fn((a) => a),
+      };
+
       const form = {
         setFieldDisabled: jest.fn(),
         setFieldVisible: jest.fn(),
         setFieldValue: jest.fn(),
         setFieldSource: jest.fn(),
         getFieldValue: jest.fn(() => 'aaa'),
+        getInternalHooks: () => {
+          return depForm;
+        },
       };
       store.triggerDependency({ form }, inputType, {});
-      expect(form.setFieldValue.mock.calls).toEqual([
+      expect(depForm.setFieldValueByFieldKey.mock.calls).toEqual([
         [['input2'], 'one'],
         [['input3'], 'one'],
         [['input4'], '4'],
@@ -406,46 +477,62 @@ describe('depstore', () => {
 
     it('parseFormDependency', () => {
       expect(
-        formDependency.parseFormDependency({
-          name: 'input2',
-          label: 'input2',
-          field: 'input',
-          dependency: {
-            value: {
-              relates: ['input'],
-              inputs: [['aaa']],
-              output: 'one',
-              defaultOutput: '',
+        formDependency.parseFormDependency(
+          {
+            name: 'input2',
+            label: 'input2',
+            field: 'input',
+            dependency: {
+              value: {
+                relates: ['input'],
+                inputs: [['aaa']],
+                output: 'one',
+                defaultOutput: '',
+              },
             },
           },
-        }, getName),
+          getName,
+        ),
       ).toEqual({ name: 'input2', label: 'input2', field: 'input' });
       expect(formDependency.depStore.depsByFieldNameList.getNameLists()).toEqual([['input']]);
       expect(formDependency.getCascades()).toEqual([['input']]);
+      const depForm = {
+        getFieldValueByFieldKey: jest.fn(() => 'aaa'),
+        setFieldValueByFieldKey: jest.fn(),
+        getFieldKeyByFieldName: jest.fn((a) => a),
+        getFieldNameByFieldKey: jest.fn((a) => a),
+      };
+
       const form = {
         setFieldDisabled: jest.fn(),
         setFieldVisible: jest.fn(),
         setFieldValue: jest.fn(),
         setFieldSource: jest.fn(),
         getFieldValue: jest.fn(() => 'aaa'),
+        getInternalHooks: () => {
+          return depForm;
+        },
       };
       formDependency.cascade({ form }, [{ name: ['select'], value: 'a' }], {});
       expect(form.setFieldValue).not.toHaveBeenCalled();
       form.setFieldValue.mockRestore();
 
       formDependency.cascade({ form }, [{ name: ['input'], value: 'aaa' }], {});
-      expect(form.setFieldValue).toHaveBeenCalledWith(['input2'], 'one');
+      expect(depForm.setFieldValueByFieldKey).toHaveBeenCalledWith(['input2'], 'one');
       form.setFieldValue.mockRestore();
     });
 
     it('empty dependency', () => {
       expect(
-        formDependency.parseFormDependency({
-          name: 'input2',
-          label: 'input2',
-          field: 'input',
-          dependency: {},
-        }, getName),
+        formDependency.parseFormDependency(
+          {
+            name: 'input2',
+            label: 'input2',
+            field: 'input',
+            dependency: {},
+          },
+          getName,
+        ),
       ).toEqual({ name: 'input2', label: 'input2', field: 'input', dependency: {} });
       expect(formDependency.depStore.depsByFieldNameList.getNameLists()).toEqual([]);
     });

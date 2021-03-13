@@ -20,7 +20,7 @@ export interface ButtonProps extends AButtonProps {
   autoLoading?: boolean;
 }
 
-const RefLoadingButton: React.RefForwardingComponent<LoadingButtonHandler, ButtonProps> = (
+const RefLoadingButton: React.ForwardRefRenderFunction<LoadingButtonHandler, ButtonProps> = (
   props,
   ref,
 ) => {

@@ -47,6 +47,8 @@ const Form: React.FunctionComponent<FormProps> = (props, ref) => {
     cascade,
     getCtx,
     getAFormInstance,
+    getAsyncCascade,
+    setAsyncCascade,
   } = formInstance.getInternalHooks(HOOK_MARK);
 
   const formDependencyRef = React.useRef(new FormDependency());
@@ -116,14 +118,33 @@ const Form: React.FunctionComponent<FormProps> = (props, ref) => {
 
   const originValuesChange = formProps.onValuesChange;
 
+  const prevAllValuesRef = React.useRef<any>({});
+
   formProps.onValuesChange = (changedValue, allValues) => {
+    function onValuesChange() {
+      cascade(changedValue, {
+        cascadeTrigger: 'setFieldsValue',
+        cascadeStore: changedValue,
+        cascadePrevStore: prevAllValuesRef.current,
+      });
+      prevAllValuesRef.current = allValues;
+
+      if (originValuesChange) {
+        originValuesChange(changedValue, allValues);
+      }
+    }
     /**
-     * 针对formList的dependency add/remove的处理
-     * 例如remove的时候，changedValue是整个formList的值，比如value关联，isWilling直接跳过，不用再触发一次关联逻辑
+     * Promise.resolve 原因，需要动态field有机会更新 fieldName和fieldKey link，
+     * 那么才能用新的fieldName 找到 fieldKey，然后再找到depOfType去进行关联
      */
-    cascade(changedValue, { cascadeTrigger: 'setFieldsValue', cascadeStore: changedValue });
-    if (originValuesChange) {
-      originValuesChange(changedValue, allValues);
+    const needAsyncCascade = getAsyncCascade();
+    if (needAsyncCascade) {
+      Promise.resolve().then(() => {
+        onValuesChange();
+        setAsyncCascade(false);
+      });
+    } else {
+      onValuesChange();
     }
   };
 
