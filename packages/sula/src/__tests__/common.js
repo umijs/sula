@@ -1,8 +1,9 @@
 import Mock from 'mockjs';
 
 import { registerRenderPlugins } from '../render-plugin';
-import { registerFieldPlugins } from '../field-plugin';
+import { registerFieldPlugins, registerFieldPlugin } from '../field-plugin';
 import { registerActionPlugins } from '../action-plugin';
+import '../../../../global.tsx';
 
 const { mock } = Mock;
 

@@ -18,7 +18,7 @@ order: 0
 
 <code title="validator" src="../form/validator.jsx" />
 
-<code title="dynamic" src="../form/dynamic.jsx" /> -->
+<code title="dynamic" src="../form/dynamic.jsx" />
 
 <code title="dynamic dependency" src="../form/dynamicDep.jsx" />
 
