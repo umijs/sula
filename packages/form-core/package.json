@@ -1,0 +1,14 @@
+{
+  "name": "@sula-form/core",
+  "version": "0.1.0",
+  "main": "lib",
+  "module": "es",
+  "types": "es/index.d.ts",
+  "peerDependencies": {
+    "react": ">= 16.9.0",
+    "react-dom": ">= 16.9.0"
+  },
+  "devDependencies": {
+    
+  }
+}

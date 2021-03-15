@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "dumi dev",
     "compile": "father-build",
+    "bootstrap": "lerna bootstrap",
     "clean": "lerna clean -y",
     "test": "npm run test:unit",
     "test:unit": "umi-test \"test.(j|t)s\" --coverage",
