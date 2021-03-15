@@ -1,0 +1,7 @@
+﻿node_modules
+dist
+/.vscode
+/.doc
+lib
+es
+.umi

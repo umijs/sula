@@ -1,0 +1,8 @@
+**/*.svg
+package.json
+.umi
+.umi-production
+**/dist
+**/lib
+**/es
+**\__snapshots__\**
