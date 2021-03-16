@@ -1,18 +1,14 @@
 {
-  "name": "@sula-form/antd",
+  "name": "@sula/shared",
   "version": "0.1.0",
   "main": "lib",
   "module": "es",
   "types": "es/index.d.ts",
   "peerDependencies": {
-    "antd": "^4.0.0",
     "react": ">= 16.9.0",
     "react-dom": ">= 16.9.0"
   },
-  "dependencies": {
-    "@sula-form/core": "^0.1.0"
-  },
   "devDependencies": {
-    "antd": "^4.14.0"
+    
   }
 }

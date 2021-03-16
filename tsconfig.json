@@ -14,6 +14,10 @@
     "skipLibCheck": true,
     "declaration": true,
     "paths": {
+      "@sula/shared": ["./packages/shared/src/index.ts"],
+      "@sula-form/core": ["./packages/form-core/src/index.ts"],
+      "@sula-form/antd": ["./packages/form-antd/src/index.ts"],
+      "@sula-form/fusion": ["./packages/form-fusion/src/index.ts"],
     }
   }
 }

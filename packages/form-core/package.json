@@ -8,6 +8,9 @@
     "react": ">= 16.9.0",
     "react-dom": ">= 16.9.0"
   },
+  "dependencies": {
+    "@sula/shared": "^0.1.0"
+  },
   "devDependencies": {
     
   }

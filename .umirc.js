@@ -1,5 +1,4 @@
 export default {
-  sula: {},
   outputPath: '.doc',
   extraBabelPlugins: [
     [
@@ -9,14 +8,22 @@ export default {
         libraryDirectory: 'es',
         style: true,
       },
-      'antd'
+      'antd',
+    ],
+    [
+      'babel-plugin-import',
+      {
+        libraryName: '@alifd/next',
+        style: true,
+      },
+      'fusion',
     ],
   ],
   title: 'sula-next',
   exportStatic: {},
-  resolve: {
-    includes: ['docs'],
-  },
+  // resolve: {
+  //   includes: ['docs'],
+  // },
   styles: [`a[title='站长统计'] { display: none; }`],
   headScripts: ['https://v1.cnzz.com/z_stat.php?id=1278602214&web_id=1278602214'],
 };
