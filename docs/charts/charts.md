@@ -22,11 +22,11 @@ npm i -S @sula/charts;
 import Charts, { echarts, numeral } from '@sula/charts';
 ```
 
-<code title="basic" src="./basic.jsx" />
+<!-- <code title="basic" src="./basic.jsx" />
 
 <code title="dataset" desc="bar是二维，pie是一维" src="./dataset.jsx" />
 
 <code title="双 Y 轴" src="./doubley.jsx" />
 
-<code title="地图" src="./map.jsx" />
+<code title="地图" src="./map.jsx" /> -->
 
