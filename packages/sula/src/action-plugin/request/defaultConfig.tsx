@@ -120,6 +120,6 @@ const extendConfig = {
   bizSuccessMessageAdapter,
   bizNotifyHandler,
   bizRedirectHandler,
-} as BizExtendConfig;
+};
 
 export default extendConfig;

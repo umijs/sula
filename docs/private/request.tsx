@@ -1,5 +1,5 @@
 import React from 'react';
-import umiRequest from 'umi-request';
+import umiRequest, { RequestOptionsInit } from 'umi-request';
 import { request } from 'sula';
 import BasicQueryTable from '../query-table/basic';
 
@@ -29,6 +29,20 @@ export default () => {
         })
       }}>
         发起请求测试
+      </button>
+
+      <button onClick={() => {
+        request<RequestOptionsInit>({
+          url: 'https://jsonplaceholder.typicode.com/posts/1',
+          method: 'GET',
+          convertParams: ({params}) => {
+            return Object.assign({name: 'sula'}, params);
+          }
+        }).then((data) => {
+          console.log('data: ', data);
+        })
+      }}>
+        发起请求测试2
       </button>
 
       <br />

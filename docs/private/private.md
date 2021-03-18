@@ -7,4 +7,4 @@ order: 0
 ---
 
 
-<code title="请求测试" src="./request.jsx" />
+<code title="请求测试" src="./request.tsx" />

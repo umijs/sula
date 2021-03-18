@@ -53,9 +53,9 @@ export type BizDataAdapter = (response: BizResponse) => any;
 export type BizParamsAdapter = (params: Record<string, any>) => Record<string, any>;
 
 // 8. axios 转换
-export type BizRequestAdapter = (requestConfig: AxiosRequestConfig) => AxiosRequestConfig;
+export type BizRequestAdapter<T> = (requestConfig: T) => T;
 
-export type BizExtendConfig = {
+export type BizExtendConfig<T = unknown> = {
   errorMessageAdapter: ErrorMessageAdapter
   bizRedirectHandler: BizRedirectHandler;
   bizDevErrorAdapter: BizDevErrorAdapter;
@@ -64,13 +64,17 @@ export type BizExtendConfig = {
   bizNotifyHandler: BizNotifyHandler;
   bizDataAdapter: BizDataAdapter;
   bizParamsAdapter?: BizParamsAdapter;
-  bizRequestAdapter?: BizRequestAdapter;
+  bizRequestAdapter?: BizRequestAdapter<T>;
 };
 
-export interface RequestConfig extends AxiosRequestConfig {
+export interface RequestConfig {
   init?: boolean; // 默认是true，该参数并不为plugin-request使用
   successMessage?: Message; // 默认是false
   convertParams?: ConvertParamsPlugin | ConvertParamsPlugin[];
   converter?: ConverterPlugin | ConverterPlugin[];
   url: string;
+
+  method?: AxiosRequestConfig['method'];
+  params?: AxiosRequestConfig['params'];
+  data?: AxiosRequestConfig['data'];
 }

@@ -37,7 +37,8 @@ const getMatchedConfig = (requestConfig: AxiosRequestConfig) => {
 };
 
 // 不再使用fetch这个名字，防止和fetch冲突
-export const request = (config: RequestConfig, ctx?) => {
+export const request = <T = AxiosRequestConfig>(config: RequestConfig & T, ctx?: any) => {
+  type FinalRequestConfig = RequestConfig & T;
   const {
     url,
     method = 'GET',
@@ -47,14 +48,14 @@ export const request = (config: RequestConfig, ctx?) => {
 
     successMessage,
 
-    ...restAxiosConfig
+    ...restConfig
   } = config;
 
   let requestOptions = {
-    ...restAxiosConfig,
+    ...restConfig,
     url,
     method,
-  } as AxiosRequestConfig;
+  } as FinalRequestConfig;
 
   const matchedConfig = getMatchedConfig(requestOptions);
 
@@ -70,9 +71,9 @@ export const request = (config: RequestConfig, ctx?) => {
     bizDataAdapter,
     bizParamsAdapter,
     bizRequestAdapter,
-  } = curConf;
+  } = curConf as BizExtendConfig<FinalRequestConfig>;
 
-  let finalParams = params || {};
+  let finalParams: RequestConfig['params'] = params || {};
 
   if (convertParams) {
     finalParams = toArray(convertParams).reduce((fparams, convertP) => {
