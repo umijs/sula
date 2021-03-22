@@ -79,6 +79,8 @@ describe('depstore', () => {
         setFieldValue: jest.fn(),
         setFieldSource: jest.fn(),
         getFieldValue: jest.fn(() => 'aaa'),
+        getFieldVisible: jest.fn(),
+        getFieldDisabled: jest.fn(),
         getInternalHooks: () => {
           return depForm;
         },
@@ -301,6 +303,7 @@ describe('depstore', () => {
         setFieldValue: jest.fn(),
         setFieldSource: jest.fn(),
         getFieldValue: jest.fn(() => 'a'),
+        getFieldVisible: jest.fn(),
         getInternalHooks: () => {
           return depForm;
         },
@@ -400,6 +403,7 @@ describe('depstore', () => {
         setFieldValue: jest.fn(),
         setFieldSource: jest.fn(),
         getFieldValue: jest.fn(() => 'aaa'),
+        getFieldVisible: jest.fn(),
         getInternalHooks: () => {
           return depForm;
         },
@@ -410,6 +414,7 @@ describe('depstore', () => {
         [['input3'], 'one'],
         [['input4'], '4'],
       ]);
+      expect(form.getFieldVisible).toHaveBeenCalledWith(['input4']);
       expect(form.setFieldVisible).toHaveBeenCalledWith(['input4'], true);
     });
   });

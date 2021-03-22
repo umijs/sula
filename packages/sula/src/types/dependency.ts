@@ -18,6 +18,11 @@ export interface TransedDependency extends Dependency {
   name: FieldNameList;
 }
 
-export type TransedDependencies = Record<DependencyType, TransedDependency[][]>;
 
-export type Dependencies = Record<DependencyType, Dependency >;
+type PartialRecord<K extends keyof any, T> = {
+  [P in K]?: T;
+};
+
+export type TransedDependencies = PartialRecord<DependencyType, TransedDependency[][]>;
+
+export type Dependencies = PartialRecord<DependencyType, Dependency>;

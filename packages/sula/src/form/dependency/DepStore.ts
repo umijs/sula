@@ -189,9 +189,21 @@ export default class DepStore {
                 }
               : form.setFieldSource;
           } else if (type === 'disabled') {
-            fn = form.setFieldDisabled;
+            fn = (_name: FieldNameList, _disabled: boolean) => {
+              const prevDisabled = form.getFieldDisabled(_name);
+              if(prevDisabled !== _disabled) {
+                // 减少不必要的渲染
+                form.setFieldDisabled(_name, _disabled);
+              }
+            };
           } else if (type === 'visible') {
-            fn = form.setFieldVisible;
+            fn = (_name: FieldNameList, _visible: boolean) => {
+              const prevVisible = form.getFieldVisible(_name);
+              if(prevVisible !== _visible) {
+                // 减少不必要的渲染
+                form.setFieldVisible(_name, _visible);
+              }
+            };
           } else {
             fn = form.setFieldValue;
           }

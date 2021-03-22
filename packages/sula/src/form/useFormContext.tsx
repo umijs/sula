@@ -50,6 +50,7 @@ class ContextStore {
 
       getFieldSource: this.getFieldSource,
       getFieldDisabled: this.getFieldDisabled,
+      getFieldVisible: this.getFieldVisible,
 
       setFieldVisible: this.setFieldVisible,
       setFieldDisabled: this.setFieldDisabled,
@@ -98,6 +99,11 @@ class ContextStore {
   public getFieldDisabled = (name: FieldNamePath) => {
     const field = this.getField(name);
     return field.getDisabled();
+  };
+
+  public getFieldVisible = (name: FieldNamePath) => {
+    const field = this.getField(name);
+    return field.getVisible();
   };
 
   public setFieldVisible = (name: FieldNamePath, visible: boolean) => {

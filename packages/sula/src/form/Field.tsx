@@ -71,12 +71,15 @@ export default class Field extends React.Component<FieldProps> {
   private cancelRegisterField: () => void | null = null;
 
   componentDidMount() {
-    if(!this.props.name) {
+    if (!this.props.name) {
       return;
     }
-    const { registerField, getFormDependency, getCtx, linkFieldNameAndFieldKey } = this.context.formContext.getInternalHooks(
-      HOOK_MARK,
-    );
+    const {
+      registerField,
+      getFormDependency,
+      getCtx,
+      linkFieldNameAndFieldKey,
+    } = this.context.formContext.getInternalHooks(HOOK_MARK);
 
     this.initFieldSource(getCtx());
 
@@ -95,13 +98,14 @@ export default class Field extends React.Component<FieldProps> {
   }
 
   componentDidUpdate(prevProps: FieldProps) {
-    if(!this.props.name) {
+    if (!this.props.name) {
       return;
     }
-    if(this.props.fieldKey && this.props.fieldKey !== prevProps.fieldKey) {
-      const { linkFieldNameAndFieldKey, unlinkFieldNameAndFieldKey } = this.context.formContext.getInternalHooks(
-        HOOK_MARK,
-      );
+    if (this.props.fieldKey && this.props.fieldKey !== prevProps.fieldKey) {
+      const {
+        linkFieldNameAndFieldKey,
+        unlinkFieldNameAndFieldKey,
+      } = this.context.formContext.getInternalHooks(HOOK_MARK);
 
       const oldFieldName = this.getFieldNameList(prevProps.name!);
 
@@ -112,12 +116,14 @@ export default class Field extends React.Component<FieldProps> {
   }
 
   componentWillUnmount() {
-    if(!this.props.name) {
+    if (!this.props.name) {
       return;
     }
-    const { getFormDependency, unlinkFieldNameAndFieldKey } = this.context.formContext.getInternalHooks(HOOK_MARK);
+    const {
+      getFormDependency,
+      unlinkFieldNameAndFieldKey,
+    } = this.context.formContext.getInternalHooks(HOOK_MARK);
     if (this.props.dependency) {
-
       const formDependency: FormDependency = getFormDependency();
       formDependency.removeDependency(this.getName());
     }
@@ -297,8 +303,8 @@ export default class Field extends React.Component<FieldProps> {
     const {
       field: fieldProps,
       initialSource,
-      initialVisible,
-      initialDisabled,
+      initialVisible = true,
+      initialDisabled = false,
       collect,
       remoteSource,
       itemLayout, // 无cols
