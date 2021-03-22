@@ -3,7 +3,7 @@ import { Button } from 'antd';
 import { ButtonProps } from 'antd/lib/button';
 import assign from 'lodash/assign';
 
-export interface LinkProps extends ButtonProps{
+export interface LinkProps extends Omit<ButtonProps, 'type'>{
 }
 
 export default class Link extends React.Component<LinkProps> {
