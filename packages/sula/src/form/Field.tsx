@@ -95,6 +95,9 @@ export default class Field extends React.Component<FieldProps> {
   }
 
   componentDidUpdate(prevProps: FieldProps) {
+    if(!this.props.name) {
+      return;
+    }
     if(this.props.fieldKey && this.props.fieldKey !== prevProps.fieldKey) {
       const { linkFieldNameAndFieldKey, unlinkFieldNameAndFieldKey } = this.context.formContext.getInternalHooks(
         HOOK_MARK,
@@ -109,6 +112,9 @@ export default class Field extends React.Component<FieldProps> {
   }
 
   componentWillUnmount() {
+    if(!this.props.name) {
+      return;
+    }
     const { getFormDependency, unlinkFieldNameAndFieldKey } = this.context.formContext.getInternalHooks(HOOK_MARK);
     if (this.props.dependency) {
 
