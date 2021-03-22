@@ -4,6 +4,7 @@ import { FormInstance } from '../form/Form';
 import { TableInstance } from '../table/Table';
 import { PopconfirmProps } from 'antd/lib/popconfirm';
 import { TooltipProps } from 'antd/lib/tooltip';
+import { RequestConfig } from './request';
 
 export type PluginType = 'render' | 'field' | 'action' | 'dependency' | 'validator' | 'converter' | 'convertParams' | 'filter';
 
@@ -88,7 +89,7 @@ export type ActionPlugin = {
   final?: ActionHookFunction;
   finish?: ActionPlugin | ActionPlugin[];
   [key: string]: any;
-} | string | ActionPluginFunction;
+} | string | ActionPluginFunction | Omit<RequestConfig, 'init'>;
 
 // 注册插件
 export type RenderImpl = (ctx: RenderCtx, config: RenderPlugin) => React.ReactElement
