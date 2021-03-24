@@ -79,6 +79,28 @@ export default class DependencyDemo extends React.Component {
                 },
               },
             },
+            {
+              name: 'select1',
+              label: 'Select1',
+              field: 'select',
+              dependency: {
+                source: {
+                  relates: ['input1'],
+                  inputs: [['95']],
+                  output: [
+                    {
+                      text: '苹果',
+                      value: 'apple'
+                    },
+                    {
+                      text: '桃子',
+                      value: 'peach'
+                    }
+                  ],
+                  defaultOutput: [],
+                },
+              },
+            },
           ]}
         />
       </div>

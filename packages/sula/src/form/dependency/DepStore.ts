@@ -267,7 +267,7 @@ export default class DepStore {
 
 function clearValueForSourceDependency(fieldNameList: FieldNameList, ctx, cascadePayload) {
   const { form } = ctx;
-  const isWilling = isWillingSetValue(name, cascadePayload);
+  const isWilling = isWillingSetValue(fieldNameList, cascadePayload);
   if (!isWilling) {
     form.setFieldValue(fieldNameList, undefined);
   }

@@ -12,8 +12,8 @@ import Field from './Field';
 import { FieldNameList, FormCtx, FieldNamePath, FieldValue } from '../types/form';
 import { NameListMap, matchNameList } from '../_util/NameListMap';
 import { FormInstance, FormProps } from './Form';
-import { toArray } from 'antd/lib/form/util';
 import transStore from '../_util/filterStore';
+import { toArray } from '../_util/common';
 
 export type FieldsValue = { name: FieldNamePath; value: any }[];
 
