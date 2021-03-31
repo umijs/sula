@@ -22,7 +22,7 @@ type TablePropsPicks =
 export interface QueryTableProps
   extends Pick<FormProps, FormPropsPicks>,
     Pick<TableProps, TablePropsPicks> {
-  visibleFieldsCount?: number;
+  visibleFieldsCount?: number | true;
 
   formProps?: Omit<FormProps, FormPropsPicks>;
   tableProps?: Omit<TableProps, TablePropsPicks>;
@@ -34,7 +34,6 @@ const defaultProps = {
   tableProps: {},
   fields: [],
   columns: [],
-  visibleFieldsCount: 5,
   itemLayout: {
     cols: 3,
   },

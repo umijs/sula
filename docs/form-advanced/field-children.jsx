@@ -27,6 +27,12 @@ export default class ValueCollectDemo extends React.Component {
                 {
                   name: 'country',
                   noStyle: true,
+                  rules: [
+                    {
+                      required: true,
+                      message: 'country必填',
+                    },
+                  ],
                   field: {
                     type: 'input',
                     props: {
@@ -49,6 +55,34 @@ export default class ValueCollectDemo extends React.Component {
               ],
             },
             {
+              label: 'Nation2',
+              style: { marginBottom: 0 },
+              children: [
+                {
+                  name: 'country2',
+                  rules: [{ required: true }],
+                  style: { display: 'inline-block', width: 'calc(50% - 8px)' },
+                  field: {
+                    type: 'input',
+                    props: {
+                      placeholder: 'type country2',
+                    },
+                  },
+                },
+                {
+                  name: 'province2',
+                  rules: [{ required: true }],
+                  style: { display: 'inline-block', width: 'calc(50% - 8px)', margin: '0 8px' },
+                  field: {
+                    type: 'input',
+                    props: {
+                      placeholder: 'type province2',
+                    },
+                  },
+                },
+              ],
+            },
+            {
               label: ' ',
               colon: false,
               render: {
@@ -57,11 +91,11 @@ export default class ValueCollectDemo extends React.Component {
                   type: 'primary',
                   children: 'submit',
                 },
-                action({form}) {
-                  form.validateFields().then(values => {
+                action({ form }) {
+                  form.validateFields().then((values) => {
                     console.log('values', values);
-                  })
-                }
+                  });
+                },
               },
             },
           ]}

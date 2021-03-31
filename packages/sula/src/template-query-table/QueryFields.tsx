@@ -10,7 +10,7 @@ import { ItemLayout, Layout } from '../form/FieldGroup';
 
 interface QueryFieldsProps {
   fields: FieldProps[];
-  visibleFieldsCount: number;
+  visibleFieldsCount: number | true;
   itemLayout: ItemLayout;
   layout: Layout;
   getFormInstance: () => FormInstance;
@@ -20,12 +20,25 @@ interface QueryFieldsProps {
 export default class QueryFields extends React.Component<QueryFieldsProps> {
   static contextType = FieldGroupContext;
 
+  static defaultProps = {
+    visibleFieldsCount: 5,
+    fields: [],
+  };
+
   state = {
     collapsed: true,
   };
 
+  getVisibleFieldsCount = () => {
+    if (this.props.visibleFieldsCount === true) {
+      return this.props.fields.length;
+    }
+
+    return this.props.visibleFieldsCount;
+  };
+
   renderFields = () => {
-    const { fields, visibleFieldsCount, itemLayout } = this.props;
+    const { fields, itemLayout } = this.props;
 
     const { matchedPoint } = this.context;
 
@@ -33,6 +46,8 @@ export default class QueryFields extends React.Component<QueryFieldsProps> {
 
     let allSpan = 0;
     let visibleAllSpan = 0;
+
+    const visibleFieldsCount = this.getVisibleFieldsCount();
 
     const finalFields = fields.map((field, index) => {
       fieldsNameList.push(field.name);
@@ -51,12 +66,15 @@ export default class QueryFields extends React.Component<QueryFieldsProps> {
   };
 
   hasMoreQueryFields() {
-    return this.props.visibleFieldsCount < this.props.fields.length;
+    const visibleFieldsCount = this.getVisibleFieldsCount();
+    return visibleFieldsCount < this.props.fields.length;
   }
 
   updateVisibleFields() {
-    const { getFormInstance, fields, visibleFieldsCount } = this.props;
+    const { getFormInstance, fields } = this.props;
     const formInstance = getFormInstance();
+
+    const visibleFieldsCount = this.getVisibleFieldsCount();
 
     fields.forEach((field, index) => {
       if (index >= visibleFieldsCount) {
@@ -132,17 +150,17 @@ export default class QueryFields extends React.Component<QueryFieldsProps> {
     const finalSpan = this.state.collapsed ? this.collapseSpan : this.expandSpan;
     const layoutProps = {} as any;
 
-    if(finalSpan === 24) {
+    if (finalSpan === 24) {
       layoutProps.actionsPosition = 'right';
       layoutProps.style = {
         marginBottom: 24,
-      }
+      };
     } else {
       layoutProps.style = {
         display: 'flex',
         justifyContent: 'flex-end',
         ...(layout === 'vertical' ? { marginTop: 30 } : {}),
-      }
+      };
     }
 
     return (

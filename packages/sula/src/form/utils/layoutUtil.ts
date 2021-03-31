@@ -64,5 +64,5 @@ export function getItemSpan(
 }
 
 export function needWrapCols(span: number) {
-  return span !== 24;
+  return isNumber(span) && span !== 24;
 }

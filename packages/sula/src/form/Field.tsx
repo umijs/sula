@@ -246,7 +246,7 @@ export default class Field extends React.Component<FieldProps> {
   private renderField(ctx, fieldConfig: FieldPlugin, extraConf) {
     const { itemLayout, visible, childrenContainer, formItemProps, isList } = extraConf;
 
-    const { children, valuePropName = 'value' } = formItemProps;
+    const { children, valuePropName = 'value', noStyle, } = formItemProps;
 
     /** 如果是 isList 可能没有 itemLayout */
     const { wrapperCol, labelCol } = itemLayout;
@@ -280,7 +280,7 @@ export default class Field extends React.Component<FieldProps> {
       </FormItem>
     );
 
-    if (!isList && (needWrapCols(itemLayout.span) || itemLayout.offset)) {
+    if (noStyle !== true && !isList && (needWrapCols(itemLayout.span) || itemLayout.offset)) {
       return (
         <Col
           style={{ display: visible === false ? 'none' : '' }}
@@ -291,9 +291,10 @@ export default class Field extends React.Component<FieldProps> {
         </Col>
       );
     } else {
+      const display = formItemProps.style ? formItemProps.style.display : '';
       return React.cloneElement(fieldItemElem, {
         style: assign({}, fieldItemElem.props.style, {
-          display: visible === false ? 'none' : '',
+          display: visible === false ? 'none' : display,
         }),
       });
     }
@@ -358,7 +359,14 @@ export default class Field extends React.Component<FieldProps> {
 
     const fieldNode = this.renderField(ctx, fieldProps, extraConfig);
 
-    return fieldNode;
+    const subFormContext = {
+      formContext,
+      parentGroupName,
+    };
+
+    return (
+      <FieldGroupContext.Provider value={subFormContext}>{fieldNode}</FieldGroupContext.Provider>
+    );
   }
 }
 

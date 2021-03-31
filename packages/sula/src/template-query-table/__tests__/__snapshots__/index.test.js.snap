@@ -1511,39 +1511,34 @@ Array [
         style="margin-left: -12px; margin-right: -12px;"
       >
         <div
-          class="ant-col ant-col-[object Object]"
-          style="padding-left: 12px; padding-right: 12px;"
+          class="ant-row ant-form-item"
         >
           <div
-            class="ant-row ant-form-item"
+            class="ant-col ant-col-8 ant-form-item-label"
+          >
+            <label
+              class=""
+              for="age"
+              title="age"
+            >
+              age
+            </label>
+          </div>
+          <div
+            class="ant-col ant-col-16 ant-form-item-control"
           >
             <div
-              class="ant-col ant-col-8 ant-form-item-label"
-            >
-              <label
-                class=""
-                for="age"
-                title="age"
-              >
-                age
-              </label>
-            </div>
-            <div
-              class="ant-col ant-col-16 ant-form-item-control"
+              class="ant-form-item-control-input"
             >
               <div
-                class="ant-form-item-control-input"
+                class="ant-form-item-control-input-content"
               >
-                <div
-                  class="ant-form-item-control-input-content"
-                >
-                  <input
-                    class="ant-input"
-                    id="age"
-                    type="text"
-                    value=""
-                  />
-                </div>
+                <input
+                  class="ant-input"
+                  id="age"
+                  type="text"
+                  value=""
+                />
               </div>
             </div>
           </div>
