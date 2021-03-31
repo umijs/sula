@@ -1,5 +1,4 @@
-import { default as _QueryTable, QueryTableProps as _QueryTableProps } from './QueryTable';
+import { default as QueryTable, QueryTableProps } from './QueryTable';
+import { default as QueryForm, QueryFormProps } from './QueryForm';
 
-export interface QueryTableProps extends _QueryTableProps {};
-
-export const QueryTable = _QueryTable;
+export { QueryTable, QueryForm, QueryTableProps, QueryFormProps };

@@ -83,5 +83,5 @@ import { Form, Table, CreateForm, QueryTable, StepForm, StepQueryTable } from 's
 ## 讨论群
 
 <div>
-  <img src="https://img.alicdn.com/tfs/TB1iE3OCxD1gK0jSZFsXXbldVXa-1242-1602.jpg" width="300" />
+  <img src="https://img.alicdn.com/imgextra/i4/O1CN01YCq5ye21DbizEsE8e_!!6000000006951-2-tps-828-1068.png" width="300" />
 </div>

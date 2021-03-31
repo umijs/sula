@@ -3,18 +3,18 @@ import DownOutlined from '@ant-design/icons/DownOutlined';
 import cx from 'classnames';
 import { getItemSpan } from '../form/utils/layoutUtil';
 import FieldGroupContext from '../form/FieldGroupContext';
-import { FieldGroup, Field, FormAction, FieldProps, FormInstance } from '../form';
+import { FieldGroup, Field, FormAction, FieldProps, FormInstance, FormProps } from '../form';
 import './style/query-fields.less';
 import LocaleReceiver from '../localereceiver';
-import { ItemLayout, Layout } from '../form/FieldGroup';
+import { toArray } from '../_util/common';
 
-interface QueryFieldsProps {
+export interface QueryFieldsProps {
   fields: FieldProps[];
-  visibleFieldsCount: number | true;
-  itemLayout: ItemLayout;
-  layout: Layout;
+  visibleFieldsCount?: number | true;
+  hasBottomBorder?: boolean;
+  actionsRender: FormProps['actionsRender'],
+  /** @private */
   getFormInstance: () => FormInstance;
-  hasActionsRender: boolean;
 }
 
 export default class QueryFields extends React.Component<QueryFieldsProps> {
@@ -29,18 +29,18 @@ export default class QueryFields extends React.Component<QueryFieldsProps> {
     collapsed: true,
   };
 
-  getVisibleFieldsCount = () => {
+  getVisibleFieldsCount = (): number => {
     if (this.props.visibleFieldsCount === true) {
       return this.props.fields.length;
     }
 
-    return this.props.visibleFieldsCount;
+    return this.props.visibleFieldsCount!;
   };
 
   renderFields = () => {
-    const { fields, itemLayout } = this.props;
+    const { fields } = this.props;
 
-    const { matchedPoint } = this.context;
+    const { matchedPoint, itemLayout } = this.context;
 
     const fieldsNameList = [];
 
@@ -84,40 +84,10 @@ export default class QueryFields extends React.Component<QueryFieldsProps> {
   }
 
   renderFormAction = (locale) => {
-    const { layout } = this.props;
+    const { layout } = this.context;
     const { collapsed } = this.state;
     const actionsRender = [
-      {
-        type: 'button',
-        props: {
-          type: 'primary',
-          children: locale.queryText,
-        },
-        action: [
-          { type: 'validateQueryFields', resultPropName: '$queryFieldsValue' },
-          {
-            type: 'refreshTable',
-            args: [{ current: 1 }, '#{result}'],
-          },
-        ],
-      },
-      {
-        type: 'button',
-        props: {
-          children: locale.resetText,
-        },
-        action: [
-          'resetFields',
-          {
-            type: 'resetTable',
-            args: [false],
-          },
-          {
-            type: 'refreshTable',
-            args: [{ current: 1 }, '#{form.getFieldsValue(true)}'],
-          },
-        ],
-      },
+      ...(toArray(this.props.actionsRender)),
       ...(this.hasMoreQueryFields()
         ? [
             {
@@ -175,7 +145,7 @@ export default class QueryFields extends React.Component<QueryFieldsProps> {
   };
 
   render() {
-    const { hasActionsRender } = this.props;
+    const { hasBottomBorder } = this.props;
     return (
       <LocaleReceiver>
         {(locale) => {
@@ -185,7 +155,7 @@ export default class QueryFields extends React.Component<QueryFieldsProps> {
                 type: 'div',
                 props: {
                   className: cx(`sula-template-query-table-fields-wrapper`, {
-                    [`sula-template-query-table-fields-divider`]: hasActionsRender,
+                    [`sula-template-query-table-fields-divider`]: hasBottomBorder,
                   }),
                 },
               }}

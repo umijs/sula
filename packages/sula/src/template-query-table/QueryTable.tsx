@@ -1,14 +1,15 @@
 import React from 'react';
 import assign from 'lodash/assign';
 import cx from 'classnames';
-import { Form, FormProps } from '../form';
+import { FormProps } from '../form';
 import { RequestConfig } from '../types/request';
 import { TableInstance, TableProps } from '../table/Table';
 import { FormInstance } from '../types/form';
 import { Table } from '../table';
-import QueryFields from './QueryFields';
 import warning from '../_util/warning';
 import './style/query-table.less';
+import QueryForm from './QueryForm';
+import LocaleReceiver from '../localereceiver';
 
 type FormPropsPicks = 'fields' | 'initialValues' | 'layout' | 'itemLayout';
 type TablePropsPicks =
@@ -34,9 +35,6 @@ const defaultProps = {
   tableProps: {},
   fields: [],
   columns: [],
-  itemLayout: {
-    cols: 3,
-  },
   autoInit: true,
 };
 
@@ -69,29 +67,58 @@ export default class QueryTable extends React.Component<Props> {
     );
   };
 
-  renderForm = () => {
+  renderForm = (locale) => {
     const { formProps, layout, itemLayout, fields, initialValues, visibleFieldsCount } = this.props;
 
     return (
-      <Form
+      <QueryForm
         {...formProps}
-        initialValues={initialValues}
-        ref={this.formRef}
-        itemLayout={itemLayout}
-        layout={layout}
         ctxGetter={() => {
-          return { table: this.tableRef.current };
+          return {
+            table: this.tableRef.current,
+          };
         }}
-      >
-        <QueryFields
-          fields={fields}
-          visibleFieldsCount={visibleFieldsCount}
-          itemLayout={itemLayout}
-          layout={layout}
-          getFormInstance={() => this.formRef.current}
-          hasActionsRender={this.hasActionsRender()}
-        />
-      </Form>
+        ref={this.formRef}
+        hasBottomBorder={this.hasActionsRender()}
+        layout={layout}
+        itemLayout={itemLayout}
+        fields={fields}
+        initialValues={initialValues}
+        visibleFieldsCount={visibleFieldsCount}
+        actionsRender={[
+          {
+            type: 'button',
+            props: {
+              type: 'primary',
+              children: locale.queryText,
+            },
+            action: [
+              { type: 'validateQueryFields', resultPropName: '$queryFieldsValue' },
+              {
+                type: 'refreshTable',
+                args: [{ current: 1 }, '#{result}'],
+              },
+            ],
+          },
+          {
+            type: 'button',
+            props: {
+              children: locale.resetText,
+            },
+            action: [
+              'resetFields',
+              {
+                type: 'resetTable',
+                args: [false],
+              },
+              {
+                type: 'refreshTable',
+                args: [{ current: 1 }, '#{form.getFieldsValue(true)}'],
+              },
+            ],
+          },
+        ]}
+      />
     );
   };
 
@@ -129,10 +156,16 @@ export default class QueryTable extends React.Component<Props> {
 
   render() {
     return (
-      <React.Fragment>
-        {this.props.fields && this.props.fields.length ? this.renderForm() : null}
-        {this.renderTable()}
-      </React.Fragment>
+      <LocaleReceiver>
+        {(locale) => {
+          return (
+            <React.Fragment>
+              {this.props.fields && this.props.fields.length ? this.renderForm(locale) : null}
+              {this.renderTable()}
+            </React.Fragment>
+          );
+        }}
+      </LocaleReceiver>
     );
   }
 }

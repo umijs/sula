@@ -362,6 +362,7 @@ export default class Field extends React.Component<FieldProps> {
     const subFormContext = {
       formContext,
       parentGroupName,
+      layout,
     };
 
     return (
