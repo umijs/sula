@@ -10,16 +10,13 @@ export function getItemLayout(
 
   const finalSpan = getItemSpan(itemLayout, matchedPonint);
 
-  let finalOffset = offset;
-  let finalGutter = gutter;
+  let finalOffset = isNumber(offset) ? offset : 0;
+  let finalGutter = isNumber(gutter) ? gutter : 24;
 
   let finalWrapperCol;
   let finalLabelCol;
 
   if (layout === 'vertical' || layout === 'horizontal') {
-    finalOffset = finalOffset || 0;
-    finalGutter = finalGutter || 24;
-
     // 只有水平布局需要设置 wrapperCol 和 labelCol
     if (layout === 'horizontal') {
       finalLabelCol = labelCol || { span: 8 };
@@ -35,7 +32,7 @@ export function getItemLayout(
     labelCol: finalLabelCol,
     span: finalSpan,
     offset: finalOffset,
-    gutter: finalGutter || 0,
+    gutter: finalGutter,
   };
 }
 
