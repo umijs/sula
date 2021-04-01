@@ -5,6 +5,6 @@ export type FieldNamePath = string | FieldNameList;
 
 export type FieldSource = Array<{
   text: string;
-  value: string;
+  value: string | number | boolean;
   [key: string]: any;
 }>;
