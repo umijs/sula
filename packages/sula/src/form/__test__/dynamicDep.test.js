@@ -81,7 +81,7 @@ describe('form', () => {
       const button = wrapper.find('button');
       button.first().simulate('click');
       expect(formRef.getFieldsValue().users.length).toEqual(1);
-      expect(formRef.getFieldsValue().users[0]).toEqual(undefined);
+      expect(formRef.getFieldsValue().users[0]).toEqual({ first: undefined, last: undefined });
       await delay(0);
 
       wrapper
@@ -144,7 +144,7 @@ describe('form', () => {
 
       expect(formRef.getFieldsValue()).toEqual({
         username: undefined,
-        users: [undefined],
+        users: [{ first: undefined, last: undefined }],
       });
 
       expect(wrapper.render()).toMatchSnapshot();
