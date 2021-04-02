@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import React from 'react';
 import { Icon, registerFieldPlugin, Field, request } from './packages/sula/src/index';
 import {

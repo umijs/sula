@@ -12,6 +12,17 @@ function formMount(props = {}) {
         formRef = ref;
       }}
       fields={[
+        {
+          name: 'users',
+          label: 'Users',
+          isList: true,
+          field: {
+            type: 'editable',
+            props: {
+              fields: [{ name: 'province', label: 'Province', width: 200, field: 'input' }],
+            },
+          },
+        },
         { name: 'input', label: 'input', field: 'input' },
         {
           name: 'input2',
@@ -67,8 +78,15 @@ describe('form', () => {
         .find('input')
         .at(0)
         .simulate('change', { target: { value: 'a' } });
+
+      wrapper.find('button').at(0).simulate('click');
       wrapper.update();
-      expect(formRef.getFieldsValue()).toEqual({ input: 'a', input2: 'aaa', input3: 'ccc' });
+      expect(formRef.getFieldsValue()).toEqual({
+        input: 'a',
+        input2: 'aaa',
+        input3: 'ccc',
+        users: [{ province: undefined }],
+      });
       expect(onValuesChange).toHaveBeenCalledWith({ input: 'a' }, { input: 'a', input3: 'ccc' });
       expect(wrapper.render()).toMatchSnapshot();
     });

@@ -17,6 +17,7 @@ import {
   Cascader,
   RadioGroup,
   Upload,
+  TreeSelect,
   registerFieldPlugin,
 } from '..';
 
@@ -130,6 +131,13 @@ describe('field plugin', () => {
     expect(wrapper.find('CheckboxGroup').props().options).toEqual([
       { text: 'A', value: 'a', label: 'A' },
     ]);
+  });
+
+  it('treeselect', () => {
+    const source = [{ text: 'A', value: 'a', children: [{ text: 'B', value: 'b' }] }];
+    const wrapper = mount(<TreeSelect source={source} />);
+
+    expect(wrapper.props()).toEqual({ source });
   });
 
   it('radiogroup', () => {
