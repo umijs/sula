@@ -21,28 +21,30 @@ export default class DynamicDepDemo extends React.Component {
             name: 'users',
             label: '动态信息',
             isList: true,
-            type: 'dynamicdepfieldcomp',
-            props: {
-              fields: [
-                {
-                  name: 'first',
-                  rules: [{ required: true, message: 'Missing first name' }],
-                  field: 'input',
-                },
-                {
-                  name: 'last',
-                  rules: [{ required: true, message: 'Missing last name' }],
-                  field: 'input',
-                  dependency: {
-                    value: {
-                      relates: ['first'],
-                      inputs: [['95']],
-                      output: '98',
-                      defaultOutput: 'please type 95',
+            field: {
+              type: 'dynamicdepfieldcomp',
+              props: {
+                fields: [
+                  {
+                    name: 'first',
+                    // rules: [{ required: true, message: 'Missing first name' }],
+                    field: 'input',
+                  },
+                  {
+                    name: 'last',
+                    // rules: [{ required: true, message: 'Missing last name' }],
+                    field: 'input',
+                    dependency: {
+                      value: {
+                        relates: ['first'],
+                        inputs: [['95']],
+                        output: '98',
+                        defaultOutput: 'please type 95',
+                      },
                     },
                   },
-                },
-              ],
+                ],
+              },
             },
           },
           {
@@ -64,6 +66,7 @@ export default class DynamicDepDemo extends React.Component {
               type: 'button',
               props: {
                 onClick: () => {
+                  console.log('getFieldsValue', this.ref.current.getFieldsValue());
                   this.ref.current.validateFields().then((values) => {
                     console.log('表单值: ', values);
                   });

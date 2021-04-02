@@ -18,33 +18,35 @@ function formMount(props = {}) {
           name: 'users',
           label: '动态信息',
           isList: true,
-          type: 'dynamicdepfieldcomp',
-          props: {
-            fields: [
-              {
-                name: 'first',
-                rules: [{ required: true, message: 'Missing first name' }],
-                field: {
-                  type: 'input',
-                  props: {
-                    className: 'input-test',
+          field: {
+            type: 'dynamicdepfieldcomp',
+            props: {
+              fields: [
+                {
+                  name: 'first',
+                  rules: [{ required: true, message: 'Missing first name' }],
+                  field: {
+                    type: 'input',
+                    props: {
+                      className: 'input-test',
+                    },
                   },
                 },
-              },
-              {
-                name: 'last',
-                rules: [{ required: true, message: 'Missing last name' }],
-                field: 'input',
-                dependency: {
-                  value: {
-                    relates: ['first'],
-                    inputs: [['95']],
-                    output: '27',
-                    defaultOutput: '98',
+                {
+                  name: 'last',
+                  rules: [{ required: true, message: 'Missing last name' }],
+                  field: 'input',
+                  dependency: {
+                    value: {
+                      relates: ['first'],
+                      inputs: [['95']],
+                      output: '27',
+                      defaultOutput: '98',
+                    },
                   },
                 },
-              },
-            ],
+              ],
+            },
           },
         },
       ]}
@@ -79,7 +81,7 @@ describe('form', () => {
       const button = wrapper.find('button');
       button.first().simulate('click');
       expect(formRef.getFieldsValue().users.length).toEqual(1);
-      expect(formRef.getFieldsValue().users[0]).toEqual({ first: undefined, last: undefined });
+      expect(formRef.getFieldsValue().users[0]).toEqual(undefined);
       await delay(0);
 
       wrapper
@@ -140,9 +142,10 @@ describe('form', () => {
       delIcon.simulate('click');
       await delay(0);
 
-      expect(formRef.getFieldsValue()).toEqual(
-        { username: undefined, users: [{ first: undefined, last: undefined }] },
-      );
+      expect(formRef.getFieldsValue()).toEqual({
+        username: undefined,
+        users: [undefined],
+      });
 
       expect(wrapper.render()).toMatchSnapshot();
     });

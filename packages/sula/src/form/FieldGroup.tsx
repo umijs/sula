@@ -88,7 +88,9 @@ export default class FieldGroup extends React.Component<FieldGroupProps> {
     if (!groupFieldPropsWithName.name) {
       groupFieldPropsWithName.name = this.groupName;
     }
-    formDependency.parseFormDependency(groupFieldPropsWithName as FieldProps, (name) => toArray(name));
+    formDependency.parseFormDependency(groupFieldPropsWithName as FieldProps, (name) =>
+      toArray(name),
+    );
   }
 
   componentWillUnmount() {
@@ -121,7 +123,7 @@ export default class FieldGroup extends React.Component<FieldGroupProps> {
   // 放入 NameListMap
   public getName = (): FieldNameList => {
     return toArray(this.groupName);
-  }
+  };
 
   public getGroupName(): string {
     return this.groupName;
@@ -167,14 +169,20 @@ export default class FieldGroup extends React.Component<FieldGroupProps> {
          */
         const formListName = fieldConfig.name;
         const formListLabel = fieldConfig.label;
-        const listRenderPlugin = omit(fieldConfig, ['isList', 'name', 'label']);
+        const formListPlugin = normalizeConfig(fieldConfig.field);
+        const listRenderPlugin = omit(fieldConfig, ['isList', 'name', 'label', 'field']);
         fieldElem = (
           <FormList {...listRenderPlugin} name={formListName} label={formListLabel} key={fieldKey}>
-            {(...listArgs) => {
+            {(...listArgs: any[]) => {
               return triggerFieldPlugin(
                 ctx,
-                assign(listRenderPlugin, {
-                  props: assign({}, listRenderPlugin.props, { list: asyncWrap(listArgs, ctx) }),
+                // @ts-ignore
+                assign({}, formListPlugin, {
+                  props: assign({}, formListPlugin.props, {
+                    /** list插件可以通过name加序号获取整行数据做拷贝 */
+                    name: formListName,
+                    list: asyncWrap(listArgs, ctx),
+                  }),
                 }),
               );
             }}

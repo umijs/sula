@@ -61,7 +61,7 @@ export default class FormList extends React.Component<FormListProps> {
         container={container}
         isList
       >
-        <AForm.List {...aFormListProps} name={name}></AForm.List>
+        <AForm.List {...aFormListProps} name={name} />
       </FieldGroup>,
     );
   }

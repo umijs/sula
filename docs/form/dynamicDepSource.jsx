@@ -20,68 +20,73 @@ export default class DynamicDepDemo extends React.Component {
             name: 'something',
             label: '一些信息',
             isList: true,
-            type: 'dynamicdepfieldcomp',
-            props: {
-              fields: [
-                {
-                  name: 'q',
-                  rules: [{ required: true, message: 'type something' }],
-                  field: 'input',
-                },
-                {
-                  name: 'fruilt',
-                  label: '水果',
-                  field: {
-                    type: 'select',
-                    props: {
-                      placeholder: '请输入',
-                      style: {
-                        width: 200,
-                      }
+            field: {
+              type: 'dynamicdepfieldcomp',
+              props: {
+                fields: [
+                  {
+                    name: 'q',
+                    rules: [{ required: true, message: 'type something' }],
+                    field: 'input',
+                  },
+                  {
+                    name: 'fruilt',
+                    label: '水果',
+                    field: {
+                      type: 'select',
+                      props: {
+                        placeholder: '请输入',
+                        style: {
+                          width: 200,
+                        },
+                      },
+                    },
+                    remoteSource: {
+                      init: false,
+                      url: 'https://run.mocky.io/v3/a435a830-a2b3-49ce-bc6b-40298ba57bcb',
+                      method: 'GET',
+                      converter: ({ data }) => {
+                        return data.map((item) => {
+                          return {
+                            text: item.text,
+                            value: item.value,
+                          };
+                        });
+                      },
+                    },
+                    dependency: {
+                      source: {
+                        relates: ['q'],
+                        defaultOutput: [],
+                      },
                     },
                   },
-                  remoteSource: {
-                    init: false,
-                    url: 'https://run.mocky.io/v3/a435a830-a2b3-49ce-bc6b-40298ba57bcb',
-                    method: 'GET',
-                    converter: ({ data }) => {
-                      return data.map((item) => {
-                        return {
-                          text: item.text,
-                          value: item.value,
-                        };
-                      });
+                  {
+                    name: 'goods',
+                    label: '货物',
+                    initialValue: 'oil',
+                    initialSource: [
+                      {
+                        text: '石油',
+                        value: 'oil',
+                      },
+                      {
+                        text: '煤',
+                        value: 'coal',
+                      },
+                    ],
+                    field: {
+                      type: 'select',
+                      props: {
+                        placeholder: '请输入',
+                        style: {
+                          width: 200,
+                        },
+                      },
                     },
                   },
-                  dependency: {
-                    source: {
-                      relates: ['q'],
-                      defaultOutput: [],
-                    },
-                  },
-                },
-                {
-                  name: 'goods',
-                  label: '货物',
-                  initialValue: 'oil',
-                  initialSource: [{
-                    text: '石油',
-                    value: 'oil',
-                  }, {
-                    text: '煤',
-                    value: 'coal',
-                  }],
-                  field: {
-                    type: 'select',
-                    props: {
-                      placeholder: '请输入',
-                      style: {
-                        width: 200,
-                      }
-                    },
-                  },
-                }
-              ],
+                ],
+              },
             },
           },
           {

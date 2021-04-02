@@ -211,7 +211,7 @@ class ContextStore {
   /** dep start */
   // 值关联的时候用fieldName找fieldKey再找dep
   private getFieldKeyByFieldName = (fieldNameList: FieldNameList): FieldNameList => {
-    return this.fieldNameAndFieldKeyMap.get(fieldNameList)!;
+    return this.fieldNameAndFieldKeyMap.getByValue(fieldNameList)!;
   };
 
   private getFieldValueByFieldKey = (fieldNameList: FieldNameList): any => {
@@ -255,12 +255,12 @@ class ContextStore {
     return finalCtx;
   };
 
-  private linkFieldNameAndFieldKey = (newFieldName: FieldNameList, newFieldKey: FieldNameList) => {
-    this.fieldNameAndFieldKeyMap.set(newFieldName, newFieldKey);
+  private linkFieldNameAndFieldKey = (newFieldKey: FieldNameList, newFieldName: FieldNameList) => {
+    this.fieldNameAndFieldKeyMap.set(newFieldKey, newFieldName);
   }
 
-  private unlinkFieldNameAndFieldKey = (oldFieldName: FieldNameList) => {
-    this.fieldNameAndFieldKeyMap.delete(oldFieldName);
+  private unlinkFieldNameAndFieldKey = (oldFieldKey: FieldNameList) => {
+    this.fieldNameAndFieldKeyMap.delete(oldFieldKey);
   }
 
   /**

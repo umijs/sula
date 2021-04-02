@@ -17,4 +17,9 @@ export default {
 
   // table
   selectedRecords: '已选 {{count}} 项',
-}
+
+  // List
+  copyText: '拷贝',
+  addText: '添加',
+  deleteText: '删除',
+};

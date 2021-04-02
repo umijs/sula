@@ -7,6 +7,10 @@ import RadioGroup from './radiogroup';
 import DatePicker from './datepicker';
 import RangePicker from './rangepicker';
 import TimePicker from './timepicker';
+
+// list
+import Editable from './editable';
+
 import { registerFieldPlugin } from './plugin';
 import { Switch, Checkbox, Input, InputNumber, Rate, Radio, Slider } from 'antd';
 
@@ -30,6 +34,8 @@ function registerFieldPlugins() {
   registerFieldPlugin('select')(Select, true);
   registerFieldPlugin('checkboxgroup')(CheckboxGroup, true);
   registerFieldPlugin('radiogroup')(RadioGroup, true);
+
+  registerFieldPlugin('editable')(Editable, false, true);
 }
 
 export { Select, CheckboxGroup, TimePicker, DatePicker, RangePicker, Cascader, TreeSelect, RadioGroup, Upload, registerFieldPlugins, registerFieldPlugin };

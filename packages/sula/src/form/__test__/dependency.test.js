@@ -149,7 +149,7 @@ describe('depstore', () => {
         dependency: {
           source: {
             relates: ['input'],
-            autoResetValue: false,
+            autoResetValue: true,
             type: () => {},
           },
         },

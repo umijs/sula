@@ -143,25 +143,27 @@ export default class DepStore {
           }
 
           const values = [];
-          let valuesChanged: boolean = false;
+          // let valuesChanged: boolean = false;
 
           for(let i = 0, len = relates.length; i < len; i+=1) {
             const relatedFieldNameList = relates[i];
             const relatedFieldValue = form.getFieldValue(relatedFieldNameList);
-            const prevRelatedFieldValue = getStoreValue(cascadePayload.cascadePrevStore, getFieldNameByFieldKey(relatedFieldNameList));
-            if(prevRelatedFieldValue !== relatedFieldValue) {
-              valuesChanged = true;
-            }
+            // const prevRelatedFieldValue = getStoreValue(cascadePayload.cascadePrevStore, getFieldNameByFieldKey(relatedFieldNameList));
+            // if(prevRelatedFieldValue !== relatedFieldValue) {
+            //   valuesChanged = true;
+            // }
             values.push(relatedFieldValue);
           }
 
-          if(valuesChanged === false) {
-            return;
-          }
+
+          // TODO: 待优化
+          // if(valuesChanged === false) {
+          //   return;
+          // }
 
 
           if (depPlugin) {
-            if (type === 'source' && !autoResetValue) {
+            if (type === 'source' && autoResetValue) {
               clearValueForSourceDependency(affectedFieldNameList, ctx, cascadePayload);
             }
 
@@ -267,7 +269,10 @@ export default class DepStore {
 
 function clearValueForSourceDependency(fieldNameList: FieldNameList, ctx, cascadePayload) {
   const { form } = ctx;
-  const isWilling = isWillingSetValue(fieldNameList, cascadePayload);
+  const { getFieldNameByFieldKey } = form.getInternalHooks(HOOK_MARK);
+  /** fieldKey 转换成 fieldName，来判断value在不在cascadePayload里 */
+  const fieldNamePathForValue = getFieldNameByFieldKey(fieldNameList);
+  const isWilling = isWillingSetValue(fieldNamePathForValue, cascadePayload);
   if (!isWilling) {
     form.setFieldValue(fieldNameList, undefined);
   }

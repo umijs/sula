@@ -32,20 +32,22 @@ export default class DynamicDemo extends React.Component {
             name: 'users',
             label: '动态信息',
             isList: true,
-            type: 'dynamicfieldcomp',
-            props: {
-              fields: [
-                {
-                  name: 'first',
-                  rules: [{ required: true, message: 'Missing first name' }],
-                  field: 'input',
-                },
-                {
-                  name: 'last',
-                  rules: [{ required: true, message: 'Missing last name' }],
-                  field: 'input',
-                },
-              ],
+            field: {
+              type: 'dynamicfieldcomp',
+              props: {
+                fields: [
+                  {
+                    name: 'first',
+                    rules: [{ required: true, message: 'Missing first name' }],
+                    field: 'input',
+                  },
+                  {
+                    name: 'last',
+                    rules: [{ required: true, message: 'Missing last name' }],
+                    field: 'input',
+                  },
+                ],
+              },
             },
           },
           {

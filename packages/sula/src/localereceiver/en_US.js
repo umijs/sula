@@ -17,4 +17,9 @@ export default {
 
   // table
   selectedRecords: 'Selected {{count}} records',
+
+  // List
+  copyText: 'Copy',
+  addText: 'Add',
+  deleteText: 'Delete',
 }

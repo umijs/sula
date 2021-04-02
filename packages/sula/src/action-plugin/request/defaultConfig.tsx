@@ -9,7 +9,6 @@ import {
   BizSuccessMessageAdapter,
   BizNotifyHandler,
   BizDataAdapter,
-  BizExtendConfig,
   Message,
   NotifyMessages,
 } from '../../types/request';

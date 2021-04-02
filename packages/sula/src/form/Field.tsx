@@ -85,7 +85,7 @@ export default class Field extends React.Component<FieldProps> {
 
     const { parentGroupName } = this.context;
     this.cancelRegisterField = registerField(parentGroupName, this);
-    linkFieldNameAndFieldKey(this.getName(true), this.getName());
+    linkFieldNameAndFieldKey(this.getName(), this.getName(true));
 
     if (!this.props.dependency) {
       return;
@@ -107,11 +107,9 @@ export default class Field extends React.Component<FieldProps> {
         unlinkFieldNameAndFieldKey,
       } = this.context.formContext.getInternalHooks(HOOK_MARK);
 
-      const oldFieldName = this.getFieldNameList(prevProps.name!);
-
       // 动态添加
-      unlinkFieldNameAndFieldKey(oldFieldName);
-      linkFieldNameAndFieldKey(this.getName(true), this.getName());
+      unlinkFieldNameAndFieldKey(this.getName());
+      linkFieldNameAndFieldKey(this.getName(), this.getName(true));
     }
   }
 
@@ -129,7 +127,7 @@ export default class Field extends React.Component<FieldProps> {
     }
 
     // 动态删除
-    unlinkFieldNameAndFieldKey(this.getName(true));
+    unlinkFieldNameAndFieldKey(this.getName());
 
     this.cancelRegister();
     this.destroy = true;
@@ -187,20 +185,20 @@ export default class Field extends React.Component<FieldProps> {
     return this.disabled;
   }
 
-  public setSource(source: any) {
+  public setSource = (source: any) => {
     this.source = source;
     this.reRender();
-  }
+  };
 
-  public setVisible(visible: boolean) {
+  public setVisible = (visible: boolean) => {
     this.visible = visible;
     this.reRender();
-  }
+  };
 
-  public setDisabled(disabled: boolean) {
+  public setDisabled = (disabled: boolean) => {
     this.disabled = disabled;
     this.reRender();
-  }
+  };
 
   public getVisible() {
     return this.visible;
@@ -246,7 +244,7 @@ export default class Field extends React.Component<FieldProps> {
   private renderField(ctx, fieldConfig: FieldPlugin, extraConf) {
     const { itemLayout, visible, childrenContainer, formItemProps, isList } = extraConf;
 
-    const { children, valuePropName = 'value', noStyle, } = formItemProps;
+    const { children, valuePropName = 'value', noStyle } = formItemProps;
 
     /** 如果是 isList 可能没有 itemLayout */
     const { wrapperCol, labelCol } = itemLayout;
