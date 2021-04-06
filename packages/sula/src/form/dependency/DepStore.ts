@@ -23,7 +23,11 @@ export default class DepStore {
   // TODO 如果删除了，要动态更新
   public depsByFieldNameList: NameListMap<FieldNameList, TransedDependencies> = new NameListMap();
 
-  public parse(fieldConfig: any, deps: Dependencies, getName: (name: FieldNamePath) => FieldNameList) {
+  public parse(
+    fieldConfig: any,
+    deps: Dependencies,
+    getName: (name: FieldNamePath) => FieldNameList,
+  ) {
     const fieldNameList: FieldNameList = getName(fieldConfig.fieldKey || fieldConfig.name);
     Object.keys(deps).forEach((type) => {
       const dependency: Dependency = deps[type as DependencyType];
@@ -100,7 +104,9 @@ export default class DepStore {
   }
 
   private getDepForm = (ctx) => {
-    const { getFieldValueByFieldKey, setFieldValueByFieldKey } = ctx.form.getInternalHooks(HOOK_MARK);
+    const { getFieldValueByFieldKey, setFieldValueByFieldKey } = ctx.form.getInternalHooks(
+      HOOK_MARK,
+    );
     return {
       getFieldValue: getFieldValueByFieldKey,
       setFieldValue: setFieldValueByFieldKey,
@@ -114,7 +120,7 @@ export default class DepStore {
   public triggerDependency(originCtx, depsOfType: TransedDependencies, cascadePayload) {
     const ctx = this.getDepCtx(originCtx);
     const { form } = ctx;
-    const { getFieldNameByFieldKey } = form.getInternalHooks(HOOK_MARK);
+    const { getPrevFieldNameByFieldKey, isNeverUpdate } = form.getInternalHooks(HOOK_MARK);
 
     Object.keys(depsOfType).forEach((type) => {
       const allDeps: TransedDependency[][] = depsOfType[type as DependencyType];
@@ -143,24 +149,33 @@ export default class DepStore {
           }
 
           const values = [];
-          // let valuesChanged: boolean = false;
+          let canDep: boolean = false;
 
-          for(let i = 0, len = relates.length; i < len; i+=1) {
+          for (let i = 0, len = relates.length; i < len; i += 1) {
+            // 这是 fieldKeyList
             const relatedFieldNameList = relates[i];
             const relatedFieldValue = form.getFieldValue(relatedFieldNameList);
-            // const prevRelatedFieldValue = getStoreValue(cascadePayload.cascadePrevStore, getFieldNameByFieldKey(relatedFieldNameList));
-            // if(prevRelatedFieldValue !== relatedFieldValue) {
-            //   valuesChanged = true;
-            // }
+            const prevRelatedFieldValue = getStoreValue(
+              cascadePayload.cascadePrevStore,
+              getPrevFieldNameByFieldKey(relatedFieldNameList),
+            );
+            // 1. 第一次创建的
+            // 2. 前后两次值不一样
+            if (
+              (isNeverUpdate && isNeverUpdate(relatedFieldNameList)) ||
+              prevRelatedFieldValue !== relatedFieldValue
+            ) {
+              canDep = true;
+            }
             values.push(relatedFieldValue);
           }
 
-
-          // TODO: 待优化
-          // if(valuesChanged === false) {
-          //   return;
-          // }
-
+          /**
+           * 不能直接通过值没变就直接返回，例如拷贝（或者有初始值）动态添加的场景
+           */
+          if (canDep === false) {
+            return;
+          }
 
           if (depPlugin) {
             if (type === 'source' && autoResetValue) {
@@ -193,7 +208,7 @@ export default class DepStore {
           } else if (type === 'disabled') {
             fn = (_name: FieldNameList, _disabled: boolean) => {
               const prevDisabled = form.getFieldDisabled(_name);
-              if(prevDisabled !== _disabled) {
+              if (prevDisabled !== _disabled) {
                 // 减少不必要的渲染
                 form.setFieldDisabled(_name, _disabled);
               }
@@ -201,7 +216,7 @@ export default class DepStore {
           } else if (type === 'visible') {
             fn = (_name: FieldNameList, _visible: boolean) => {
               const prevVisible = form.getFieldVisible(_name);
-              if(prevVisible !== _visible) {
+              if (prevVisible !== _visible) {
                 // 减少不必要的渲染
                 form.setFieldVisible(_name, _visible);
               }

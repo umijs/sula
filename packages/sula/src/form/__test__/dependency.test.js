@@ -71,6 +71,7 @@ describe('depstore', () => {
         setFieldValueByFieldKey: jest.fn(),
         getFieldKeyByFieldName: jest.fn((a) => a),
         getFieldNameByFieldKey: jest.fn((a) => a),
+        getPrevFieldNameByFieldKey: jest.fn((a) => a),
       };
 
       const form = {
@@ -121,6 +122,7 @@ describe('depstore', () => {
         setFieldValueByFieldKey: jest.fn(),
         getFieldKeyByFieldName: jest.fn((a) => a),
         getFieldNameByFieldKey: jest.fn((a) => a),
+        getPrevFieldNameByFieldKey: jest.fn((a) => a),
       };
 
       const form = {
@@ -161,6 +163,7 @@ describe('depstore', () => {
         setFieldValueByFieldKey: jest.fn(),
         getFieldKeyByFieldName: jest.fn((a) => a),
         getFieldNameByFieldKey: jest.fn((a) => a),
+        getPrevFieldNameByFieldKey: jest.fn((a) => a),
       };
 
       const form = {
@@ -201,6 +204,7 @@ describe('depstore', () => {
         setFieldValueByFieldKey: jest.fn(),
         getFieldKeyByFieldName: jest.fn((a) => a),
         getFieldNameByFieldKey: jest.fn((a) => a),
+        getPrevFieldNameByFieldKey: jest.fn((a) => a),
       };
 
       const form = {
@@ -241,6 +245,7 @@ describe('depstore', () => {
         setFieldValueByFieldKey: jest.fn(),
         getFieldKeyByFieldName: jest.fn((a) => a),
         getFieldNameByFieldKey: jest.fn((a) => a),
+        getPrevFieldNameByFieldKey: jest.fn((a) => a),
       };
 
       const form = {
@@ -295,6 +300,7 @@ describe('depstore', () => {
         setFieldValueByFieldKey: jest.fn(),
         getFieldKeyByFieldName: jest.fn((a) => a),
         getFieldNameByFieldKey: jest.fn((a) => a),
+        getPrevFieldNameByFieldKey: jest.fn((a) => a),
       };
 
       const form = {
@@ -395,6 +401,7 @@ describe('depstore', () => {
         setFieldValueByFieldKey: jest.fn(),
         getFieldKeyByFieldName: jest.fn((a) => a),
         getFieldNameByFieldKey: jest.fn((a) => a),
+        getPrevFieldNameByFieldKey: jest.fn((a) => a),
       };
 
       const form = {
@@ -506,6 +513,7 @@ describe('depstore', () => {
         setFieldValueByFieldKey: jest.fn(),
         getFieldKeyByFieldName: jest.fn((a) => a),
         getFieldNameByFieldKey: jest.fn((a) => a),
+        getPrevFieldNameByFieldKey: jest.fn((a) => a),
       };
 
       const form = {

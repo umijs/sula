@@ -106,21 +106,31 @@ export default class Editable2Demo extends React.Component {
                           relates: ['province'],
                           defaultOutput: [],
                           type: (ctx) => {
-                            // console.log(ctx.name, '请求')
+                            console.log(ctx.name, '请求');
                             const value = ctx.values[0];
+                            
                             let source;
-                            if(value === 'zhejiang') {
-                              source = [{text: '杭州', value: 'hangzhou'}];
-                            } else if(value === 'jiangsu') {
-                              source = [{text: '南京', value: 'nanjing'}];
-                            } else if(value === 'hubei') {
-                              source = [{text: '武汉', value: 'wuhan'}];
+                            if (value === 'zhejiang') {
+                              source = [
+                                { text: '杭州', value: 'hangzhou' },
+                                { text: '宁波', value: 'ningbo' },
+                              ];
+                            } else if (value === 'jiangsu') {
+                              source = [
+                                { text: '南京', value: 'nanjing' },
+                                { text: '苏州', value: 'suzhou' },
+                              ];
+                            } else if (value === 'hubei') {
+                              source = [
+                                { text: '武汉', value: 'wuhan' },
+                                { text: '荆州', value: 'jiangzhou' },
+                              ];
                             }
 
                             source && ctx.form.setFieldSource(ctx.name, source);
-                          }
-                        }
-                      }
+                          },
+                        },
+                      },
                     },
                     {
                       width: 150,

@@ -21,6 +21,7 @@ import { Form as AForm, Col } from 'antd';
 import { needWrapCols } from './utils/layoutUtil';
 import FormDependency from './dependency';
 import { ItemLayout, Layout } from './FieldGroup';
+import { matchNameList } from '../_util/NameListMap';
 
 const FormItem = AForm.Item;
 
@@ -70,7 +71,13 @@ export default class Field extends React.Component<FieldProps> {
 
   private cancelRegisterField: () => void | null = null;
 
+  private prevName: FieldNamePath;
+
+  public mountedAndNeverUpdate: boolean = false;
+
   componentDidMount() {
+    this.mountedAndNeverUpdate = true;
+
     if (!this.props.name) {
       return;
     }
@@ -98,10 +105,16 @@ export default class Field extends React.Component<FieldProps> {
   }
 
   componentDidUpdate(prevProps: FieldProps) {
+    this.mountedAndNeverUpdate = false;
     if (!this.props.name) {
       return;
     }
-    if (this.props.fieldKey && this.props.fieldKey !== prevProps.fieldKey) {
+
+    /**
+     * fieldKey 代表是动态表单项，如果更新前后两次name不一样，说明只是在values的位置上发生改变（上面增加了，或者删除了）
+     */
+    if (this.props.fieldKey && !matchNameList(toArray(this.props.name), toArray(prevProps.name))) {
+      this.prevName = prevProps.name!;
       const {
         linkFieldNameAndFieldKey,
         unlinkFieldNameAndFieldKey,
@@ -175,6 +188,10 @@ export default class Field extends React.Component<FieldProps> {
     }
 
     return this.getFieldNameList(finalName);
+  };
+
+  public getPrevName = () => {
+    return this.prevName ? this.getFieldNameList(this.prevName) : this.getName(true);
   };
 
   public getSource() {

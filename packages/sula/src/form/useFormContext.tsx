@@ -200,6 +200,8 @@ class ContextStore {
 
         getFieldKeyByFieldName: this.getFieldKeyByFieldName,
         getFieldNameByFieldKey: this.getFieldNameByFieldKey,
+        getPrevFieldNameByFieldKey: this.getPrevFieldNameByFieldKey,
+        isNeverUpdate: this.isNeverUpdate,
 
         setAsyncCascade: this.setAsyncCascade,
         getAsyncCascade: this.getAsyncCascade,
@@ -226,14 +228,21 @@ class ContextStore {
     return this.getField(fieldNameKey).getName(true)!;
   };
 
+  private getPrevFieldNameByFieldKey = (fieldNameKey: FieldNameList): FieldNameList => {
+    return this.getField(fieldNameKey).getPrevName()!;
+  };
+
+  private isNeverUpdate = (fieldNameKey: FieldNameList): boolean => {
+    return this.getField(fieldNameKey).mountedAndNeverUpdate;
+  };
 
   private setAsyncCascade = (needAsyncCascade: boolean) => {
     this.needAsyncCascade = needAsyncCascade;
-  }
+  };
 
   private getAsyncCascade = () => {
     return this.needAsyncCascade;
-  }
+  };
 
   /** dep end */
 
@@ -257,11 +266,11 @@ class ContextStore {
 
   private linkFieldNameAndFieldKey = (newFieldKey: FieldNameList, newFieldName: FieldNameList) => {
     this.fieldNameAndFieldKeyMap.set(newFieldKey, newFieldName);
-  }
+  };
 
   private unlinkFieldNameAndFieldKey = (oldFieldKey: FieldNameList) => {
     this.fieldNameAndFieldKeyMap.delete(oldFieldKey);
-  }
+  };
 
   /**
    * fieldNameMap: 以 fieldNameList 保存 field 或 支持依赖的 fieldGroup 实例
