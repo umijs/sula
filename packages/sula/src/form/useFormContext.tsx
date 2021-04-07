@@ -362,7 +362,9 @@ class ContextStore {
     }
 
     finalStore.forEach(({ name }) => {
-      const field = this.getField(name);
+      // fieldName -> fieldKey
+      const fieldKey = this.getFieldKeyByFieldName(name);
+      const field = this.getField(fieldKey);
       /** 动态表单删掉前面的field为空，应该不需要加了，下个版本验证下 */
       if (field) {
         field.reRender();
