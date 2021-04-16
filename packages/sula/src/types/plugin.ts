@@ -35,7 +35,7 @@ type TableCtx = {
   dataSource: Record<string, any>[];
 }
 
-type RenderCtx = FormCtx & TableCtx;
+export type RenderCtx = FormCtx & TableCtx;
 
 // Action Context
 type ActionResultCtx = {
@@ -58,14 +58,16 @@ type ConverterCtx = {
 type ConverterComboCtx = ConverterCtx & Partial<ActionResultComboCtx>;
 
 // 渲染插件
-export type RenderPluginFunction = (ctx: RenderCtx) => React.ReactElement;
+export type RenderPluginFunction = (ctx: RenderCtx) => React.ReactElement ｜ string;
+export type DisabledFunction = (ctx: RenderCtx) => boolean
 export type RenderPlugin = {
   type: string | RenderPluginFunction;
   props?: Record<string, any>;
   funcProps?: Record<string, (ctx: RenderCtx) => string>;
   confirm?: string | PopconfirmProps;
   tooltip?: string | TooltipProps;
-  disabled?: boolean;
+  disabled?: boolean | DisabledFunction;
+  visible?: string | boolean;
   action?: ActionPlugin | ActionPlugin[];
 } | string | RenderPluginFunction;
 
