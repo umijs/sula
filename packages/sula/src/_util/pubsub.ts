@@ -8,7 +8,7 @@ class PubSubManager {
     }
     for(let i = 0, len = handlers.length; i < len; i+= 1) {
       const handler = handlers[i];
-      handler(payload);
+      handler && handler(payload);
     }
   }
 
