@@ -58,7 +58,7 @@ type ConverterCtx = {
 type ConverterComboCtx = ConverterCtx & Partial<ActionResultComboCtx>;
 
 // 渲染插件
-export type RenderPluginFunction = (ctx: RenderCtx) => React.ReactElement ｜ string;
+export type RenderPluginFunction = (ctx: RenderCtx) => React.ReactElement;
 export type DisabledFunction = (ctx: RenderCtx) => boolean
 export type RenderPlugin = {
   type: string | RenderPluginFunction;
