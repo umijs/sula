@@ -1,12 +1,17 @@
 import React from 'react';
 import { ConfigProvider } from 'sula';
-import { history } from 'umi';
+import { history, getLocale } from 'umi';
 
 const baseSeparator = '{{{baseSeparator}}}' || '-';
 const formatLangFile = (lang) => lang && lang.replace(baseSeparator, '_');
 
-function getLocale() {
-  const lang = '{{{default}}}' || `en${baseSeparator}US`;
+function getLocaleData() {
+  let lang;
+  try {
+    lang = getLocale();
+  } catch (error) {
+    lang = '{{{default}}}' || `en${baseSeparator}US`;
+  }
   const langFile = formatLangFile(lang);
 
   let locale;
@@ -19,7 +24,7 @@ function getLocale() {
 
 export const rootContainer = (container) => {
   return (
-    <ConfigProvider locale={getLocale()} history={history}>
+    <ConfigProvider locale={getLocaleData()} history={history}>
       {container}
     </ConfigProvider>
   );
