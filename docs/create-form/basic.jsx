@@ -21,7 +21,9 @@ export default class BasicDemo extends React.Component {
           key={mode}
           initialValues={{
             gender: ['male'],
+            nihao: 'cat',
           }}
+          preserveInitialValues
           fields={[
             {
               name: 'name',
@@ -46,6 +48,9 @@ export default class BasicDemo extends React.Component {
           ]}
           submitButtonProps={{
             icon: 'appstore',
+          }}
+          back={() => {
+            console.log('back')
           }}
           submit={{
             url: 'https://www.mocky.io/v2/5185415ba171ea3a00704eed',

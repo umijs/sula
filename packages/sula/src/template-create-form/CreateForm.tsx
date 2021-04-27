@@ -16,6 +16,8 @@ export interface CreateFormProps extends FormProps {
   submitBack?: ActionPlugin;
   submitButtonProps?: ButtonProps;
   backButtonProps?: ButtonProps;
+  /** 提交时是否携带额外的 initialValues（未有对应的field） */
+  preserveInitialValues?: boolean;
 }
 
 export default class CreateForm extends React.Component<CreateFormProps> {
@@ -48,6 +50,8 @@ export default class CreateForm extends React.Component<CreateFormProps> {
       backButtonProps,
       actionsPosition,
       actionsRender,
+      initialValues,
+      preserveInitialValues,
       ...formProps
     } = this.props;
     const { mode, itemLayout } = formProps;
@@ -70,6 +74,8 @@ export default class CreateForm extends React.Component<CreateFormProps> {
                     backButtonProps,
                     mode,
                     actionsRender,
+                    initialValues,
+                    preserveInitialValues,
                   },
                   locale,
                 );
@@ -78,6 +84,7 @@ export default class CreateForm extends React.Component<CreateFormProps> {
                   <Spin spinning={loading}>
                     <Form
                       {...formProps}
+                      initialValues={initialValues}
                       actionsRender={finalActionsRender}
                       actionsPosition={finalActionsPosition}
                       onRemoteValuesStart={() => {
@@ -114,6 +121,8 @@ export function renderActions(props, locale) {
     mode = 'create',
     submitButtonProps = {},
     backButtonProps = {},
+    initialValues,
+    preserveInitialValues,
   } = props;
   const actionsRender = [];
 
@@ -144,6 +153,9 @@ export function renderActions(props, locale) {
         type: 'validateFields',
         resultPropName: '$fieldsValue',
       },
+      ...(preserveInitialValues === true && initialValues
+        ? [{ type: 'assign', args: [initialValues] }]
+        : []),
       ...transformSubmit(submit, submitBack || back),
     ],
   };

@@ -46,11 +46,18 @@ export default class BasicDemo extends React.Component {
               },
               action: [
                 'validateFields',
+                { type: 'assign', args: [{ nihao: 'kitty' }] },
                 {
                   url: 'https://www.mocky.io/v2/5185415ba171ea3a00704eed',
                   method: 'POST',
+                  params: ({ result }) => {
+                    return result;
+                  },
                 },
-                () => console.log('Finished!!!')
+                (ctx) => {
+                  console.log(ctx);
+                  console.log('Finished!!!');
+                },
               ],
             },
           ]}

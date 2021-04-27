@@ -2,10 +2,10 @@ import { rejectSTOP } from '../rope';
 
 // TODO: FormCtx
 
-export const validateFields = (ctx) => {
+export const validateFields = (ctx, config) => {
   const validateFn = ctx.form.validateFields;
 
-  return validateFn().then((values) => values, rejectSTOP);
+  return validateFn.apply(ctx.form, config.args).then((values) => values, rejectSTOP);
 };
 
 export const validateGroupFields = (ctx, config) => {
@@ -30,4 +30,4 @@ export const resetFields = (ctx) => {
 
 export const getFieldsValue = (ctx) => {
   return ctx.form.getFieldsValue();
-}
+};

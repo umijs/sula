@@ -25,6 +25,11 @@ export default () => {
                   field: 'input',
                 },
               ],
+              initialValues: {
+                nihao: 'cat',
+                input1: '未知'
+              },
+              preserveInitialValues: true,
               submitButtonProps: {
                 icon: 'appstore',
               },

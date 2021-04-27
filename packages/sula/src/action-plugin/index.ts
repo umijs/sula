@@ -10,6 +10,7 @@ import { refreshTable, resetTable } from './refreshTable';
 import { modalform, drawerform, modalOk, modalCancel } from './modalform';
 import { request } from './request';
 import { back, forward, route } from './history';
+import { assignResult } from './lang';
 import { ActionImpl } from '../types/plugin';
 
 function registerActionPlugin(pluginName: string, actionPlugin: ActionImpl) {
@@ -50,6 +51,9 @@ function registerActionPlugins() {
   registerActionPlugin('route', (ctx, config) => {
     return route(ctx, config);
   });
+
+  // ================= lang =====================
+  registerActionPlugin('assign', assignResult);
 }
 
 export { request, registerActionPlugins, registerActionPlugin };

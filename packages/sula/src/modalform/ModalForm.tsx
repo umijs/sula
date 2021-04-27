@@ -8,11 +8,12 @@ import { Form, FormAction, FieldGroup, FormProps } from '../form';
 import { renderActions } from '../template-create-form/CreateForm';
 
 export interface ModalFormProps extends FormProps {
-  isDrawer: boolean;
+  isDrawer?: boolean;
   visible: boolean;
-  modal: any;
+  modal?: any;
   title: string;
-  width: string;
+  width?: number;
+  preserveInitialValues?: boolean;
 }
 
 export default class ModalForm extends React.Component<ModalFormProps> {
@@ -28,7 +29,7 @@ export default class ModalForm extends React.Component<ModalFormProps> {
     const { props = {} } = modal;
 
     // 存在 type 说明是插件场景
-    const { type, title, width = isDrawer ? 550 : undefined, props: modalProps = {}, ...formProps } = props;
+    const { type, title, width = isDrawer ? 550 : undefined, props: modalProps = {}, preserveInitialValues, ...formProps } = props;
 
     const {
       actionsRender,
@@ -125,6 +126,7 @@ export default class ModalForm extends React.Component<ModalFormProps> {
                             {
                               submitBack: modalCtxGetter().modal.modalOk,
                               back: modalCtxGetter().modal.modalCancel,
+                              preserveInitialValues,
                             },
                             formProps,
                           ),
