@@ -27,7 +27,7 @@ export class NameListMap<T extends Array<any>, K> {
   }
 
   public getByValue(value: K): T | null {
-    for(let i = 0, len = this.list.length; i <= len; i += 1) {
+    for(let i = 0, len = this.list.length; i < len; i += 1) {
       const listItem = this.list[i];
       if(matchNameList(value, listItem.value)) {
         return listItem.nameList;
