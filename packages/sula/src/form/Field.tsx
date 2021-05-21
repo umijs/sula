@@ -134,10 +134,10 @@ export default class Field extends React.Component<FieldProps> {
       getFormDependency,
       unlinkFieldNameAndFieldKey,
     } = this.context.formContext.getInternalHooks(HOOK_MARK);
-    if (this.props.dependency) {
-      const formDependency: FormDependency = getFormDependency();
-      formDependency.removeDependency(this.getName());
-    }
+
+    // 删除依赖信息（主动）
+    const formDependency: FormDependency = getFormDependency();
+    formDependency.removeDependency(this.getName());
 
     // 动态删除
     unlinkFieldNameAndFieldKey(this.getName());
