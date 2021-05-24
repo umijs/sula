@@ -272,11 +272,11 @@ export default class DepStore {
       return memo;
     }, {} as Record<string, any>);
 
+    autoResetValue && clearValueForSourceDependency(name, ctx, cascadePayload);
     return triggerActionPlugin(
       ctx,
       assign({}, remoteSource, { params: assign({}, remoteSource.params, fetchDepInfo) }),
-    ).then((source: any) => {
-      autoResetValue && clearValueForSourceDependency(name, ctx, cascadePayload);
+      ).then((source: any) => {
       form.setFieldSource(name, source);
     });
   }
