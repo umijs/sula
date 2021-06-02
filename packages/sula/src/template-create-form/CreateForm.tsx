@@ -45,6 +45,7 @@ export default class CreateForm extends React.Component<CreateFormProps> {
   render() {
     const {
       submit,
+      submitBack,
       back,
       submitButtonProps,
       backButtonProps,
@@ -69,6 +70,7 @@ export default class CreateForm extends React.Component<CreateFormProps> {
                 const finalActionsRender = renderActions(
                   {
                     submit,
+                    submitBack,
                     back,
                     submitButtonProps,
                     backButtonProps,
