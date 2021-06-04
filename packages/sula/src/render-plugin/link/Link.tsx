@@ -11,7 +11,7 @@ export default class Link extends React.Component<LinkProps> {
     const { className, style, ...restProps } = this.props;
 
     return (
-      <Button className={className} style={assign({}, style, {padding: 0}) } {...restProps} type="link" />
+      <Button className={className} style={assign({padding: 0}, style) } {...restProps} type="link" />
     );
   }
 }
