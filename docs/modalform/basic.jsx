@@ -18,6 +18,7 @@ export default () => {
           ref.current
             .show({
               title: '弹窗表单',
+              layout: 'vertical',
               fields: [
                 {
                   name: 'input1',

@@ -103,6 +103,7 @@ export default class ModalForm extends React.Component<ModalFormProps> {
             >
               <ModalClass
                 {...modalProps}
+                getContainer={false}
                 title={title}
                 width={width}
                 visible={visible}

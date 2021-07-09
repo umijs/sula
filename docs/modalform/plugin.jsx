@@ -58,6 +58,7 @@ export default class PluginDemo extends React.Component {
                   {
                     type: 'modalform',
                     title: '弹窗表单',
+                    layout: 'vertical',
                     fields: [
                       {
                         name: 'input1',
