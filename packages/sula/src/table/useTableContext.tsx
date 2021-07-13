@@ -3,6 +3,7 @@ import assign from 'lodash/assign';
 import pick from 'lodash/pick';
 import omit from 'lodash/omit';
 import isUndefined from 'lodash/isUndefined';
+import isFunction from 'lodash/isFunction';
 import { TableControlProps, TableProps, Filters, Pagination, Sorter, TableInstance } from './Table';
 import { PaginationConfig } from 'antd/lib/pagination';
 import { assignWithDefined } from '../_util/common';
@@ -323,9 +324,11 @@ class ContextStore {
 
     return triggerActionPlugin(
       this.getCtx(),
-      assign({}, this.tableProps.remoteDataSource, {
-        params: assign({}, this.tableProps.remoteDataSource.params, params),
-      }),
+      isFunction(this.tableProps.remoteDataSource)
+        ? this.tableProps.remoteDataSource
+        : assign({}, this.tableProps.remoteDataSource, {
+            params: assign({}, this.tableProps.remoteDataSource!.params, params),
+          }),
     );
   }
 }
