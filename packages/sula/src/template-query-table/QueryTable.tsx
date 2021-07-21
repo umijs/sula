@@ -72,7 +72,6 @@ export default class QueryTable extends React.Component<Props> {
 
     return (
       <QueryForm
-        {...formProps}
         ctxGetter={() => {
           return {
             table: this.tableRef.current,
@@ -118,6 +117,7 @@ export default class QueryTable extends React.Component<Props> {
             ],
           },
         ]}
+        {...formProps}
       />
     );
   };
