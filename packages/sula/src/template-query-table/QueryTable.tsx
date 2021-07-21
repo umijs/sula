@@ -69,22 +69,7 @@ export default class QueryTable extends React.Component<Props> {
 
   renderForm = (locale) => {
     const { formProps, layout, itemLayout, fields, initialValues, visibleFieldsCount } = this.props;
-
-    return (
-      <QueryForm
-        ctxGetter={() => {
-          return {
-            table: this.tableRef.current,
-          };
-        }}
-        ref={this.formRef}
-        hasBottomBorder={this.hasActionsRender()}
-        layout={layout}
-        itemLayout={itemLayout}
-        fields={fields}
-        initialValues={initialValues}
-        visibleFieldsCount={visibleFieldsCount}
-        actionsRender={[
+    const formActionsRender = formProps?.actionsRender ?? [
           {
             type: 'button',
             props: {
@@ -116,8 +101,24 @@ export default class QueryTable extends React.Component<Props> {
               },
             ],
           },
-        ]}
+        ];
+
+    return (
+      <QueryForm
         {...formProps}
+        ctxGetter={() => {
+          return {
+            table: this.tableRef.current,
+          };
+        }}
+        ref={this.formRef}
+        hasBottomBorder={this.hasActionsRender()}
+        layout={layout}
+        itemLayout={itemLayout}
+        fields={fields}
+        initialValues={initialValues}
+        visibleFieldsCount={visibleFieldsCount}
+        actionsRender={formActionsRender}
       />
     );
   };
