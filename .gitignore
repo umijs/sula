@@ -14,4 +14,3 @@ page
 lerna-debug.log
 tsconfig.tsbuildinfo
 packages/sula/typings
-.package-lock.json
