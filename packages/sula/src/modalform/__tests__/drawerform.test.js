@@ -17,6 +17,7 @@ describe('drawerform', () => {
           }}
         />
         <button
+          id="triggerBtn"
           type="button"
           onClick={() => {
             modalRef.show({
@@ -45,7 +46,7 @@ describe('drawerform', () => {
       </div>,
     );
 
-    wrapper.find('button').simulate('click');
+    wrapper.find('#triggerBtn').simulate('click');
     expect(wrapper.find('Drawer').props().visible).toEqual(true);
 
     await delay(1000);
@@ -65,6 +66,7 @@ describe('drawerform', () => {
           }}
         />
         <button
+          id="triggerBtn"
           type="button"
           onClick={() => {
             modalRef.show({
@@ -94,7 +96,7 @@ describe('drawerform', () => {
         </button>
       </div>,
     );
-    wrapper.find('button').simulate('click');
+    wrapper.find('#triggerBtn').simulate('click');
     wrapper.update();
     expect(wrapper.find('Drawer').props().visible).toEqual(true);
     wrapper.find('.backBtn').first().simulate('click');
@@ -114,6 +116,7 @@ describe('drawerform', () => {
           }}
         />
         <button
+          id="triggerBtn"
           type="button"
           onClick={() => {
             modalRef.show({
@@ -144,7 +147,7 @@ describe('drawerform', () => {
       </div>,
     );
 
-    wrapper.find('button').simulate('click');
+    wrapper.find('#triggerBtn').simulate('click');
     wrapper.update();
     expect(wrapper.find('Drawer').props().visible).toEqual(true);
 
@@ -166,6 +169,7 @@ describe('drawerform', () => {
           }}
         />
         <button
+          id="triggerBtn"
           type="button"
           onClick={() => {
             modalRef.show({
@@ -196,7 +200,7 @@ describe('drawerform', () => {
       </div>,
     );
 
-    wrapper.find('button').simulate('click');
+    wrapper.find('#triggerBtn').simulate('click');
     wrapper.update();
     expect(wrapper.find('Drawer').props().visible).toEqual(true);
     wrapper.find('.backBtn').first().simulate('click');

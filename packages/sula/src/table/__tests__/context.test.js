@@ -292,7 +292,7 @@ describe('use table context', () => {
       });
 
       expect(tableRef.getPaging()).toEqual({ pagination: false });
-      expect(wrapper.find('Spin').props().spinning).toEqual(false);
+      expect(wrapper.find('Spin').first().props().spinning).toEqual(false);
     });
 
     it('refresh table error', async () => {
@@ -315,7 +315,7 @@ describe('use table context', () => {
         await delay(1000);
       });
 
-      expect(wrapper.find('Spin').props().spinning).toEqual(false);
+      expect(wrapper.find('Spin').first().props().spinning).toEqual(false);
     });
   });
 

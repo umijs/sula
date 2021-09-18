@@ -114,11 +114,11 @@ describe('step form', () => {
       const wrapper = mount(<StepForm {...config} mode="edit" remoteValues={remoteValues} />);
       await delay(1000);
       wrapper.update();
-      expect(wrapper.find('Spin').props().spinning).toEqual(true);
+      expect(wrapper.find('Spin').first().props().spinning).toEqual(true);
 
       await delay(2500);
       wrapper.update();
-      expect(wrapper.find('Spin').props().spinning).toEqual(false);
+      expect(wrapper.find('Spin').first().props().spinning).toEqual(false);
     });
 
     it('result page', () => {

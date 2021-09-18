@@ -16,6 +16,7 @@ describe('modalform', () => {
           }}
         />
         <button
+          id="triggerBtn"
           type="button"
           onClick={() => {
             modalRef.show({
@@ -44,7 +45,7 @@ describe('modalform', () => {
       </div>,
     );
 
-    wrapper.find('button').simulate('click');
+    wrapper.find('#triggerBtn').simulate('click');
     expect(wrapper.find('Modal').props().visible).toEqual(true);
     await delay(1000);
     wrapper.find('.ant-modal-close').simulate('click');
@@ -61,6 +62,7 @@ describe('modalform', () => {
           }}
         />
         <button
+          id="triggerBtn"
           type="button"
           onClick={() => {
             modalRef.show({
@@ -89,7 +91,7 @@ describe('modalform', () => {
       </div>,
     );
 
-    wrapper.find('button').simulate('click');
+    wrapper.find('#triggerBtn').simulate('click');
     wrapper.update();
     wrapper
       .find('input')
