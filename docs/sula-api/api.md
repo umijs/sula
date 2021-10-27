@@ -922,6 +922,20 @@ refreshTable()
 resetTable(true)
 ```
 
+#### showLoading
+显示加载状态
+- 用法
+```js
+showLoading()
+```
+
+#### hideLoading
+隐藏加载状态
+- 用法
+```js
+hideLoading()
+```
+
 ### columns
 表格列的配置描述
 - 类型：`ColumnProps[]`
