@@ -6,7 +6,7 @@
 
 ## 旧文档地址
 
-- https://sula.vercel.app/
+- https://sula-sula.vercel.app/
 
 ## 里程碑
 
