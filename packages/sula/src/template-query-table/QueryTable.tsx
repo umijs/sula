@@ -143,6 +143,11 @@ export default class QueryTable extends React.Component<Props> {
     return (
       <Table
         {...tableProps}
+        ctxGetter={() => {
+          return {
+            form: this.formRef.current,
+          };
+        }}
         className={cx(tableProps.className, `${prefixCls}`)}
         rowSelection={rowSelection}
         columns={columns}
