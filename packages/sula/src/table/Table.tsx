@@ -90,6 +90,9 @@ export interface TableInstance {
     sorter?: Sorter,
   ) => Promise<undefined>;
   resetTable: (isRefresh?: boolean) => void | Promise<undefined>;
+
+  showLoading: () => void;
+  hideLoading: () => void;
 }
 
 const RefTable: React.FunctionComponent<TableProps> = (props, ref) => {

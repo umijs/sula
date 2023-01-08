@@ -63,6 +63,9 @@ class ContextStore {
 
       refreshTable: this.refreshTable,
       resetTable: this.resetTable,
+
+      showLoading: this.showLoading,
+      hideLoading: this.hideLoading,
     };
   };
 
